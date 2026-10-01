@@ -1,0 +1,196 @@
+Sections:
+	.init       type:code align:4
+	extab       type:rodata align:16
+	extabindex  type:rodata align:32
+	.text       type:code align:4
+	.ctors      type:rodata align:4
+	.dtors      type:rodata align:32
+	.BINARY     type:rodata align:32
+	.rodata     type:rodata align:32
+	.data       type:data align:16
+	.bss        type:bss align:128
+	.sdata      type:data align:4
+	.sbss       type:bss align:32
+	.sdata2     type:rodata align:4
+	.sbss2      type:bss align:32
+
+nw4r/db/db_console.cpp:
+	.text       start:0x80007D40 end:0x80008820
+
+nw4r/db/db_exception.cpp:
+	.text       start:0x80008820 end:0x800098E0
+
+nw4r/ef/ef_effect.cpp:
+	.text       start:0x8000C170 end:0x8000CD70
+	.data       start:0x807083C0 end:0x80708428
+
+nw4r/ef/ef_effectsystem.cpp:
+	.text       start:0x8000CD70 end:0x8000D840
+	.ctors      start:0x80688CC4 end:0x80688CC8
+	.bss        start:0x80764FB0 end:0x80771028
+
+nw4r/ef/ef_handle.cpp:
+	.text       start:0x8001CD70 end:0x8001CE40
+
+nw4r/ef/ef_emitterform.cpp:
+	.text       start:0x8001CE40 end:0x8001D3E0
+	.sdata2     start:0x80817B30 end:0x80817B60
+
+runtime/__init_cpp_exceptions.cpp:
+	.text       start:0x800CA118 end:0x800CA188
+	.ctors      start:0x80688CC0 end:0x80688CC4 rename:.ctors$10
+	.dtors      start:0x80688EE0 end:0x80688EE4 rename:.dtors$10
+	.dtors      start:0x80688EE4 end:0x80688EE8 rename:.dtors$15
+	.sdata      start:0x80813CB0 end:0x80813CB4
+
+revolution/BASE/PPCArch.c:
+	.text       start:0x800F0650 end:0x800F0870
+	.data       start:0x80711FC0 end:0x80711FF8
+
+revolution/DB/db.c:
+	.text       start:0x8011E6C0 end:0x8011E7C0
+	.data       start:0x80717950 end:0x80717968
+	.sbss       start:0x808166B8 end:0x808166C0
+
+revolution/DVD/dvdfs.c:
+	.text       start:0x8011F310 end:0x8011F930
+	.sbss       start:0x808166E0 end:0x80816700
+
+revolution/DVD/dvd.c:
+	.text       start:0x8011F930 end:0x801248E0
+	.bss        start:0x807FA3C0 end:0x807FF070
+	.sbss       start:0x80816700 end:0x80816798
+
+revolution/DVD/dvdqueue.c:
+	.text       start:0x801248E0 end:0x80124B60
+	.bss        start:0x807FF070 end:0x807FF090
+
+revolution/DVD/dvderror.c:
+	.text       start:0x80124B60 end:0x80125580
+	.bss        start:0x807FF0A0 end:0x807FF300
+	.sbss       start:0x808167A0 end:0x808167A4
+
+revolution/DVD/dvdidutils.c:
+	.text       start:0x80125580 end:0x801256F8
+
+revolution/DVD/dvdfatal.c:
+	.text       start:0x80125700 end:0x80125870
+	.sbss       start:0x808167A8 end:0x808167AC
+
+revolution/DVD/dvdDeviceError.c:
+	.text       start:0x80125870 end:0x80125B00
+	.sbss       start:0x808167B0 end:0x808167B4
+
+revolution/DVD/dvd_broadway.c:
+	.text       start:0x80125B00 end:0x801281B0
+	.data       start:0x80718AC0 end:0x807199C8
+	.bss        start:0x807FF320 end:0x807FF4C0
+	.sbss       start:0x808167B8 end:0x808167E0
+
+revolution/EXI/EXIBios.c:
+	.text       start:0x80128530 end:0x80129E30
+	.bss        start:0x807FF4E0 end:0x807FF5A0
+	.sbss       start:0x808167F0 end:0x808167F4
+
+revolution/MTX/mtx.c:
+	.text       start:0x8013CB20 end:0x8013D930
+
+revolution/NAND/NANDOpenClose.c:
+	.text       start:0x8013F4F0 end:0x80140350
+
+revolution/NAND/NANDCore.c:
+	.text       start:0x80140350 end:0x801412C0
+	.data       start:0x8071A480 end:0x8071A5D0
+	.bss        start:0x80801EA0 end:0x80801F00
+	.sdata      start:0x80813F38 end:0x80813F60
+	.sbss       start:0x80816910 end:0x80816914
+
+revolution/OS/OS.c:
+	.text       start:0x80141E30 end:0x80143370
+	.bss        start:0x80802200 end:0x80802270
+	.sbss       start:0x80816920 end:0x80816968
+
+revolution/OS/OSAlarm.c:
+	.text       start:0x80143370 end:0x80143C30
+	.data       start:0x8071ABA8 end:0x8071ABB8
+	.sbss       start:0x80816968 end:0x80816970
+
+revolution/OS/OSAlloc.c:
+	.text       start:0x80143C30 end:0x80143F50
+	.sdata      start:0x80813FA8 end:0x80813FAC
+	.sbss       start:0x80816970 end:0x80816980
+
+revolution/OS/OSArena.c:
+	.text       start:0x80143F50 end:0x80144044
+	.sdata      start:0x80813FB0 end:0x80813FB8
+	.sbss       start:0x80816980 end:0x80816988
+
+revolution/OS/OSContext.c:
+	.text       start:0x80144BC0 end:0x801455CC
+	.data       start:0x8071AE70 end:0x8071B050
+
+revolution/OS/OSError.c:
+	.text       start:0x801455D0 end:0x80145C9C
+	.data       start:0x8071B050 end:0x8071B330
+	.bss        start:0x80802270 end:0x808022B4
+	.sdata      start:0x80813FB8 end:0x80813FC0
+
+revolution/OS/OSExec.c:
+	.text       start:0x80145CA0 end:0x801479D0
+
+revolution/OS/OSFatal.c:
+	.text       start:0x801479D0 end:0x80148600
+	.bss        start:0x808022E0 end:0x808025C0
+
+revolution/OS/OSFont.c:
+	.text       start:0x80148600 end:0x801492F0
+	.data       start:0x8071B638 end:0x8071C148
+	.sdata      start:0x80813FE0 end:0x80813FE8
+	.sbss       start:0x808169A0 end:0x808169B0
+	.sdata2     start:0x808197A8 end:0x808197B0
+
+revolution/OS/OSInterrupt.c:
+	.text       start:0x801492F0 end:0x80149AC0
+	.data       start:0x8071C148 end:0x8071C178
+	.sbss       start:0x808169B0 end:0x808169C8
+
+revolution/OS/OSThread.c:
+	.text       start:0x8014BE50 end:0x8014D5B0
+	.bss        start:0x80802618 end:0x80803020
+	.sdata      start:0x80813FF0 end:0x80813FF4
+	.sbss       start:0x808169E8 end:0x808169F4
+
+revolution/OS/OSTime.c:
+	.text       start:0x8014D5B0 end:0x8014DC80
+	.data       start:0x8071C3F0 end:0x8071C450
+
+revolution/SC/scsystem.c:
+	.text       start:0x80151060 end:0x801529F0
+	.data       start:0x807288B0 end:0x80728A90
+	.bss        start:0x80803400 end:0x8080B5A0
+	.sdata      start:0x80814020 end:0x80814130
+	.sbss       start:0x80816A80 end:0x80816A98
+
+revolution/SC/scapi.c:
+	.text       start:0x801529F0 end:0x80153290
+
+revolution/SI/SIBios.c:
+	.text       start:0x80153290 end:0x801542D0
+
+revolution/VI/VI.c:
+	.text       start:0x80155A50 end:0x80158460
+
+revolution/VI/i2c.c:
+	.text       start:0x80158460 end:0x80158D80
+
+revolution/WPAD/WPAD.c:
+	.text       start:0x8015A7A4 end:0x80161F84
+	.rodata     start:0x80692000 end:0x80692040
+	.bss        start:0x8080C960 end:0x808100C0
+	.sdata2     start:0x808197C8 end:0x808197D0
+
+main.cpp:
+	.text       start:0x801D8B24 end:0x801D8B58
+
+revolution/OS/__start.c:
+	.init       start:0x800062C0 end:0x800065C0

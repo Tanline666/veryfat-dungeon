@@ -1,0 +1,9 @@
+# See config.example.yml for documentation.
+object_base: orig/RFPE01
+object: sys/main.dol
+hash: 9f79b83070e0c263257b4fa33b54983be0eefe82
+symbols: config/RFPE01/symbols.txt
+splits: config/RFPE01/splits.txt
+# Change this to match the linker version.
+# See config.example.yml for a list.
+mw_comment_version: 15

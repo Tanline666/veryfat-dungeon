@@ -29,7 +29,7 @@ from tools.project import (
 # Game versions
 DEFAULT_VERSION = 0
 VERSIONS = [
-    "GAMEID",  # 0
+    "RFPE01",  # 0
 ]
 
 parser = argparse.ArgumentParser()
@@ -208,11 +208,15 @@ cflags_base = [
     "-RTTI off",
     "-fp_contract on",
     "-str reuse",
-    "-multibyte",  # For Wii compilers, replace with `-enc SJIS`
+    "-enc SJIS",
     "-i include",
+    "-i include/MSL",
+    "-i include/MSL/internal",
     f"-i build/{config.version}/include",
     f"-DBUILD_VERSION={version_num}",
     f"-DVERSION_{config.version}",
+    "-ir include/revolution/BTE",  # thanks broadcom...(kiwi)
+    "-DREVOLUTION",  # BTE changes
 ]
 
 # Debug flags
@@ -247,7 +251,9 @@ cflags_rel = [
     "-sdata2 0",
 ]
 
-config.linker_version = "GC/1.3.2"
+# NOTE: WPAD uses either GC/3.0 or GC/3.0a5.2,
+# while HBM uses Wii/1.0a.
+config.linker_version = "Wii/1.0"
 
 
 # Helper function for Dolphin libraries
@@ -272,9 +278,82 @@ def Rel(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
     }
 
 
-Matching = True                   # Object matches and should be linked
-NonMatching = False               # Object does not match and should not be linked
-Equivalent = config.non_matching  # Object should be linked when configured with --non-matching
+# Debug flags
+if args.debug:
+    cflags_base.extend(["-sym dwarf-2", "-DDEBUG=1"])
+else:
+    cflags_base.append("-DNDEBUG=1")
+
+# Warning flags
+if args.warn == "all":
+    cflags_base.append("-W all")
+elif args.warn == "off":
+    cflags_base.append("-W off")
+elif args.warn == "error":
+    cflags_base.append("-W error")
+
+# TODO(texline) Does this actually apply to Wii Fit Plus?
+cflags_pedantic = [
+    "-w unused",
+    "-w missingreturn",
+    "-w hidevirtual",
+    "-w filecaps",
+    "-w sysfilecaps",
+    "-w tokenpasting",
+    "-w impl_float2int",
+    '-pragma "warn_no_explicit_virtual on"',
+    "-w err",
+]
+
+# NW4R effect library flags
+cflags_libnw4r_ef = [
+    *cflags_base,
+    *cflags_pedantic,
+    "-enc SJIS",
+    "-fp_contract off",
+    "-ipa file",
+    "-i include/nw4r",
+]
+
+# NW4R debug library flags
+# TODO(texline) verify this
+cflags_libnw4r_db = [
+    *cflags_base,
+    *cflags_pedantic,
+    "-enc SJIS",
+    "-fp_contract off",
+    "-ipa file",
+    "-i include/nw4r",
+]
+
+# RVL SDK flags
+cflags_rvl = [
+    *cflags_base,
+    "-enc SJIS",
+    "-fp_contract off",
+    "-ipa file",
+]
+
+# Unlike ogws, this repo will only target Wii Fit Plus
+cflags_rp = [
+    *cflags_base,
+    *cflags_pedantic,
+    "-enc SJIS",
+    "-inline deferred",
+    "-fp_contract on",
+    "-use_lmw_stmw on",
+    "-str reuse,pool,readonly",
+    "-i include/nw4r",
+    "-ir include/egg",  # TODO(kiwi) remove after refactor
+    "-i include/Pack",
+]
+
+
+Matching = True  # Object matches and should be linked
+NonMatching = False  # Object does not match and should not be linked
+Equivalent = (
+    config.non_matching
+)  # Object should be linked when configured with --non-matching
 
 
 # Object is only matching for specific versions
@@ -286,13 +365,83 @@ config.warn_missing_config = True
 config.warn_missing_source = False
 config.libs = [
     {
-        "lib": "Runtime.PPCEABI.H",
+        "lib": "libnw4r_db",
+        "mw_version": config.linker_version,
+        "cflags": cflags_libnw4r_db,
+        "progress_category": "nw4r",
+        "objects": [
+            Object(NonMatching, "nw4r/db/db_console.cpp"),
+            Object(NonMatching, "nw4r/db/db_exception.cpp"),
+        ],
+    },
+    {
+        "lib": "libnw4r_ef",
+        "mw_version": config.linker_version,
+        "cflags": cflags_libnw4r_ef,
+        "progress_category": "nw4r",
+        "objects": [
+            Object(NonMatching, "nw4r/ef/ef_effect.cpp"),
+            Object(NonMatching, "nw4r/ef/ef_effectsystem.cpp"),
+            Object(NonMatching, "nw4r/ef/ef_emitterform.cpp"),
+            Object(Matching, "nw4r/ef/ef_handle.cpp"),
+        ],
+    },
+    {
+        "lib": "runtime",
         "mw_version": config.linker_version,
         "cflags": cflags_runtime,
         "progress_category": "sdk",  # str | List[str]
         "objects": [
-            Object(NonMatching, "Runtime.PPCEABI.H/global_destructor_chain.c"),
-            Object(NonMatching, "Runtime.PPCEABI.H/__init_cpp_exceptions.cpp"),
+            Object(NonMatching, "runtime/global_destructor_chain.c"),
+            Object(NonMatching, "runtime/__init_cpp_exceptions.cpp"),
+        ],
+    },
+    {
+        "lib": "RVL_SDK",
+        "mw_version": config.linker_version,
+        "cflags": cflags_rvl,
+        "progress_category": "sdk",
+        "objects": [
+            Object(Matching, "revolution/BASE/PPCArch.c"),
+            Object(Matching, "revolution/DB/db.c"),
+            Object(NonMatching, "revolution/DVD/dvdfs.c"),
+            Object(NonMatching, "revolution/DVD/dvd.c"),
+            Object(Matching, "revolution/DVD/dvdqueue.c"),
+            Object(NonMatching, "revolution/DVD/dvderror.c"),
+            Object(Matching, "revolution/DVD/dvdidutils.c"),
+            Object(NonMatching, "revolution/DVD/dvdfatal.c"),
+            Object(NonMatching, "revolution/DVD/dvd_broadway.c"),
+            Object(NonMatching, "revolution/EXI/EXIBios.c"),
+            Object(NonMatching, "revolution/MTX/mtx.c"),
+            Object(NonMatching, "revolution/NAND/NANDOpenClose.c"),
+            Object(NonMatching, "revolution/NAND/NANDCore.c"),
+            Object(NonMatching, "revolution/OS/OS.c"),
+            Object(NonMatching, "revolution/OS/OSAlarm.c"),
+            Object(Matching, "revolution/OS/OSAlloc.c"),
+            Object(Matching, "revolution/OS/OSArena.c"),
+            Object(Matching, "revolution/OS/OSContext.c"),
+            Object(Matching, "revolution/OS/OSError.c"),
+            Object(NonMatching, "revolution/OS/OSExec.c"),
+            Object(NonMatching, "revolution/OS/OSFatal.c"),
+            Object(NonMatching, "revolution/OS/OSFont.c"),
+            Object(Matching, "revolution/OS/OSInterrupt.c"),
+            Object(NonMatching, "revolution/OS/OSThread.c"),
+            Object(Matching, "revolution/OS/OSTime.c"),
+            Object(NonMatching, "revolution/SC/scsystem.c"),
+            Object(NonMatching, "revolution/SC/scapi.c"),
+            Object(NonMatching, "revolution/SI/SIBios.c"),
+            Object(NonMatching, "revolution/VI/VI.c"),
+            Object(NonMatching, "revolution/VI/i2c.c"),
+            Object(NonMatching, "revolution/WPAD/WPAD.c", mw_version="GC/3.0a5.2"),
+        ],
+    },
+    {
+        "lib": "RP",
+        "mw_version": config.linker_version,
+        "cflags": cflags_rp,
+        "progress_category": "kernel",
+        "objects": [
+            Object(NonMatching, "main.cpp"),
         ],
     },
 ]
@@ -319,8 +468,9 @@ def link_order_callback(module_id: int, objects: List[str]) -> List[str]:
 # Optional extra categories for progress tracking
 # Adjust as desired for your project
 config.progress_categories = [
-    ProgressCategory("game", "Game Code"),
-    ProgressCategory("sdk", "SDK Code"),
+    ProgressCategory("nw4r", "NW4R"),
+    ProgressCategory("sdk", "RVL SDK"),
+    ProgressCategory("kernel", "RPKernel"),
 ]
 config.progress_each_module = args.verbose
 # Optional extra arguments to `objdiff-cli report generate`

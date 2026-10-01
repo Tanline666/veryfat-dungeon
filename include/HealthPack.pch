@@ -1,0 +1,6 @@
+#ifndef RP_HEALTH_PACK_PRECOMPILED_HEADER
+#define RP_HEALTH_PACK_PRECOMPILED_HEADER
+//! This might not be necessary? Just doing it because Kiwi did (texline)
+#include <nw4r/ut/ut_algorithm.h>
+
+#endif

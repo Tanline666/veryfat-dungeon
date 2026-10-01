@@ -1,0 +1,40 @@
+#ifndef EGG_GFXE_LIGHT_TEXTURE_H
+#define EGG_GFXE_LIGHT_TEXTURE_H
+#include "eggCapTexture.h"
+#include "eggIBinary.h"
+#include "eggScreen.h"
+#include "types_egg.h"
+
+namespace EGG {
+class LightTexture : public CapTexture, public IBinary<LightTexture> {
+public:
+    struct BinData {};
+
+public:
+    static void initialize(u16, Heap*);
+    static void initDrawSetting(u16, u16, u16, u16);
+    static void getDrawSetting(u16*, u16*, u16*, u16*, u16);
+
+    LightTexture(u16, const char*, LightTextureManager*);
+    virtual void SetBinaryInner(const Bin&);   // at 0x8
+    virtual void GetBinaryInner(Bin*) const;   // at 0xC
+    virtual const char* GetBinaryType() const; // at 0x10
+    virtual u8 GetVersion() const;             // at 0x18
+
+    void draw();
+    void capture(const GXColor&, bool);
+
+    const char* getName() const {
+        return mName;
+    }
+
+private:
+    static const int MAX_NAME_LEN = 32;
+
+    char UNK_0x30[0x54 - 0x30];
+    char mName[MAX_NAME_LEN]; // at 0x54
+    char UNK_0x74[0x84 - 0x74];
+};
+} // namespace EGG
+
+#endif

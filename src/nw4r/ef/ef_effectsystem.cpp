@@ -20,12 +20,10 @@ bool EffectSystem::mDisplayVersion = true;
 EffectSystem EffectSystem::instance;
 
 EffectSystem::EffectSystem() {
-#if defined(VERSION_RSPE01_01)
     if (mDisplayVersion) {
         mDisplayVersion = false;
         OSRegisterVersion(NW4R_EF_Version_);
     }
-#endif
 
     mMemoryManager = NULL;
     mMaxGroupID = 0;

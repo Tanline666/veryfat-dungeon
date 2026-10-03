@@ -3,7 +3,7 @@
 #include <Pack/RPKernel.h>
 #include <Pack/RPSystem.h>
 
-#include <homebuttonMiniLib.h>
+#include <homebuttonLib.h>
 
 #include <nw4r/ut.h>
 

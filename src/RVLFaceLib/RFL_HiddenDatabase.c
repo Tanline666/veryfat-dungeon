@@ -2,7 +2,6 @@
 
 #include <string.h>
 
-
 static void writeData_(RFLiHiddenCharData* data) DECOMP_DONT_INLINE;
 
 static void initWritableList_(void) {
@@ -39,11 +38,7 @@ static void loadcallback_(void) {
                 &RFLiGetHiddenHeader()->data[mgr->loadIndex].createID)) {
             RFLiConvertHRaw2Info(data, &info);
 
-#if defined(VERSION_RSPE01_00)
-            if (RFLiCheckValidInfo(&info)) {
-#elif defined(VERSION_RSPE01_01)
             if (RFLiCheckValidInfo(&info) && RFLiIsValidOnNAND(&info)) {
-#endif
                 memcpy(mgr->loadDst, data, sizeof(RFLiHiddenCharData));
             } else {
                 RFLiGetManager()->lastErrCode = RFLErrcode_Broken;

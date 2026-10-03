@@ -98,6 +98,11 @@ void SoundPlayer::detail_RemovePriorityList(detail::BasicSound* pSound) {
     mPriorityList.Erase(pSound);
 }
 
+void SoundPlayer::detail_SortPriorityList(detail::BasicSound* pSound) {
+    detail_RemovePriorityList(pSound);
+    detail_InsertPriorityList(pSound);
+}
+
 void SoundPlayer::detail_SortPriorityList() {
     ut::detail::AutoLock<OSMutex> lock(mMutex);
 

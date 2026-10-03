@@ -493,7 +493,8 @@ math::MTX34* ParticleManager::CalcGlobalMtx(math::MTX34* pResult) {
 
         mManagerEM->RestructMatrix(&mMtx, &orig, mFlag & FLAG_MTX_INHERIT_SCALE,
                                    mFlag & FLAG_MTX_INHERIT_ROT,
-                                   mInheritTranslate);
+                                   mInheritTranslate,
+                                   mFlag & FLAG_MTX_INHERIT_PIVOT);
 
         mMtxDirty = false;
     }

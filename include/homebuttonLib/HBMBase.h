@@ -1,8 +1,8 @@
 #ifndef HOME_BUTTON_MINI_LIB_BASE_H
 #define HOME_BUTTON_MINI_LIB_BASE_H
-#include <homebuttonMiniLib/HBMGUIManager.h>
-#include <homebuttonMiniLib/HBMRes.h>
-#include <homebuttonMiniLib/HBMTypes.h>
+#include <homebuttonLib/HBMGUIManager.h>
+#include <homebuttonLib/HBMRes.h>
+#include <homebuttonLib/HBMTypes.h>
 
 #include <nw4r/lyt.h>
 #include <nw4r/snd.h>

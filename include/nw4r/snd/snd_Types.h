@@ -30,17 +30,81 @@ enum OutputMode {
     OUTPUT_MODE_MONO
 };
 
+static const int VOICE_OUT_MAX = 4;
+
+struct VoiceOutParam {
+    f32 volume;
+    f32 pitch;
+    f32 pan;
+    f32 surroundPan;
+    f32 fxSend;
+    f32 lpf;
+
+    VoiceOutParam()
+        : volume(1.0f),
+          pitch(1.0f),
+          pan(0.0f),
+          surroundPan(0.0f),
+          fxSend(0.0f),
+          lpf(0.0f) {}
+};
+
 struct SoundParam {
-    f32 volume;      // at 0x0
-    f32 pitch;       // at 0x4
-    f32 pan;         // at 0x8
-    f32 surroundPan; // at 0xC
-    f32 fxSend;      // at 0x10
-    f32 lpf;         // at 0x14
-    int priority;    // at 0x18
+    f32 volume;            // at 0x0
+    f32 pitch;             // at 0x4
+    f32 pan;               // at 0x8
+    f32 surroundPan;       // at 0xC
+    f32 fxSend;            // at 0x10
+    f32 lpf;               // at 0x14
+    f32 biquadFilterValue; // at 0x18
+    int biquadFilterType;  // at 0x1C
+    int priority;          // at 0x20
+    u32 userData;          // at 0x24
+
+    SoundParam()
+        : volume(1.0f),
+          pitch(1.0f),
+          pan(0.0f),
+          surroundPan(0.0f),
+          fxSend(0.0f),
+          lpf(0.0f),
+          biquadFilterValue(0.0f),
+          biquadFilterType(0),
+          priority(0),
+          userData(0) {}
+};
+
+struct SoundAmbientParam {
+    f32 volume;                                 // at 0x0
+    f32 pitch;                                  // at 0x4
+    f32 pan;                                    // at 0x8
+    f32 surroundPan;                            // at 0xC
+    f32 fxSend;                                 // at 0x10
+    f32 lpf;                                    // at 0x14
+    f32 biquadFilterValue;                      // at 0x18
+    int biquadFilterType;                       // at 0x1C
+    int priority;                               // at 0x20
+    u32 userData;                               // at 0x24
+    VoiceOutParam voiceOutParam[VOICE_OUT_MAX]; // at 0x28
+
+    SoundAmbientParam()
+        : volume(1.0f),
+          pitch(1.0f),
+          pan(0.0f),
+          surroundPan(0.0f),
+          fxSend(0.0f),
+          lpf(0.0f) {}
 };
 
 namespace detail {
+
+struct SoundActorParam {
+    f32 volume; // at 0x0
+    f32 pitch;  // at 0x4
+    f32 pan;    // at 0x8
+
+    SoundActorParam() : volume(1.0f), pitch(1.0f), pan(0.0f) {}
+};
 
 enum PanMode {
     PAN_MODE_DUAL,
@@ -57,6 +121,15 @@ enum PanCurve {
     PAN_CURVE_LINEAR,
     PAN_CURVE_LINEAR_0DB,
     PAN_CURVE_LINEAR_0DB_CLAMP,
+};
+
+enum BiquadFilterType {
+    BIQUAD_FILTER_TYPE_NONE = 0,
+    BIQUAD_FILTER_TYPE_LPF = 1,
+    BIQUAD_FILTER_TYPE_HPF = 2,
+    BIQUAD_FILTER_TYPE_BPF512 = 3,
+    BIQUAD_FILTER_TYPE_BPF1024 = 4,
+    BIQUAD_FILTER_TYPE_BPF2048 = 5
 };
 
 struct AdpcmParam {

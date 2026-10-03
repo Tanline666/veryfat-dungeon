@@ -14,6 +14,8 @@
 
 import argparse
 import sys
+from os import walk
+from os.path import join as joinpath
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -138,6 +140,25 @@ config = ProjectConfig()
 config.version = str(args.version)
 version_num = VERSIONS.index(config.version)
 
+
+def find_directories(root_path: str, recursive: bool) -> list[str]:
+    found = [root_path]
+
+    for dirpath, dirnames, _ in walk(root_path):
+        found += [joinpath(dirpath, x) for x in dirnames]
+
+        if not recursive:
+            break
+
+    return found
+
+
+# Add BTE directories
+config.extra_clang_flags.extend(
+    [f"-isystem{x}" for x in find_directories("include/revolution/BTE", recursive=True)]
+)
+
+
 # Apply arguments
 config.build_dir = args.build_dir
 config.dtk_path = args.dtk
@@ -251,8 +272,6 @@ cflags_rel = [
     "-sdata2 0",
 ]
 
-# NOTE: WPAD uses either GC/3.0 or GC/3.0a5.2,
-# while HBM uses Wii/1.0a.
 config.linker_version = "Wii/1.0"
 
 
@@ -278,12 +297,6 @@ def Rel(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
     }
 
 
-# Debug flags
-if args.debug:
-    cflags_base.extend(["-sym dwarf-2", "-DDEBUG=1"])
-else:
-    cflags_base.append("-DNDEBUG=1")
-
 # Warning flags
 if args.warn == "all":
     cflags_base.append("-W all")
@@ -305,16 +318,6 @@ cflags_pedantic = [
     "-w err",
 ]
 
-# NW4R effect library flags
-cflags_libnw4r_ef = [
-    *cflags_base,
-    *cflags_pedantic,
-    "-enc SJIS",
-    "-fp_contract off",
-    "-ipa file",
-    "-i include/nw4r",
-]
-
 # NW4R debug library flags
 # TODO(texline) verify this
 cflags_libnw4r_db = [
@@ -326,12 +329,68 @@ cflags_libnw4r_db = [
     "-i include/nw4r",
 ]
 
+# NW4R effect library flags
+cflags_libnw4r_ef = [
+    *cflags_base,
+    *cflags_pedantic,
+    "-enc SJIS",
+    "-fp_contract off",
+    "-ipa file",
+    "-i include/nw4r",
+]
+
+# NW4R math library flags
+cflags_libnw4r_math = [
+    *cflags_base,
+    *cflags_pedantic,
+    "-enc SJIS",
+    "-fp_contract off",
+    "-ipa file",
+    "-i include/nw4r",
+]
+
+# NW4R sound library flags
+cflags_libnw4r_snd = [
+    *cflags_base,
+    *cflags_pedantic,
+    "-enc SJIS",
+    "-fp_contract off",
+    "-ipa file",
+    "-i include/nw4r",
+]
+
+# EGG flags
+cflags_egg = [
+    *cflags_base,
+    # *cflags_pedantic,
+    "-enc SJIS",
+    "-use_lmw_stmw on",
+    "-str reuse,pool,readonly",
+    "-i include/nw4r",
+    "-ir include/egg",  # TODO(kiwi) remove after refactor
+]
+
 # RVL SDK flags
 cflags_rvl = [
     *cflags_base,
     "-enc SJIS",
     "-fp_contract off",
     "-ipa file",
+]
+
+# homeButtonLib flags
+cflags_hbm = [
+    *cflags_base,
+    *cflags_pedantic,
+    "-sdata 0",
+    "-sdata2 0",
+    "-enc SJIS",
+    "-lang c++",
+    "-RTTI on",
+    "-fp_contract off",
+    "-ipa file",
+    "-i include/nw4r",
+    "-i include/homebuttonLib",
 ]
 
 # Unlike ogws, this repo will only target Wii Fit Plus
@@ -382,8 +441,41 @@ config.libs = [
         "objects": [
             Object(NonMatching, "nw4r/ef/ef_effect.cpp"),
             Object(NonMatching, "nw4r/ef/ef_effectsystem.cpp"),
-            Object(NonMatching, "nw4r/ef/ef_emitterform.cpp"),
+            Object(NonMatching, "nw4r/ef/ef_emitter.cpp"),
+            Object(NonMatching, "nw4r/ef/ef_particlemanager.cpp"),
+            Object(NonMatching, "nw4r/ef/ef_resource.cpp"),
             Object(Matching, "nw4r/ef/ef_handle.cpp"),
+            Object(NonMatching, "nw4r/ef/ef_emitterform.cpp"),
+        ],
+    },
+    {
+        "lib": "libnw4r_math",
+        "mw_version": config.linker_version,
+        "cflags": cflags_libnw4r_math,
+        "progress_category": "nw4r",
+        "objects": [
+            Object(NonMatching, "nw4r/math/math_arithmetic.cpp"),
+            Object(Matching, "nw4r/math/math_triangular.cpp"),
+        ],
+    },
+    {
+        "lib": "libnw4r_snd",
+        "mw_version": config.linker_version,
+        "cflags": cflags_libnw4r_snd,
+        "progress_category": "nw4r",
+        "objects": [
+            Object(NonMatching, "nw4r/snd/snd_BasicSound.cpp"),
+            Object(Matching, "nw4r/snd/snd_SoundHandle.cpp"),
+            Object(NonMatching, "nw4r/snd/snd_SoundHeap.cpp"),
+        ],
+    },
+    {
+        "lib": "egg",
+        "mw_version": config.linker_version,
+        "cflags": cflags_egg,
+        "progress_category": "egg",
+        "objects": [
+            Object(NonMatching, "egg/audio/eggAudioExpMgr.cpp"),
         ],
     },
     {
@@ -402,7 +494,11 @@ config.libs = [
         "cflags": cflags_rvl,
         "progress_category": "sdk",
         "objects": [
+            Object(NonMatching, "revolution/WUD/WUD.c"),
             Object(Matching, "revolution/BASE/PPCArch.c"),
+            Object(Equivalent, "revolution/BTE/gki/common/gki_buffer.c"),
+            Object(Equivalent, "revolution/BTE/gki/common/gki_time.c"),
+            Object(Equivalent, "revolution/BTE/rvl/gki_ppc.c"),
             Object(Matching, "revolution/DB/db.c"),
             Object(NonMatching, "revolution/DVD/dvdfs.c"),
             Object(NonMatching, "revolution/DVD/dvd.c"),
@@ -411,7 +507,18 @@ config.libs = [
             Object(Matching, "revolution/DVD/dvdidutils.c"),
             Object(NonMatching, "revolution/DVD/dvdfatal.c"),
             Object(NonMatching, "revolution/DVD/dvd_broadway.c"),
+            Object(Matching, "revolution/EUART/euart.c"),
             Object(NonMatching, "revolution/EXI/EXIBios.c"),
+            Object(NonMatching, "revolution/FS/fs.c"),
+            Object(NonMatching, "revolution/GX/GXFifo.c"),
+            Object(NonMatching, "revolution/GX/GXInit.c"),
+            Object(Matching, "revolution/GX/GXAttr.c"),
+            Object(NonMatching, "revolution/GX/GXMisc.c"),
+            Object(NonMatching, "revolution/GX/GXGeometry.c"),
+            Object(NonMatching, "revolution/GX/GXFrameBuf.c"),
+            Object(Matching, "revolution/GX/GXLight.c"),
+            Object(NonMatching, "revolution/GX/GXTexture.c"),
+            Object(NonMatching, "revolution/IPC/ipcclt.c"),
             Object(NonMatching, "revolution/MTX/mtx.c"),
             Object(NonMatching, "revolution/NAND/NANDOpenClose.c"),
             Object(NonMatching, "revolution/NAND/NANDCore.c"),
@@ -433,6 +540,22 @@ config.libs = [
             Object(NonMatching, "revolution/VI/VI.c"),
             Object(NonMatching, "revolution/VI/i2c.c"),
             Object(NonMatching, "revolution/WPAD/WPAD.c", mw_version="GC/3.0a5.2"),
+            Object(
+                NonMatching, "revolution/WPAD/WPADHIDParser.c", mw_version="GC/3.0a5.2"
+            ),
+            Object(Matching, "revolution/OS/__start.c"),
+        ],
+    },
+    {
+        "lib": "homebuttonLib",
+        "mw_version": "Wii/1.0a",
+        "cflags": cflags_hbm,
+        "progress_category": "hbm",
+        "objects": [
+            Object(NonMatching, "homebuttonLib/HBMFrameController.cpp"),
+            Object(Matching, "homebuttonLib/HBMAnmController.cpp"),
+            Object(NonMatching, "homebuttonLib/HBMGUIManager.cpp"),
+            Object(NonMatching, "homebuttonLib/HBMController.cpp"),
         ],
     },
     {
@@ -441,7 +564,18 @@ config.libs = [
         "cflags": cflags_rp,
         "progress_category": "kernel",
         "objects": [
+            Object(NonMatching, "Pack/RPKernel/RPSysSystem.cpp"),
             Object(NonMatching, "main.cpp"),
+        ],
+    },
+    {
+        "lib": "RP",
+        "mw_version": config.linker_version,
+        "cflags": cflags_rp,
+        "progress_category": "system",
+        "objects": [
+            Object(NonMatching, "Pack/RPSystem/RPSysRenderMode.cpp"),
+            Object(NonMatching, "Pack/RPSystem/RPSysSceneMgr.cpp"),
         ],
     },
 ]
@@ -469,8 +603,11 @@ def link_order_callback(module_id: int, objects: List[str]) -> List[str]:
 # Adjust as desired for your project
 config.progress_categories = [
     ProgressCategory("nw4r", "NW4R"),
+    ProgressCategory("egg", "EGG"),
     ProgressCategory("sdk", "RVL SDK"),
+    ProgressCategory("hbm", "homeButtonLib"),
     ProgressCategory("kernel", "RPKernel"),
+    ProgressCategory("system", "RPSystem"),
 ]
 config.progress_each_module = args.verbose
 # Optional extra arguments to `objdiff-cli report generate`

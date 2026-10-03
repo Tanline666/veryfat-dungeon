@@ -6,7 +6,6 @@
 #include <nw4r/snd/snd_BasicSound.h>
 #include <nw4r/snd/snd_SoundActor.h>
 
-
 namespace nw4r {
 namespace snd {
 
@@ -15,17 +14,16 @@ class Sound3DManager;
 class SoundArchivePlayer;
 class SoundHandle;
 
-class Sound3DActor : public detail::SoundActor,
+class Sound3DActor : public SoundActor,
                      public detail::BasicSound::AmbientArgUpdateCallback {
 public:
     Sound3DActor(SoundArchivePlayer& rPlayer, Sound3DManager& rManager);
     virtual ~Sound3DActor(); // at 0x8
 
-    virtual StartResult
-    detail_SetupSound(SoundHandle* pHandle, u32 id,
-                      detail::BasicSound::AmbientArgInfo* pArgInfo,
-                      detail::ExternalSoundPlayer* pPlayer, bool hold,
-                      const StartInfo* pStartInfo); // at 0xC
+protected:
+    virtual StartResult SetupSound(SoundHandle* pHandle, u32 id,
+                                   const StartInfo* pStartInfo,
+                                   void* pArg); // at 0xC
 
     virtual void detail_Update(void* pArg,
                                const detail::BasicSound* pSound); // at 0xC

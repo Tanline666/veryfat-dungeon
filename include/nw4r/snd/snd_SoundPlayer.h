@@ -33,10 +33,24 @@ public:
 
     void SetVolume(f32 volume);
 
+    void SetLpfFreq(f32 lpfFreq);
+    f32 GetLpfFreq() const {
+        return mLpfFreq;
+    }
+
+    void SetBiquadFilter(int type, f32 value);
+    int GetBiquadFilterType() const {
+        return mBiquadFilterType;
+    }
+    f32 GetBiquadFilterValue() const {
+        return mBiquadFilterValue;
+    }
+
     int detail_GetOutputLine() const;
     bool detail_IsEnabledOutputLine() const;
-
-    f32 detail_GetRemoteOutVolume(int idx) const;
+    int GetDefaultOutputLine() const {
+        return mOutputLineFlag;
+    }
 
     void detail_InsertSoundList(detail::BasicSound* pSound);
     void detail_RemoveSoundList(detail::BasicSound* pSound);
@@ -44,6 +58,7 @@ public:
     void detail_InsertPriorityList(detail::BasicSound* pSound);
     void detail_RemovePriorityList(detail::BasicSound* pSound);
 
+    void detail_SortPriorityList(detail::BasicSound* pSound);
     void detail_SortPriorityList();
 
     detail::SeqSound* detail_AllocSeqSound(
@@ -91,16 +106,25 @@ public:
         return mVolume;
     }
 
+    void SetMainOutVolume(f32 volume);
+    f32 GetMainOutVolume() const {
+        return mMainOutVolume;
+    }
+
+    void SetRemoteOutVolume(int remoteIndex, f32 volume);
+    f32 GetRemoteOutVolume(int remoteIndex) const;
+
+    void SetMainSend(f32 send);
+    f32 GetMainSend() const {
+        return mMainSend;
+    }
+
+private:
     detail::BasicSound* detail_GetLowestPrioritySound() {
         // @bug UB when the list is empty
         return &mPriorityList.GetFront();
     }
 
-    f32 detail_GetMainOutVolume() const {
-        return mMainOutVolume;
-    }
-
-private:
     detail::BasicSoundPlayerPlayList mSoundList;    // at 0x0
     detail::BasicSoundPlayerPrioList mPriorityList; // at 0xC
     detail::PlayerHeapList mHeapList;               // at 0x18
@@ -109,13 +133,14 @@ private:
     u16 mPlayableLimit; // at 0x26
 
     f32 mVolume;                                // at 0x28
-    bool mOutputLineFlagEnable;                 // at 0x2C
-    bool mUsePlayerHeap;                        // at 0x2D
+    f32 mLpfFreq;                               // at 0x2C
     int mOutputLineFlag;                        // at 0x30
     f32 mMainOutVolume;                         // at 0x34
-    f32 mRemoteOutVolume[WPAD_MAX_CONTROLLERS]; // at 0x38
-
-    mutable OSMutex mMutex; // at 0x48
+    int mBiquadFilterType;                      // at 0x38
+    int mBiquadFilterValue;                     // at 0x3C
+    f32 mRemoteOutVolume[WPAD_MAX_CONTROLLERS]; // at 0x40
+    f32 mMainSend;                              // at 0x50
+    f32 mFxSend[AUX_BUS_NUM];                   // at 0x54
 };
 
 } // namespace snd

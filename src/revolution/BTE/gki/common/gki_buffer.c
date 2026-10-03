@@ -1476,6 +1476,7 @@ void GKI_delete_pool (UINT8 pool_id)
 ** Returns          the size of buffers in the pool
 **
 *******************************************************************************/
+#ifndef REVOLUTION
 UINT16 GKI_get_pool_bufsize (UINT8 pool_id)
 {
     if (pool_id < GKI_NUM_TOTAL_BUF_POOLS)
@@ -1483,6 +1484,7 @@ UINT16 GKI_get_pool_bufsize (UINT8 pool_id)
 
     return (0);
 }
+#endif
 
 /*******************************************************************************
 **
@@ -1496,6 +1498,7 @@ UINT16 GKI_get_pool_bufsize (UINT8 pool_id)
 ** Returns          % of buffers used from 0 to 100
 **
 *******************************************************************************/
+#ifndef REVOLUTION
 UINT16 GKI_poolutilization (UINT8 pool_id)
 {
     FREE_QUEUE_T  *Q;
@@ -1510,3 +1513,4 @@ UINT16 GKI_poolutilization (UINT8 pool_id)
 
     return ((Q->cur_cnt * 100) / Q->total);
 }
+#endif

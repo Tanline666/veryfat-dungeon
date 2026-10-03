@@ -6,7 +6,7 @@
 #include <Pack/RPSingleton.h>
 #include <Pack/RPSystem/RPSysProjectLocal.h>
 
-#include <homebuttonMiniLib.h>
+#include <homebuttonLib.h>
 
 //! @addtogroup rp_kernel
 //! @{

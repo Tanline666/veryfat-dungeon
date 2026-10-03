@@ -83,10 +83,8 @@ void WUDHidHostCallback(tBTA_HH_EVT event, tBTA_HH* pData) {
 
             if (pInfo->UNK_0x5B == 3 || pInfo->UNK_0x5B == 1) {
                 WUDiMoveTopSmpDevInfoPtr(pInfo);
-#if defined(VERSION_RSPE01_01)
             } else {
                 WUDiMoveTopStdDevInfoPtr(pInfo);
-#endif
             }
 
             WUDSetSniffMode(pInfo->devAddr, 8);
@@ -126,7 +124,6 @@ void WUDHidHostCallback(tBTA_HH_EVT event, tBTA_HH* pData) {
         DEBUGPrint("device handle : %d   status = %d\n", pCbData->handle,
                    pCbData->status);
 
-#if defined(VERSION_RSPE01_01)
         pInfo = WUDiGetDevInfo(_dev_handle_to_bda[pCbData->handle]);
         if (pInfo != NULL) {
             if (pInfo->UNK_0x5B == 3 || pInfo->UNK_0x5B == 1) {
@@ -135,7 +132,6 @@ void WUDHidHostCallback(tBTA_HH_EVT event, tBTA_HH* pData) {
                 WUDiMoveTopOfDisconnectedStdDevice(pInfo);
             }
         }
-#endif
 
         _dev_handle_to_bda[pCbData->handle] = NULL;
         _dev_handle_queue_size[pCbData->handle] = 0;

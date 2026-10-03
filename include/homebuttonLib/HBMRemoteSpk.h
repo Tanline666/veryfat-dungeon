@@ -1,6 +1,6 @@
 #ifndef HOME_BUTTON_MINI_LIB_REMOTE_SPK_H
 #define HOME_BUTTON_MINI_LIB_REMOTE_SPK_H
-#include <homebuttonMiniLib/HBMTypes.h>
+#include <homebuttonLib/HBMTypes.h>
 
 #include <revolution/ARC.h>
 #include <revolution/OS.h>

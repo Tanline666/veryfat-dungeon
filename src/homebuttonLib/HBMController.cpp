@@ -1,4 +1,4 @@
-#include <homebuttonMiniLib.h>
+#include <homebuttonLib.h>
 
 #include <revolution/MTX.h>
 #include <revolution/OS.h>

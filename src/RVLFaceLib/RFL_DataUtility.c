@@ -142,7 +142,6 @@ BOOL RFLiCheckValidInfo(const RFLiCharInfo* info) {
         return FALSE;
     }
 
-#if defined(VERSION_RSPE01_01)
     if (!RFLiIsValidName2(info)) {
         return FALSE;
     }
@@ -170,16 +169,12 @@ BOOL RFLiCheckValidInfo(const RFLiCharInfo* info) {
         return FALSE;
     }
 
-#endif
-
     return TRUE;
 }
 
-#if defined(VERSION_RSPE01_01)
 BOOL RFLiIsValidOnNAND(const RFLiCharInfo* info) {
     return !RFLiIsTemporaryID(&info->createID);
 }
-#endif
 
 BOOL RFLiIsSameFaceCore(const RFLiCharInfo* lhs, const RFLiCharInfo* rhs) {
     if ((lhs->eye.rawdata & EYE_PAD_MASK) !=

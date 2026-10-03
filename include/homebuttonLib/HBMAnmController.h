@@ -1,7 +1,7 @@
 #ifndef HOME_BUTTON_MINI_LIB_ANM_CONTROLLER_H
 #define HOME_BUTTON_MINI_LIB_ANM_CONTROLLER_H
-#include <homebuttonMiniLib/HBMFrameController.h>
-#include <homebuttonMiniLib/HBMTypes.h>
+#include <homebuttonLib/HBMFrameController.h>
+#include <homebuttonLib/HBMTypes.h>
 
 #include <nw4r/lyt.h>
 

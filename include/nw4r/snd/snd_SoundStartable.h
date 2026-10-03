@@ -3,6 +3,7 @@
 #include <nw4r/types_nw4r.h>
 
 #include <nw4r/snd/snd_BasicSound.h>
+#include <nw4r/snd/snd_SoundArchivePlayer.h>
 
 namespace nw4r {
 namespace snd {
@@ -58,15 +59,15 @@ public:
 public:
     virtual ~SoundStartable() {} // at 0x8
 
+protected:
     virtual StartResult
-    detail_SetupSound(SoundHandle* pHandle, u32 id,
-                      detail::BasicSound::AmbientArgInfo* pArgInfo,
-                      detail::ExternalSoundPlayer* pPlayer, bool hold,
+    detail_SetupSound(SoundHandle* pHandle, u32 id, bool hold,
                       const StartInfo* pStartInfo) = 0; // at 0xC
 
     virtual u32
     detail_ConvertLabelStringToSoundId(const char* pLabel) = 0; // at 0x10
 
+private:
     bool StartSound(SoundHandle* pHandle, u32 id) {
         return detail_StartSound(pHandle, id, NULL, NULL, NULL) ==
                START_SUCCESS;

@@ -334,7 +334,9 @@ typedef struct t_l2c_ccb
 
     /* Fields used for eL2CAP */
     tL2CAP_ERTM_INFO    ertm_info;
+#ifndef REVOLUTION
     tL2C_FCRB           fcrb;
+#endif
     UINT16              tx_mps;                 /* TX MPS adjusted based on current controller */
     UINT16              max_rx_mtu;
     UINT8               fcr_cfg_tries;          /* Max number of negotiation attempts */

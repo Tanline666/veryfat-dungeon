@@ -1,4 +1,4 @@
-#include <homebuttonMiniLib.h>
+#include <homebuttonLib.h>
 
 #include <nw4r/snd.h>
 

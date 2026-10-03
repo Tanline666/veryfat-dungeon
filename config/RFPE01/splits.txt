@@ -29,12 +29,55 @@ nw4r/ef/ef_effectsystem.cpp:
 	.ctors      start:0x80688CC4 end:0x80688CC8
 	.bss        start:0x80764FB0 end:0x80771028
 
+nw4r/ef/ef_emitter.cpp:
+	.text       start:0x8000D840 end:0x8000F9E0
+	.sdata2     start:0x808179B0 end:0x808179E8
+
+nw4r/ef/ef_animcurve.cpp:
+	.text       start:0x8000F9E0 end:0x800148E0
+
+nw4r/ef/ef_particlemanager.cpp:
+	.text       start:0x80018DE0 end:0x8001B0E4
+	.ctors      start:0x80688CC8 end:0x80688CCC
+	.bss        start:0x80771028 end:0x80771058
+
+nw4r/ef/ef_resource.cpp:
+	.text       start:0x8001B0F0 end:0x8001BDF0
+	.ctors      start:0x80688CCC end:0x80688CD0
+	.bss        start:0x80771058 end:0x80771078
+
 nw4r/ef/ef_handle.cpp:
 	.text       start:0x8001CD70 end:0x8001CE40
 
 nw4r/ef/ef_emitterform.cpp:
 	.text       start:0x8001CE40 end:0x8001D3E0
 	.sdata2     start:0x80817B30 end:0x80817B60
+
+nw4r/math/math_arithmetic.cpp:
+	.text       start:0x80069F90 end:0x8006A140
+	.data       start:0x80709900 end:0x8070A210
+	.sdata2     start:0x808181F8 end:0x80818218
+
+nw4r/math/math_triangular.cpp:
+	.text       start:0x8006A140 end:0x8006A5A8
+	.rodata     start:0x8068B2C8 end:0x8068C2D8
+	.data       start:0x8070A210 end:0x8070A318
+	.sdata2     start:0x80818218 end:0x8081823C
+
+nw4r/snd/snd_BasicSound.cpp:
+	.text       start:0x80071710 end:0x80072E80
+	.ctors      start:0x80688CF4 end:0x80688CF8
+	.data       start:0x8070A340 end:0x8070A378
+
+nw4r/snd/snd_SoundHandle.cpp:
+	.text       start:0x80086450 end:0x800864F0
+
+nw4r/snd/snd_SoundHeap.cpp:
+	.text       start:0x800864F0 end:0x80086800
+	.data       start:0x8070AAF8 end:0x8070AB08
+
+egg/audio/eggAudioExpMgr.cpp:
+	.text       start:0x800C5D2C end:0x800C6408
 
 runtime/__init_cpp_exceptions.cpp:
 	.text       start:0x800CA118 end:0x800CA188
@@ -43,9 +86,35 @@ runtime/__init_cpp_exceptions.cpp:
 	.dtors      start:0x80688EE4 end:0x80688EE8 rename:.dtors$15
 	.sdata      start:0x80813CB0 end:0x80813CB4
 
+revolution/WUD/WUD.c:
+	.text       start:0x800DF110 end:0x800E55C0
+
 revolution/BASE/PPCArch.c:
 	.text       start:0x800F0650 end:0x800F0870
 	.data       start:0x80711FC0 end:0x80711FF8
+
+revolution/BTE/gki/common/gki_buffer.c:
+	.text       start:0x800F0870 end:0x800F1D10
+	.data       start:0x80711FF8 end:0x80712140
+
+revolution/BTE/gki/common/gki_time.c:
+	.text       start:0x800F1D10 end:0x800F22A0
+
+revolution/BTE/rvl/gki_ppc.c:
+	.text       start:0x800F22A0 end:0x800F25B0
+	.bss        start:0x807C57E0 end:0x807EE2C0
+
+revolution/BTE/stack/btm/btm_devctl.c:
+	.text       start:0x800FC430 end:0x800FDDB8
+
+revolution/BTE/stack/btm/btm_discovery.c:
+	.text       start:0x800FDDB8 end:0x800FDEEC
+
+revolution/BTE/stack/btm/btm_inq.c:
+	.text       start:0x800FDEEC end:0x800FF984
+
+revolution/BTE/stack/btm/btm_pm.c:
+	.text       start:0x800FF9E0 end:0x80100674
 
 revolution/DB/db.c:
 	.text       start:0x8011E6C0 end:0x8011E7C0
@@ -87,10 +156,58 @@ revolution/DVD/dvd_broadway.c:
 	.bss        start:0x807FF320 end:0x807FF4C0
 	.sbss       start:0x808167B8 end:0x808167E0
 
+revolution/EUART/euart.c:
+	.text       start:0x801281B0 end:0x80128530
+	.sbss       start:0x808167E0 end:0x808167F0
+
 revolution/EXI/EXIBios.c:
 	.text       start:0x80128530 end:0x80129E30
 	.bss        start:0x807FF4E0 end:0x807FF5A0
 	.sbss       start:0x808167F0 end:0x808167F4
+
+revolution/EXI/EXIUart.c:
+	.text       start:0x80129E30 end:0x8012A170
+
+revolution/EXI/EXICommon.c:
+	.text       start:0x8012A170 end:0x8012A300
+
+revolution/FS/fs.c:
+	.text       start:0x8012A300 end:0x8012BAD0
+	.sdata      start:0x80813E20 end:0x80813E30
+	.sbss       start:0x80816808 end:0x80816820
+
+revolution/GX/GXInit.c:
+	.text       start:0x8012BAD0 end:0x8012CC60
+
+revolution/GX/GXFifo.c:
+	.text       start:0x8012CC60 end:0x8012D9F0
+
+revolution/GX/GXAttr.c:
+	.text       start:0x8012D9F0 end:0x8012EC74
+	.data       start:0x80719CB0 end:0x80719F08
+	.sdata      start:0x80813E38 end:0x80813E48
+
+revolution/GX/GXMisc.c:
+	.text       start:0x8012EC80 end:0x8012F600
+
+revolution/GX/GXGeometry.c:
+	.text       start:0x8012F600 end:0x8012FC30
+
+revolution/GX/GXFrameBuf.c:
+	.text       start:0x8012FC30 end:0x80130740
+
+revolution/GX/GXLight.c:
+	.text       start:0x80130740 end:0x80130EE4
+	.sdata2     start:0x80819548 end:0x80819580
+
+revolution/GX/GXTexture.c:
+	.text       start:0x80130EF0 end:0x80132160
+
+revolution/IPC/ipcclt.c:
+	.text       start:0x801349B0 end:0x801363A0
+	.bss        start:0x80800600 end:0x80800650
+	.sdata      start:0x80813E90 end:0x80813E98
+	.sbss       start:0x80816898 end:0x808168A8
 
 revolution/MTX/mtx.c:
 	.text       start:0x8013CB20 end:0x8013D930
@@ -164,6 +281,10 @@ revolution/OS/OSTime.c:
 	.text       start:0x8014D5B0 end:0x8014DC80
 	.data       start:0x8071C3F0 end:0x8071C450
 
+revolution/OS/__start.c:
+	.init       start:0x800062C0 end:0x800065B8
+	.sbss       start:0x80816A20 end:0x80816A28
+
 revolution/SC/scsystem.c:
 	.text       start:0x80151060 end:0x801529F0
 	.data       start:0x807288B0 end:0x80728A90
@@ -189,8 +310,37 @@ revolution/WPAD/WPAD.c:
 	.bss        start:0x8080C960 end:0x808100C0
 	.sdata2     start:0x808197C8 end:0x808197D0
 
+revolution/WPAD/WPADHIDParser.c:
+	.text       start:0x80161F84 end:0x80166218
+
+revolution/ESP/ESP.c:
+	.text       start:0x801674E0 end:0x80167E60
+
+homebuttonLib/HBMFrameController.cpp:
+	.text       start:0x80167E60 end:0x80168010
+	.rodata     start:0x80692058 end:0x8069205C
+	.data       start:0x8072BC60 end:0x8072BC88
+
+homebuttonLib/HBMAnmController.cpp:
+	.text       start:0x80168010 end:0x80168120
+	.data       start:0x8072BC88 end:0x8072BCD0
+
+homebuttonLib/HBMGUIManager.cpp:
+	.text       start:0x80168120 end:0x80169940
+
+homebuttonLib/HBMController.cpp:
+	.text       start:0x80169940 end:0x8016A290
+	.bss        start:0x80810130 end:0x808102C8
+
+Pack/RPKernel/RPSysSystem.cpp:
+	.text       start:0x801D7914 end:0x801D8B24
+	.ctors      start:0x80688DA4 end:0x80688DA8
+
 main.cpp:
 	.text       start:0x801D8B24 end:0x801D8B58
 
-revolution/OS/__start.c:
-	.init       start:0x800062C0 end:0x800065C0
+Pack/RPSystem/RPSysRenderMode.cpp:
+	.text       start:0x801DA5BC end:0x801DA674
+
+Pack/RPSystem/RPSysSceneMgr.cpp:
+	.text       start:0x801DA674 end:0x801DB144

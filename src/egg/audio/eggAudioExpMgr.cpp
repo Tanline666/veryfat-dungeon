@@ -60,8 +60,6 @@ void ExpAudioMgr::initialize(Arg* pArg) {
 
     if (mHeap.IsValid()) {
         bool ret = initializeFx(&mHeap, static_cast<ExpAudioMgrArg*>(pArg));
-#line 189
-        EGG_ASSERT(ret);
 
         mHeap.SaveState();
     }

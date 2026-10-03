@@ -3,11 +3,11 @@
 #include <types.h>
 
 // Public API
-#include <revolution/WUD/WUD.h>
-
 #include <revolution/BTE.h>
 #include <revolution/OS.h>
 #include <revolution/SC.h>
+#include <revolution/WUD/WUD.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -158,11 +158,9 @@ typedef struct WUDCB {
     WUDDevInfoList* smpListTail;                       // at 0x18
     WUDDevInfoList smpList[WUD_MAX_DEV_ENTRY_FOR_SMP]; // at 0x1C
 
-#if defined(VERSION_RSPE01_01)
     WUDDevInfoList* stdListHead;                       // at 0x64
     WUDDevInfoList* stdListTail;                       // at 0x68
     WUDDevInfoList stdList[WUD_MAX_DEV_ENTRY_FOR_STD]; // at 0x6C
-#endif
 
     WUDDevInfo stdDevs[WUD_MAX_DEV_ENTRY_FOR_STD]; // at 0xE4
     WUDDevInfo smpDevs[WUD_MAX_DEV_ENTRY_FOR_SMP]; // at 0x4A4

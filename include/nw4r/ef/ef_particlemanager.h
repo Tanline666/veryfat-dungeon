@@ -5,7 +5,6 @@
 #include <nw4r/ef/ef_activitylist.h>
 #include <nw4r/ef/ef_referencedobject.h>
 #include <nw4r/ef/ef_res_emitter.h>
-
 #include <nw4r/math.h>
 #include <nw4r/ut.h>
 
@@ -25,6 +24,7 @@ public:
     enum Flag {
         FLAG_MTX_INHERIT_SCALE = (1 << 0),
         FLAG_MTX_INHERIT_ROT = (1 << 1),
+        FLAG_MTX_INHERIT_PIVOT = (1 << 2),
     };
 
     struct ParticleModifier {

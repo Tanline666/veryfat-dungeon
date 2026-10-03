@@ -2784,8 +2784,9 @@ Range: Minimum 12000 (12 secs) on BR/EDR when supporting PBF.
 #endif
 
 #ifndef HFP_RPT_PEER_INFO_INCLUDED
-#define HFP_RPT_PEER_INFO_INCLUDED TRUE /* Reporting of peer features enabled  \
-                                         */
+#define HFP_RPT_PEER_INFO_INCLUDED                                             \
+    TRUE /* Reporting of peer features enabled                                 \
+          */
 #endif
 
 /******************************************************************************

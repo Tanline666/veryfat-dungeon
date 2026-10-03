@@ -887,8 +887,15 @@ s32 ISFS_OpenAsync(const char* path, IPCOpenMode mode, FSAsyncCallback callback,
 }
 
 s32 ISFS_GetFileStats(s32 fd, FSFileStats* statsOut) {
+    FSCommandBlock* block;
+
     if (statsOut == NULL || (u32)statsOut % 32 != 0) {
         return IPC_RESULT_INVALID;
+    }
+
+    block = iosAllocAligned(hId, sizeof(FSCommandBlock), 32);
+    if (block == 0) {
+        return IPC_RESULT_ALLOC_FAILED;
     }
 
     return IOS_Ioctl(fd, FS_IOCTL_GET_FILE_STATS, NULL, 0, statsOut,
@@ -910,7 +917,7 @@ s32 ISFS_GetFileStatsAsync(s32 fd, FSFileStats* statsOut,
 
     block->callback = callback;
     block->callbackArg = callbackArg;
-    block->callbackState = CB_STATE_NONE;
+    block->callbackState = CB_STATE_GET_FILE_STATS;
 
     return IOS_IoctlAsync(fd, FS_IOCTL_GET_FILE_STATS, NULL, 0, statsOut,
                           sizeof(FSFileStats), _isfsFuncCb, block);

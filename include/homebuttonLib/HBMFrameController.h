@@ -1,6 +1,6 @@
 #ifndef HOME_BUTTON_MINI_LIB_FRAME_CONTROLLER_H
 #define HOME_BUTTON_MINI_LIB_FRAME_CONTROLLER_H
-#include <homebuttonMiniLib/HBMTypes.h>
+#include <homebuttonLib/HBMTypes.h>
 
 namespace homebutton {
 

@@ -23,8 +23,6 @@ public:
     }
 
     void initialize3D(TAudioSound3DMgrArg* arg) {
-#line 63
-        EGG_ASSERT(arg);
 
         for (int i = 0; i < N; i++) {
             mSound3DManagers[i].SetMaxPriorityReduction(arg->maxPrioReduction);
@@ -56,9 +54,6 @@ public:
             return;
         }
 
-#line 92
-        EGG_ASSERT(heap);
-
         for (int i = 0; i < N; i++) {
             u32 heapSize = mSound3DManagers[i].GetRequiredMemSize(archive);
             void* pHeapBuffer = heap->Alloc(heapSize, NULL, NULL);
@@ -79,17 +74,11 @@ public:
     }
 
     void setListenerMatrix(s32 cam_num, const nw4r::math::MTX34& rMtx) {
-#line 107
-        EGG_ASSERT(cam_num<mCameraCount);
 
         mSound3DListeners[cam_num].SetMatrix(rMtx);
     }
 
     void setCameraCount(s32 cam_count) {
-#line 116
-        EGG_ASSERT(0<cam_count);
-        EGG_ASSERT(4>=cam_count);
-
         mCameraCount = cam_count;
     }
 

@@ -77,6 +77,20 @@ f32 FrSqrt(register f32 x) {
     return work1;
 }
 
+//! Credits to Keshav Nandan for helping provide a base point!
+//! There is still a regswap, but oh well. Way better than raw assembly
+//! https://github.com/keshavnandan/OpenGL/blob/master/hermite_curve/hermite.cpp
+f32 Hermite(f32 value_1, f32 slope_1, f32 value_2, f32 slope_2, f32 targetPos) {
+    f32 P = targetPos * targetPos;
+    f32 Pt = P - targetPos;
+    f32 b1 = Pt * targetPos - Pt;
+    f32 b2 = Pt * targetPos;
+    f32 a = Pt - 2.0f * b2;
+
+    return value_1 - (a * value_1) + (a * value_2) + (b1 * slope_1) +
+           (b2 * slope_2);
+}
+
 namespace {
 
 ExpSample sExpTbl[] = {

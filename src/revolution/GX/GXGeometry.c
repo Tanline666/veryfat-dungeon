@@ -196,11 +196,10 @@ void GXSetCoPlanar(GXBool coplanar) {
 
     GX_BP_SET_GENMODE_COPLANAR(gxdt->genMode, coplanar);
 
-    // TODO(kiwi) GX_BP_SET_OPCODE doesn't work.
-    // Did they really write this out?
-    reg = 0;
-    reg |= GX_BP_REG_SSMASK << 24;
-    reg |= 0x80000;
+    //! TODO(texline) Whatever is going on here. Macro below is wrong,
+    //! but the right code doesn't match???
+    reg = GX_BP_SU_SIZE_SCALE_MASK_FUNC(GX_BP_GENMODE_COPLANAR_MASK,
+                                        GX_BP_REG_SSMASK);
 
     GX_BP_LOAD_REG(reg);
     GX_BP_LOAD_REG(gxdt->genMode);

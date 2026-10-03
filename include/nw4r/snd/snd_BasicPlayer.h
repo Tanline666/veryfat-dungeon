@@ -3,7 +3,6 @@
 #include <nw4r/types_nw4r.h>
 
 #include <nw4r/snd/snd_Types.h>
-
 #include <nw4r/ut.h>
 
 #include <revolution/WPAD.h>
@@ -11,6 +10,30 @@
 namespace nw4r {
 namespace snd {
 namespace detail {
+
+struct PlayerParamSet {
+    f32 volume;
+    f32 pitch;
+    f32 pan;
+    f32 surroundPan;
+    f32 lpfFreq;
+    f32 biquadValue;
+    u8 biquadType;
+    u8 remoteFilter;
+    int outputLineFlag;
+    f32 mainOutVolume;
+    f32 mainSend;
+    PanMode panMode;
+    PanCurve panCurve;
+    f32 fxSend[AUX_BUS_NUM];
+    f32 remoteOutVolume[WPAD_MAX_CONTROLLERS];
+    VoiceOutParam voiceOutParam[VOICE_OUT_MAX];
+
+    PlayerParamSet() {
+        Init();
+    }
+    void Init();
+};
 
 class BasicPlayer {
 public:
@@ -34,59 +57,59 @@ public:
     }
 
     f32 GetVolume() const {
-        return mVolume;
+        return mPlayerParamSet.volume;
     }
     void SetVolume(f32 volume) {
-        mVolume = volume;
+        mPlayerParamSet.volume = volume;
     }
 
     f32 GetPitch() const {
-        return mPitch;
+        return mPlayerParamSet.pitch;
     }
     void SetPitch(f32 pitch) {
-        mPitch = pitch;
+        mPlayerParamSet.pitch = pitch;
     }
 
     f32 GetPan() const {
-        return mPan;
+        return mPlayerParamSet.pan;
     }
     void SetPan(f32 pan) {
-        mPan = pan;
+        mPlayerParamSet.pan = pan;
     }
 
     f32 GetSurroundPan() const {
-        return mSurroundPan;
+        return mPlayerParamSet.surroundPan;
     }
     void SetSurroundPan(f32 pan) {
-        mSurroundPan = pan;
+        mPlayerParamSet.surroundPan = pan;
     }
 
     f32 GetLpfFreq() const {
-        return mLpfFreq;
+        return mPlayerParamSet.lpfFreq;
     }
     void SetLpfFreq(f32 freq) {
-        mLpfFreq = freq;
+        mPlayerParamSet.lpfFreq = freq;
     }
 
     int GetOutputLine() const {
-        return mOutputLine;
+        return mPlayerParamSet.outputLineFlag;
     }
     void SetOutputLine(int flags) {
-        mOutputLine = flags;
+        mPlayerParamSet.outputLineFlag = flags;
     }
 
     f32 GetMainOutVolume() const {
-        return mMainOutVolume;
+        return mPlayerParamSet.mainOutVolume;
     }
     void SetMainOutVolume(f32 volume) {
-        mMainOutVolume = volume;
+        mPlayerParamSet.mainOutVolume = volume;
     }
 
     f32 GetMainSend() const {
-        return mMainSend;
+        return mPlayerParamSet.mainSend;
     }
     void SetMainSend(f32 send) {
-        mMainSend = send;
+        mPlayerParamSet.mainSend = send;
     }
 
     void SetFxSend(AuxBus bus, f32 send);
@@ -99,46 +122,37 @@ public:
     f32 GetRemoteFxSend(int remote) const;
 
     int GetRemoteFilter() const {
-        return mRemoteFilter;
+        return mPlayerParamSet.remoteFilter;
     }
     void SetRemoteFilter(int filter) {
-        mRemoteFilter = ut::Clamp(filter, 0, REMOTE_FILTER_MAX);
+        mPlayerParamSet.remoteFilter = ut::Clamp(filter, 0, REMOTE_FILTER_MAX);
     }
 
     PanMode GetPanMode() const {
-        return mPanMode;
+        return mPlayerParamSet.panMode;
     }
     void SetPanMode(PanMode mode) {
-        mPanMode = mode;
+        mPlayerParamSet.panMode = mode;
     }
 
     PanCurve GetPanCurve() const {
-        return mPanCurve;
+        return mPlayerParamSet.panCurve;
     }
     void SetPanCurve(PanCurve curve) {
-        mPanCurve = curve;
+        mPlayerParamSet.panCurve = curve;
+    }
+
+    const VoiceOutParam& GetVoiceOutParam(int index) const {
+        return mPlayerParamSet.voiceOutParam[index];
+    }
+
+    void SetVoiceOutParam(int index, const VoiceOutParam& param) {
+        mPlayerParamSet.voiceOutParam[index] = param;
     }
 
 private:
-    u32 mId; // at 0x4
-
-    f32 mVolume;      // at 0x8
-    f32 mPitch;       // at 0xC
-    f32 mPan;         // at 0x10
-    f32 mSurroundPan; // at 0x14
-    f32 mLpfFreq;     // at 0x18
-    char UNK_0x1C[0x4];
-
-    int mOutputLine;                            // at 0x20
-    f32 mMainOutVolume;                         // at 0x24
-    f32 mMainSend;                              // at 0x28
-    f32 mFxSend[AUX_BUS_NUM];                   // at 0x2C
-    f32 mRemoteOutVolume[WPAD_MAX_CONTROLLERS]; // at 0x38
-    f32 mRemoteSend[WPAD_MAX_CONTROLLERS];      // at 0x48
-    f32 mRemoteFxSend[WPAD_MAX_CONTROLLERS];    // at 0x58
-    u8 mRemoteFilter;                           // at 0x68
-    PanMode mPanMode;                           // at 0x6C
-    PanCurve mPanCurve;                         // at 0x70
+    PlayerParamSet mPlayerParamSet; // at 0x4
+    u32 mId;                        // at 0xB0
 };
 
 } // namespace detail

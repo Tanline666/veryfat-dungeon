@@ -11,7 +11,7 @@
 #ifndef BTE_COMMON_H
 #define BTE_COMMON_H
 
-#include <revolution/BTE/bta/include/bta_api.h>
+#include "bta_api.h"
 
 void BTE_InitSys(void);
 void BTE_BringUpStack(void);

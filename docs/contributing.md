@@ -23,8 +23,3 @@ To keep things clean, all headers will be kept in the `include` folder, while al
     „¥„Ÿ„Ÿ runtime: CodeWarrior compiler runtime
     „¤„Ÿ„Ÿ RVLFaceLib: Revolution Face Library (RFL)
 ```
-
-## Code Contributions
-Due to the very early state of the project, code contributions are not recommended, especially for game logic. Work will instead focus on splitting, naming symbols, 
-
-## Documentation

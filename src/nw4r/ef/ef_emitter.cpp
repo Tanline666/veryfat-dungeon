@@ -596,10 +596,13 @@ void Emitter::Emission(ParticleManager* pManager, const math::MTX34* pSpace) {
 
         if (mParameter.mEmitFlags & EmitterDesc::EMIT_FLAG_8) {
             EffectSystem* pSystem = mManagerEF->mManagerES;
+            math::VEC3 emitPos;
+            math::VEC3Transform(&emitPos, CalcGlobalMtx(NULL),
+                                &mParameter.mTranslate);
 
             // clang-format off
             f32 ratio = GetLODratio(
-                mParameter.mTranslate,
+                emitPos,
                 pSystem->mProcessCameraPos,
                 pSystem->mProcessCameraFar,
                 pSystem->mProcessCameraNear,
@@ -706,131 +709,17 @@ void Emitter::CalcEmitter() {
             continue;
         }
 
-        if (pTrackAsHeader->magic != NW4R_EF_MAGIC_ANIMCURVE) {
-            continue;
-        }
+        if (*pEmitTrack == 0xAC || *pEmitTrack == 0xAB) {
+            const u8 kind = pTrackAsHeader->kindType;
 
-        // Load curveFlag and kindEnable
-        u16 ctrl = *reinterpret_cast<u16*>(&pTrackAsHeader->curveFlag);
-        u8 kind = pTrackAsHeader->kindType;
-
-        switch (ctrl) {
-        case (AC_TYPE_PARTICLE_U8 << 8 | 0b001):
-        case (AC_TYPE_PARTICLE_U8 << 8 | 0b111): {
-            continue;
-        }
-
-        case (AC_TYPE_PARTICLE_F32 << 8 | 0b001): {
-            f32* pTarget;
-
-            switch (kind) {
-            case AC_TARGET_EMIT_SPEED_ORIG: {
-                pTarget = &mParameter.mVelPowerRadiationDir;
-                break;
-            }
-
-            case AC_TARGET_EMIT_SPEED_YAXIS: {
-                pTarget = &mParameter.mVelPowerYAxis;
-                break;
-            }
-
-            case AC_TARGET_EMIT_SPEED_RANDOM: {
-                pTarget = &mParameter.mVelPowerRandomDir;
-                break;
-            }
-
-            case AC_TARGET_EMIT_EMISSION: {
-                pTarget = &mParameter.mEmitRatio;
-                break;
-            }
-
-            default: {
-                continue;
-            }
-            }
-
-            AnimCurveExecuteF32(pEmitTrack, pTarget, animTime, mRandSeed,
-                                animSpan);
-            continue;
-        }
-
-        case (AC_TYPE_PARTICLE_F32 << 8 | 0b011): {
-            switch (kind) {
-            case AC_TARGET_EMIT_SPEED_NORMAL: {
-                AnimCurveExecuteF32(pEmitTrack, &mParameter.mVelPowerNormalDir,
-                                    animTime, mRandSeed, animSpan);
-            }
-
-            default: {
-                continue;
-            }
-            }
-        }
-
-        case (AC_TYPE_PARTICLE_F32 << 8 | 0b111): {
-            f32* pTarget;
-
-            switch (kind) {
-            case AC_TARGET_EMIT_SCALE: {
-                pTarget = reinterpret_cast<f32*>(&mParameter.mScale);
-                break;
-            }
-
-            case AC_TARGET_EMIT_ROTATE: {
-                pTarget = reinterpret_cast<f32*>(&mParameter.mRotate);
-                break;
-            }
-
-            case AC_TARGET_EMIT_TRANSLATE: {
-                pTarget = reinterpret_cast<f32*>(&mParameter.mTranslate);
-                break;
-            }
-
-            default: {
-                continue;
-            }
-            }
-
+            f32* pTarget = reinterpret_cast<f32*>(
+                reinterpret_cast<u8*>(&mParameter) + kind);
             AnimCurveExecuteF32(pEmitTrack, pTarget, animTime, mRandSeed,
                                 animSpan);
 
-            mtxDirty = true;
-            continue;
-        }
-
-        default: {
-            break;
-        }
-        }
-
-        switch (ctrl & 0xFF00) {
-        case (AC_TYPE_PARTICLE_F32 << 8): {
-            f32* pTarget;
-
-            switch (kind) {
-            case AC_TARGET_EMIT_SPEED_SPECDIR: {
-                pTarget = &mParameter.mVelPowerSpecDir;
-                break;
+            if (kind >= 112) {
+                mtxDirty = TRUE;
             }
-
-            case AC_TARGET_EMIT_COMMONPARAM: {
-                pTarget = mParameter.mParams;
-                break;
-            }
-
-            default: {
-                continue;
-            }
-            }
-
-            AnimCurveExecuteF32(pEmitTrack, pTarget, animTime, mRandSeed,
-                                animSpan);
-            continue;
-        }
-
-        default: {
-            break;
-        }
         }
 
 #undef pTrackAsHeader
@@ -957,8 +846,8 @@ void Emitter::CalcBillboard() {
 }
 
 math::MTX34* Emitter::RestructMatrix(math::MTX34* pResult, math::MTX34* pOrig,
-                                     bool inheritS, bool inheritR,
-                                     s8 inheritT) {
+                                     bool inheritS, bool inheritR, s8 inheritT,
+                                     bool movePivot) {
 
     if (inheritS && inheritR && inheritT == 100) {
         *pResult = *pOrig;
@@ -971,27 +860,44 @@ math::MTX34* Emitter::RestructMatrix(math::MTX34* pResult, math::MTX34* pOrig,
     }
 
     math::MTX34Identity(pResult);
+    math::VEC3 trans;
+    MtxGetTranslate(*pOrig, &trans);
 
-    if (inheritT != 0) {
-        math::VEC3 trans;
-        MtxGetTranslate(*pOrig, &trans);
-
-        math::VEC3Scale(&trans, &trans, static_cast<f32>(inheritT) / 100.0f);
+    if (inheritT == 100) {
         math::MTX34Trans(pResult, pResult, &trans);
+    } else {
+        if (inheritT != 0) {
+            math::VEC3 scaleVec;
+            math::VEC3Scale(&scaleVec, &trans,
+                            static_cast<f32>(inheritT) / 100.0f);
+            math::MTX34Trans(pResult, pResult, &scaleVec);
+        }
     }
 
-    if (inheritR) {
-        math::MTX34 rot;
-        MtxGetRotationMtx(*pOrig, &rot);
+    if (inheritR || inheritS) {
+        if (movePivot && inheritT != 100) {
+            math::MTX34Trans(pResult, pResult, &trans);
+        }
 
-        math::MTX34Mult(pResult, pResult, &rot);
-    }
+        if (inheritR) {
+            math::MTX34 rot;
+            MtxGetRotationMtx(*pOrig, &rot);
 
-    if (inheritS) {
-        math::VEC3 scale;
-        MtxGetScale(*pOrig, &scale);
+            math::MTX34Mult(pResult, pResult, &rot);
+        }
 
-        math::MTX34Scale(pResult, pResult, &scale);
+        if (inheritS) {
+            math::VEC3 scale;
+            MtxGetScale(*pOrig, &scale);
+
+            math::MTX34Scale(pResult, pResult, &scale);
+        }
+
+        if (movePivot && inheritT != 100) {
+            math::VEC3 scaleVec;
+            math::VEC3Scale(&scaleVec, &trans, -1);
+            math::MTX34Trans(pResult, pResult, &scaleVec);
+        }
     }
 
     return pResult;
@@ -1011,7 +917,8 @@ math::MTX34* Emitter::CalcGlobalMtx(math::MTX34* pResult) {
                 &mMtx, &orig,
                 mParameter.mInherit & EmitterParameter::INHERIT_FLAG_SCALE,
                 mParameter.mInherit & EmitterParameter::INHERIT_FLAG_ROT,
-                mParameter.mInheritTranslate);
+                mParameter.mInheritTranslate,
+                mParameter.mInherit & EmitterParameter::INHERIT_FLAG_PIVOT);
         }
 
         math::MTX34Trans(&mMtx, &mMtx, &mParameter.mTranslate);

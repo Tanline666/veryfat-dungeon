@@ -143,6 +143,8 @@ inline f32 FGetMantPart(f32 x) {
     return U32AsF32((u & 0x807FFFFF) | 0x3F800000);
 }
 
+f32 Hermite(f32 value_1, f32 slope_1, f32 value_2, f32 slope_2, f32 targetPos);
+
 } // namespace math
 } // namespace nw4r
 

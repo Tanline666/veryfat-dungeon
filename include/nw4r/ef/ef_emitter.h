@@ -41,7 +41,8 @@ class EmitterParameter {
 public:
     enum InheritFlag {
         INHERIT_FLAG_SCALE = (1 << 0),
-        INHERIT_FLAG_ROT = (1 << 1)
+        INHERIT_FLAG_ROT = (1 << 1),
+        INHERIT_FLAG_PIVOT = (1 << 2),
     };
 
 public:
@@ -154,7 +155,7 @@ public:
 
     static math::MTX34* RestructMatrix(math::MTX34* pResult, math::MTX34* pOrig,
                                        bool inheritS, bool inheritR,
-                                       s8 inheritT);
+                                       s8 inheritT, bool movePivot);
 
     bool GetFlagDisableCalc() const {
         return mParameter.mComFlags & EmitterDesc::CMN_FLAG_DISABLE_CALC;

@@ -1489,6 +1489,7 @@ tBTM_STATUS BTM_RegisterForVSEvents (tBTM_VS_EVT_CB *p_cb, BOOLEAN is_register)
         }
         else if (btm_cb.devcb.p_vend_spec_cb[i] == p_cb)
         {
+#ifndef REVOLUTION
             /* Found callback in lookup table. If deregistering, clear the entry. */
             if (is_register == FALSE)
             {
@@ -1515,6 +1516,7 @@ tBTM_STATUS BTM_RegisterForVSEvents (tBTM_VS_EVT_CB *p_cb, BOOLEAN is_register)
             retval = BTM_NO_RESOURCES;
         }
     }
+#endif
 
     return (retval);
 }

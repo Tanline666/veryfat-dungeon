@@ -423,7 +423,9 @@ GKI_API extern void   *GKI_getpoolbuf (UINT8);
 GKI_API extern UINT16  GKI_poolcount (UINT8);
 #endif
 GKI_API extern UINT16  GKI_poolfreecount (UINT8);
+#ifndef REVOLUTION
 GKI_API extern UINT16  GKI_poolutilization (UINT8);
+#endif
 GKI_API extern void    GKI_register_mempool (void *p_mem);
 GKI_API extern UINT8   GKI_set_pool_permission(UINT8, UINT8);
 

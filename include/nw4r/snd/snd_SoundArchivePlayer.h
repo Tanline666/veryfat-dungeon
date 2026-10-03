@@ -55,16 +55,16 @@ public:
     virtual void InvalidateWaveData(const void* pStart,
                                     const void* pEnd); // at 0x10
 
+protected:
     virtual StartResult
-    detail_SetupSound(SoundHandle* pHandle, u32 id,
-                      detail::BasicSound::AmbientArgInfo* pArgInfo,
-                      detail::ExternalSoundPlayer* pPlayer, bool hold,
+    detail_SetupSound(SoundHandle* pHandle, u32 id, bool hold,
                       const StartInfo* pStartInfo); // at 0x28
 
     virtual u32 detail_ConvertLabelStringToSoundId(const char* pLabel) {
         return mSoundArchive->ConvertLabelStringToSoundId(pLabel);
     } // at 0x2C
 
+public:
     bool IsAvailable() const;
 
     bool Setup(const SoundArchive* pArchive, void* pMramBuffer,

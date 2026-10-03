@@ -53,7 +53,7 @@ IncludeCategories:
     Priority: 3
     CaseSensitive: true
 
-  - Regex: '(<|")homebuttonMiniLib(\/)?' # HBM headers
+  - Regex: '(<|")homebuttonLib(\/)?' # HBM headers
     Priority: 4
     CaseSensitive: true
 

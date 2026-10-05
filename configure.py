@@ -339,6 +339,16 @@ cflags_libnw4r_ef = [
     "-i include/nw4r",
 ]
 
+# NW4R 3D graphics library flags
+cflags_libnw4r_g3d = [
+    *cflags_base,
+    *cflags_pedantic,
+    "-enc SJIS",
+    "-fp_contract off",
+    "-ipa file",
+    "-i include/nw4r",
+]
+
 # NW4R layout library flags
 cflags_libnw4r_lyt = [
     *cflags_base,
@@ -477,6 +487,20 @@ config.libs = [
             Object(Matching, "nw4r/ef/ef_handle.cpp"),
             Object(NonMatching, "nw4r/ef/ef_emitterform.cpp"),
             Object(NonMatching, "nw4r/ef/ef_creationqueue.cpp"),
+        ],
+    },
+    {
+        "lib": "libnw4r_g3d",
+        "mw_version": config.linker_version,
+        "cflags": cflags_libnw4r_g3d,
+        "progress_category": "nw4r",
+        "objects": [
+            Object(Matching, "nw4r/g3d/res/g3d_restev.cpp"),
+            Object(Matching, "nw4r/g3d/platform/g3d_gpu.cpp"),
+            Object(Matching, "nw4r/g3d/platform/g3d_tmem.cpp"),
+            Object(Matching, "nw4r/g3d/platform/g3d_cpu.cpp"),
+            Object(NonMatching, "nw4r/g3d/g3d_state.cpp"),
+            Object(Matching, "nw4r/g3d/g3d_fog.cpp"),
         ],
     },
     {

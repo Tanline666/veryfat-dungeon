@@ -61,6 +61,38 @@ nw4r/ef/ef_emitterform.cpp:
 nw4r/ef/ef_creationqueue.cpp:
 	.text       start:0x8001D3E0 end:0x8001D830
 
+nw4r/g3d/res/g3d_restev.cpp:
+	.text       start:0x80035C20 end:0x80035DD8
+	.rodata     start:0x8068A6D8 end:0x8068A738
+
+nw4r/g3d/platform/g3d_gpu.cpp:
+	.text       start:0x80045D70 end:0x80046290
+	.sdata2     start:0x80817FC0 end:0x80817FD8
+
+nw4r/g3d/platform/g3d_tmem.cpp:
+	.text       start:0x80046290 end:0x800465F0
+	.rodata     start:0x8068A9A0 end:0x8068B120
+	.bss        start:0x80771728 end:0x80771B68
+	.sbss       start:0x808160F0 end:0x80816100
+
+nw4r/g3d/platform/g3d_cpu.cpp:
+	.text       start:0x800465F0 end:0x8004679C
+	.sdata2     start:0x80817FD8 end:0x80817FDC
+
+nw4r/g3d/g3d_state.cpp:
+	.text       start:0x800467A0 end:0x80049F70
+	.ctors      start:0x80688CD8 end:0x80688CDC
+	.rodata     start:0x8068B120 end:0x8068B150
+	.data       start:0x80709170 end:0x80709188
+	.bss        start:0x80771B80 end:0x80777124
+	.sdata      start:0x80813B88 end:0x80813B90
+	.sbss       start:0x80816100 end:0x80816120
+	.sdata2     start:0x80817FE0 end:0x80818008
+
+nw4r/g3d/g3d_fog.cpp:
+	.text       start:0x8005C500 end:0x8005C670
+	.sdata2     start:0x808180F0 end:0x808180F4
+
 nw4r/lyt/lyt_material.cpp:
 	.text       start:0x80064300 end:0x80067210
 	.sdata2     start:0x80818188 end:0x808181B0

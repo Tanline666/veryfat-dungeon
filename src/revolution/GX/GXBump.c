@@ -183,6 +183,15 @@ void GXSetTevDirect(GXTevStageID stage) {
                      GX_ITW_OFF, GX_ITW_OFF, FALSE, FALSE, GX_ITBA_OFF);
 }
 
+void GXSetTevIndWarp(GXTevStageID tevStage, GXIndTexStageID indStage,
+                     GXBool offset, GXBool replace, GXIndTexMtxID mtx) {
+    GXIndTexWrap wrap = (replace) ? GX_ITW_0 : GX_ITW_OFF;
+
+    GXSetTevIndirect(tevStage, indStage, GX_ITF_8,
+                     (offset) ? GX_ITB_STU : GX_ITB_NONE, mtx, wrap, wrap,
+                     FALSE, FALSE, GX_ITBA_OFF);
+}
+
 void __GXUpdateBPMask(void) {}
 
 void __GXSetIndirectMask(u32 mask) {

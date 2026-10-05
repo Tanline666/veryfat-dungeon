@@ -497,10 +497,8 @@ void SoundArchivePlayer::SetGroupWaveDataAddress(u32 id, const void* pAddr) {
 }
 
 SoundStartable::StartResult
-SoundArchivePlayer::detail_SetupSound(SoundHandle* pHandle, u32 id,
-                                      detail::BasicSound::AmbientInfo* pArgInfo,
-                                      detail::ExternalSoundPlayer* pExtPlayer,
-                                      bool hold, const StartInfo* pStartInfo) {
+SoundArchivePlayer::detail_SetupSound(SoundHandle* pHandle, u32 id, bool hold,
+                                      const StartInfo* pStartInfo) {
 
     if (!IsAvailable()) {
         return SoundStartable::START_ERR_NOT_AVAILABLE;
@@ -544,7 +542,11 @@ SoundArchivePlayer::detail_SetupSound(SoundHandle* pHandle, u32 id,
     int playerPriorityStart = hold ? playerPriority - 1 : playerPriority;
 
     SoundPlayer& rPlayer = GetSoundPlayer(playerId);
+
     detail::BasicSound* pSound = NULL;
+    detail::SeqSound* pSeqSound = NULL;
+    detail::StrmSound* pStrmSound = NULL;
+    detail::WaveSound* pWaveSound = NULL;
 
     switch (mSoundArchive->GetSoundType(id)) {
     case SoundArchive::SOUND_TYPE_SEQ: {
@@ -552,16 +554,6 @@ SoundArchivePlayer::detail_SetupSound(SoundHandle* pHandle, u32 id,
         if (!mSoundArchive->detail_ReadSeqSoundInfo(id, &seqInfo)) {
             return SoundStartable::START_ERR_INVALID_SOUNDID;
         }
-
-        detail::SeqSound* pSeqSound = rPlayer.detail_AllocSeqSound(
-            playerPriority, playerPriorityStart, pArgInfo, pExtPlayer, id,
-            &mSeqSoundInstanceManager);
-
-        if (pSeqSound == NULL) {
-            return SoundStartable::START_ERR_LOW_PRIORITY;
-        }
-
-        pSeqSound->SetId(id);
 
         SoundStartable::StartResult result = PrepareSeqImpl(
             pSeqSound, &sndInfo, &seqInfo, startType, startOffset, 1);
@@ -575,21 +567,11 @@ SoundArchivePlayer::detail_SetupSound(SoundHandle* pHandle, u32 id,
         break;
     }
 
-    case SOUND_TYPE_STRM: {
+    case SoundArchive::SOUND_TYPE_STRM: {
         SoundArchive::StrmSoundInfo strmInfo;
         if (!mSoundArchive->detail_ReadStrmSoundInfo(id, &strmInfo)) {
             return SoundStartable::START_ERR_INVALID_SOUNDID;
         }
-
-        detail::StrmSound* pStrmSound = rPlayer.detail_AllocStrmSound(
-            playerPriority, playerPriorityStart, pArgInfo, pExtPlayer, id,
-            &mStrmSoundInstanceManager);
-
-        if (pStrmSound == NULL) {
-            return SoundStartable::START_ERR_LOW_PRIORITY;
-        }
-
-        pStrmSound->SetId(id);
 
         SoundStartable::StartResult result = PrepareStrmImpl(
             pStrmSound, &sndInfo, &strmInfo, startType, startOffset, 1);
@@ -603,21 +585,11 @@ SoundArchivePlayer::detail_SetupSound(SoundHandle* pHandle, u32 id,
         break;
     }
 
-    case SOUND_TYPE_WAVE: {
+    case SoundArchive::SOUND_TYPE_WAVE: {
         SoundArchive::WaveSoundInfo waveInfo;
         if (!mSoundArchive->detail_ReadWaveSoundInfo(id, &waveInfo)) {
             return SoundStartable::START_ERR_INVALID_SOUNDID;
         }
-
-        detail::WaveSound* pWaveSound = rPlayer.detail_AllocWaveSound(
-            playerPriority, playerPriorityStart, pArgInfo, pExtPlayer, id,
-            &mWaveSoundInstanceManager);
-
-        if (pWaveSound == NULL) {
-            return SoundStartable::START_ERR_LOW_PRIORITY;
-        }
-
-        pWaveSound->SetId(id);
 
         SoundStartable::StartResult result = PrepareWaveSoundImpl(
             pWaveSound, &sndInfo, &waveInfo, startType, startOffset, 1);

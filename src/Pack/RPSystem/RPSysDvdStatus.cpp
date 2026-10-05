@@ -13,7 +13,7 @@ RP_SINGLETON_IMPL_EX(RPSysDvdStatus);
  * @brief Game disc name
  */
 
-const char *RPSysDvdStatus::GAME_DISK_NAME = "Wii Fit Plus";
+const char* RPSysDvdStatus::GAME_DISK_NAME = "Wii Fit Plus";
 
 /**
  * @brief English error message language
@@ -130,7 +130,7 @@ const char* RPSysDvdStatus::LANGUAGE_JPN[ERROR_MESSAGE_STRING_NUM]
  * @typo
  */
 bool RPSysDvdStatus::isErrorOccured() const {
-  return mErrorStatus > EErrorStatus_Busy;
+    return mErrorStatus > EErrorStatus_Busy;
 }
 
 /**
@@ -138,124 +138,123 @@ bool RPSysDvdStatus::isErrorOccured() const {
  * @return Whether the disc drive status is OK
  */
 bool RPSysDvdStatus::update() {
-  s32 status = DVDGetDriveStatus();
+    s32 status = DVDGetDriveStatus();
 
-  if (status == DVD_STATE_FATAL) {
-    mErrorStatus = EErrorStatus_Fatal;
-  } else if (status == DVD_STATE_DISK_ERROR) {
-    mErrorStatus = EErrorStatus_DiskError;
-  } else if (status == DVD_STATE_NO_DISK) {
-    mErrorStatus = EErrorStatus_NoOrWrongDisk;
-  } else if (status == DVD_STATE_WRONG_DISK_ID) {
-    mErrorStatus = EErrorStatus_NoOrWrongDisk;
-  } else if (status == DVD_STATE_BUSY) {
-    mErrorStatus = EErrorStatus_Busy;
-  } else {
-    mErrorStatus = EErrorStatus_Success;
-  }
-
-  if (isErrorOccured()) {
-    RPSysCoreController::stopMotorAll();
-#if defined(VERSION_RSPE01_01)
-    RP_GET_INSTANCE(RPSysHomeMenuMgr)->update();
-#endif
-
-    if (RP_GET_INSTANCE(RPSysSceneMgr)->isDvdErrorApplicationEnd()) {
-      RP_GET_INSTANCE(RPSysSystem)->systemShutDown();
+    if (status == DVD_STATE_FATAL) {
+        mErrorStatus = EErrorStatus_Fatal;
+    } else if (status == DVD_STATE_DISK_ERROR) {
+        mErrorStatus = EErrorStatus_DiskError;
+    } else if (status == DVD_STATE_NO_DISK) {
+        mErrorStatus = EErrorStatus_NoOrWrongDisk;
+    } else if (status == DVD_STATE_WRONG_DISK_ID) {
+        mErrorStatus = EErrorStatus_NoOrWrongDisk;
+    } else if (status == DVD_STATE_BUSY) {
+        mErrorStatus = EErrorStatus_Busy;
+    } else {
+        mErrorStatus = EErrorStatus_Success;
     }
 
-    return false;
-  }
+    if (isErrorOccured()) {
+        RPSysCoreController::stopMotorAll();
 
-  return true;
+        RP_GET_INSTANCE(RPSysHomeMenuMgr)->update();
+
+        if (RP_GET_INSTANCE(RPSysSceneMgr)->isDvdErrorApplicationEnd()) {
+            RP_GET_INSTANCE(RPSysSystem)->systemShutDown();
+        }
+
+        return false;
+    }
+
+    return true;
 }
 
 /**
  * @brief Displays the disc drive error message
  */
 void RPSysDvdStatus::draw() {
-  if (!isErrorOccured()) {
-    return;
-  }
-
-  VISetBlack(FALSE);
-  mpErrorFader->draw();
-
-  if (mErrorStatus < ERROR_MESSAGE_KIND_NUM) {
-    RP_GET_INSTANCE(RPSysTextWriter)->SetupGX();
-
-    // Always pass the Z test (draw over everything)
-    GXSetZMode(GX_FALSE, GX_ALWAYS, GX_FALSE);
-
-    RP_GET_INSTANCE(RPSysTextWriter)
-        ->SetDrawFlag(RPSysTextWriter::DRAWFLAG_ALIGN_H_CENTER |
-                      RPSysTextWriter::DRAWFLAG_ALIGN_V_CENTER);
-
-    RP_GET_INSTANCE(RPSysTextWriter)->SetScale(1.0f, 1.0f);
-    RP_GET_INSTANCE(RPSysTextWriter)->SetTextColor(nw4r::ut::Color::WHITE);
-    RP_GET_INSTANCE(RPSysTextWriter)->SetCursor(320.0f, 228.0f);
-
-    const char **pLanguage = NULL;
-
-    switch (RP_GET_INSTANCE(RPSysProjectLocal)->getLocale()) {
-    case RPSysProjectLocal::EArea_England: {
-      pLanguage = LANGUAGE_ENG[mErrorStatus];
-      break;
+    if (!isErrorOccured()) {
+        return;
     }
 
-    case RPSysProjectLocal::EArea_France: {
-      pLanguage = LANGUAGE_FRA[mErrorStatus];
-      break;
+    VISetBlack(FALSE);
+    mpErrorFader->draw();
+
+    if (mErrorStatus < ERROR_MESSAGE_KIND_NUM) {
+        RP_GET_INSTANCE(RPSysTextWriter)->SetupGX();
+
+        // Always pass the Z test (draw over everything)
+        GXSetZMode(GX_FALSE, GX_ALWAYS, GX_FALSE);
+
+        RP_GET_INSTANCE(RPSysTextWriter)
+            ->SetDrawFlag(RPSysTextWriter::DRAWFLAG_ALIGN_H_CENTER |
+                          RPSysTextWriter::DRAWFLAG_ALIGN_V_CENTER);
+
+        RP_GET_INSTANCE(RPSysTextWriter)->SetScale(1.0f, 1.0f);
+        RP_GET_INSTANCE(RPSysTextWriter)->SetTextColor(nw4r::ut::Color::WHITE);
+        RP_GET_INSTANCE(RPSysTextWriter)->SetCursor(320.0f, 228.0f);
+
+        const char** pLanguage = NULL;
+
+        switch (RP_GET_INSTANCE(RPSysProjectLocal)->getLocale()) {
+        case RPSysProjectLocal::EArea_England: {
+            pLanguage = LANGUAGE_ENG[mErrorStatus];
+            break;
+        }
+
+        case RPSysProjectLocal::EArea_France: {
+            pLanguage = LANGUAGE_FRA[mErrorStatus];
+            break;
+        }
+
+        case RPSysProjectLocal::EArea_Germany: {
+            pLanguage = LANGUAGE_GER[mErrorStatus];
+            break;
+        }
+
+        case RPSysProjectLocal::EArea_Italy: {
+            pLanguage = LANGUAGE_ITA[mErrorStatus];
+            break;
+        }
+
+        case RPSysProjectLocal::EArea_Spain: {
+            pLanguage = LANGUAGE_SPA[mErrorStatus];
+            break;
+        }
+
+        case RPSysProjectLocal::EArea_Netherlands: {
+            pLanguage = LANGUAGE_ENG[mErrorStatus];
+            break;
+        }
+
+        case RPSysProjectLocal::EArea_Japan: {
+            pLanguage = LANGUAGE_JPN[mErrorStatus];
+            break;
+        }
+
+        case RPSysProjectLocal::EArea_USA: {
+            pLanguage = LANGUAGE_ENG[mErrorStatus];
+            break;
+        }
+
+        default: {
+            break;
+        }
+        }
+
+        std::strcpy(mpErrorMessage, pLanguage[0]);
+
+        // @bug Same comparison twice
+        if (mErrorStatus == EErrorStatus_NoOrWrongDisk ||
+            mErrorStatus == EErrorStatus_NoOrWrongDisk) {
+
+            std::strcat(mpErrorMessage, GAME_DISK_NAME);
+            std::strcat(mpErrorMessage, pLanguage[1]);
+        }
+
+        RP_GET_INSTANCE(RPSysTextWriter)
+            ->Print(mpErrorMessage, std::strlen(mpErrorMessage));
     }
-
-    case RPSysProjectLocal::EArea_Germany: {
-      pLanguage = LANGUAGE_GER[mErrorStatus];
-      break;
-    }
-
-    case RPSysProjectLocal::EArea_Italy: {
-      pLanguage = LANGUAGE_ITA[mErrorStatus];
-      break;
-    }
-
-    case RPSysProjectLocal::EArea_Spain: {
-      pLanguage = LANGUAGE_SPA[mErrorStatus];
-      break;
-    }
-
-    case RPSysProjectLocal::EArea_Netherlands: {
-      pLanguage = LANGUAGE_ENG[mErrorStatus];
-      break;
-    }
-
-    case RPSysProjectLocal::EArea_Japan: {
-      pLanguage = LANGUAGE_JPN[mErrorStatus];
-      break;
-    }
-
-    case RPSysProjectLocal::EArea_USA: {
-      pLanguage = LANGUAGE_ENG[mErrorStatus];
-      break;
-    }
-
-    default: {
-      break;
-    }
-    }
-
-    std::strcpy(mpErrorMessage, pLanguage[0]);
-
-    // @bug Same comparison twice
-    if (mErrorStatus == EErrorStatus_NoOrWrongDisk ||
-        mErrorStatus == EErrorStatus_NoOrWrongDisk) {
-
-      std::strcat(mpErrorMessage, GAME_DISK_NAME);
-      std::strcat(mpErrorMessage, pLanguage[1]);
-    }
-
-    RP_GET_INSTANCE(RPSysTextWriter)
-        ->Print(mpErrorMessage, std::strlen(mpErrorMessage));
-  }
 }
 
 /**
@@ -263,13 +262,13 @@ void RPSysDvdStatus::draw() {
  *
  * @param pHeap Parent heap
  */
-RPSysDvdStatus::RPSysDvdStatus(EGG::Heap *pHeap)
+RPSysDvdStatus::RPSysDvdStatus(EGG::Heap* pHeap)
     : mpParentHeap(pHeap), mErrorStatus(EErrorStatus_Success) {
 
-  mpErrorMessage = new (pHeap) char[MESSAGE_BUFFER_SIZE];
+    mpErrorMessage = new (pHeap) char[MESSAGE_BUFFER_SIZE];
 
-  mpErrorFader = new (pHeap) EGG::ColorFader(0.0f, 0.0f, 640.0f, 456.0f);
-  mpErrorFader->setStatus(EGG::ColorFader::STATUS_PREPARE_IN);
+    mpErrorFader = new (pHeap) EGG::ColorFader(0.0f, 0.0f, 640.0f, 456.0f);
+    mpErrorFader->setStatus(EGG::ColorFader::STATUS_PREPARE_IN);
 }
 
 /**

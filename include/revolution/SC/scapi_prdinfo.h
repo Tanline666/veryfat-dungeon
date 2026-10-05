@@ -22,9 +22,20 @@ typedef enum {
     SC_AREA_CHN,
 } SCProductArea;
 
+typedef enum {
+    SC_REGION_JP,
+    SC_REGION_US,
+    SC_REGION_EU,
+    SC_REGION_ALL,
+    SC_REGION_KR,
+    SC_REGION_CN,
+    SC_REGION_UNK = -1
+} SCProductGameRegion;
+
 BOOL __SCF1(const char* type, char* buf, u32 sz);
 BOOL SCGetProductAreaString(char* buf, u32 sz);
 s8 SCGetProductArea(void);
+s8 SCGetProductGameRegion();
 
 #ifdef __cplusplus
 }

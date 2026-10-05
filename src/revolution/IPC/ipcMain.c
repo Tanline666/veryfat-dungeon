@@ -17,6 +17,11 @@ void IPCInit(void) {
     }
 }
 
+void IPCReInit(void) {
+    Initialized = FALSE;
+    IPCInit();
+}
+
 u32 IPCReadReg(s32 index) {
     return IPC_PPC_HW_REGS[index];
 }

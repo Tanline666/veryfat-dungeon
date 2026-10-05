@@ -107,9 +107,7 @@ u8* DvdRipper::loadToMainRAM(DvdFile* pFile, u8* pBuffer, Heap* pHeap,
     return pBuffer;
 }
 
-#if defined(VERSION_RSPE01_01)
 DECOMP_FORCEACTIVE(eggDvdRipper_cpp,
                   "read Header Failed\n");
-#endif
 
 } // namespace EGG

@@ -23,21 +23,18 @@ SceneManager::SceneManager(SceneCreator* pSceneCreator) {
     mRootHeapType = ROOT_HEAP_TYPE_MEM2;
 
     createDefaultFader();
-#line 60
     EGG_ASSERT(mCurrentFader);
 }
 
 SceneManager::~SceneManager() {}
 
 bool SceneManager::fadeIn() {
-#line 77
     EGG_ASSERT(mCurrentFader);
 
     return mCurrentFader->fadeIn();
 }
 
 bool SceneManager::fadeOut() {
-#line 87
     EGG_ASSERT(mCurrentFader);
 
     return mCurrentFader->fadeOut();
@@ -132,15 +129,11 @@ void SceneManager::createScene(s32 id, Scene* pParent) {
     if (pParent != NULL) {
         pParentHeap_Mem1 = pParent->getHeap_Mem1();
         pParentHeap_Mem2 = pParent->getHeap_Mem2();
-#if defined(VERSION_RSPE01_01)
         pParentHeap_Debug = pParent->getHeap_Debug();
-#endif
     } else {
         pParentHeap_Mem1 = BaseSystem::getRootHeapMem1();
         pParentHeap_Mem2 = BaseSystem::getRootHeapMem2();
-#if defined(VERSION_RSPE01_01)
         pParentHeap_Debug = BaseSystem::getRootHeapDebug();
-#endif
     }
 
     Heap* pParentHeap = mRootHeapType == ROOT_HEAP_TYPE_MEM1 ? pParentHeap_Mem1
@@ -177,7 +170,6 @@ void SceneManager::createScene(s32 id, Scene* pParent) {
     sHeapMem2_ForCreateScene = pNewHeap_Mem2;
     sHeapDebug_ForCreateScene = pNewHeap_Debug;
 
-#line 299
     EGG_ASSERT(pNewHeap && pNewHeap_Mem1 && pNewHeap_Mem2);
 
     if (locked) {
@@ -186,7 +178,6 @@ void SceneManager::createScene(s32 id, Scene* pParent) {
 
     pNewHeap->becomeCurrentHeap();
 
-#line 311
     EGG_ASSERT(mSceneCreator);
     Scene* pNewScene = mSceneCreator->create(id);
     EGG_ASSERT(pNewScene);
@@ -216,7 +207,6 @@ bool SceneManager::createChildSceneAfterFadeOut(s32 id, Scene* pParent) {
     bool success = false;
 
     if (isStoppingAfterFade()) {
-#line 360
         EGG_ASSERT(pParent);
 
         if (fadeOut()) {
@@ -284,7 +274,6 @@ bool SceneManager::destroyToSelectSceneIDAfterFadeOut(s32 id) {
 }
 
 void SceneManager::destroyScene(Scene* pScene) {
-#line 490
     EGG_ASSERT(pScene);
 
     pScene->exit();
@@ -299,7 +288,6 @@ void SceneManager::destroyScene(Scene* pScene) {
 
     Scene* pParent = pScene->getParentScene();
 
-#line 509
     EGG_ASSERT(mSceneCreator);
     mSceneCreator->destroy(pScene->getSceneID());
     mCurrentScene = NULL;
@@ -309,13 +297,10 @@ void SceneManager::destroyScene(Scene* pScene) {
         mCurrentScene = pParent;
     }
 
-#if defined(VERSION_RSPE01_01)
     if (pScene->getHeap_Debug() != NULL) {
-#line 523
         EGG_ASSERT(pScene->getHeap() != pScene->getHeap_Debug());
         pScene->getHeap_Debug()->destroy();
     }
-#endif
 
     if (pScene->getHeap_Mem1() == pScene->getHeap()) {
         pScene->getHeap_Mem2()->destroy();
@@ -324,7 +309,6 @@ void SceneManager::destroyScene(Scene* pScene) {
         pScene->getHeap_Mem1()->destroy();
         pScene->getHeap_Mem2()->destroy();
     } else {
-#line 538
         EGG_ASSERT(0);
     }
 
@@ -337,7 +321,6 @@ void SceneManager::destroyScene(Scene* pScene) {
                           : BaseSystem::getRootHeapMem2();
     }
 
-#line 551
     EGG_ASSERT(pParentHeap != NULL);
     pParentHeap->becomeCurrentHeap();
 }
@@ -425,10 +408,8 @@ void SceneManager::setupNextSceneID() {
 }
 
 void SceneManager::outgoingParentScene(Scene* pParent) {
-#line 701
     EGG_ASSERT(pParent);
 
-#line 704
     EGG_ASSERT(pParent->getChildScene() == NULL);
 
     pParent->outgoing_childCreate();

@@ -211,10 +211,8 @@ void Stream::write_float(f32 value) {
     }
 }
 
-#if defined(VERSION_RSPE01_01)
 DECOMP_FORCEACTIVE(eggStream_cpp_1,
                   "%s");
-#endif
 
 void Stream::writeString(char* pStr) {
     int len = std::strlen(pStr);

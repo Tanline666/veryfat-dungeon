@@ -1,5 +1,6 @@
 #include <revolution/GX.h>
 #include <revolution/OS.h>
+
 #include <string.h>
 
 static GXFifoObj DisplayListFifo;
@@ -26,6 +27,7 @@ void GXBeginDisplayList(void* list, u32 size) {
 
     gxdt->dlistActive = TRUE;
 
+    GXFlush();
     GXGetCPUFifo(&OldCPUFifo);
     GXSetCPUFifo(&DisplayListFifo);
     GXResetWriteGatherPipe();
@@ -35,6 +37,8 @@ u32 GXEndDisplayList(void) {
     u8 wrap;
     BOOL enabled;
     u32 ctrl;
+
+    GXFlush();
 
     GXGetCPUFifo(&DisplayListFifo);
     wrap = GXGetFifoWrap(&DisplayListFifo);

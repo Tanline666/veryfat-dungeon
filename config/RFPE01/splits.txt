@@ -65,6 +65,9 @@ nw4r/g3d/res/g3d_restev.cpp:
 	.text       start:0x80035C20 end:0x80035DD8
 	.rodata     start:0x8068A6D8 end:0x8068A738
 
+nw4r/g3d/res/g3d_resmat.cpp:
+	.text       start:0x80035DE0 end:0x800380CC
+
 nw4r/g3d/platform/g3d_gpu.cpp:
 	.text       start:0x80045D70 end:0x80046290
 	.sdata2     start:0x80817FC0 end:0x80817FD8
@@ -120,6 +123,9 @@ nw4r/snd/snd_BasicSound.cpp:
 	.data       start:0x8070A340 end:0x8070A378
 	.sbss       start:0x80816188 end:0x8081618C
 	.sdata2     start:0x808182E8 end:0x808182F8
+
+nw4r/snd/snd_SoundArchivePlayer.cpp:
+	.text       start:0x80083990 end:0x80086400
 
 nw4r/snd/snd_SoundHandle.cpp:
 	.text       start:0x80086450 end:0x800864F0
@@ -178,6 +184,15 @@ egg/core/eggHeap.cpp:
 	.bss        start:0x807AA300 end:0x807AA328
 	.sbss       start:0x80816368 end:0x80816374
 
+egg/core/eggAllocator.cpp:
+	.text       start:0x800BB464 end:0x800BB4FC
+	.data       start:0x8070B730 end:0x8070B744
+
+egg/core/eggGraphicsFifo.cpp:
+	.text       start:0x800BC254 end:0x800BC398
+	.data       start:0x8070B778 end:0x8070B784
+	.sbss       start:0x80816388 end:0x80816398
+
 egg/core/eggVideo.cpp:
 	.text       start:0x800C1320 end:0x800C1658
 	.rodata     start:0x80690370 end:0x806905CC
@@ -185,6 +200,16 @@ egg/core/eggVideo.cpp:
 
 egg/core/eggXfb.cpp:
 	.text       start:0x800C1658 end:0x800C16F4
+
+egg/core/eggDvdFile.cpp:
+	.text       start:0x800C1C0C end:0x800C1FCC
+	.data       start:0x8070B8C0 end:0x8070B8E8
+	.bss        start:0x807AB3C8 end:0x807AB3D4
+	.sbss       start:0x808163C0 end:0x808163C8
+
+egg/core/eggScene.cpp:
+	.text       start:0x800C1FCC end:0x800C2054
+	.data       start:0x8070B8E8 end:0x8070B910
 
 egg/core/eggProcessMeter.cpp:
 	.text       start:0x800C2054 end:0x800C2E3C
@@ -211,14 +236,14 @@ revolution/BASE/PPCArch.c:
 	.data       start:0x80711FC0 end:0x80711FF8
 
 revolution/BTE/gki/common/gki_buffer.c:
-	.text       start:0x800F0870 end:0x800F1D10
+	.text       start:0x800F0870 end:0x800F1D08
 	.data       start:0x80711FF8 end:0x80712140
 
 revolution/BTE/gki/common/gki_time.c:
 	.text       start:0x800F1D10 end:0x800F22A0
 
 revolution/BTE/rvl/gki_ppc.c:
-	.text       start:0x800F22A0 end:0x800F25B0
+	.text       start:0x800F22A0 end:0x800F25A4
 	.bss        start:0x807C57E0 end:0x807EE2C0
 
 revolution/BTE/stack/btm/btm_devctl.c:
@@ -319,6 +344,32 @@ revolution/GX/GXLight.c:
 
 revolution/GX/GXTexture.c:
 	.text       start:0x80130EF0 end:0x80132160
+
+revolution/GX/GXBump.c:
+	.text       start:0x80132160 end:0x80132614
+	.sdata2     start:0x808195B8 end:0x808195BC
+
+revolution/GX/GXTev.c:
+	.text       start:0x80132620 end:0x80132CF0
+
+revolution/GX/GXPixel.c:
+	.text       start:0x80132CF0 end:0x80133470
+	.data       start:0x8071A2D8 end:0x8071A2F8
+
+revolution/GX/GXDisplayList.c:
+	.text       start:0x80133840 end:0x80133A24
+	.bss        start:0x807FFEF0 end:0x808005F0
+
+revolution/GX/GXTransform.c:
+	.text       start:0x80133A30 end:0x80134088
+	.sdata2     start:0x80819630 end:0x80819644
+
+revolution/GX/GXPerf.c:
+	.text       start:0x80134090 end:0x801348C0
+
+revolution/IPC/ipcMain.c:
+	.text       start:0x801348C0 end:0x801349A8
+	.sbss       start:0x80816880 end:0x80816894
 
 revolution/IPC/ipcclt.c:
 	.text       start:0x801349B0 end:0x801363A0
@@ -542,6 +593,7 @@ RVLFaceLib/RFL_DataUtility.c:
 	extab       start:0x80006B60 end:0x80006B88
 	extabindex  start:0x80007218 end:0x80007254
 	.text       start:0x801953B0 end:0x80195C74
+	.rodata     start:0x806941F8 end:0x80694208
 
 RVLFaceLib/RFL_Format.c:
 	extab       start:0x80006B88 end:0x80006B90
@@ -551,6 +603,7 @@ RVLFaceLib/RFL_Format.c:
 Pack/RPKernel/RPSysSystem.cpp:
 	.text       start:0x801D7914 end:0x801D8B24
 	.ctors      start:0x80688DA4 end:0x80688DA8
+	.data       start:0x8073FD2C end:0x8073FD70
 
 main.cpp:
 	.text       start:0x801D8B24 end:0x801D8B58

@@ -1,5 +1,6 @@
 #include <revolution/OS.h>
 #include <revolution/SC.h>
+
 #include <string.h>
 
 #define XOR_KEY 0x73B5DBFA
@@ -91,4 +92,28 @@ s8 SCGetProductArea(void) {
     }
 
     return -1;
+}
+
+typedef struct {
+    s8 game;
+    char string[3];
+} SCProductGameRegionAndString;
+
+static SCProductGameRegionAndString ProductGameRegionAndStringTbl[] = {
+    SC_REGION_JP, "JP", SC_REGION_US, "US", SC_REGION_EU, "EU",
+    SC_REGION_KR, "KR", SC_REGION_CN, "CN", SC_REGION_UNK};
+
+s8 SCGetProductGameRegion(void) {
+    char buf[3];
+    SCProductGameRegionAndString* pTbl = ProductGameRegionAndStringTbl;
+
+    if (__SCF1("GAME", buf, sizeof(buf))) {
+        while (pTbl->game != SC_REGION_UNK) {
+            if (!strcmp(pTbl->string, buf)) {
+                return pTbl->game;
+            }
+            pTbl++;
+        }
+    }
+    return SC_REGION_UNK;
 }

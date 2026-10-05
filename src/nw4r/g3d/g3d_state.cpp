@@ -560,8 +560,6 @@ public:
     }
 
     void LoadResTexObj(const ResTexObj texObj) {
-        //! TODO(texline) The code itself is different? Instruction swap
-        //! appears regardless of compiler setting
         for (u32 i = 0; i < GX_MAX_TEXMAP; ++i) {
             if (!texObj.IsValidTexObj(static_cast<GXTexMapID>(i))) {
                 continue;
@@ -1683,9 +1681,7 @@ void LoadResTexSrt(const ResTexSrt srt) {
             bool ident = true;
             const TexMtxEffect& rEffect = srt.ref().effect[i];
 
-#if defined(VERSION_RSPE01_01)
             math::MTX34Identity(&mtx);
-#endif
 
             if (rEffect.map_mode != 0) {
                 sScnDependentTexMtxFuncTable.Calc(rEffect.map_mode, &mtx,
@@ -1940,7 +1936,7 @@ void Invalidate(u32 flag) {
     }
 
     if (flag & INVALIDATE_TEXMTX) {
-        // @bug Missing PreTexMtxState::Invalidate
+        sPreTexMtxState.Invalidate();
         sPostTexMtx.Invalidate();
     }
 
@@ -1983,7 +1979,8 @@ void IndMtxOpStd::SetNrmMapMtx(GXIndTexMtxID id, const math::VEC3* pLightVec,
                                const math::MTX34* pNrmMtx,
                                ResMatMiscData::IndirectMethod method) {
 
-    if (id >= GX_ITM_0 && id <= GX_ITM_2 && method != ResMatMiscData::WARP) {
+    if (id >= GX_ITM_0 && id <= GX_ITM_2 && method != ResMatMiscData::WARP &&
+        method != ResMatMiscData::FUR) {
         u32 i = id - GX_ITM_0;
         mIsValidMtx[i] = true;
 

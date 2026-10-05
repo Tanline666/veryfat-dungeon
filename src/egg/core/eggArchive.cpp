@@ -113,14 +113,4 @@ void* Archive::getFile(const char* pPath, FileInfo* pInfo) {
     return pStartAddr;
 }
 
-DECOMP_FORCEACTIVE(eggArchive_cpp,
-                  "not mount this archive",
-                  "openResult",
-                  "param",
-                  "/",
-                  "(totalArray - 1) >= *numFiles_p",
-                  "RestSizePathBuf >= NextDirNameLength",
-                  "file",
-                  "fileInfo");
-
 } // namespace EGG

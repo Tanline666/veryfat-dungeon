@@ -193,6 +193,12 @@ egg/core/eggGraphicsFifo.cpp:
 	.data       start:0x8070B778 end:0x8070B784
 	.sbss       start:0x80816388 end:0x80816398
 
+egg/core/eggSceneManager.cpp:
+	.text       start:0x800BC8D8 end:0x800BD4E8
+	.data       start:0x8070B7B0 end:0x8070B7D4
+	.sbss       start:0x80816398 end:0x808163A8
+	.sdata2     start:0x80818C68 end:0x80818C74
+
 egg/core/eggVideo.cpp:
 	.text       start:0x800C1320 end:0x800C1658
 	.rodata     start:0x80690370 end:0x806905CC
@@ -213,13 +219,46 @@ egg/core/eggScene.cpp:
 
 egg/core/eggProcessMeter.cpp:
 	.text       start:0x800C2054 end:0x800C2E3C
+	.data       start:0x8070B910 end:0x8070B9A8
+	.sdata2     start:0x80818CB8 end:0x80818CEC
+
+egg/core/eggDisposer.cpp:
+	.text       start:0x800C2E3C end:0x800C2F04
+	.data       start:0x8070B9A8 end:0x8070B9B4
+
+egg/core/eggArchive.cpp:
+	.text       start:0x800C2F04 end:0x800C3184
+	.data       start:0x8070B9B8 end:0x8070B9C4
+	.bss        start:0x807AB3D8 end:0x807AB3E4
+	.sbss       start:0x808163C8 end:0x808163D0
+
+egg/core/eggDecomp.cpp:
+	.text       start:0x800C3184 end:0x800C448C
+	.sbss       start:0x808163D0 end:0x808163F8
+
+egg/core/eggAsyncDisplay.cpp:
+	.text       start:0x800C448C end:0x800C4C78
+	.data       start:0x8070B9E0 end:0x8070BA40
+	.bss        start:0x807AB3E8 end:0x807AB408
 
 egg/core/eggCntFile.cpp:
 	.text       start:0x800C4C78 end:0x800C4F90
+	.data       start:0x8070BA40 end:0x8070BA60
 	.bss        start:0x807AB408 end:0x807AB414
+
+egg/audio/eggAudioArcPlayerMgr.cpp:
+	.text       start:0x800C4F90 end:0x800C5CEC
 
 egg/audio/eggAudioExpMgr.cpp:
 	.text       start:0x800C5D2C end:0x800C6408
+
+egg/audio/eggAudioMgr.cpp:
+	.text       start:0x800C88D8 end:0x800C8C4C
+
+egg/audio/eggAudioSystem.cpp:
+	.text       start:0x800C8C4C end:0x800C8DA0
+	.sbss       start:0x80816408 end:0x8081640C
+	.sdata2     start:0x80818D38 end:0x80818D48
 
 runtime/__init_cpp_exceptions.cpp:
 	.text       start:0x800CA118 end:0x800CA188
@@ -230,6 +269,11 @@ runtime/__init_cpp_exceptions.cpp:
 
 revolution/WUD/WUD.c:
 	.text       start:0x800DF110 end:0x800E55C0
+
+revolution/ARC/arc.c:
+	.text       start:0x800E61A0 end:0x800E6B88
+	.data       start:0x8070E020 end:0x8070E090
+	.sdata      start:0x80813D00 end:0x80813D08
 
 revolution/BASE/PPCArch.c:
 	.text       start:0x800F0650 end:0x800F0870

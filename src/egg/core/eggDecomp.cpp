@@ -13,10 +13,6 @@ int Decomp::sNextNodeID[cTreeMax] = {};
 int Decomp::sStreamByte[cTreeMax] = {};
 u32 Decomp::sStreamData[cTreeMax] = {};
 
-DECOMP_FORCEACTIVE(eggDecomp_cpp,
-                  "eggDecomp.cpp",
-                  "!sWorkArea");
-
 int Decomp::decode(u8* pSrc, u8* pDst) {
     switch (checkCompressed(pSrc)) {
     case cCompress_SZS: {

@@ -49,7 +49,6 @@ bool CntFile::open(const char* pPath, CNTHandle* pHandle) {
         if (result == CNT_RESULT_OK) {
             mIsOpen = true;
 
-#line 109
             EGG_ASSERT(sIsInitialized);
 
             nw4r::ut::List_Append(&sCntList, this);

@@ -20,9 +20,14 @@ nw4r/db/db_console.cpp:
 nw4r/db/db_exception.cpp:
 	.text       start:0x80008820 end:0x800098E0
 
+nw4r/ef/ef_draworder.cpp:
+	.text       start:0x8000C050 end:0x8000C170
+	.data       start:0x807083A8 end:0x807083BC
+
 nw4r/ef/ef_effect.cpp:
 	.text       start:0x8000C170 end:0x8000CD70
 	.data       start:0x807083C0 end:0x80708428
+	.sdata2     start:0x808179A0 end:0x808179A4
 
 nw4r/ef/ef_effectsystem.cpp:
 	.text       start:0x8000CD70 end:0x8000D840
@@ -52,6 +57,19 @@ nw4r/ef/ef_handle.cpp:
 nw4r/ef/ef_emitterform.cpp:
 	.text       start:0x8001CE40 end:0x8001D3E0
 	.sdata2     start:0x80817B30 end:0x80817B60
+
+nw4r/ef/ef_creationqueue.cpp:
+	.text       start:0x8001D3E0 end:0x8001D830
+
+nw4r/lyt/lyt_material.cpp:
+	.text       start:0x80064300 end:0x80067210
+	.sdata2     start:0x80818188 end:0x808181B0
+	.sbss2      start:0x80823800 end:0x80823808
+
+nw4r/lyt/lyt_animation.cpp:
+	.text       start:0x80067680 end:0x80068C40
+	.data       start:0x80709898 end:0x807098C0
+	.sdata2     start:0x808181D0 end:0x808181F0
 
 nw4r/math/math_arithmetic.cpp:
 	.text       start:0x80069F90 end:0x8006A140

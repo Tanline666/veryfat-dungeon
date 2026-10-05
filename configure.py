@@ -339,6 +339,16 @@ cflags_libnw4r_ef = [
     "-i include/nw4r",
 ]
 
+# NW4R layout library flags
+cflags_libnw4r_lyt = [
+    *cflags_base,
+    *cflags_pedantic,
+    "-enc SJIS",
+    "-fp_contract off",
+    "-ipa file",
+    "-i include/nw4r",
+]
+
 # NW4R math library flags
 cflags_libnw4r_math = [
     *cflags_base,
@@ -458,6 +468,7 @@ config.libs = [
         "cflags": cflags_libnw4r_ef,
         "progress_category": "nw4r",
         "objects": [
+            Object(Matching, "nw4r/ef/ef_draworder.cpp"),
             Object(NonMatching, "nw4r/ef/ef_effect.cpp"),
             Object(NonMatching, "nw4r/ef/ef_effectsystem.cpp"),
             Object(NonMatching, "nw4r/ef/ef_emitter.cpp"),
@@ -465,6 +476,17 @@ config.libs = [
             Object(NonMatching, "nw4r/ef/ef_resource.cpp"),
             Object(Matching, "nw4r/ef/ef_handle.cpp"),
             Object(NonMatching, "nw4r/ef/ef_emitterform.cpp"),
+            Object(NonMatching, "nw4r/ef/ef_creationqueue.cpp"),
+        ],
+    },
+    {
+        "lib": "libnw4r_lyt",
+        "mw_version": config.linker_version,
+        "cflags": cflags_libnw4r_lyt,
+        "progress_category": "nw4r",
+        "objects": [
+            Object(NonMatching, "nw4r/lyt/lyt_material.cpp"),
+            Object(NonMatching, "nw4r/lyt/lyt_animation.cpp"),
         ],
     },
     {

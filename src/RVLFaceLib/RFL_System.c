@@ -9,7 +9,7 @@
 #define RFL_DELUXE_WORK_SIZE 0x64000
 
 const char* __RFLVersion =
-    "<< RVL_SDK - RFL \trelease build: Jun  9 2007 17:25:33 (0x4199_60831) >>";
+    "<< RVL_SDK - RFL \trelease build: Nov 10 2008 11:04:14 (0x4199_60831) >>";
 
 static const RFLiCoordinateData scCoordinate = {1, 2, 0, FALSE, FALSE, FALSE};
 

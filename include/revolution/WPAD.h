@@ -9,6 +9,7 @@ extern "C" {
 #endif
 
 #include <revolution/WPAD/WPAD.h>
+#include <revolution/WPAD/WPADBalance.h>
 #include <revolution/WPAD/WPADInternal.h>
 #include <revolution/WPAD/debug_msg.h>
 

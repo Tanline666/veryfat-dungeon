@@ -359,6 +359,16 @@ cflags_libnw4r_snd = [
     "-i include/nw4r",
 ]
 
+# NW4R utility library flags
+cflags_libnw4r_ut = [
+    *cflags_base,
+    *cflags_pedantic,
+    "-enc SJIS",
+    "-fp_contract off",
+    "-ipa file",
+    "-i include/nw4r",
+]
+
 # EGG flags
 cflags_egg = [
     *cflags_base,
@@ -375,6 +385,15 @@ cflags_rvl = [
     *cflags_base,
     "-enc SJIS",
     "-fp_contract off",
+    "-ipa file",
+]
+
+# RVLFaceLib flags
+cflags_rfl = [
+    *cflags_base,
+    "-enc SJIS",
+    "-fp_contract off",
+    "-Cpp_exceptions on",
     "-ipa file",
 ]
 
@@ -470,11 +489,34 @@ config.libs = [
         ],
     },
     {
+        "lib": "libnw4r_ut",
+        "mw_version": config.linker_version,
+        "cflags": cflags_libnw4r_ut,
+        "progress_category": "nw4r",
+        "objects": [
+            Object(NonMatching, "nw4r/ut/ut_list.cpp"),
+            Object(Matching, "nw4r/ut/ut_LinkList.cpp"),
+            Object(Matching, "nw4r/ut/ut_binaryFileFormat.cpp"),
+            Object(Matching, "nw4r/ut/ut_CharStrmReader.cpp"),
+            Object(Matching, "nw4r/ut/ut_TagProcessorBase.cpp"),
+            Object(NonMatching, "nw4r/ut/ut_IOStream.cpp"),
+            Object(Matching, "nw4r/ut/ut_FileStream.cpp"),
+            Object(NonMatching, "nw4r/ut/ut_DvdFileStream.cpp"),
+            Object(NonMatching, "nw4r/ut/ut_DvdLockedFileStream.cpp"),
+        ],
+    },
+    {
         "lib": "egg",
         "mw_version": config.linker_version,
         "cflags": cflags_egg,
         "progress_category": "egg",
         "objects": [
+            Object(NonMatching, "egg/core/eggFrmHeap.cpp"),
+            Object(Equivalent, "egg/core/eggHeap.cpp"),
+            Object(NonMatching, "egg/core/eggVideo.cpp"),
+            Object(NonMatching, "egg/core/eggXfb.cpp"),
+            Object(NonMatching, "egg/core/eggProcessMeter.cpp"),
+            Object(NonMatching, "egg/core/eggCntFile.cpp"),
             Object(NonMatching, "egg/audio/eggAudioExpMgr.cpp"),
         ],
     },
@@ -514,11 +556,15 @@ config.libs = [
             Object(NonMatching, "revolution/GX/GXInit.c"),
             Object(Matching, "revolution/GX/GXAttr.c"),
             Object(NonMatching, "revolution/GX/GXMisc.c"),
-            Object(NonMatching, "revolution/GX/GXGeometry.c"),
+            Object(Matching, "revolution/GX/GXGeometry.c"),
             Object(NonMatching, "revolution/GX/GXFrameBuf.c"),
             Object(Matching, "revolution/GX/GXLight.c"),
             Object(NonMatching, "revolution/GX/GXTexture.c"),
             Object(NonMatching, "revolution/IPC/ipcclt.c"),
+            Object(NonMatching, "revolution/KPAD/kpad.c"),
+            Object(NonMatching, "revolution/MEM/mem_expHeap.c"),
+            Object(Matching, "revolution/MEM/mem_frameHeap.c"),
+            Object(Matching, "revolution/MEM/mem_allocator.c"),
             Object(NonMatching, "revolution/MTX/mtx.c"),
             Object(NonMatching, "revolution/NAND/NANDOpenClose.c"),
             Object(NonMatching, "revolution/NAND/NANDCore.c"),
@@ -543,6 +589,7 @@ config.libs = [
             Object(
                 NonMatching, "revolution/WPAD/WPADHIDParser.c", mw_version="GC/3.0a5.2"
             ),
+            Object(NonMatching, "revolution/WBC/wbc.c"),
             Object(Matching, "revolution/OS/__start.c"),
         ],
     },
@@ -556,6 +603,27 @@ config.libs = [
             Object(Matching, "homebuttonLib/HBMAnmController.cpp"),
             Object(NonMatching, "homebuttonLib/HBMGUIManager.cpp"),
             Object(NonMatching, "homebuttonLib/HBMController.cpp"),
+        ],
+    },
+    {
+        "lib": "RVLFaceLib",
+        "mw_version": "GC/3.0a5.2",
+        "cflags": cflags_rfl,
+        "progress_category": "rfl",
+        "objects": [
+            Object(NonMatching, "RVLFaceLib/RFL_System.c"),
+            Object(Matching, "RVLFaceLib/RFL_NANDLoader.c"),
+            Object(NonMatching, "RVLFaceLib/RFL_NANDAccess.c"),
+            Object(NonMatching, "RVLFaceLib/RFL_Model.c"),
+            Object(NonMatching, "RVLFaceLib/RFL_MakeTex.c"),
+            Object(NonMatching, "RVLFaceLib/RFL_Icon.c"),
+            Object(NonMatching, "RVLFaceLib/RFL_HiddenDatabase.c"),
+            Object(NonMatching, "RVLFaceLib/RFL_Database.c"),
+            Object(NonMatching, "RVLFaceLib/RFL_Controller.c"),
+            Object(NonMatching, "RVLFaceLib/RFL_MiddleDatabase.c"),
+            Object(Matching, "RVLFaceLib/RFL_MakeRandomFace.c"),
+            Object(NonMatching, "RVLFaceLib/RFL_DataUtility.c"),
+            Object(Matching, "RVLFaceLib/RFL_Format.c"),
         ],
     },
     {
@@ -606,6 +674,7 @@ config.progress_categories = [
     ProgressCategory("egg", "EGG"),
     ProgressCategory("sdk", "RVL SDK"),
     ProgressCategory("hbm", "homeButtonLib"),
+    ProgressCategory("rfl", "RVLFaceLib"),
     ProgressCategory("kernel", "RPKernel"),
     ProgressCategory("system", "RPSystem"),
 ]

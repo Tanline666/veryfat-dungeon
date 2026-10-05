@@ -91,6 +91,16 @@ public:
         mPlayerParamSet.lpfFreq = freq;
     }
 
+    int GetBiquadFilterType() const {
+        return mPlayerParamSet.biquadType;
+    }
+
+    f32 GetBiquadFilterValue() const {
+        return mPlayerParamSet.biquadValue;
+    }
+
+    void SetBiquadFilter(int type, f32 value);
+
     int GetOutputLine() const {
         return mPlayerParamSet.outputLineFlag;
     }
@@ -125,7 +135,7 @@ public:
         return mPlayerParamSet.remoteFilter;
     }
     void SetRemoteFilter(int filter) {
-        mPlayerParamSet.remoteFilter = ut::Clamp(filter, 0, REMOTE_FILTER_MAX);
+        mPlayerParamSet.remoteFilter = filter;
     }
 
     PanMode GetPanMode() const {

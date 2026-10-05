@@ -125,8 +125,7 @@ void SoundPlayer::detail_SortPriorityList() {
 }
 
 detail::SeqSound* SoundPlayer::detail_AllocSeqSound(
-    int priority, int startPriority,
-    detail::BasicSound::AmbientArgInfo* pArgInfo,
+    int priority, int startPriority, detail::BasicSound::AmbientInfo* pArgInfo,
     detail::ExternalSoundPlayer* pExtPlayer, u32 id,
     detail::SoundInstanceManager<detail::SeqSound>* pManager) {
 
@@ -171,8 +170,7 @@ detail::SeqSound* SoundPlayer::detail_AllocSeqSound(
 }
 
 detail::StrmSound* SoundPlayer::detail_AllocStrmSound(
-    int priority, int startPriority,
-    detail::BasicSound::AmbientArgInfo* pArgInfo,
+    int priority, int startPriority, detail::BasicSound::AmbientInfo* pArgInfo,
     detail::ExternalSoundPlayer* pExtPlayer, u32 id,
     detail::SoundInstanceManager<detail::StrmSound>* pManager) {
 
@@ -217,8 +215,7 @@ detail::StrmSound* SoundPlayer::detail_AllocStrmSound(
 }
 
 detail::WaveSound* SoundPlayer::detail_AllocWaveSound(
-    int priority, int startPriority,
-    detail::BasicSound::AmbientArgInfo* pArgInfo,
+    int priority, int startPriority, detail::BasicSound::AmbientInfo* pArgInfo,
     detail::ExternalSoundPlayer* pExtPlayer, u32 id,
     detail::SoundInstanceManager<detail::WaveSound>* pManager) {
 
@@ -263,7 +260,7 @@ detail::WaveSound* SoundPlayer::detail_AllocWaveSound(
 }
 
 int SoundPlayer::CalcPriorityReduction(
-    detail::BasicSound::AmbientArgInfo* pArgInfo, u32 id) {
+    detail::BasicSound::AmbientInfo* pArgInfo, u32 id) {
 
     int priority = 0;
 
@@ -282,7 +279,7 @@ int SoundPlayer::CalcPriorityReduction(
 }
 
 void SoundPlayer::InitAmbientArg(detail::BasicSound* pSound,
-                                 detail::BasicSound::AmbientArgInfo* pArgInfo) {
+                                 detail::BasicSound::AmbientInfo* pArgInfo) {
 
     if (pArgInfo == NULL) {
         return;

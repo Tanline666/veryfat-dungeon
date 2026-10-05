@@ -496,10 +496,11 @@ void SoundArchivePlayer::SetGroupWaveDataAddress(u32 id, const void* pAddr) {
     mGroupTable->items[id].waveDataAddress = pAddr;
 }
 
-SoundStartable::StartResult SoundArchivePlayer::detail_SetupSound(
-    SoundHandle* pHandle, u32 id, detail::BasicSound::AmbientArgInfo* pArgInfo,
-    detail::ExternalSoundPlayer* pExtPlayer, bool hold,
-    const StartInfo* pStartInfo) {
+SoundStartable::StartResult
+SoundArchivePlayer::detail_SetupSound(SoundHandle* pHandle, u32 id,
+                                      detail::BasicSound::AmbientInfo* pArgInfo,
+                                      detail::ExternalSoundPlayer* pExtPlayer,
+                                      bool hold, const StartInfo* pStartInfo) {
 
     if (!IsAvailable()) {
         return SoundStartable::START_ERR_NOT_AVAILABLE;
@@ -546,7 +547,7 @@ SoundStartable::StartResult SoundArchivePlayer::detail_SetupSound(
     detail::BasicSound* pSound = NULL;
 
     switch (mSoundArchive->GetSoundType(id)) {
-    case SOUND_TYPE_SEQ: {
+    case SoundArchive::SOUND_TYPE_SEQ: {
         SoundArchive::SeqSoundInfo seqInfo;
         if (!mSoundArchive->detail_ReadSeqSoundInfo(id, &seqInfo)) {
             return SoundStartable::START_ERR_INVALID_SOUNDID;

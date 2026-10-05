@@ -63,27 +63,27 @@ public:
 
     detail::SeqSound* detail_AllocSeqSound(
         int priority, int startPriority,
-        detail::BasicSound::AmbientArgInfo* pArgInfo,
+        detail::BasicSound::AmbientInfo* pArgInfo,
         detail::ExternalSoundPlayer* pExtPlayer, u32 id,
         detail::SoundInstanceManager<detail::SeqSound>* pManager);
 
     detail::StrmSound* detail_AllocStrmSound(
         int priority, int startPriority,
-        detail::BasicSound::AmbientArgInfo* pArgInfo,
+        detail::BasicSound::AmbientInfo* pArgInfo,
         detail::ExternalSoundPlayer* pExtPlayer, u32 id,
         detail::SoundInstanceManager<detail::StrmSound>* pManager);
 
     detail::WaveSound* detail_AllocWaveSound(
         int priority, int startPriority,
-        detail::BasicSound::AmbientArgInfo* pArgInfo,
+        detail::BasicSound::AmbientInfo* pArgInfo,
         detail::ExternalSoundPlayer* pExtPlayer, u32 id,
         detail::SoundInstanceManager<detail::WaveSound>* pManager);
 
-    int CalcPriorityReduction(detail::BasicSound::AmbientArgInfo* pArgInfo,
+    int CalcPriorityReduction(detail::BasicSound::AmbientInfo* pArgInfo,
                               u32 id);
 
     void InitAmbientArg(detail::BasicSound* pSound,
-                        detail::BasicSound::AmbientArgInfo* pArgInfo);
+                        detail::BasicSound::AmbientInfo* pArgInfo);
 
     void SetPlayableSoundCount(int count);
     void detail_SetPlayableSoundLimit(int limit);
@@ -118,6 +118,13 @@ public:
     f32 GetMainSend() const {
         return mMainSend;
     }
+
+    void SetFxSend(AuxBus bus, f32 send);
+    f32 GetFxSend(AuxBus bus) const {
+        return mFxSend[bus];
+    }
+
+    void detail_RemoveSound(detail::BasicSound* sound);
 
 private:
     detail::BasicSound* detail_GetLowestPrioritySound() {

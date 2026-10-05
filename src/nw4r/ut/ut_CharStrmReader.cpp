@@ -5,7 +5,7 @@ namespace ut {
 namespace {
 
 inline bool IsSJISLeadByte(u8 ch) {
-    return (ch >= 0x81 && ch < 0xA0) || ch >= 0xE0;
+    return (0x81 <= ch) && (ch < 0xA0) || ch >= 0xE0;
 }
 
 } // namespace
@@ -40,6 +40,8 @@ u16 CharStrmReader::ReadNextCharCP1252() {
     return ch;
 }
 
+//! TODO(texline): This function compiles incorrectly. Changing the version to
+//! 3.0a5.2 makes it 96%, but this breaks all the other functions in the file
 u16 CharStrmReader::ReadNextCharSJIS() {
     u16 ch;
 

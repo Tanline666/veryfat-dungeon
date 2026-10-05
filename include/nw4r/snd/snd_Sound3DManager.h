@@ -2,56 +2,71 @@
 #define NW4R_SND_SOUND_3D_MANAGER_H
 #include <nw4r/types_nw4r.h>
 
+#include <nw4r/math.h>
 #include <nw4r/snd/snd_BasicSound.h>
 #include <nw4r/snd/snd_InstancePool.h>
+#include <nw4r/snd/snd_Sound3DListener.h>
 #include <nw4r/snd/snd_SoundArchive.h>
-
-#include <nw4r/math.h>
+#include <nw4r/ut.h>
 
 namespace nw4r {
 namespace snd {
 
 // Forward declarations
-class Sound3DListener;
+class Sound3DManager;
 class SoundHandle;
 struct SoundParam;
+
+struct Sound3DParam {
+    math::VEC3 position; // at 0x0
+    math::VEC3 velocity; // at 0xC
+    u32 ctrl;            // at 0x18
+    u8 decayCurve;       // at 0x1C
+    u8 decayRatio;       // at 0x1D
+    u8 dopplerFactor;    // at 0x1E
+    u32 actorUserParam;  // at 0x20
+    u32 soundUserParam;  // at 0x24
+
+    Sound3DParam();
+};
+
+namespace detail {
+class Sound3DEngineInterface {
+public:
+    virtual ~Sound3DEngineInterface() {} // at 0xC
+    virtual void
+    UpdateAmbientParam(const Sound3DManager* pManager,
+                       const Sound3DParam* pActorParam, u32 id,
+                       int voiceOutCount,
+                       SoundAmbientParam* pAmbParam) = 0; // at 0x10
+    virtual int GetAmbientPriority(const Sound3DManager* pManager,
+                                   const Sound3DParam* pParam,
+                                   u32 id) = 0; // at 0x14
+    virtual int GetRequiredVoiceOutCount(const Sound3DManager* pManager,
+                                         const Sound3DParam* pParam,
+                                         u32 id) = 0; // at 0x18
+};
+} // namespace detail
 
 class Sound3DManager : public detail::BasicSound::AmbientParamUpdateCallback,
                        public detail::BasicSound::AmbientArgAllocaterCallback {
 public:
-    struct Sound3DActorParam {
-        u32 userParam;                         // at 0x0
-        SoundArchive::Sound3DParam soundParam; // at 0x4
-        math::VEC3 position;                   // at 0xC
-
-        Sound3DActorParam();
-    };
+    NW4R_UT_LINKLIST_TYPEDEF_DECL(Sound3DListener);
 
 public:
     Sound3DManager();
 
-    virtual void detail_Update(SoundParam* pParam, u32 id,
-                               detail::BasicSound* pSound, const void* pArg,
-                               u32 flags); // at 0x8
-
-    virtual void Update(SoundParam* pParam, u32 id, SoundHandle* pHandle,
-                        const void* pArg,
-                        u32 flags); // at 0x10
-
-    virtual void* detail_AllocAmbientArg(u32 size); // at 0x14
-
-    virtual void
-    detail_FreeAmbientArg(void* pArg,
-                          const detail::BasicSound* pSound); // at 0x18
-
     u32 GetRequiredMemSize(const SoundArchive* pArchive);
     bool Setup(const SoundArchive* pArchive, void* pBuffer, u32 size);
 
-    Sound3DListener* GetListener() const {
-        return mListener;
-    }
     void AddListener(Sound3DListener* pListener) {
-        mListener = pListener;
+        mListenerList.PushBack(pListener);
+    }
+    void RemoveListener(Sound3DListener* pListener) {
+        mListenerList.Erase(pListener);
+    }
+    const Sound3DListenerList& GetListenerList() const {
+        return mListenerList;
     }
 
     int GetMaxPriorityReduction() const {
@@ -73,16 +88,24 @@ private:
     };
 
 private:
-    detail::InstancePool<Sound3DActorParam> mParamPool; // at 0x8
-    Sound3DListener* mListener;                         // at 0xC
-    s32 mMaxPriorityReduction;                          // at 0x10
+    virtual void detail_UpdateAmbientParam(const void* pArg, u32 id,
+                                           int voiceOutCount,
+                                           SoundAmbientParam* pParam);
+    virtual int detail_GetAmbientPriority(const void* pArg, u32 id);
+    virtual int detail_GetRequiredVoiceOutCount(const void* pArg, u32 id);
+    virtual void* detail_AllocAmbientArg(u32 size);
+    virtual void detail_FreeAmbientArg(void* pArg,
+                                       const detail::BasicSound* pSound);
 
-    f32 mSpeakerAngleStereo;    // at 0x14
-    f32 mFrontSpeakerAngleDpl2; // at 0x18
-    f32 mRearSpeakerAngleDpl2;  // at 0x1C
+private:
+    detail::InstancePool<Sound3DParam> mParamPool; // at 0x8
+    Sound3DListenerList mListenerList;             // at 0xC
+    detail::Sound3DEngineInterface* mpEngine;      // at 0x18
 
-    f32 mInitPan;  // at 0x20
-    f32 mPanRange; // at 0x24
+    s32 mMaxPriorityReduction; // at 0x1C
+    f32 mPanRange;             // at 0x20
+    f32 mSonicVelocity;        // at 0x24
+    f32 mBiquadFilterType;     // at 0x28
 };
 
 } // namespace snd

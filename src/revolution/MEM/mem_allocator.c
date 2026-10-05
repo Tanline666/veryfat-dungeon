@@ -1,46 +1,69 @@
 #include <revolution/MEM.h>
 
-static void* AllocatorAllocForExpHeap_(MEMAllocator* allocator, u32 size) {
-    return MEMAllocFromExpHeapEx(allocator->heap, size, allocator->heapParam1);
+static void* AllocatorAllocForExpHeap_(MEMAllocator* pAllocator, u32 size) {
+    return MEMAllocFromExpHeapEx(pAllocator->heap, size,
+                                 pAllocator->heapParam1);
 }
 
-static void AllocatorFreeForExpHeap_(MEMAllocator* allocator, void* block) {
-    MEMFreeToExpHeap(allocator->heap, block);
+static void AllocatorFreeForExpHeap_(MEMAllocator* pAllocator, void* block) {
+    MEMFreeToExpHeap(pAllocator->heap, block);
 }
 
-static void* AllocatorAllocForFrmHeap_(MEMAllocator* allocator, u32 size) {
-    return MEMAllocFromFrmHeapEx(allocator->heap, size, allocator->heapParam1);
+static void* AllocatorAllocForFrmHeap_(MEMAllocator* pAllocator, u32 size) {
+    return MEMAllocFromFrmHeapEx(pAllocator->heap, size,
+                                 pAllocator->heapParam1);
 }
 
-static void AllocatorFreeForFrmHeap_(MEMAllocator* allocator, void* block) {
-#pragma unused(allocator)
+static void AllocatorFreeForFrmHeap_(MEMAllocator* pAllocator, void* block) {
+#pragma unused(pAllocator)
 #pragma unused(block)
 }
 
-void* MEMAllocFromAllocator(MEMAllocator* allocator, u32 size) {
-    return allocator->funcs->allocFunc(allocator, size);
+static void* AllocatorAllocForUnitHeap_(MEMAllocator* pAllocator, u32 size) {
+    if (size > MEMGetMemBlockSizeForUnitHeap(pAllocator->heap)) {
+        return NULL;
+    }
+    return MEMAllocFromUnitHeap(pAllocator->heap);
 }
 
-void MEMFreeToAllocator(MEMAllocator* allocator, void* block) {
-    allocator->funcs->freeFunc(allocator, block);
+static void AllocatorFreeForUnitHeap_(MEMAllocator* pAllocator, void* pBlock) {
+    MEMFreeToUnitHeap(pAllocator->heap, pBlock);
 }
 
-void MEMInitAllocatorForExpHeap(MEMAllocator* allocator, MEMiHeapHead* heap,
+void* MEMAllocFromAllocator(MEMAllocator* pAllocator, u32 size) {
+    return pAllocator->funcs->allocFunc(pAllocator, size);
+}
+
+void MEMFreeToAllocator(MEMAllocator* pAllocator, void* block) {
+    pAllocator->funcs->freeFunc(pAllocator, block);
+}
+
+void MEMInitAllocatorForExpHeap(MEMAllocator* pAllocator, MEMiHeapHead* pHeap,
                                 s32 align) {
     static const MEMAllocatorFuncs sAllocatorFunc = {AllocatorAllocForExpHeap_,
                                                      AllocatorFreeForExpHeap_};
-    allocator->funcs = &sAllocatorFunc;
-    allocator->heap = heap;
-    allocator->heapParam1 = align;
-    allocator->heapParam2 = 0;
+    pAllocator->funcs = &sAllocatorFunc;
+    pAllocator->heap = pHeap;
+    pAllocator->heapParam1 = align;
+    pAllocator->heapParam2 = NULL;
 }
 
-void MEMInitAllocatorForFrmHeap(MEMAllocator* allocator, MEMiHeapHead* heap,
+void MEMInitAllocatorForFrmHeap(MEMAllocator* pAllocator, MEMiHeapHead* pHeap,
                                 s32 align) {
     static const MEMAllocatorFuncs sAllocatorFunc = {AllocatorAllocForFrmHeap_,
                                                      AllocatorFreeForFrmHeap_};
-    allocator->funcs = &sAllocatorFunc;
-    allocator->heap = heap;
-    allocator->heapParam1 = align;
-    allocator->heapParam2 = 0;
+    pAllocator->funcs = &sAllocatorFunc;
+    pAllocator->heap = pHeap;
+    pAllocator->heapParam1 = align;
+    pAllocator->heapParam2 = NULL;
+}
+
+void MEMInitAllocatorForUnitHeap(MEMAllocator* pAllocator,
+                                 MEMiHeapHead* pHeap) {
+    static const MEMAllocatorFuncs sAllocatorFunc = {AllocatorAllocForUnitHeap_,
+                                                     AllocatorFreeForUnitHeap_};
+    pAllocator->funcs = &sAllocatorFunc;
+    pAllocator->heap = pHeap;
+    pAllocator->heapParam1 = NULL;
+    pAllocator->heapParam2 = NULL;
 }

@@ -79,18 +79,18 @@ void SoundArchiveFileReader::SetInfoChunk(const void* pChunk, u32 size) {
     mInfo = &pInfoBlock->info;
 }
 
-SoundType SoundArchiveFileReader::GetSoundType(u32 id) const {
-    SoundType soundType;
+SoundArchive::SoundType SoundArchiveFileReader::GetSoundType(u32 id) const {
+    SoundArchive::SoundType soundType;
 
     const SoundArchiveFile::SoundCommonTable* pTable =
         Util::GetDataRefAddress0(mInfo->soundTableRef, mInfo);
 
     if (pTable == NULL) {
-        return SOUND_TYPE_INVALID;
+        return SoundArchive::SOUND_TYPE_INVALID;
     }
 
     if (id >= pTable->count) {
-        return SOUND_TYPE_INVALID;
+        return SoundArchive::SOUND_TYPE_INVALID;
     }
 
     if (GetVersion() >= NW4R_VERSION(1, 1)) {
@@ -98,29 +98,30 @@ SoundType SoundArchiveFileReader::GetSoundType(u32 id) const {
             Util::GetDataRefAddress0(pTable->items[id], mInfo);
 
         if (pCmnInfo == NULL) {
-            return SOUND_TYPE_INVALID;
+            return SoundArchive::SOUND_TYPE_INVALID;
         }
 
-        soundType = static_cast<SoundType>(pCmnInfo->soundType);
+        soundType = static_cast<SoundArchive::SoundType>(pCmnInfo->soundType);
     } else {
-        soundType = static_cast<SoundType>(pTable->items[id].dataType);
+        soundType =
+            static_cast<SoundArchive::SoundType>(pTable->items[id].dataType);
     }
 
     switch (soundType) {
-    case SOUND_TYPE_SEQ: {
-        return SOUND_TYPE_SEQ;
+    case SoundArchive::SOUND_TYPE_SEQ: {
+        return SoundArchive::SOUND_TYPE_SEQ;
     }
 
-    case SOUND_TYPE_STRM: {
-        return SOUND_TYPE_STRM;
+    case SoundArchive::SOUND_TYPE_STRM: {
+        return SoundArchive::SOUND_TYPE_STRM;
     }
 
-    case SOUND_TYPE_WAVE: {
-        return SOUND_TYPE_WAVE;
+    case SoundArchive::SOUND_TYPE_WAVE: {
+        return SoundArchive::SOUND_TYPE_WAVE;
     }
 
     default: {
-        return SOUND_TYPE_INVALID;
+        return SoundArchive::SOUND_TYPE_INVALID;
     }
     }
 }

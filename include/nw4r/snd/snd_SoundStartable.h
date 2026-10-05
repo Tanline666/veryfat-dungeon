@@ -5,6 +5,43 @@
 #include <nw4r/snd/snd_BasicSound.h>
 #include <nw4r/snd/snd_SoundArchivePlayer.h>
 
+#define NW4R_SND_DEFINE_START_SOUND_FUNC_INT_VERSION(func, type)               \
+    bool func(SoundHandle* pHandle, type id) {                                 \
+        return func(pHandle, id);                                              \
+    }                                                                          \
+    bool func(SoundHandle* pHandle, type id, const StartInfo& rStartInfo) {    \
+        return func(pHandle, id, rStartInfo);                                  \
+    }                                                                          \
+    StartResult func##WithResult(SoundHandle* pHandle, type id) {              \
+        return func##WithResult(pHandle, id);                                  \
+    }                                                                          \
+    StartResult func##WithResult(SoundHandle* pHandle, type id,                \
+                                 const StartInfo& rStartInfo) {                \
+        return func##WithResult(pHandle, id, rStartInfo);                      \
+    }
+
+#define NW4R_SND_DEFINE_START_SOUND_FUNC_CALL_DETAIL(func, type)               \
+    bool func(SoundHandle* pHandle, type id) {                                 \
+        return detail_##func(pHandle, id, NULL) == START_SUCCESS;              \
+    }                                                                          \
+    bool func(SoundHandle* pHandle, type id, const StartInfo& rStartInfo) {    \
+        return detail_##func(pHandle, id, &rStartInfo) == START_SUCCESS;       \
+    }                                                                          \
+    StartResult func##WithResult(SoundHandle* pHandle, type id) {              \
+        return detail_##func(pHandle, id, NULL);                               \
+    }                                                                          \
+    StartResult func##WithResult(SoundHandle* pHandle, type id,                \
+                                 const StartInfo& rStartInfo) {                \
+        return detail_##func(pHandle, id, &rStartInfo);                        \
+    }
+
+#define NW4R_SND_DEFINE_START_SOUND_FUNC(func)                                 \
+    NW4R_SND_DEFINE_START_SOUND_FUNC_CALL_DETAIL(func, const char*)            \
+    NW4R_SND_DEFINE_START_SOUND_FUNC_CALL_DETAIL(func, u32)                    \
+    NW4R_SND_DEFINE_START_SOUND_FUNC_INT_VERSION(func, int)                    \
+    NW4R_SND_DEFINE_START_SOUND_FUNC_INT_VERSION(func, unsigned int)           \
+    NW4R_SND_DEFINE_START_SOUND_FUNC_INT_VERSION(func, s32)
+
 namespace nw4r {
 namespace snd {
 
@@ -35,6 +72,8 @@ public:
         START_ERR_UNKNOWN = 255,
     };
 
+    static const char* detail_ConvertStartResultToString(StartResult result);
+
     struct StartInfo {
         enum EnableFlag {
             ENABLE_START_OFFSET = (1 << 0),
@@ -48,16 +87,29 @@ public:
             START_OFFSET_TYPE_SAMPLE
         };
 
+        struct SeqSoundInfo {
+            const void* pAddress;    // at 0x0
+            const char* pStartLabel; // at 0x4
+            SeqSoundInfo() : pAddress(NULL), pStartLabel(NULL) {}
+        };
+
         u32 enableFlag;                  // at 0x0
         StartOffsetType startOffsetType; // at 0x4
         int startOffset;                 // at 0x8
         u32 playerId;                    // at 0xC
         int playerPriority;              // at 0x10
-        int voiceOutCount;               // at 0x14
+        int actorPlayerId;               // at 0x14
+        SeqSoundInfo seqSoundInfo;       // at 0x18
+
+        StartInfo() : enableFlag(NULL) {}
     };
 
 public:
     virtual ~SoundStartable() {} // at 0x8
+
+    NW4R_SND_DEFINE_START_SOUND_FUNC(StartSound)
+    NW4R_SND_DEFINE_START_SOUND_FUNC(HoldSound)
+    NW4R_SND_DEFINE_START_SOUND_FUNC(PrepareSound)
 
 protected:
     virtual StartResult
@@ -68,61 +120,30 @@ protected:
     detail_ConvertLabelStringToSoundId(const char* pLabel) = 0; // at 0x10
 
 private:
-    bool StartSound(SoundHandle* pHandle, u32 id) {
-        return detail_StartSound(pHandle, id, NULL, NULL, NULL) ==
-               START_SUCCESS;
-    }
-    bool StartSound(SoundHandle* pHandle, unsigned int id) {
-        return detail_StartSound(pHandle, id, NULL, NULL, NULL) ==
-               START_SUCCESS;
-    }
-    bool StartSound(SoundHandle* pHandle, int id) {
-        return detail_StartSound(pHandle, id, NULL, NULL, NULL) ==
-               START_SUCCESS;
-    }
-
-    bool HoldSound(SoundHandle* pHandle, u32 id) {
-        return detail_HoldSound(pHandle, id, NULL, NULL, NULL) == START_SUCCESS;
-    }
-    bool HoldSound(SoundHandle* pHandle, unsigned int id) {
-        return detail_HoldSound(pHandle, id, NULL, NULL, NULL) == START_SUCCESS;
-    }
-    bool HoldSound(SoundHandle* pHandle, int id) {
-        return detail_HoldSound(pHandle, id, NULL, NULL, NULL) == START_SUCCESS;
-    }
-
-    bool PrepareSound(SoundHandle* pHandle, u32 id) {
-        return detail_PrepareSound(pHandle, id, NULL, NULL, NULL) ==
-               START_SUCCESS;
-    }
-    bool PrepareSound(SoundHandle* pHandle, unsigned int id) {
-        return detail_PrepareSound(pHandle, id, NULL, NULL, NULL) ==
-               START_SUCCESS;
-    }
-    bool PrepareSound(SoundHandle* pHandle, int id) {
-        return detail_PrepareSound(pHandle, id, NULL, NULL, NULL) ==
-               START_SUCCESS;
-    }
-
-private:
     StartResult detail_StartSound(SoundHandle* pHandle, u32 id,
-                                  detail::BasicSound::AmbientArgInfo* pArgInfo,
-                                  detail::ExternalSoundPlayer* pPlayer,
+                                  const StartInfo* pStartInfo);
+
+    StartResult detail_StartSound(SoundHandle* pHandle, const char* pName,
                                   const StartInfo* pStartInfo);
 
     StartResult detail_HoldSound(SoundHandle* pHandle, u32 id,
-                                 detail::BasicSound::AmbientArgInfo* pArgInfo,
-                                 detail::ExternalSoundPlayer* pPlayer,
                                  const StartInfo* pStartInfo);
 
-    StartResult
-    detail_PrepareSound(SoundHandle* pHandle, u32 id,
-                        detail::BasicSound::AmbientArgInfo* pArgInfo,
-                        detail::ExternalSoundPlayer* pPlayer,
-                        const StartInfo* pStartInfo);
+    StartResult detail_HoldSound(SoundHandle* pHandle, const char* pName,
+                                 const StartInfo* pStartInfo);
+
+    StartResult detail_PrepareSound(SoundHandle* pHandle, u32 id,
+                                    const StartInfo* pStartInfo);
+
+    StartResult detail_PrepareSound(SoundHandle* pHandle, const char* pName,
+                                    const StartInfo* pStartInfo);
 };
 
 } // namespace snd
 } // namespace nw4r
+
+#undef NW4R_SND_DEFINE_START_SOUND_FUNC
+#undef NW4R_SND_DEFINE_START_SOUND_FUNC_CALL_DETAIL
+#undef NW4R_SND_DEFINE_START_SOUND_FUNC_INT_VERSION
 
 #endif

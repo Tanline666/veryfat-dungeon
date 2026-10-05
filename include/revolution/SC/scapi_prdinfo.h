@@ -19,6 +19,7 @@ typedef enum {
     SC_AREA_ASI,
     SC_AREA_LTN,
     SC_AREA_SAF,
+    SC_AREA_CHN,
 } SCProductArea;
 
 BOOL __SCF1(const char* type, char* buf, u32 sz);

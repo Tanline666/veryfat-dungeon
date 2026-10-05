@@ -241,27 +241,40 @@ void* MEMAllocFromExpHeapEx(MEMiHeapHead* heap, u32 size, s32 align) {
 }
 
 // Non-matching
-u32 MEMResizeForMBlockExpHeap(MEMiHeapHead* heap, void* memBlock, u32 size) {}
+u32 MEMResizeForMBlockExpHeap(MEMiHeapHead* pHeap, void* pMemBlock, u32 size) {
+    MEMiExpHeapHead* pExp;
+    MEMiExpHeapMBlock* pMBlock;
 
-void MEMFreeToExpHeap(MEMiHeapHead* heap, void* memBlock) {
-    MEMiExpHeapMBlock* mblock;
-    MEMiExpHeapHead* exp;
-    void* region[2];
+    pExp = GetExpHeapHeadPtrFromHeapHead_(pHeap);
+    pMBlock = GetMBlockHeadPtr_(pMemBlock);
+    size = ROUND_UP(size, 4);
 
-    if (memBlock == NULL) {
+    LockHeap(pHeap);
+
+    UnlockHeap(pHeap);
+
+    return pMBlock->size;
+}
+
+void MEMFreeToExpHeap(MEMiHeapHead* pHeap, void* pMemBlock) {
+    MEMiExpHeapMBlock* pMBlock;
+    MEMiExpHeapHead* pExp;
+    void* pRegion[2];
+
+    if (pMemBlock == NULL) {
         return;
     }
 
-    exp = GetExpHeapHeadPtrFromHeapHead_(heap);
-    mblock = GetMBlockHeadPtr_(memBlock);
+    LockHeap(pHeap);
 
-    LockHeap(heap);
+    pExp = GetExpHeapHeadPtrFromHeapHead_(pHeap);
+    pMBlock = GetMBlockHeadPtr_(pMemBlock);
 
-    GetRegionOfMBlock_(region, mblock);
-    RemoveMBlock_(&exp->usedMBlocks, mblock);
-    RecycleRegion_(exp, region);
+    GetRegionOfMBlock_(pRegion, pMBlock);
+    RemoveMBlock_(&pExp->usedMBlocks, pMBlock);
+    RecycleRegion_(pExp, pRegion);
 
-    UnlockHeap(heap);
+    UnlockHeap(pHeap);
 }
 
 u32 MEMGetAllocatableSizeForExpHeapEx(MEMiHeapHead* heap, s32 align) {

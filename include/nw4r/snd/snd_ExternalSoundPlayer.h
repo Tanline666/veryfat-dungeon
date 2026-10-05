@@ -28,8 +28,8 @@ public:
     }
     BasicSound* GetLowestPrioritySound();
 
-    void InsertSoundList(BasicSound* pSound);
-    void RemoveSoundList(BasicSound* pSound);
+    void AppendSound(BasicSound* pSound);
+    void RemoveSound(BasicSound* pSound);
 
     template <typename TForEachFunc>
     TForEachFunc ForEachSound(TForEachFunc pFunc, bool reverse) {

@@ -3,7 +3,6 @@
 #include <nw4r/types_nw4r.h>
 
 #include <nw4r/snd/snd_Types.h>
-
 #include <nw4r/ut.h>
 
 namespace nw4r {
@@ -14,23 +13,25 @@ namespace detail {
 class SoundArchiveFileReader;
 } // namespace detail
 
-enum SoundType {
-    SOUND_TYPE_INVALID,
-    SOUND_TYPE_SEQ,
-    SOUND_TYPE_STRM,
-    SOUND_TYPE_WAVE
-};
-
 class SoundArchive {
 public:
+    static const int FILE_PATH_MAX = 256;
+
+    enum SoundType {
+        SOUND_TYPE_INVALID,
+        SOUND_TYPE_SEQ,
+        SOUND_TYPE_STRM,
+        SOUND_TYPE_WAVE
+    };
+
     struct SoundInfo {
-        u32 fileId;                // at 0x0
-        u32 playerId;              // at 0x4
-        int playerPriority;        // at 0x8
-        int volume;                // at 0xC
-        int remoteFilter;          // at 0x10
-        detail::PanMode panMode;   // at 0x14
-        detail::PanCurve panCurve; // at 0x18
+        u32 fileId;         // at 0x0
+        u32 playerId;       // at 0x4
+        int playerPriority; // at 0x8
+        int volume;         // at 0xC
+        int remoteFilter;   // at 0x10
+        PanMode panMode;    // at 0x14
+        PanCurve panCurve;  // at 0x18
     };
 
     struct SeqSoundInfo {
@@ -50,9 +51,10 @@ public:
     };
 
     struct Sound3DParam {
-        u32 flags;     // at 0x0
-        u8 decayCurve; // at 0x4
-        u8 decayRatio; // at 0x5
+        u32 flags;        // at 0x0
+        u8 decayCurve;    // at 0x4
+        u8 decayRatio;    // at 0x5
+        u8 dopplerFactor; // at 0x6
     };
 
     struct BankInfo {
@@ -104,7 +106,6 @@ public:
     static const u32 INVALID_ID = 0xFFFFFFFF;
 
 public:
-    SoundArchive();
     virtual ~SoundArchive(); // at 0x8
 
     virtual const void* detail_GetFileAddress(u32 id) const = 0; // at 0xC
@@ -114,18 +115,14 @@ public:
 
     virtual int detail_GetRequiredStreamBufferSize() const = 0; // at 0x14
 
-    virtual ut::FileStream* OpenStream(void* pBuffer, int bufferSize,
-                                       u32 offset,
-                                       u32 length) const = 0; // at 0x18
-
-    virtual ut::FileStream* OpenExtStream(void* pBuffer, int bufferSize,
-                                          const char* pExtPath, u32 offset,
-                                          u32 length) const = 0; // at 0x1C
+    ut::FileStream* detail_OpenFileStream(u32 id, void* pBuffer,
+                                          int bufferSize) const;
+    ut::FileStream* detail_OpenGroupStream(u32 id, void* pBuffer,
+                                           int bufferSize) const;
+    ut::FileStream* detail_OpenGroupWaveDataStream(u32 id, void* pBuffer,
+                                                   int bufferSize) const;
 
     bool IsAvailable() const;
-
-    void Setup(detail::SoundArchiveFileReader* pReader);
-    void Shutdown();
 
     u32 GetPlayerCount() const;
     u32 GetGroupCount() const;
@@ -155,17 +152,20 @@ public:
     bool detail_ReadFileInfo(u32 id, FileInfo* pInfo) const;
     bool detail_ReadFilePos(u32 fileId, u32 posId, FilePos* pPos) const;
 
-    ut::FileStream* detail_OpenFileStream(u32 id, void* pBuffer,
-                                          int bufferSize) const;
-    ut::FileStream* detail_OpenGroupStream(u32 id, void* pBuffer,
-                                           int bufferSize) const;
-    ut::FileStream* detail_OpenGroupWaveDataStream(u32 id, void* pBuffer,
-                                                   int bufferSize) const;
-
     void SetExternalFileRoot(const char* pExtFileRoot);
 
 protected:
-    static const int FILE_PATH_MAX = 256;
+    SoundArchive();
+
+    void Setup(detail::SoundArchiveFileReader* pReader);
+    void Shutdown();
+    virtual ut::FileStream* OpenStream(void* pBuffer, int bufferSize,
+                                       u32 offset,
+                                       u32 length) const = 0; // at 0x18
+
+    virtual ut::FileStream* OpenExtStream(void* pBuffer, int bufferSize,
+                                          const char* pExtPath, u32 offset,
+                                          u32 length) const = 0; // at 0x1C
 
 private:
     ut::FileStream* OpenExtStreamImpl(void* pBuffer, int bufferSize,

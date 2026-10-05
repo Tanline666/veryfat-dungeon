@@ -31,7 +31,7 @@ protected:
                                    void* pArg); // at 0x10
     virtual StartResult detail_SetupSoundWithAmbientInfo(
         SoundHandle* pHandle, u32 id, const StartInfo* pStartInfo,
-        detail::BasicSound::AmbientArgInfo* pAmbInfo, void* pArg); // at 0x14
+        detail::BasicSound::AmbientInfo* pAmbInfo, void* pArg); // at 0x14
 
 private:
     virtual StartResult

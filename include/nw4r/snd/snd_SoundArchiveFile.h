@@ -4,7 +4,6 @@
 
 #include <nw4r/snd/snd_SoundArchive.h>
 #include <nw4r/snd/snd_Util.h>
-
 #include <nw4r/ut.h>
 
 namespace nw4r {
@@ -80,9 +79,10 @@ typedef Util::DataRef<void, SeqSoundInfo, StrmSoundInfo, WaveSoundInfo>
     SoundInfoOffset;
 
 struct Sound3DParam {
-    u32 flags;     // at 0x0
-    u8 decayCurve; // at 0x4
-    u8 decayRatio; // at 0x5
+    u32 flags;        // at 0x0
+    u8 decayCurve;    // at 0x4
+    u8 decayRatio;    // at 0x5
+    u8 dopplerFactor; // at 0x6
 };
 
 struct SoundCommonInfo {
@@ -209,7 +209,7 @@ public:
     void SetStringChunk(const void* pChunk, u32 size);
     void SetInfoChunk(const void* pChunk, u32 size);
 
-    SoundType GetSoundType(u32 id) const;
+    SoundArchive::SoundType GetSoundType(u32 id) const;
     bool ReadSoundInfo(u32 id, SoundArchive::SoundInfo* pInfo) const;
     bool ReadSound3DParam(u32 id, SoundArchive::Sound3DParam* pParam) const;
     bool ReadSeqSoundInfo(u32 id, SoundArchive::SeqSoundInfo* pInfo) const;

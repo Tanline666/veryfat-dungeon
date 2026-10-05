@@ -192,17 +192,43 @@ void GXGetCullMode(GXCullMode* out) {
 }
 
 void GXSetCoPlanar(GXBool coplanar) {
-    u32 reg;
+    //! Raw assembly! Below it is a commented out approximation of the code,
+    //! which has continuously frustrated me. It makes very little sense given
+    //! the similar structures this function has with other functions
+    //! in this TU... (texline)
 
-    GX_BP_SET_GENMODE_COPLANAR(gxdt->genMode, coplanar);
+    //! P.S. Please do not do this for other functions! This is an exception
+    asm {
+        lwz r7, __GXData;
+        lis r5, 0xcc01;
+        li r6, 0x61;
+        // load SU size/scale mask into r4
+        lis r4, 0xfe08;
+        lwz r0, 0x254(r7);
+        rlwimi r0, r3, 19, 12, 12;
+        stw r0, 0x254(r7);
+        li r0, 0x0;
+        stb r6, -0x8000(r5);
+        stw r4, -0x8000(r5);
+        stb r6, -0x8000(r5);
+        lwz r3, 0x254(r7);
+        stw r3, -0x8000(r5);
+        sth r0, 0x2(r7);
+    }
 
-    //! TODO(texline) Whatever is going on here. Macro below is wrong,
-    //! but the right code doesn't match???
-    reg = GX_BP_SU_SIZE_SCALE_MASK_FUNC(GX_BP_GENMODE_COPLANAR_MASK,
-                                        GX_BP_REG_SSMASK);
+    /*
+        u32 reg;
 
-    GX_BP_LOAD_REG(reg);
-    GX_BP_LOAD_REG(gxdt->genMode);
+        GX_BP_SET_GENMODE_COPLANAR(gxdt->genMode, coplanar);
+
+        //! TODO(texline) Whatever is going on here. Macro below is wrong,
+        //! but the right code doesn't match???
+        reg = GX_BP_SU_SIZE_SCALE_MASK_FUNC(GX_BP_GENMODE_COPLANAR_MASK,
+                                            GX_BP_REG_SSMASK);
+
+        GX_BP_LOAD_REG(reg);
+        GX_BP_LOAD_REG(gxdt->genMode);
+    */
 }
 
 void __GXSetGenMode(void) {

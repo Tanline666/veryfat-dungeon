@@ -208,8 +208,7 @@ u8 RFLi_GetFacelineType(RFLSex sex, RFLAge age, RFLRace race) {
         /* Female, Adult, Asian */ {0, 0, 0, 1, 1, 2, 2, 3, 4, 5},
         /* Female, Elder, Black */ {0, 0, 0, 1, 1, 2, 2, 3, 4, 5},
         /* Female, Elder, White */ {0, 0, 0, 1, 1, 2, 2, 3, 4, 5},
-        /* Female, Elder, Asian */ {0, 0, 0, 1, 1, 2, 2, 3, 4, 5}
-            // clang-format on
+        /* Female, Elder, Asian */ {0, 0, 0, 1, 1, 2, 2, 3, 4, 5} // clang-format on
         };
 
     return facelineTypeTable[(sex * 9) + (age * 3) + race]
@@ -236,8 +235,7 @@ u8 RFLi_GetHairType(RFLSex sex, RFLAge age, RFLRace race) {
         /* Female, Adult, Asian */ { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 29, 50, 58, 60, 62, 63, 64, 69, 71,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0},
         /* Female, Elder, Black */ { 0,  1,  2,  3,  4,  5,  6, 10, 11, 12, 13, 14, 16, 17, 18, 20, 21, 24, 25, 58, 62, 69,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0},
         /* Female, Elder, White */ { 0,  1,  2,  3,  4,  5,  6, 10, 11, 12, 13, 14, 16, 17, 18, 20, 21, 24, 25, 58, 62, 69,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0},
-        /* Female, Elder, Asian */ { 0,  1,  2,  3,  4,  5,  6, 10, 11, 12, 13, 14, 16, 17, 18, 20, 21, 24, 25, 58, 62, 69,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0}
-        // clang-format on
+        /* Female, Elder, Asian */ { 0,  1,  2,  3,  4,  5,  6, 10, 11, 12, 13, 14, 16, 17, 18, 20, 21, 24, 25, 58, 62, 69,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0} // clang-format on
     };
 
     const u8 hair_parts_num[RFLSex_All * RFLAge_All * RFLRace_All] = {
@@ -267,8 +265,7 @@ u8 RFLi_GetEyeType(RFLSex sex, RFLAge age, RFLRace race) {
         /* Female, Adult, Asian */ { 0,  1,  2,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 15, 16, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 29, 30, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 45, 46, 47,  0,  0,  0,  0,  0,  0,  0,  0},
         /* Female, Elder, Black */ { 1,  2,  5,  7,  8,  9, 11, 12, 13, 14, 15, 16, 17, 18, 21, 32, 34, 37, 39, 41,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0},
         /* Female, Elder, White */ { 1,  2,  5,  7,  8,  9, 11, 12, 13, 14, 15, 16, 17, 18, 21, 32, 34, 37, 39, 41,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0},
-        /* Female, Elder, Asian */ { 1,  2,  5,  7,  8,  9, 11, 12, 13, 14, 15, 16, 18, 21, 26, 32, 34, 37, 39, 41,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0}
-        // clang-format on
+        /* Female, Elder, Asian */ { 1,  2,  5,  7,  8,  9, 11, 12, 13, 14, 15, 16, 18, 21, 26, 32, 34, 37, 39, 41,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0} // clang-format on
     };
 
     const u8 eye_parts_num[RFLSex_All * RFLAge_All * RFLRace_All] = {
@@ -329,8 +326,7 @@ u8 RFLi_GetNoseType(RFLSex sex, RFLAge age, RFLRace race) {
         /* Female, Adult, Asian */ { 0,  1,  3,  4,  6,  8, 10, 11,  0,  0,  0,  0},
         /* Female, Elder, Black */ { 0,  1,  3,  4,  6,  8,  9, 10, 11,  0,  0,  0},
         /* Female, Elder, White */ { 0,  1,  3,  4,  6,  8,  9, 10, 11,  0,  0,  0},
-        /* Female, Elder, Asian */ { 0,  1,  3,  4,  6,  8, 10, 11,  0,  0,  0,  0}
-        // clang-format on
+        /* Female, Elder, Asian */ { 0,  1,  3,  4,  6,  8, 10, 11,  0,  0,  0,  0} // clang-format on
     };
 
     const u8 nose_parts_num[RFLSex_All * RFLAge_All * RFLRace_All] = {
@@ -360,8 +356,7 @@ u8 RFLi_GetMouthType(RFLSex sex, RFLAge age, RFLRace race) {
         /* Female, Adult, Asian */ { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 12, 13, 14, 15, 17, 18, 19, 21, 22, 23,  0,  0,  0,  0},
         /* Female, Elder, Black */ { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 12, 14, 15, 16, 17, 18, 19, 21, 22, 23,  0,  0,  0,  0},
         /* Female, Elder, White */ { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23,  0,  0,  0},
-        /* Female, Elder, Asian */ { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23,  0,  0,  0}
-        // clang-format on
+        /* Female, Elder, Asian */ { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23,  0,  0,  0} // clang-format on
     };
 
     const u8 mouth_parts_num[RFLSex_All * RFLAge_All * RFLRace_All] = {
@@ -465,8 +460,7 @@ u8 RFLi_GetFaceColor(RFLSex sex, RFLRace race) {
         /* Male,   Asian */ {0, 0, 1, 1, 1, 1, 1, 1, 1, 2},
         /* Female, Black */ {2, 2, 4, 4, 4, 4, 5, 5, 5, 5},
         /* Female, White */ {0, 0, 0, 0, 0, 0, 0, 0, 1, 3},
-        /* Female, Asian */ {0, 0, 0, 0, 0, 0, 0, 0, 1, 1}
-        // clang-format on
+        /* Female, Asian */ {0, 0, 0, 0, 0, 0, 0, 0, 1, 1} // clang-format on
     };
 
     return faceColorTable[(sex * 3) + race]
@@ -484,8 +478,7 @@ u8 RFLi_GetHairColor(RFLAge age, RFLRace race) {
         /* White, Elder */ {2, 3, 3, 4, 4, 4, 4, 4, 4, 5, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7},
         /* Asian, Child */ {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
         /* Asian, Adult */ {0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 3, 3, 3, 3},
-        /* Asian, Elder */ {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}
-        // clang-format on
+        /* Asian, Elder */ {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4} // clang-format on
     };
 
     return hairColorTable[(race * 4 - race) + age]
@@ -497,8 +490,7 @@ u8 RFLi_GetEyeColor(RFLRace race) {
         // clang-format off
         /* Black */ {0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         /* White */ {0, 1, 1, 2, 3, 3, 4, 4, 4, 5},
-        /* Asian */ {0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
-        // clang-format on
+        /* Asian */ {0, 0, 0, 0, 0, 0, 0, 0, 0, 1} // clang-format on
     };
 
     return eyeColorTable[race][RFLi_GetRandU32(ARRAY_SIZE(eyeColorTable[0]))];

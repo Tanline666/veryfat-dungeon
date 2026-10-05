@@ -15,13 +15,13 @@ Sound3DActor::~Sound3DActor() {
 
 SoundStartable::StartResult
 Sound3DActor::detail_SetupSound(SoundHandle* pHandle, u32 id,
-                                detail::BasicSound::AmbientArgInfo* pArgInfo,
+                                detail::BasicSound::AmbientInfo* pArgInfo,
                                 detail::ExternalSoundPlayer* pPlayer, bool hold,
                                 const SoundStartable::StartInfo* pStartInfo) {
 #pragma unused(pArgInfo)
 #pragma unused(pPlayer)
 
-    Sound3DManager::Sound3DActorParam actorParam;
+    Sound3DParam actorParam;
     actorParam.position = mPosition;
     actorParam.userParam = mUserParam;
 
@@ -31,7 +31,7 @@ Sound3DActor::detail_SetupSound(SoundHandle* pHandle, u32 id,
         actorParam.soundParam = param;
     }
 
-    detail::BasicSound::AmbientArgInfo argInfo = {
+    detail::BasicSound::AmbientInfo argInfo = {
         &m3DManager,                              // paramUpdateCallback
         this,                                     // argUpdateCallback
         &m3DManager,                              // argAllocaterCallback

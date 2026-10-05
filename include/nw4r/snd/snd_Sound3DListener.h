@@ -3,6 +3,7 @@
 #include <nw4r/types_nw4r.h>
 
 #include <nw4r/math.h>
+#include <nw4r/ut.h>
 
 namespace nw4r {
 namespace snd {
@@ -40,10 +41,20 @@ public:
     }
 
 private:
-    math::MTX34 mMtx;       // at 0x0
-    f32 mInteriorSize;      // at 0x30
-    f32 mMaxVolumeDistance; // at 0x34
-    f32 mUnitDistance;      // at 0x38
+    void CalcPositionFromMatrix(const math::MTX34& rMtx, math::VEC3* pPos);
+
+    math::MTX34 mMtx;           // at 0x0
+    math::VEC3 mPosition;       // at 0x30
+    math::VEC3 mVelocity;       // at 0x3C
+    f32 mInteriorSize;          // at 0x48
+    f32 mMaxVolumeDistance;     // at 0x4C
+    f32 mUnitDistance;          // at 0x50
+    u32 mUserParam;             // at 0x54
+    bool mResetMatrixFlag;      // at 0x58
+    f32 mUnitBiquadFilterValue; // at 0x5C
+    f32 mMaxBiquadFilterValue;  // at 0x60
+public:
+    NW4R_UT_LINKLIST_NODE_DECL(); // at 0x64
 };
 
 } // namespace snd

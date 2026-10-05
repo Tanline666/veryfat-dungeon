@@ -34,8 +34,8 @@ class SeqTrackAllocator;
  ******************************************************************************/
 class SoundArchivePlayer_FileManager {
 public:
-    virtual const void* GetFileAddress(u32 id) = 0;         // at 0x8
-    virtual const void* GetFileWaveDataAddress(u32 id) = 0; // at 0x8
+    virtual const void* GetFileAddress(int id) const = 0;         // at 0x8
+    virtual const void* GetFileWaveDataAddress(int id) const = 0; // at 0xC
 };
 
 /******************************************************************************
@@ -45,6 +45,9 @@ public:
  ******************************************************************************/
 class SoundArchivePlayer : public detail::DisposeCallback,
                            public SoundStartable {
+private:
+    static const int DEFAULT_STREAM_BLOCK_COUNT = 5;
+
 public:
     SoundArchivePlayer();
     virtual ~SoundArchivePlayer(); // at 0x8
@@ -143,6 +146,8 @@ private:
     private:
         const SoundArchivePlayer& mSoundArchivePlayer; // at 0x4
     };
+
+    friend class SoundArchivePlayer::SeqNoteOnCallback;
 
     /******************************************************************************
      * WsdCallback

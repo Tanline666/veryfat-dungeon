@@ -2,6 +2,8 @@
 #define EGG_PRIM_ASSERT_H
 #include <egg/types_egg.h>
 
+#if defined(DEBUG)
+
 #define EGG_PRINT(...) system_print(true, __FILE__, __VA_ARGS__)
 
 #define EGG_ASSERT(EXP)                                                        \
@@ -50,4 +52,15 @@ void system_halt(char* pFile, int line, char* pMsg, ...);
 #ifdef __cplusplus
 }
 #endif
-#endif
+
+#else // NDEBUG
+
+#define EGG_PRINT(...) ((void)0)
+
+#define EGG_ASSERT(EXP) ((void)0)
+
+#define EGG_ASSERT_MSG(EXP, ...) ((void)0)
+
+#endif // DEBUG
+
+#endif // EGG_PRIM_ASSERT_H

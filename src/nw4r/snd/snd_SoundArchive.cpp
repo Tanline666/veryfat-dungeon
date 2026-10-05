@@ -55,7 +55,7 @@ u32 SoundArchive::GetSoundUserParam(u32 id) const {
     return mFileReader->GetSoundUserParam(id);
 }
 
-SoundType SoundArchive::GetSoundType(u32 id) const {
+SoundArchive::SoundType SoundArchive::GetSoundType(u32 id) const {
     return mFileReader->GetSoundType(id);
 }
 

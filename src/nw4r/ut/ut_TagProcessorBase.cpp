@@ -57,6 +57,17 @@ TagProcessorBase<T>::CalcRect(Rect* pRect, u16 ch, ContextType* pCtx) {
     return OPERATION_DEFAULT;
 }
 
+template <typename T>
+void TagProcessorBase<T>::ProcessLinefeed(ContextType* pCtx) {
+    TextWriterBase<T>& rWriter = *pCtx->writer;
+
+    f32 x = pCtx->x;
+    f32 y = rWriter.GetCursorY() + rWriter.GetLineHeight();
+
+    rWriter.SetCursorX(x);
+    rWriter.SetCursorY(y);
+}
+
 template <typename T> void TagProcessorBase<T>::ProcessTab(ContextType* pCtx) {
     TextWriterBase<T>& rWriter = *pCtx->writer;
 
@@ -74,17 +85,6 @@ template <typename T> void TagProcessorBase<T>::ProcessTab(ContextType* pCtx) {
     f32 x = pCtx->x + (tabPixel * numTab);
 
     rWriter.SetCursorX(x);
-}
-
-template <typename T>
-void TagProcessorBase<T>::ProcessLinefeed(ContextType* pCtx) {
-    TextWriterBase<T>& rWriter = *pCtx->writer;
-
-    f32 x = pCtx->x;
-    f32 y = rWriter.GetCursorY() + rWriter.GetLineHeight();
-
-    rWriter.SetCursorX(x);
-    rWriter.SetCursorY(y);
 }
 
 template class TagProcessorBase<char>;

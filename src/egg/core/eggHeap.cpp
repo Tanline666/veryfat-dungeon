@@ -86,7 +86,7 @@ void* Heap::alloc(u32 size, int align, Heap* pHeap) {
     return NULL;
 }
 
-Heap* Heap::findHeap(MEMiHeapHead* pHeapHandle) {
+DECOMP_INLINE Heap* Heap::findHeap(MEMiHeapHead* pHeapHandle) {
     Heap* pContainHeap = NULL;
     OSLockMutex(&sRootMutex);
 

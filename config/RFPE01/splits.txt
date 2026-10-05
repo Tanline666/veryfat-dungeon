@@ -68,6 +68,8 @@ nw4r/snd/snd_BasicSound.cpp:
 	.text       start:0x80071710 end:0x80072E80
 	.ctors      start:0x80688CF4 end:0x80688CF8
 	.data       start:0x8070A340 end:0x8070A378
+	.sbss       start:0x80816188 end:0x8081618C
+	.sdata2     start:0x808182E8 end:0x808182F8
 
 nw4r/snd/snd_SoundHandle.cpp:
 	.text       start:0x80086450 end:0x800864F0
@@ -75,6 +77,71 @@ nw4r/snd/snd_SoundHandle.cpp:
 nw4r/snd/snd_SoundHeap.cpp:
 	.text       start:0x800864F0 end:0x80086800
 	.data       start:0x8070AAF8 end:0x8070AB08
+
+nw4r/ut/ut_list.cpp:
+	.text       start:0x80091BD0 end:0x80091E80
+
+nw4r/ut/ut_LinkList.cpp:
+	.text       start:0x80091E80 end:0x80092010
+
+nw4r/ut/ut_binaryFileFormat.cpp:
+	.text       start:0x80092010 end:0x80092084
+
+nw4r/ut/ut_CharStrmReader.cpp:
+	.text       start:0x80092090 end:0x800921B0
+
+nw4r/ut/ut_TagProcessorBase.cpp:
+	.text       start:0x800921B0 end:0x80092B04
+	.data       start:0x8070ACE0 end:0x8070AD08
+	.sdata2     start:0x80818648 end:0x80818650
+
+nw4r/ut/ut_IOStream.cpp:
+	.text       start:0x80092B10 end:0x80092B5C
+	.ctors      start:0x80688D0C end:0x80688D10
+	.sbss       start:0x80816200 end:0x80816204
+
+nw4r/ut/ut_FileStream.cpp:
+	.text       start:0x80092B60 end:0x80092CDC
+	.ctors      start:0x80688D10 end:0x80688D14
+	.sbss       start:0x80816208 end:0x8081620C
+
+nw4r/ut/ut_DvdFileStream.cpp:
+	.text       start:0x80092CE0 end:0x8009331C
+	.ctors      start:0x80688D14 end:0x80688D18
+	.data       start:0x8070AD08 end:0x8070AD6C
+	.sbss       start:0x80816210 end:0x80816214
+
+nw4r/ut/ut_DvdLockedFileStream.cpp:
+	.text       start:0x80093320 end:0x8009370C
+	.ctors      start:0x80688D18 end:0x80688D1C
+	.data       start:0x8070AD70 end:0x8070ADD4
+	.bss        start:0x807A9CC8 end:0x807A9CE0
+	.sbss       start:0x80816218 end:0x80816230
+
+egg/core/eggFrmHeap.cpp:
+	.text       start:0x800BAAE0 end:0x800BADE4
+	.data       start:0x8070B6D0 end:0x8070B6FC
+
+egg/core/eggHeap.cpp:
+	.text       start:0x800BADE4 end:0x800BB464
+	.data       start:0x8070B700 end:0x8070B72C
+	.bss        start:0x807AA300 end:0x807AA328
+	.sbss       start:0x80816368 end:0x80816374
+
+egg/core/eggVideo.cpp:
+	.text       start:0x800C1320 end:0x800C1658
+	.rodata     start:0x80690370 end:0x806905CC
+	.sdata2     start:0x80818CA8 end:0x80818CB8
+
+egg/core/eggXfb.cpp:
+	.text       start:0x800C1658 end:0x800C16F4
+
+egg/core/eggProcessMeter.cpp:
+	.text       start:0x800C2054 end:0x800C2E3C
+
+egg/core/eggCntFile.cpp:
+	.text       start:0x800C4C78 end:0x800C4F90
+	.bss        start:0x807AB408 end:0x807AB414
 
 egg/audio/eggAudioExpMgr.cpp:
 	.text       start:0x800C5D2C end:0x800C6408
@@ -191,7 +258,7 @@ revolution/GX/GXMisc.c:
 	.text       start:0x8012EC80 end:0x8012F600
 
 revolution/GX/GXGeometry.c:
-	.text       start:0x8012F600 end:0x8012FC30
+	.text       start:0x8012F600 end:0x8012FC24
 
 revolution/GX/GXFrameBuf.c:
 	.text       start:0x8012FC30 end:0x80130740
@@ -208,6 +275,19 @@ revolution/IPC/ipcclt.c:
 	.bss        start:0x80800600 end:0x80800650
 	.sdata      start:0x80813E90 end:0x80813E98
 	.sbss       start:0x80816898 end:0x808168A8
+
+revolution/KPAD/kpad.c:
+	.text       start:0x80136AB0 end:0x8013AE60
+
+revolution/MEM/mem_expHeap.c:
+	.text       start:0x8013B410 end:0x8013C070
+
+revolution/MEM/mem_frameHeap.c:
+	.text       start:0x8013C070 end:0x8013C670
+
+revolution/MEM/mem_allocator.c:
+	.text       start:0x8013C910 end:0x8013C9FC
+	.sdata2     start:0x808196E0 end:0x808196F8
 
 revolution/MTX/mtx.c:
 	.text       start:0x8013CB20 end:0x8013D930
@@ -331,6 +411,92 @@ homebuttonLib/HBMGUIManager.cpp:
 homebuttonLib/HBMController.cpp:
 	.text       start:0x80169940 end:0x8016A290
 	.bss        start:0x80810130 end:0x808102C8
+
+homebuttonLib/nw4hbm/ut_list.cpp:
+	.text       start:0x80180880 end:0x801809F0
+
+revolution/WBC/wbc.c:
+	.text       start:0x80187B30 end:0x801886C0
+	.bss        start:0x80810430 end:0x80810950
+
+revolution/KPR/kpr_lib.c:
+	.text       start:0x801886C0 end:0x80189248
+
+RVLFaceLib/RFL_System.c:
+	extab       start:0x800067E8 end:0x80006818
+	extabindex  start:0x80006CE4 end:0x80006D2C
+	.text       start:0x80189248 end:0x80189D38
+	.rodata     start:0x80693370 end:0x80693380
+	.data       start:0x8072EC08 end:0x8072EC50
+	.sdata      start:0x808141F0 end:0x808141F8
+	.sbss       start:0x80816C38 end:0x80816C48
+
+RVLFaceLib/RFL_NANDLoader.c:
+	extab       start:0x80006818 end:0x80006898
+	extabindex  start:0x80006D2C end:0x80006DEC
+	.text       start:0x80189D38 end:0x8018AD64
+	.rodata     start:0x80693380 end:0x80693410
+	.data       start:0x8072EC50 end:0x8072EC70
+	.sdata      start:0x808141F8 end:0x808141FC
+
+RVLFaceLib/RFL_NANDAccess.c:
+	extab       start:0x80006898 end:0x80006910
+	extabindex  start:0x80006DEC end:0x80006EA0
+	.text       start:0x8018AD64 end:0x8018C918
+	.sdata2     start:0x80819898 end:0x808198A0
+	.sbss2      start:0x80823830 end:0x80823838
+
+RVLFaceLib/RFL_Model.c:
+	extab       start:0x80006910 end:0x80006988
+	extabindex  start:0x80006EA0 end:0x80006F54
+	.text       start:0x8018C918 end:0x8018EDF4
+
+RVLFaceLib/RFL_MakeTex.c:
+	extab       start:0x80006988 end:0x800069C8
+	extabindex  start:0x80006F54 end:0x80006FB4
+	.text       start:0x8018EDF4 end:0x801916B4
+
+RVLFaceLib/RFL_Icon.c:
+	extab       start:0x800069C8 end:0x800069D0
+	extabindex  start:0x80006FB4 end:0x80006FC0
+	.text       start:0x801916B4 end:0x801916E4
+
+RVLFaceLib/RFL_HiddenDatabase.c:
+	extab       start:0x800069D0 end:0x80006A20
+	extabindex  start:0x80006FC0 end:0x80007038
+	.text       start:0x801916E4 end:0x80191D64
+
+RVLFaceLib/RFL_Database.c:
+	extab       start:0x80006A20 end:0x80006AC0
+	extabindex  start:0x80007038 end:0x80007128
+	.text       start:0x80191D64 end:0x801930E0
+
+RVLFaceLib/RFL_Controller.c:
+	extab       start:0x80006AC0 end:0x80006AD8
+	extabindex  start:0x80007128 end:0x8000714C
+	.text       start:0x801930E0 end:0x80193450
+
+RVLFaceLib/RFL_MiddleDatabase.c:
+	extab       start:0x80006AD8 end:0x80006B38
+	extabindex  start:0x8000714C end:0x800071DC
+	.text       start:0x80193450 end:0x80194520
+
+RVLFaceLib/RFL_MakeRandomFace.c:
+	extab       start:0x80006B38 end:0x80006B58
+	extabindex  start:0x800071DC end:0x8000720C
+	.text       start:0x80194520 end:0x801952F8
+	.rodata     start:0x806935E0 end:0x80694038
+	.data       start:0x8072ECC8 end:0x8072F318
+
+RVLFaceLib/RFL_DataUtility.c:
+	extab       start:0x80006B60 end:0x80006B88
+	extabindex  start:0x80007218 end:0x80007254
+	.text       start:0x801953B0 end:0x80195C74
+
+RVLFaceLib/RFL_Format.c:
+	extab       start:0x80006B88 end:0x80006B90
+	extabindex  start:0x80007254 end:0x80007260
+	.text       start:0x80195C74 end:0x80195D30
 
 Pack/RPKernel/RPSysSystem.cpp:
 	.text       start:0x801D7914 end:0x801D8B24

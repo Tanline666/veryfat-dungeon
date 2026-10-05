@@ -66,6 +66,20 @@ typedef struct KPADStatus {
     KPADEXStatus ex_status; // at 0x60
 } KPADStatus;
 
+//! Sourced from Charm Girls DWARF v2
+typedef struct KPADUnifiedWpadStatus {
+    union {
+        WPADStatus core;
+        // WPADTRStatus is for Densha de Go.
+        // Leaving out for now: if needed, stubbed object will be made
+        WPADFSStatus fs;
+        WPADBLStatus bl;
+        WPADCLStatus cl;
+    } u;
+    u8 fmt;
+    u8 padding;
+} KPADUnifiedWpadStatus;
+
 void KPADSetBtnRepeat(s32 chan, f32 delay_sec, f32 pulse_sec);
 
 void KPADSetPosParam(s32 chan, f32 playRadius, f32 sensitivity);
@@ -76,6 +90,7 @@ void KPADSetAccParam(s32 chan, f32 playRadius, f32 sensitivity);
 void KPADSetSensorHeight(s32 chan, f32 level);
 
 s32 KPADRead(s32 chan, KPADStatus* pSamples, s32 numSamples);
+s32 KPADReadEx(s32 chan, KPADStatus* pSamples, s32 numSamples, s32* pErr);
 
 void KPADInit(void);
 

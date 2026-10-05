@@ -105,6 +105,7 @@ struct SoundActorParam {
 
     SoundActorParam() : volume(1.0f), pitch(1.0f), pan(0.0f) {}
 };
+} // namespace detail
 
 enum PanMode {
     PAN_MODE_DUAL,
@@ -152,7 +153,6 @@ struct AdpcmInfo {
     u16 PADDING_0x2E;         // at 0x2E
 };
 
-} // namespace detail
 } // namespace snd
 } // namespace nw4r
 

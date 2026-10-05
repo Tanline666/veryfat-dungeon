@@ -52,8 +52,8 @@ public:
                                ContextType* pCtx); // at 0x10
 
 private:
-    void ProcessTab(ContextType* pCtx);
     void ProcessLinefeed(ContextType* pCtx);
+    void ProcessTab(ContextType* pCtx);
 };
 
 } // namespace ut

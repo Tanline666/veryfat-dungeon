@@ -25,7 +25,7 @@ class PlayerHeap;
 namespace detail {
 
 class BasicSound {
-    friend class nw4r::snd::SoundHandle;
+    friend class SoundHandle;
 
 public:
     NW4R_UT_RTTI_DECL(BasicSound);
@@ -51,14 +51,16 @@ public:
     };
 
     struct AmbientArgAllocaterCallback {
-        virtual void* detail_AllocAmbientArg(u32 size) = 0; // at 0xC
+    public:
+        virtual ~AmbientArgAllocaterCallback() {}           // at 0xC
+        virtual void* detail_AllocAmbientArg(u32 size) = 0; // at 0x10
 
         virtual void
         detail_FreeAmbientArg(void* pArg,
-                              const BasicSound* pSound) = 0; // at 0x10
+                              const BasicSound* pSound) = 0; // at 0x14
     };
 
-    struct AmbientArgInfo {
+    struct AmbientInfo {
         AmbientParamUpdateCallback* paramUpdateCallback;   // at 0x0
         AmbientArgUpdateCallback* argUpdateCallback;       // at 0x4
         AmbientArgAllocaterCallback* argAllocaterCallback; // at 0x8
@@ -89,6 +91,7 @@ public:
     void SetPan(f32 pan);
     void SetSurroundPan(f32 pan);
     void SetLpfFreq(f32 freq);
+    void SetBiquadFilter(int type, f32 val);
     void SetPlayerPriority(int priority);
     void SetRemoteFilter(int filter);
     void SetPanMode(PanMode mode);
@@ -105,11 +108,16 @@ public:
     virtual void UpdateMoveValue();          // at 0x30
     virtual void UpdateParam();              // at 0x34
 
+    int GetRemainingFadeFrames() const;
+    int GetPlayerPriority() const {
+        return mPriority;
+    }
+    int GetVoiceOutCount() const;
+
+    void AttachPlayerHeap(PlayerHeap* pHeap);
+    void DetachPlayerHeap(PlayerHeap* pHeap);
     PlayerHeap* GetPlayerHeap() {
         return mHeap;
-    }
-    void SetPlayerHeap(PlayerHeap* pHeap) {
-        mHeap = pHeap;
     }
 
     bool IsAttachedGeneralHandle();
@@ -121,16 +129,14 @@ public:
     SoundPlayer* GetSoundPlayer() {
         return mSoundPlayer;
     }
-    void SetSoundPlayer(SoundPlayer* pPlayer) {
-        mSoundPlayer = pPlayer;
-    }
+    void AttachSoundPlayer(SoundPlayer* pPlayer);
+    void DetachSoundPlayer(SoundPlayer* pPlayer);
 
-    ExternalSoundPlayer* GetExternalSoundPlayer() {
-        return mExtSoundPlayer;
-    }
-    void SetExternalSoundPlayer(ExternalSoundPlayer* pExtPlayer) {
-        mExtSoundPlayer = pExtPlayer;
-    }
+    void AttachSoundActor(SoundActor* pActor);
+    void DetachSoundActor(SoundActor* pActor);
+
+    void AttachExternalSoundPlayer(ExternalSoundPlayer* pExtPlayer);
+    void DetachExternalSoundPlayer(ExternalSoundPlayer* pExtPlayer);
 
     AmbientParamUpdateCallback* GetAmbientParamUpdateCallback() {
         return mAmbientInfo.paramUpdateCallback;
@@ -160,9 +166,13 @@ public:
                                  AmbientArgAllocaterCallback* pArgAlloc,
                                  void* pArg);
 
+    void SetAmbientInfo(const AmbientInfo& rInfo);
+
     void SetPriority(int priority) {
         mPriority = priority;
     }
+
+    static int GetAmbientPriority(const AmbientInfo& rInfo, u32 id);
 
     u32 GetId() const {
         return mId;
@@ -188,6 +198,8 @@ public:
     f32 GetRemoteOutVolume(int remote) const;
     void SetRemoteOutVolume(int remote, f32 vol);
 
+    void SetMainSend(f32 send);
+
     void SetFxSend(AuxBus bus, f32 send);
 
     int CalcCurrentPlayerPriority() const {
@@ -209,7 +221,7 @@ private:
     SoundActor* mSoundActor;              // at 0x14
     ExternalSoundPlayer* mExtSoundPlayer; // at 0x18
 
-    AmbientArgInfo mAmbientInfo; // at 0x1C
+    AmbientInfo mAmbientInfo;    // at 0x1C
     SoundParam mAmbientParam;    // at 0x30
     SoundActorParam mActorParam; // at 0x4C
 

@@ -46,6 +46,13 @@ public:
         mCounter = 0;
     }
 
+    TTime GetRemainingCount() const {
+        if (IsFinished()) {
+            return static_cast<TTime>(NULL);
+        }
+        return mFrame - mCounter;
+    }
+
 private:
     TValue mOrigin; // at 0x0
     TValue mTarget; // at 0x4

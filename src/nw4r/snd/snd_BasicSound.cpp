@@ -353,6 +353,25 @@ void BasicSound::UpdateParam() {
     for (int i = 0; i < AUX_BUS_NUM; i++) {
         fxSend[i] = 0.0f;
         fxSend[i] += mFxSend[i];
+        fxSend[i] += GetSoundPlayer()->GetFxSend(static_cast<AuxBus>(i));
+    }
+    fxSend[0] += mAmbientParam.fxSend;
+
+    BasicPlayer& rPlayer = GetBasicPlayer();
+    rPlayer.SetVolume(vol);
+    rPlayer.SetPan(pan);
+    rPlayer.SetSurroundPan(surPan);
+    rPlayer.SetPitch(pitch);
+    rPlayer.SetLpfFreq(lpfFreq);
+    rPlayer.SetBiquadFilter(biqFilType, biqFilVal);
+    rPlayer.SetOutputLine(outFlag);
+    rPlayer.SetMainOutVolume(mainVol);
+    for (int i = 0; i < WPAD_MAX_CONTROLLERS; i++) {
+        rPlayer.SetRemoteOutVolume(i, rcVol[i]);
+    }
+    rPlayer.SetMainSend(mainSend);
+    for (int i = 0; i < AUX_BUS_NUM; i++) {
+        rPlayer.SetFxSend(static_cast<AuxBus>(i), fxSend[i]);
     }
 }
 
@@ -363,7 +382,6 @@ void BasicSound::Shutdown() {
         if (mFadeOutFlag) {
             rPlayer.SetVolume(0.0f);
         }
-
         rPlayer.Stop();
     }
 
@@ -381,25 +399,73 @@ void BasicSound::Shutdown() {
         DetachTempSpecialHandle();
     }
 
-    if (mHeap != NULL) {
+    if (mHeap) {
         mSoundPlayer->detail_FreePlayerHeap(this);
     }
 
-    mSoundPlayer->detail_RemovePriorityList(this);
-    mSoundPlayer->detail_RemoveSoundList(this);
-
-    if (mExtSoundPlayer != NULL) {
-        mExtSoundPlayer->RemoveSoundList(this);
+    if (mSoundPlayer) {
+        mSoundPlayer->detail_RemoveSound(this);
     }
 
-    if (mAmbientInfo.argAllocaterCallback != NULL) {
+    if (mExtSoundPlayer) {
+        mExtSoundPlayer->RemoveSound(this);
+    }
+
+    if (mAmbientInfo.argAllocaterCallback) {
         mAmbientInfo.argAllocaterCallback->detail_FreeAmbientArg(
             mAmbientInfo.arg, this);
         mAmbientInfo.arg = NULL;
     }
 
-    mStartedFlag = false;
-    mFadeOutFlag = false;
+    mStartedFlag = FALSE;
+    mFadeOutFlag = FALSE;
+}
+
+void BasicSound::AttachPlayerHeap(PlayerHeap* pHeap) {
+    mHeap = pHeap;
+}
+
+void BasicSound::DetachPlayerHeap(PlayerHeap* pHeap) {
+//! pHeap is only for debug builds
+#pragma unused(pHeap)
+    mHeap = NULL;
+}
+
+void BasicSound::AttachSoundPlayer(SoundPlayer* pPlayer) {
+    mSoundPlayer = pPlayer;
+}
+
+void BasicSound::DetachSoundPlayer(SoundPlayer* pPlayer) {
+//! pPlayer is only for debug builds
+#pragma unused(pPlayer)
+    mSoundPlayer = NULL;
+}
+
+void BasicSound::AttachSoundActor(SoundActor* pActor) {
+    mSoundActor = pActor;
+}
+
+void BasicSound::DetachSoundActor(SoundActor* pActor) {
+//! pActor is only for debug builds
+#pragma unused(pActor)
+    mSoundActor = NULL;
+}
+
+void BasicSound::AttachExternalSoundPlayer(ExternalSoundPlayer* pExtPlayer) {
+    mExtSoundPlayer = pExtPlayer;
+}
+
+void BasicSound::DetachExternalSoundPlayer(ExternalSoundPlayer* pExtPlayer) {
+#pragma unused(pExtPlayer)
+    mExtSoundPlayer = NULL;
+}
+
+int BasicSound::GetRemainingFadeFrames() const {
+    return mFadeVolume.GetRemainingCount();
+}
+
+int BasicSound::GetVoiceOutCount() const {
+    return mVoiceOutCount;
 }
 
 void BasicSound::SetPlayerPriority(int priority) {
@@ -412,7 +478,10 @@ void BasicSound::SetPlayerPriority(int priority) {
 }
 
 void BasicSound::SetInitialVolume(f32 vol) {
-    mInitVolume = ut::Clamp(vol, 0.0f, 1.0f);
+    if (vol < 0.0f) {
+        vol = 0.0f;
+    }
+    mInitVolume = vol;
 }
 
 void BasicSound::SetVolume(f32 vol, int frames) {
@@ -435,7 +504,14 @@ void BasicSound::SetSurroundPan(f32 pan) {
 }
 
 void BasicSound::SetLpfFreq(f32 freq) {
-    GetBasicPlayer().SetLpfFreq(freq);
+    mLpfFreq = freq;
+}
+
+//! Yes, mBiquadFilterType is a char, not an int, but the symbols in TFP2 and
+//! such have it this way for some reason. A common theme
+void BasicSound::SetBiquadFilter(int type, f32 val) {
+    mBiquadFilterType = type;
+    mBiquadFilterValue = val;
 }
 
 void BasicSound::SetOutputLine(int flag) {
@@ -447,15 +523,25 @@ int BasicSound::GetOutputLine() const {
 }
 
 void BasicSound::SetMainOutVolume(f32 vol) {
-    mMainOutVolume = ut::Clamp(vol, 0.0f, 1.0f);
+    if (vol < 0.0f) {
+        vol = 0.0f;
+    }
+    mMainOutVolume = vol;
 }
 
 void BasicSound::SetRemoteOutVolume(int remote, f32 vol) {
-    mRemoteOutVolume[remote] = ut::Clamp(vol, 0.0f, 1.0f);
+    if (vol < 0.0f) {
+        vol = 0.0f;
+    }
+    mRemoteOutVolume[remote] = vol;
+}
+
+void BasicSound::SetMainSend(f32 send) {
+    mMainSend = send;
 }
 
 void BasicSound::SetFxSend(AuxBus bus, f32 send) {
-    GetBasicPlayer().SetFxSend(bus, send);
+    mFxSend[bus] = send;
 }
 
 void BasicSound::SetRemoteFilter(int filter) {
@@ -470,39 +556,35 @@ void BasicSound::SetPanCurve(PanCurve curve) {
     GetBasicPlayer().SetPanCurve(curve);
 }
 
-f32 BasicSound::GetInitialVolume() const {
-    return mInitVolume;
+void BasicSound::SetAmbientInfo(const AmbientInfo& rInfo) {
+    void* pAmbArg =
+        rInfo.argAllocaterCallback->detail_AllocAmbientArg(rInfo.argSize);
+    if (!pAmbArg) {
+        return;
+    }
+    memcpy(pAmbArg, rInfo.arg, rInfo.argSize);
+    mAmbientInfo = rInfo;
+    mAmbientInfo.arg = pAmbArg;
+
+    if (rInfo.paramUpdateCallback) {
+        int voiceOutCount =
+            mAmbientInfo.paramUpdateCallback->detail_GetRequiredVoiceOutCount(
+                mAmbientInfo.arg, mId);
+        if (voiceOutCount > VOICE_OUT_MAX) {
+            voiceOutCount = VOICE_OUT_MAX;
+        }
+        mVoiceOutCount = voiceOutCount;
+    }
 }
 
-f32 BasicSound::GetPitch() const {
-    return mExtPitch;
-}
+int BasicSound::GetAmbientPriority(const AmbientInfo& rInfo, u32 id) {
+    if (!rInfo.paramUpdateCallback) {
+        return FALSE;
+    }
 
-f32 BasicSound::GetPan() const {
-    return mExtPan;
-}
-
-f32 BasicSound::GetSurroundPan() const {
-    return mExtSurroundPan;
-}
-
-f32 BasicSound::GetMainOutVolume() const {
-    return mMainOutVolume;
-}
-
-f32 BasicSound::GetRemoteOutVolume(int remote) const {
-    return mRemoteOutVolume[remote];
-}
-
-void BasicSound::SetAmbientParamCallback(
-    AmbientParamUpdateCallback* pParamUpdate,
-    AmbientArgUpdateCallback* pArgUpdate,
-    AmbientArgAllocaterCallback* pArgAlloc, void* pArg) {
-
-    mAmbientInfo.paramUpdateCallback = pParamUpdate;
-    mAmbientInfo.argUpdateCallback = pArgUpdate;
-    mAmbientInfo.argAllocaterCallback = pArgAlloc;
-    mAmbientInfo.arg = pArg;
+    int prio =
+        rInfo.paramUpdateCallback->detail_GetAmbientPriority(rInfo.arg, id);
+    return prio;
 }
 
 bool BasicSound::IsAttachedGeneralHandle() {

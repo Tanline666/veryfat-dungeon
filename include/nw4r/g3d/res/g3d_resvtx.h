@@ -3,13 +3,14 @@
 #include <nw4r/types_nw4r.h>
 
 #include <nw4r/g3d/res/g3d_rescommon.h>
-
 #include <nw4r/math.h>
 
 #include <revolution/GX.h>
 
 namespace nw4r {
 namespace g3d {
+
+class ResMdl;
 
 /******************************************************************************
  *
@@ -218,6 +219,66 @@ public:
     u16 GetNumTexCoord() const {
         return ref().numTexCoord;
     }
+};
+
+/******************************************************************************
+ *
+ * ResVtxFurPos
+ *
+ ******************************************************************************/
+
+struct ResVtxFurPosData {
+    u32 size;           // at 0x0
+    s32 toResMdlData;   // at 0x4
+    s32 toFurPosArray;  // at 0x8
+    s32 name;           // at 0xC
+    u32 id;             // at 0x10
+    GXCompCnt cmpCnt;   // at 0x14
+    GXCompType cmpType; // at 0x18
+    u8 fraction;        // at 0x1C
+    u8 stride;          // at 0x1D
+    u16 numFurPos;      // at 0x1E
+    u32 numLayer;       // at 0x20
+    u32 offsetLayer;    // at 0x24
+};
+
+class ResVtxFurPos : public ResCommon<ResVtxFurPosData> {
+public:
+    NW4R_G3D_RESOURCE_FUNC_DEF(ResVtxFurPos);
+    u32 GetSize() const {
+        return ref().size;
+    }
+    void GetVtxAttrFmt(GXCompCnt* pCnt, GXCompType* pType, u8* pFrac) const;
+    void GetArray(const void** ppBase, u8* pStride, int idx) const;
+    void GetArray(const void** ppBase, u8* pStride, u16 idx) const;
+    void SetArray(int idx);
+    void SetArray(u16 idx);
+    u16 GetNumVtxFurPos() const {
+        return ref().numFurPos;
+    }
+    u32 GetNumLayer() const {
+        return ref().numLayer;
+    }
+
+    const char* GetName() const;
+    const ResName GetResName() const;
+
+    u32 GetID() const {
+        return ref().id;
+    }
+
+    ResMdl GetParent();
+    const ResMdl GetParent() const;
+
+    void Init() {
+        DCStore(FALSE);
+    }
+    void DCStore(bool sync);
+    void EndEdit() {
+        DCStore(FALSE);
+    }
+
+    void CopyTo(void* ptr) const;
 };
 
 } // namespace g3d

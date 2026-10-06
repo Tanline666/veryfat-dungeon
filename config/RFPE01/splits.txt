@@ -61,6 +61,55 @@ nw4r/ef/ef_emitterform.cpp:
 nw4r/ef/ef_creationqueue.cpp:
 	.text       start:0x8001D3E0 end:0x8001D830
 
+nw4r/ef/emform/ef_sphere.cpp:
+	.text       start:0x8001E4E0 end:0x8001ED40
+
+nw4r/ef/emform/ef_cube.cpp:
+	.text       start:0x8001FB30 end:0x80021710
+
+nw4r/ef/drawstrategy/ef_drawstrategyimpl.cpp:
+	.text       start:0x800218B0 end:0x800238D8
+	.ctors      start:0x80688CD4 end:0x80688CD8
+	.data       start:0x80708740 end:0x80708758
+	.bss        start:0x80771698 end:0x807716F8
+
+nw4r/ef/drawstrategy/ef_drawbillboardstrategy.cpp:
+	.text       start:0x800238E0 end:0x80025A80
+	.data       start:0x80708758 end:0x80708774
+
+nw4r/ef/drawstrategy/ef_drawdirectionalstrategy.cpp:
+	.text       start:0x80025A80 end:0x80027EC0
+	.data       start:0x80708778 end:0x80708798
+
+nw4r/ef/drawstrategy/ef_drawfreestrategy.cpp:
+	.text       start:0x80027EC0 end:0x800288F0
+	.data       start:0x80708798 end:0x807087B0
+
+nw4r/ef/drawstrategy/ef_drawlinestrategy.cpp:
+	.text       start:0x800288F0 end:0x80028F20
+	.data       start:0x807087B0 end:0x807087C8
+
+nw4r/ef/drawstrategy/ef_drawpointstrategy.cpp:
+	.text       start:0x80028F20 end:0x800293C0
+	.data       start:0x807087C8 end:0x807087E0
+
+nw4r/ef/drawstrategy/ef_drawstripestrategy.cpp:
+	.text       start:0x800293C0 end:0x8002CA90
+	.data       start:0x807087E0 end:0x807087FC
+
+nw4r/ef/drawstrategy/ef_drawsmoothstripestrategy.cpp:
+	.text       start:0x8002CA90 end:0x80031AB0
+	.data       start:0x80708800 end:0x8070881C
+
+nw4r/g3d/res/g3d_rescommon.cpp:
+	.text       start:0x80031AB0 end:0x80031BF4
+
+nw4r/g3d/res/g3d_resmdl.cpp:
+	.text       start:0x80033CB0 end:0x80034ED0
+
+nw4r/g3d/res/g3d_resshp.cpp:
+	.text       start:0x80034ED0 end:0x80035C14
+
 nw4r/g3d/res/g3d_restev.cpp:
 	.text       start:0x80035C20 end:0x80035DD8
 	.rodata     start:0x8068A6D8 end:0x8068A738
@@ -92,12 +141,22 @@ nw4r/g3d/g3d_state.cpp:
 	.sbss       start:0x80816100 end:0x80816120
 	.sdata2     start:0x80817FE0 end:0x80818008
 
+nw4r/g3d/g3d_scnmdl.cpp:
+	.text       start:0x80058640 end:0x8005AFEC
+	.rodata     start:0x8068B280 end:0x8068B28C
+	.data       start:0x80709358 end:0x807093A0
+
 nw4r/g3d/g3d_fog.cpp:
 	.text       start:0x8005C500 end:0x8005C670
 	.sdata2     start:0x808180F0 end:0x808180F4
 
+nw4r/g3d/g3d_light.cpp:
+	.text       start:0x8005C670 end:0x8005D078
+	.sdata2     start:0x808180F8 end:0x80818124
+
 nw4r/lyt/lyt_material.cpp:
 	.text       start:0x80064300 end:0x80067210
+	.data       start:0x80709818 end:0x80709888
 	.sdata2     start:0x80818188 end:0x808181B0
 	.sbss2      start:0x80823800 end:0x80823808
 

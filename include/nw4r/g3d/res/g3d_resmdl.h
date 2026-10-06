@@ -166,6 +166,8 @@ public:
     ResVtxTexCoord GetResVtxTexCoord(int idx) const;
     u32 GetResVtxTexCoordNumEntries() const;
 
+    ResVtxFurPos GetResVtxFurPos(int idx) const;
+
     ResMat GetResMat(const char* pName) const;
     ResMat GetResMat(const ResName name) const;
     ResMat GetResMat(int idx) const;

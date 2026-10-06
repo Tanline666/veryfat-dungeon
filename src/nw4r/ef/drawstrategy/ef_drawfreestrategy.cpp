@@ -13,6 +13,8 @@ static math::MTX34 CalcRotate(Particle* pParticle, u8 axis);
 
 static u8 free_tex0_u8[] = {0x00, 0x01, 0x00, 0x00, 0x01, 0x00, 0x01, 0x01};
 
+DrawFreeStrategy::DrawFreeStrategy() {}
+
 static void DrawQuad(const math::MTX34& rMtx, const math::_VEC3* pPosArray,
                      bool texCoord) {
 
@@ -51,8 +53,6 @@ static void DrawQuad(const math::MTX34& rMtx, const math::_VEC3* pPosArray,
     }
     GXEnd();
 }
-
-DrawFreeStrategy::DrawFreeStrategy() {}
 
 void DrawFreeStrategy::Draw(const DrawInfo& rInfo, ParticleManager* pManager) {
     InitGraphics(rInfo, pManager);

@@ -183,6 +183,16 @@ ResVtxClr ResShp::GetResVtxClr(u32 idx) const {
     return ResVtxClr(NULL);
 }
 
+ResVtxFurPos ResShp::GetResVtxFurPos() const {
+    const ResShpData& r = ref();
+
+    if (r.idVtxFurPos != -1) {
+        return GetParent().GetResVtxFurPos(r.idVtxFurPos);
+    } else {
+        return ResVtxFurPos(NULL);
+    }
+}
+
 ResVtxTexCoord ResShp::GetResVtxTexCoord(u32 idx) const {
     const ResShpData& r = ref();
 

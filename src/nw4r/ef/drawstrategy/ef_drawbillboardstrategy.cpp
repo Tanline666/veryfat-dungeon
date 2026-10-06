@@ -173,20 +173,6 @@ inline void DrawBillboardStrategy::DispParticle_Normal(
     DispPolygon(p0, d0, d1, flags);
 }
 
-void DrawBillboardStrategy::DrawYBillboard(const DrawInfo& rInfo,
-                                           ParticleManager* pManager);
-
-inline void DrawBillboardStrategy::DispParticle_YBillboard(
-    Particle* pParticle, const math::MTX34& rViewMtx, f32 vx, f32 vy, f32 vz,
-    f32 rc, f32 rs, f32 sx, f32 sy, const math::VEC2& rPivot, int flags);
-
-void DrawBillboardStrategy::DrawDirectionalBillboard(const DrawInfo& rInfo,
-                                                     ParticleManager* pManager);
-
-inline void DrawBillboardStrategy::DispParticle_Directional(
-    Particle* pParticle, const math::MTX34& rViewMtx, f32 vx, f32 vy, f32 vz,
-    f32 rc, f32 rs, f32 sx, f32 sy, const math::VEC2& rPivot, int flags);
-
 void DrawBillboardStrategy::DispPolygon(const math::VEC3& rP,
                                         const math::VEC3& rD1,
                                         const math::VEC3& rD2, int flags) {

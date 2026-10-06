@@ -12,7 +12,6 @@
 
 #include <revolution/GX.h>
 
-
 namespace nw4r {
 namespace ef {
 
@@ -353,13 +352,21 @@ private:
 
 protected:
     PrevTexture mPrevTexture[TEX_LAYER_MAX];            // at 0x4
-    GXColor mPrevColor[COLOR_LAYER_MAX][COLOR_IDX_MAX]; // at 0x94
-    int mPrevARef0;                                     // at 0xA4
-    int mPrevARef1;                                     // at 0xA8
-    bool mUseColor1;                                    // at 0xAC
-    bool mUseColor2;                                    // at 0xAD
-    u8 mNumTexmap;                                      // at 0xAE
-    int mTexmapMap[TEX_LAYER_MAX];                      // at 0xB0
+    GXColor mPrevColor[3];                              // at 0x94
+    GXColor mPrevKColor[4];                             // at 0xA0
+    int mPrevARef0;                                     // at 0xB0
+    int mPrevARef1;                                     // at 0xB4
+    bool mUseColor1_1;                                  // at 0xB8
+    bool mUseColor1_2;                                  // at 0xB9
+    bool mUseColor2_1;                                  // at 0xBA
+    bool mUseColor2_2;                                  // at 0xBB
+    bool mUseAlpha1_1;                                  // at 0xBC
+    bool mUseAlpha1_2;                                  // at 0xBD
+    bool mUseAlpha2_1;                                  // at 0xBE
+    bool mUseAlpha2_2;                                  // at 0xBF
+    GXColor mDrawColor[COLOR_LAYER_MAX][COLOR_IDX_MAX]; // at 0xC0
+    u8 mNumTexmap;                                      // at 0xD0
+    int mTexmapMap[TEX_LAYER_MAX];                      // at 0xD4
 
     static const math::VEC3 mXUnitVec;
     static const math::VEC3 mYUnitVec;

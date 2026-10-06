@@ -218,31 +218,41 @@ void DrawStrategyImpl::InitColor(ParticleManager* pManager,
     GXSetChanMatColor(GX_COLOR0A0, mat);
     GXSetChanAmbColor(GX_COLOR0A0, amb);
 
-    mUseColor1 = false;
-    mUseColor2 = false;
+    mUseColor1_1 = FALSE;
+    mUseColor1_2 = FALSE;
+    mUseColor2_1 = FALSE;
+    mUseColor2_2 = FALSE;
+    mUseAlpha1_1 = FALSE;
+    mUseAlpha1_2 = FALSE;
 
     for (i = 0; i < GX_MAX_TEVREG - 1; i++) {
-        if (rSetting.mColorInput.mTevColor[i] == ColorInput::TEVCOLOR1_1 ||
-            rSetting.mColorInput.mTevColor[i] == ColorInput::TEVCOLOR1_2) {
-            mUseColor1 = true;
+        if (rSetting.mColorInput.mTevColor[i] == ColorInput::TEVCOLOR1_1) {
+            mUseColor1_1 = TRUE;
+        }
+        if (rSetting.mColorInput.mTevColor[i] == ColorInput::TEVCOLOR1_2) {
+            mUseColor1_2 = TRUE;
+        }
+        if (rSetting.mColorInput.mTevColor[i] == ColorInput::TEVCOLOR1_MULT) {
+            mUseColor1_1 = TRUE;
+            mUseColor1_2 = TRUE;
         }
 
         // @bug Copy-paste error, should use TEVCOLOR2_*
         if (rSetting.mColorInput.mTevColor[i] == ColorInput::TEVCOLOR1_1 ||
             rSetting.mColorInput.mTevColor[i] == ColorInput::TEVCOLOR1_2) {
-            mUseColor2 = true;
+            mUseColor2_1 = true;
         }
     }
 
     for (i = 0; i < GX_MAX_KCOLOR; i++) {
         if (rSetting.mColorInput.mTevKColor[i] == ColorInput::TEVCOLOR1_1 ||
             rSetting.mColorInput.mTevKColor[i] == ColorInput::TEVCOLOR1_2) {
-            mUseColor1 = true;
+            mUseColor1_1 = true;
         }
 
         if (rSetting.mColorInput.mTevKColor[i] == ColorInput::TEVCOLOR2_3 ||
             rSetting.mColorInput.mTevKColor[i] == ColorInput::TEVCOLOR2_2) {
-            mUseColor2 = true;
+            mUseColor2_1 = true;
         }
     }
 }
@@ -594,23 +604,23 @@ bool DrawStrategyImpl::_SetupTevReg(Particle* pParticle,
     bool changed = false;
     GXColor colorPri, colorSec;
 
-    if (mUseColor1) {
+    if (mUseColor1_1) {
         pParticle->Draw_GetColor(COLOR_LAYER_0, &colorPri, &colorSec);
 
         if (first ||
-            (mPrevColor[COLOR_LAYER_0][COLOR_IDX_PRI].r != colorPri.r ||
-             mPrevColor[COLOR_LAYER_0][COLOR_IDX_PRI].g != colorPri.g ||
-             mPrevColor[COLOR_LAYER_0][COLOR_IDX_PRI].b != colorPri.b ||
-             mPrevColor[COLOR_LAYER_0][COLOR_IDX_PRI].a != colorPri.a) ||
-            (mPrevColor[COLOR_LAYER_0][COLOR_IDX_SEC].r != colorSec.r ||
-             mPrevColor[COLOR_LAYER_0][COLOR_IDX_SEC].g != colorSec.g ||
-             mPrevColor[COLOR_LAYER_0][COLOR_IDX_SEC].b != colorSec.b ||
-             mPrevColor[COLOR_LAYER_0][COLOR_IDX_SEC].a != colorSec.a)) {
+            (mDrawColor[COLOR_LAYER_0][COLOR_IDX_PRI].r != colorPri.r ||
+             mDrawColor[COLOR_LAYER_0][COLOR_IDX_PRI].g != colorPri.g ||
+             mDrawColor[COLOR_LAYER_0][COLOR_IDX_PRI].b != colorPri.b ||
+             mDrawColor[COLOR_LAYER_0][COLOR_IDX_PRI].a != colorPri.a) ||
+            (mDrawColor[COLOR_LAYER_0][COLOR_IDX_SEC].r != colorSec.r ||
+             mDrawColor[COLOR_LAYER_0][COLOR_IDX_SEC].g != colorSec.g ||
+             mDrawColor[COLOR_LAYER_0][COLOR_IDX_SEC].b != colorSec.b ||
+             mDrawColor[COLOR_LAYER_0][COLOR_IDX_SEC].a != colorSec.a)) {
 
             changed = true;
 
-            mPrevColor[COLOR_LAYER_0][COLOR_IDX_PRI] = colorPri;
-            mPrevColor[COLOR_LAYER_0][COLOR_IDX_SEC] = colorSec;
+            mDrawColor[COLOR_LAYER_0][COLOR_IDX_PRI] = colorPri;
+            mDrawColor[COLOR_LAYER_0][COLOR_IDX_SEC] = colorSec;
 
             for (int i = 0; i < GX_MAX_TEVREG - 1; i++) {
                 if (rSetting.mColorInput.mTevColor[i] ==
@@ -647,23 +657,23 @@ bool DrawStrategyImpl::_SetupTevReg(Particle* pParticle,
         }
     }
 
-    if (mUseColor2) {
+    if (mUseColor2_1) {
         pParticle->Draw_GetColor(COLOR_LAYER_1, &colorPri, &colorSec);
 
         if (first ||
-            (mPrevColor[COLOR_LAYER_1][COLOR_IDX_PRI].r != colorPri.r ||
-             mPrevColor[COLOR_LAYER_1][COLOR_IDX_PRI].g != colorPri.g ||
-             mPrevColor[COLOR_LAYER_1][COLOR_IDX_PRI].b != colorPri.b ||
-             mPrevColor[COLOR_LAYER_1][COLOR_IDX_PRI].a != colorPri.a) ||
-            (mPrevColor[COLOR_LAYER_1][COLOR_IDX_SEC].r != colorSec.r ||
-             mPrevColor[COLOR_LAYER_1][COLOR_IDX_SEC].g != colorSec.g ||
-             mPrevColor[COLOR_LAYER_1][COLOR_IDX_SEC].b != colorSec.b ||
-             mPrevColor[COLOR_LAYER_1][COLOR_IDX_SEC].a != colorSec.a)) {
+            (mDrawColor[COLOR_LAYER_1][COLOR_IDX_PRI].r != colorPri.r ||
+             mDrawColor[COLOR_LAYER_1][COLOR_IDX_PRI].g != colorPri.g ||
+             mDrawColor[COLOR_LAYER_1][COLOR_IDX_PRI].b != colorPri.b ||
+             mDrawColor[COLOR_LAYER_1][COLOR_IDX_PRI].a != colorPri.a) ||
+            (mDrawColor[COLOR_LAYER_1][COLOR_IDX_SEC].r != colorSec.r ||
+             mDrawColor[COLOR_LAYER_1][COLOR_IDX_SEC].g != colorSec.g ||
+             mDrawColor[COLOR_LAYER_1][COLOR_IDX_SEC].b != colorSec.b ||
+             mDrawColor[COLOR_LAYER_1][COLOR_IDX_SEC].a != colorSec.a)) {
 
             changed = true;
 
-            mPrevColor[COLOR_LAYER_1][COLOR_IDX_PRI] = colorPri;
-            mPrevColor[COLOR_LAYER_1][COLOR_IDX_SEC] = colorSec;
+            mDrawColor[COLOR_LAYER_1][COLOR_IDX_PRI] = colorPri;
+            mDrawColor[COLOR_LAYER_1][COLOR_IDX_SEC] = colorSec;
 
             for (int i = 0; i < GX_MAX_TEVREG - 1; i++) {
                 if (rSetting.mColorInput.mTevColor[i] ==

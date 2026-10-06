@@ -5,6 +5,8 @@
 #include <nw4r/math.h>
 #include <nw4r/ut.h>
 
+#include <cstring>
+
 #define NW4R_LYT_LIBRARY_VERSION 8
 
 #define NW4R_LYT_RES_NAME_LEN 16
@@ -69,6 +71,40 @@ struct Size {
     friend bool operator==(const Size& rLhs, const Size& rRhs) {
         return rLhs.width == rRhs.width && rLhs.height == rRhs.height;
     }
+};
+
+struct AnimationGroupRef {
+    AnimationGroupRef() : flag(NULL) {
+        memset(name, 0, sizeof(name));
+        memset(PADDING_0x12, 0, sizeof(PADDING_0x12));
+    }
+
+    const char* GetName() const {
+        return name;
+    }
+
+    char name[17]; // at 0x0
+    u8 flag;       // at 0x11
+    u8 PADDING_0x12[2];
+};
+
+struct AnimationShareInfo {
+    AnimationShareInfo() {
+        memset(srcPaneName, 0, sizeof(srcPaneName));
+        memset(tgtGroupName, 0, sizeof(tgtGroupName));
+        memset(PADDING_0x22, 0, sizeof(PADDING_0x22));
+    }
+
+    const char* GetSourcePaneName() const {
+        return srcPaneName;
+    }
+    const char* GetTargetGroupName() const {
+        return tgtGroupName;
+    }
+
+    char srcPaneName[17];
+    char tgtGroupName[17];
+    u8 PADDING_0x22[2];
 };
 
 /******************************************************************************

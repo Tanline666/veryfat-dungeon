@@ -376,7 +376,7 @@ const GXRenderModeObj* Video::getStandardRenderModeObj() {
     bool componentCable = VIGetDTVStatus() == VI_VISEL_COMPONENT;
 
     bool ntsc = false;
-    switch (VIGetTvFormat()) {
+    switch ((u32)VIGetTvFormat()) {
     case VI_TVFORMAT_NTSC: {
         ntsc = true;
         break;
@@ -429,9 +429,5 @@ const GXRenderModeObj* Video::getStandardRenderModeObj() {
     return stdAspect ? &gRMO_Pal50_640x456IntDf_4x3
                      : &gRMO_Pal50_640x456IntDf_16x9;
 }
-
-DECOMP_FORCEACTIVE(eggVideo_cpp_1,
-                  "eggVideo.cpp",
-                  "RenderMode is null");
 
 } // namespace EGG

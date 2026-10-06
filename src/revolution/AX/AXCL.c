@@ -50,6 +50,7 @@ static u32 __AXCommandListCycles;
 static u8 __AXCommandList[AX_CL_SIZE * LIST_MAX];
 
 static BOOL __AXCompressor;
+static u16 __AXCompressorReleaseFrames;
 
 static volatile u16 __AXMasterVolume;
 static u16 __AXAuxAVolume;
@@ -236,6 +237,7 @@ void __AXClInit(void) {
     __AXCommandListPosition = 0;
     __AXClWrite = (u16*)__AXCommandList;
     __AXCompressor = TRUE;
+    __AXCompressorReleaseFrames = 10;
 
     __AXAuxCVolume = __AXAuxBVolume = __AXAuxAVolume = __AXMasterVolume =
         AX_MAX_VOLUME;

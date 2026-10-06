@@ -24,8 +24,7 @@ bool EqualsMaterialName(const char* pLhs, const char* pRhs) {
 }
 
 bool TestFileHeader(const res::BinaryFileHeader& rHeader) {
-    return rHeader.byteOrder == NW4R_BYTEORDER_BIG &&
-           rHeader.version == NW4R_LYT_LIBRARY_VERSION;
+    return rHeader.byteOrder == NW4R_BYTEORDER_BIG;
 }
 
 bool TestFileHeader(const res::BinaryFileHeader& rHeader, u32 signature) {

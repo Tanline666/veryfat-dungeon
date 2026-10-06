@@ -351,7 +351,7 @@ Material* Window::FindMaterialByName(const char* pName, bool recursive) {
 }
 
 AnimationLink* Window::FindAnimationLink(AnimTransform* pAnimTrans) {
-    AnimationLink* pAnimLink = Pane::FindAnimationLink(pAnimTrans);
+    AnimationLink* pAnimLink = Pane::FindAnimationLinkSelf(pAnimTrans);
 
     if (pAnimLink != NULL) {
         return pAnimLink;

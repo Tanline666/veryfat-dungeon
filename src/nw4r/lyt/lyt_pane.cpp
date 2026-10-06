@@ -354,7 +354,7 @@ void Pane::AddAnimationLink(AnimationLink* pAnimLink) {
     mAnimList.PushBack(pAnimLink);
 }
 
-AnimationLink* Pane::FindAnimationLink(AnimTransform* pAnimTrans) {
+AnimationLink* Pane::FindAnimationLinkSelf(AnimTransform* pAnimTrans) {
     AnimationLink* pAnimLink =
         detail::FindAnimationLink(&mAnimList, pAnimTrans);
 

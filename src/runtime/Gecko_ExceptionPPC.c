@@ -1,5 +1,6 @@
-#include <revolution/OS.h>
 #include <runtime/Gecko_ExceptionPPC.h>
+
+#include <revolution/OS.h>
 
 #define NUM_FRAGMENT 1
 
@@ -32,11 +33,7 @@ int __register_fragment(const ExtabIndexInfo* eti, void* toc) {
 void __unregister_fragment(int i) {
     FragmentInfo* frag;
 
-    if (i < 0) {
-        return;
-    }
-
-    if (i >= NUM_FRAGMENT) {
+    if (i) {
         return;
     }
 

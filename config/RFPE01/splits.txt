@@ -67,6 +67,12 @@ nw4r/ef/emform/ef_sphere.cpp:
 nw4r/ef/emform/ef_cube.cpp:
 	.text       start:0x8001FB30 end:0x80021710
 
+nw4r/ef/ef_drawstrategybuilder.cpp:
+	.text       start:0x80021710 end:0x800218B0
+	.data       start:0x80708730 end:0x8070873C
+	.bss        start:0x80771078 end:0x80771698
+	.sbss       start:0x808160E0 end:0x808160E8
+
 nw4r/ef/drawstrategy/ef_drawstrategyimpl.cpp:
 	.text       start:0x800218B0 end:0x800238D8
 	.ctors      start:0x80688CD4 end:0x80688CD8
@@ -154,16 +160,67 @@ nw4r/g3d/g3d_light.cpp:
 	.text       start:0x8005C670 end:0x8005D078
 	.sdata2     start:0x808180F8 end:0x80818124
 
+nw4r/g3d/g3d_calcvtx.cpp:
+	.text       start:0x8005D080 end:0x8005D81C
+	.sdata2     start:0x80818128 end:0x8081812C
+
+nw4r/lyt/lyt_pane.cpp:
+	.text       start:0x8005D880 end:0x8005E9DC
+	.ctors      start:0x80688CDC end:0x80688CE0
+	.data       start:0x80709510 end:0x80709584
+
+nw4r/lyt/lyt_group.cpp:
+	.text       start:0x8005E9E0 end:0x8005ED40
+	.data       start:0x80709588 end:0x80709594
+
+nw4r/lyt/lyt_picture.cpp:
+	.text       start:0x8005FEA0 end:0x8006041C
+	.ctors      start:0x80688CE0 end:0x80688CE4
+	.data       start:0x807095D8 end:0x80709650
+	.sbss       start:0x80816138 end:0x8081613C
+	.sdata2     start:0x80818158 end:0x8081815C
+
+nw4r/lyt/lyt_textBox.cpp:
+	.text       start:0x80060420 end:0x80061C8C
+	.ctors      start:0x80688CE4 end:0x80688CE8
+	.data       start:0x80709650 end:0x807096D4
+	.sbss       start:0x80816140 end:0x80816144
+
+nw4r/lyt/lyt_window.cpp:
+	.text       start:0x80061C90 end:0x8006422C
+	.ctors      start:0x80688CE8 end:0x80688CEC
+	.data       start:0x807096D8 end:0x807097A0
+	.sbss       start:0x80816148 end:0x8081614C
+
+nw4r/lyt/lyt_bounding.cpp:
+	.text       start:0x80064230 end:0x800642FC
+	.ctors      start:0x80688CEC end:0x80688CF0
+	.data       start:0x807097A0 end:0x80709814
+	.sbss       start:0x80816150 end:0x80816154
+
 nw4r/lyt/lyt_material.cpp:
 	.text       start:0x80064300 end:0x80067210
 	.data       start:0x80709818 end:0x80709888
 	.sdata2     start:0x80818188 end:0x808181B0
 	.sbss2      start:0x80823800 end:0x80823808
 
+nw4r/lyt/lyt_texMap.cpp:
+	.text       start:0x80067210 end:0x800675C0
+
+nw4r/lyt/lyt_drawInfo.cpp:
+	.text       start:0x800675C0 end:0x80067680
+	.data       start:0x80709888 end:0x80709894
+	.sdata2     start:0x808181C8 end:0x808181D0
+
 nw4r/lyt/lyt_animation.cpp:
 	.text       start:0x80067680 end:0x80068C40
 	.data       start:0x80709898 end:0x807098C0
 	.sdata2     start:0x808181D0 end:0x808181F0
+
+nw4r/lyt/lyt_common.cpp:
+	.text       start:0x800693C0 end:0x80069F20
+	.bss        start:0x8078F180 end:0x8078F1A0
+	.sbss       start:0x80816158 end:0x80816160
 
 nw4r/math/math_arithmetic.cpp:
 	.text       start:0x80069F90 end:0x8006A140
@@ -175,6 +232,21 @@ nw4r/math/math_triangular.cpp:
 	.rodata     start:0x8068B2C8 end:0x8068C2D8
 	.data       start:0x8070A210 end:0x8070A318
 	.sdata2     start:0x80818218 end:0x8081823C
+
+nw4r/math/math_geometry.cpp:
+	.text       start:0x8006AAF0 end:0x8006B940
+
+nw4r/snd/snd_AnimSound.cpp:
+	.text       start:0x8006B940 end:0x8006B994
+
+nw4r/snd/snd_AxManager.cpp:
+	.text       start:0x8006B9A0 end:0x8006D1E0
+	.ctors      start:0x80688CF0 end:0x80688CF4
+	.bss        start:0x8078F1A0 end:0x8078F5B0
+	.sbss       start:0x80816160 end:0x80816178
+
+nw4r/snd/snd_Bank.cpp:
+	.text       start:0x80070B90 end:0x80070E10
 
 nw4r/snd/snd_BasicSound.cpp:
 	.text       start:0x80071710 end:0x80072E80
@@ -233,6 +305,17 @@ nw4r/ut/ut_DvdLockedFileStream.cpp:
 	.bss        start:0x807A9CC8 end:0x807A9CE0
 	.sbss       start:0x80816218 end:0x80816230
 
+egg/math/eggMatrix.cpp:
+	extab       start:0x80006720 end:0x80006750
+	extabindex  start:0x80006BE8 end:0x80006C30
+	.text       start:0x800B90D4 end:0x800B9C14
+	.ctors      start:0x80688D40 end:0x80688D44
+	.bss        start:0x807AA2A0 end:0x807AA2D0
+
+egg/core/eggExpHeap.cpp:
+	.text       start:0x800BA788 end:0x800BAAE0
+	.data       start:0x8070B6A0 end:0x8070B6CC
+
 egg/core/eggFrmHeap.cpp:
 	.text       start:0x800BAAE0 end:0x800BADE4
 	.data       start:0x8070B6D0 end:0x8070B6FC
@@ -260,7 +343,7 @@ egg/core/eggSceneManager.cpp:
 
 egg/core/eggVideo.cpp:
 	.text       start:0x800C1320 end:0x800C1658
-	.rodata     start:0x80690370 end:0x806905CC
+	.rodata     start:0x80690370 end:0x806905C8
 	.sdata2     start:0x80818CA8 end:0x80818CB8
 
 egg/core/eggXfb.cpp:
@@ -326,6 +409,45 @@ runtime/__init_cpp_exceptions.cpp:
 	.dtors      start:0x80688EE4 end:0x80688EE8 rename:.dtors$15
 	.sdata      start:0x80813CB0 end:0x80813CB4
 
+runtime/Gecko_ExceptionPPC.c:
+	.text       start:0x800CA188 end:0x800CA1E4
+	.bss        start:0x807AB510 end:0x807AB51C
+
+runtime/GCN_mem_alloc.c:
+	.text       start:0x800CA1E4 end:0x800CA29C
+	.rodata     start:0x80690650 end:0x806906C0
+
+MSL/secure_error.c:
+	.text       start:0x800CA29C end:0x800CA2B4
+
+MSL/direct_io.c:
+	.text       start:0x800CC344 end:0x800CC650
+
+MSL/file_io.c:
+	.text       start:0x800CC650 end:0x800CC8F8
+
+MSL/Math/e_acos.c:
+	.text       start:0x800D5244 end:0x800D5510
+	.sdata2     start:0x80818DC8 end:0x80818E50
+
+MSL/Math/e_asin.c:
+	.text       start:0x800D5510 end:0x800D57A8
+	.sdata2     start:0x80818E50 end:0x80818ED8
+
+MSL/Math/k_rem_pio2.c:
+	.text       start:0x800D6DF0 end:0x800D84A8
+	.rodata     start:0x806914F0 end:0x80691540
+	.sdata2     start:0x80819190 end:0x808191D0
+
+MSL/Math/k_sin.c:
+	.text       start:0x800D84A8 end:0x800D8568
+	.sdata2     start:0x808191D0 end:0x80819208
+
+MSL/Math/k_tan.c:
+	.text       start:0x800D8568 end:0x800D87B8
+	.rodata     start:0x80691540 end:0x806915A8
+	.sdata2     start:0x80819208 end:0x80819240
+
 revolution/WUD/WUD.c:
 	.text       start:0x800DF110 end:0x800E55C0
 
@@ -333,6 +455,21 @@ revolution/ARC/arc.c:
 	.text       start:0x800E61A0 end:0x800E6B88
 	.data       start:0x8070E020 end:0x8070E090
 	.sdata      start:0x80813D00 end:0x80813D08
+
+revolution/AX/AXAux.c:
+	.text       start:0x800E70E0 end:0x800E7974
+	.bss        start:0x807AFFE0 end:0x807B3160
+	.sbss       start:0x80816550 end:0x80816598
+
+revolution/AX/AXCL.c:
+	.text       start:0x800E7980 end:0x800E8468
+	.bss        start:0x807B3160 end:0x807B3260
+	.sbss       start:0x80816598 end:0x808165BC
+
+revolution/AX/AXOut.c:
+	.text       start:0x800E8470 end:0x800E8CA8
+	.bss        start:0x807B3260 end:0x807B4060
+	.sbss       start:0x808165C0 end:0x808165FC
 
 revolution/BASE/PPCArch.c:
 	.text       start:0x800F0650 end:0x800F0870

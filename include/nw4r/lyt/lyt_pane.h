@@ -120,13 +120,20 @@ public:
     virtual void UnbindAnimationSelf(AnimTransform* pAnimTrans); // at 0x50
 
     virtual AnimationLink*
-    FindAnimationLink(AnimTransform* pAnimTrans); // at 0x54
+    FindAnimationLinkSelf(AnimTransform* pAnimTrans); // at 0x54
+    virtual AnimationLink*
+    FindAnimationLinkSelf(const AnimResource& rRes); // at 0x58
 
     virtual void SetAnimationEnable(AnimTransform* pAnimTrans, bool enable,
-                                    bool recursive); // at 0x58
+                                    bool recursive = TRUE); // at 0x5C
+    virtual void SetAnimationEnable(const AnimResource& rRes, bool enable,
+                                    bool recursive = TRUE); // at 0x60
 
-    virtual Material* GetMaterial() const;       // at 0x5C
-    virtual void LoadMtx(const DrawInfo& rInfo); // at 0x60
+    virtual u8 GetMaterialNum() const; // at 0x64
+
+    virtual Material* GetMaterial() const; // at 0x68
+
+    virtual Material* GetMaterial(u32 idx) const; // at 0x6C
 
     void AppendChild(Pane* pChild);
     void RemoveChild(Pane* pChild);
@@ -271,18 +278,21 @@ protected:
     math::MTX34 mMtx;    // at 0x54
     math::MTX34 mGlbMtx; // at 0x84
 
-    u8 mAlpha;        // at 0xB4
-    u8 mGlbAlpha;     // at 0xB5
-    u8 mBasePosition; // at 0xB6
-    u8 mFlag;         // at 0xB7
+    const res::ExtUserDataList* mpExtUserDataList; // at 0xB4
 
-    char mName[NW4R_LYT_RES_NAME_LEN + 1];          // at 0xB8
-    char mUserData[NW4R_LYT_PANE_USERDATA_LEN + 1]; // at 0xC9
+    u8 mAlpha;        // at 0xB8
+    u8 mGlbAlpha;     // at 0xB9
+    u8 mBasePosition; // at 0xBA
+    u8 mFlag;         // at 0xBB
 
-    bool mbUserAllocated; // at 0xD2
-    u8 PADDING_0xD3;      // at 0xD3
+    char mName[NW4R_LYT_RES_NAME_LEN + 1];          // at 0xBC
+    char mUserData[NW4R_LYT_PANE_USERDATA_LEN + 1]; // at 0xCD
+
+    bool mbUserAllocated; // at 0xD6
+    u8 PADDING_0xD7;      // at 0xD7
 
 protected:
+    virtual void LoadMtx(const DrawInfo& rInfo); // at 0x70
     void InsertChild(PaneList::Iterator next, Pane* pChild);
 
 private:

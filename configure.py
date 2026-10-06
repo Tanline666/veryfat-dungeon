@@ -260,9 +260,11 @@ cflags_runtime = [
     *cflags_base,
     "-use_lmw_stmw on",
     "-str reuse,pool,readonly",
+    "-fp_contract off",
     "-gccinc",
     "-common off",
     "-inline auto",
+    "-func_align 4",
 ]
 
 # REL flags
@@ -398,6 +400,7 @@ cflags_egg = [
     "-str reuse,pool,readonly",
     "-i include/nw4r",
     "-ir include/egg",  # TODO(kiwi) remove after refactor
+    "-func_align 4",
 ]
 
 # RVL SDK flags
@@ -489,6 +492,7 @@ config.libs = [
             Object(NonMatching, "nw4r/ef/ef_creationqueue.cpp"),
             Object(NonMatching, "nw4r/ef/emform/ef_sphere.cpp"),
             Object(NonMatching, "nw4r/ef/emform/ef_cube.cpp"),
+            Object(Matching, "nw4r/ef/ef_drawstrategybuilder.cpp"),
             Object(NonMatching, "nw4r/ef/drawstrategy/ef_drawstrategyimpl.cpp"),
             Object(NonMatching, "nw4r/ef/drawstrategy/ef_drawbillboardstrategy.cpp"),
             Object(NonMatching, "nw4r/ef/drawstrategy/ef_drawdirectionalstrategy.cpp"),
@@ -517,6 +521,7 @@ config.libs = [
             Object(NonMatching, "nw4r/g3d/g3d_scnmdl.cpp"),
             Object(Matching, "nw4r/g3d/g3d_fog.cpp"),
             Object(Matching, "nw4r/g3d/g3d_light.cpp"),
+            Object(Matching, "nw4r/g3d/g3d_calcvtx.cpp"),
         ],
     },
     {
@@ -525,8 +530,17 @@ config.libs = [
         "cflags": cflags_libnw4r_lyt,
         "progress_category": "nw4r",
         "objects": [
+            Object(NonMatching, "nw4r/lyt/lyt_pane.cpp"),
+            Object(NonMatching, "nw4r/lyt/lyt_group.cpp"),
+            Object(NonMatching, "nw4r/lyt/lyt_picture.cpp"),
+            Object(NonMatching, "nw4r/lyt/lyt_textBox.cpp"),
+            Object(NonMatching, "nw4r/lyt/lyt_window.cpp"),
+            Object(Matching, "nw4r/lyt/lyt_bounding.cpp"),
             Object(NonMatching, "nw4r/lyt/lyt_material.cpp"),
+            Object(NonMatching, "nw4r/lyt/lyt_texMap.cpp"),
+            Object(Matching, "nw4r/lyt/lyt_drawInfo.cpp"),
             Object(NonMatching, "nw4r/lyt/lyt_animation.cpp"),
+            Object(NonMatching, "nw4r/lyt/lyt_common.cpp"),
         ],
     },
     {
@@ -537,6 +551,7 @@ config.libs = [
         "objects": [
             Object(NonMatching, "nw4r/math/math_arithmetic.cpp"),
             Object(Matching, "nw4r/math/math_triangular.cpp"),
+            Object(NonMatching, "nw4r/math/math_geometry.cpp"),
         ],
     },
     {
@@ -545,6 +560,9 @@ config.libs = [
         "cflags": cflags_libnw4r_snd,
         "progress_category": "nw4r",
         "objects": [
+            Object(Matching, "nw4r/snd/snd_AnimSound.cpp"),
+            Object(NonMatching, "nw4r/snd/snd_AxManager.cpp"),
+            Object(NonMatching, "nw4r/snd/snd_Bank.cpp"),
             Object(NonMatching, "nw4r/snd/snd_BasicSound.cpp"),
             Object(NonMatching, "nw4r/snd/snd_SoundArchivePlayer.cpp"),
             Object(Matching, "nw4r/snd/snd_SoundHandle.cpp"),
@@ -574,25 +592,27 @@ config.libs = [
         "cflags": cflags_egg,
         "progress_category": "egg",
         "objects": [
+            Object(NonMatching, "egg/math/eggMatrix.cpp"),
+            Object(NonMatching, "egg/core/eggExpHeap.cpp"),
             Object(NonMatching, "egg/core/eggFrmHeap.cpp"),
-            Object(Equivalent, "egg/core/eggHeap.cpp"),
-            Object(Equivalent, "egg/core/eggAllocator.cpp"),
-            Object(Equivalent, "egg/core/eggGraphicsFifo.cpp"),
-            Object(NonMatching, "egg/core/eggSceneManager.cpp"),
-            Object(NonMatching, "egg/core/eggVideo.cpp"),
+            Object(Matching, "egg/core/eggHeap.cpp"),
+            Object(Matching, "egg/core/eggAllocator.cpp"),
+            Object(Matching, "egg/core/eggGraphicsFifo.cpp"),
+            Object(Matching, "egg/core/eggSceneManager.cpp"),
+            Object(Matching, "egg/core/eggVideo.cpp"),
             Object(NonMatching, "egg/core/eggXfb.cpp"),
-            Object(Equivalent, "egg/core/eggDvdFile.cpp"),
-            Object(Equivalent, "egg/core/eggScene.cpp"),
+            Object(Matching, "egg/core/eggDvdFile.cpp"),
+            Object(Matching, "egg/core/eggScene.cpp"),
             Object(NonMatching, "egg/core/eggProcessMeter.cpp"),
-            Object(Equivalent, "egg/core/eggDisposer.cpp"),
-            Object(Equivalent, "egg/core/eggArchive.cpp"),
+            Object(Matching, "egg/core/eggDisposer.cpp"),
+            Object(Matching, "egg/core/eggArchive.cpp"),
             Object(NonMatching, "egg/core/eggDecomp.cpp"),
             Object(NonMatching, "egg/core/eggAsyncDisplay.cpp"),
             Object(NonMatching, "egg/core/eggCntFile.cpp"),
             Object(NonMatching, "egg/audio/eggAudioArcPlayerMgr.cpp"),
             Object(NonMatching, "egg/audio/eggAudioExpMgr.cpp"),
             Object(NonMatching, "egg/audio/eggAudioMgr.cpp"),
-            Object(Equivalent, "egg/audio/eggAudioSystem.cpp"),
+            Object(Matching, "egg/audio/eggAudioSystem.cpp"),
         ],
     },
     {
@@ -602,7 +622,25 @@ config.libs = [
         "progress_category": "sdk",  # str | List[str]
         "objects": [
             Object(NonMatching, "runtime/global_destructor_chain.c"),
-            Object(NonMatching, "runtime/__init_cpp_exceptions.cpp"),
+            Object(Matching, "runtime/__init_cpp_exceptions.cpp"),
+            Object(Matching, "runtime/Gecko_ExceptionPPC.c"),
+            Object(Matching, "runtime/GCN_mem_alloc.c"),
+        ],
+    },
+    {
+        "lib": "MSL_C",
+        "mw_version": config.linker_version,
+        "cflags": cflags_runtime,
+        "progress_category": "sdk",
+        "objects": [
+            Object(NonMatching, "MSL/secure_error.c"),
+            Object(NonMatching, "MSL/direct_io.c"),
+            Object(NonMatching, "MSL/file_io.c"),
+            Object(Matching, "MSL/Math/e_acos.c"),
+            Object(Matching, "MSL/Math/e_asin.c"),
+            Object(Matching, "MSL/Math/k_rem_pio2.c"),
+            Object(Matching, "MSL/Math/k_sin.c"),
+            Object(Matching, "MSL/Math/k_tan.c"),
         ],
     },
     {
@@ -613,6 +651,9 @@ config.libs = [
         "objects": [
             Object(NonMatching, "revolution/WUD/WUD.c"),
             Object(Matching, "revolution/ARC/arc.c"),
+            Object(Matching, "revolution/AX/AXAux.c"),
+            Object(NonMatching, "revolution/AX/AXCL.c"),
+            Object(Matching, "revolution/AX/AXOut.c"),
             Object(Matching, "revolution/BASE/PPCArch.c"),
             Object(Matching, "revolution/BTE/gki/common/gki_buffer.c"),
             Object(Equivalent, "revolution/BTE/gki/common/gki_time.c"),
@@ -683,7 +724,7 @@ config.libs = [
         "progress_category": "hbm",
         "objects": [
             Object(NonMatching, "homebuttonLib/HBMFrameController.cpp"),
-            Object(Matching, "homebuttonLib/HBMAnmController.cpp"),
+            Object(NonMatching, "homebuttonLib/HBMAnmController.cpp"),
             Object(NonMatching, "homebuttonLib/HBMGUIManager.cpp"),
             Object(NonMatching, "homebuttonLib/HBMController.cpp"),
         ],

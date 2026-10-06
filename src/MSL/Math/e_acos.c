@@ -36,7 +36,10 @@
  */
 
 #include <internal/fdlibm.h>
+
+#include <errno.h>
 #include <math.h>
+
 
 #ifdef __STDC__
 static const double
@@ -76,6 +79,9 @@ double x;
             else
                 return pi + 2.0 * pio2_lo; /* acos(-1)= pi */
         }
+#ifdef __STDC__
+        errno = EDOM;
+#endif
         return NAN; /* acos(|x|>1) is NaN */
     }
     if (ix < 0x3fe00000) { /* |x| < 0.5 */

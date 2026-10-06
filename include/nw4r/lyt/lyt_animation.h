@@ -3,10 +3,11 @@
 #include <nw4r/types_nw4r.h>
 
 #include <nw4r/lyt/lyt_common.h>
+#include <nw4r/lyt/lyt_group.h>
 #include <nw4r/lyt/lyt_resources.h>
 #include <nw4r/lyt/lyt_types.h>
-
 #include <nw4r/ut.h>
+
 
 namespace nw4r {
 namespace lyt {
@@ -31,6 +32,25 @@ struct AnimationBlock {
     u16 fileNum;                 // at 0xC
     u16 animContNum;             // at 0xE
     u32 animContOffsetsOffset;   // at 0x10
+};
+
+struct AnimationTagBlock {
+    DataBlockHeader blockHeader; // at 0x0
+    u16 tagOrder;                // at 0x8
+    u16 groupNum;                // at 0xA
+    u32 nameOffset;              // at 0xC
+    u32 groupOffset;             // at 0x10
+    s16 startFrame;              // at 0x14
+    s16 endFrame;                // at 0x16
+    u8 flag;                     // at 0x18
+    u8 PADDING_0x19[3];          // at 0x19
+};
+
+struct AnimationShareBlock {
+    DataBlockHeader blockHeader; // at 0x0
+    u32 shareInfoOffset;         // at 0x4
+    u16 shareNum;                // at 0x8
+    u8 PADDING_0xA[2];           // at 0xA
 };
 
 /******************************************************************************
@@ -143,6 +163,52 @@ protected:
     void** mpFileResAry;         // at 0x14
     AnimationLink* mAnimLinkAry; // at 0x18
     u16 mAnimLinkNum;            // at 0x1C
+};
+
+/******************************************************************************
+ *
+ * AnimResource
+ *
+ ******************************************************************************/
+
+class AnimResource {
+public:
+    AnimResource();
+    explicit AnimResource(const void* pResBuf) {
+        Set(pResBuf);
+    }
+
+    void Set(const void* pResBuf);
+
+    const res::BinaryFileHeader* GetFileHeader() const {
+        return mpFileHeader;
+    }
+    const res::AnimationBlock* GetResourceBlock() const {
+        return mpResBlock;
+    }
+    const res::AnimationTagBlock* GetTagBlock() const {
+        return mpTagBlock;
+    }
+
+    u16 GetTagOrder() const;
+    const char* GetTagName() const;
+    u16 GetGroupNum() const;
+    const AnimationGroupRef* GetGroupArray() const;
+    bool IsDescendingBind() const;
+    u16 GetAnimationShareInfoNum() const;
+    const AnimationShareInfo* GetAnimationShareInfoArray() const;
+    u16 CalcAnimationNum(Pane* pPane, bool recursive) const;
+    u16 CalcAnimationNum(Material* pMaterial) const;
+    u16 CalcAnimationNum(Group* pGroup, bool recursive) const;
+
+private:
+    void Init();
+
+private:
+    const res::BinaryFileHeader* mpFileHeader;    // at 0x0
+    const res::AnimationBlock* mpResBlock;        // at 0x4
+    const res::AnimationTagBlock* mpTagBlock;     // at 0x8
+    const res::AnimationShareBlock* mpShareBlock; // at 0xC
 };
 
 /******************************************************************************

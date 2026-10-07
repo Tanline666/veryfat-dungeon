@@ -255,6 +255,10 @@ nw4r/snd/snd_BasicSound.cpp:
 	.sbss       start:0x80816188 end:0x8081618C
 	.sdata2     start:0x808182E8 end:0x808182F8
 
+nw4r/snd/snd_SoundArchive.cpp:
+	.text       start:0x80081920 end:0x80082020
+	.data       start:0x8070AA88 end:0x8070AAA8
+
 nw4r/snd/snd_SoundArchivePlayer.cpp:
 	.text       start:0x80083990 end:0x80086400
 
@@ -504,7 +508,9 @@ revolution/DB/db.c:
 	.sbss       start:0x808166B8 end:0x808166C0
 
 revolution/DVD/dvdfs.c:
-	.text       start:0x8011F310 end:0x8011F930
+	.text       start:0x8011F310 end:0x8011F92C
+	.data       start:0x80717B28 end:0x80717C58
+	.sdata      start:0x80813DC8 end:0x80813DD8
 	.sbss       start:0x808166E0 end:0x80816700
 
 revolution/DVD/dvd.c:
@@ -702,6 +708,15 @@ revolution/OS/OSTime.c:
 	.text       start:0x8014D5B0 end:0x8014DC80
 	.data       start:0x8071C3F0 end:0x8071C450
 
+revolution/OS/OSStateTM.c:
+	.text       start:0x8014DF10 end:0x8014E614
+	.data       start:0x80728290 end:0x80728358
+	.bss        start:0x80803020 end:0x808030E0
+	.sbss       start:0x80816A00 end:0x80816A20
+
+revolution/OS/OSPlayTime.c:
+	.text       start:0x8014F730 end:0x8014FF10
+
 revolution/OS/__start.c:
 	.init       start:0x800062C0 end:0x800065B8
 	.sbss       start:0x80816A20 end:0x80816A28
@@ -853,3 +868,7 @@ Pack/RPSystem/RPSysRenderMode.cpp:
 
 Pack/RPSystem/RPSysSceneMgr.cpp:
 	.text       start:0x801DA674 end:0x801DB144
+
+Pack/RPKernel/RPSysMiddleDBGenInfo.cpp:
+	.text       start:0x801EBA48 end:0x801EBABC
+	.data       start:0x80740540 end:0x8074054C

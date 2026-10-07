@@ -48,14 +48,22 @@ OSStateCallback OSSetResetCallback(OSStateCallback callback) {
     enabled = OSDisableInterrupts();
 
     old = ResetCallback;
-    ResetCallback = callback;
+    if (callback) {
+        ResetCallback = callback;
+    } else {
+        ResetCallback = __OSDefaultResetCallback;
+    }
 
     if (!StmEhRegistered) {
         __OSRegisterStateEvent();
     }
 
     OSRestoreInterrupts(enabled);
-    return old;
+    if (old == __OSDefaultResetCallback) {
+        return NULL;
+    } else {
+        return old;
+    }
 }
 
 OSStateCallback OSSetPowerCallback(OSStateCallback callback) {
@@ -65,14 +73,22 @@ OSStateCallback OSSetPowerCallback(OSStateCallback callback) {
     enabled = OSDisableInterrupts();
 
     old = PowerCallback;
-    PowerCallback = callback;
+    if (callback) {
+        PowerCallback = callback;
+    } else {
+        PowerCallback = __OSDefaultPowerCallback;
+    }
 
     if (!StmEhRegistered) {
         __OSRegisterStateEvent();
     }
 
     OSRestoreInterrupts(enabled);
-    return old;
+    if (old == __OSDefaultPowerCallback) {
+        return NULL;
+    } else {
+        return old;
+    }
 }
 
 BOOL __OSInitSTM(void) {
@@ -115,7 +131,7 @@ void __OSShutdownToSBY(void) {
     VI_HW_REGS[VI_DCR] = 0;
 
     // clang-format off
-#line 276
+#line 348
     OS_ASSERT(StmReady, "Error: The firmware doesn't support shutdown feature.\n");
     // clang-format on
 
@@ -131,7 +147,7 @@ void __OSHotReset(void) {
     VI_HW_REGS[VI_DCR] = 0;
 
     // clang-format off
-#line 340
+#line 412
     OS_ASSERT(StmReady, "Error: The firmware doesn't support reboot feature.\n");
     // clang-format on
 
@@ -259,7 +275,7 @@ static s32 __OSStateEventHandler(s32 result, void* arg) {
     OSStateCallback callback;
 
     // clang-format off
-#line 748
+#line 820
     OS_ASSERT(result == IPC_RESULT_OK, "Error on STM state event handler\n");
     // clang-format on
 
@@ -275,6 +291,7 @@ static s32 __OSStateEventHandler(s32 result, void* arg) {
             callback();
 
             OSRestoreInterrupts(enabled);
+            VIResetDimmingCount();
         }
         __OSRegisterStateEvent();
     }

@@ -447,6 +447,7 @@ cflags_rp = [
     "-i include/nw4r",
     "-ir include/egg",  # TODO(kiwi) remove after refactor
     "-i include/Pack",
+    "-func_align 4",
 ]
 
 
@@ -564,6 +565,7 @@ config.libs = [
             Object(NonMatching, "nw4r/snd/snd_AxManager.cpp"),
             Object(NonMatching, "nw4r/snd/snd_Bank.cpp"),
             Object(NonMatching, "nw4r/snd/snd_BasicSound.cpp"),
+            Object(NonMatching, "nw4r/snd/snd_SoundArchive.cpp"),
             Object(NonMatching, "nw4r/snd/snd_SoundArchivePlayer.cpp"),
             Object(Matching, "nw4r/snd/snd_SoundHandle.cpp"),
             Object(NonMatching, "nw4r/snd/snd_SoundHeap.cpp"),
@@ -659,7 +661,7 @@ config.libs = [
             Object(Equivalent, "revolution/BTE/gki/common/gki_time.c"),
             Object(Matching, "revolution/BTE/rvl/gki_ppc.c"),
             Object(Matching, "revolution/DB/db.c"),
-            Object(NonMatching, "revolution/DVD/dvdfs.c"),
+            Object(Matching, "revolution/DVD/dvdfs.c"),
             Object(NonMatching, "revolution/DVD/dvd.c"),
             Object(Matching, "revolution/DVD/dvdqueue.c"),
             Object(NonMatching, "revolution/DVD/dvderror.c"),
@@ -704,6 +706,8 @@ config.libs = [
             Object(Matching, "revolution/OS/OSInterrupt.c"),
             Object(NonMatching, "revolution/OS/OSThread.c"),
             Object(Matching, "revolution/OS/OSTime.c"),
+            Object(Matching, "revolution/OS/OSStateTM.c"),
+            Object(NonMatching, "revolution/OS/OSPlayTime.c"),
             Object(NonMatching, "revolution/SC/scsystem.c"),
             Object(NonMatching, "revolution/SC/scapi.c"),
             Object(NonMatching, "revolution/SI/SIBios.c"),
@@ -757,7 +761,8 @@ config.libs = [
         "progress_category": "kernel",
         "objects": [
             Object(NonMatching, "Pack/RPKernel/RPSysSystem.cpp"),
-            Object(NonMatching, "main.cpp"),
+            Object(Matching, "main.cpp"),
+            Object(Matching, "Pack/RPKernel/RPSysMiddleDBGenInfo.cpp"),
         ],
     },
     {

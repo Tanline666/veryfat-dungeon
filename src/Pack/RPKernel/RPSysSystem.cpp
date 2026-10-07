@@ -53,14 +53,22 @@ void RPSysSystem::initialize() {
     setupTVMode();
     setupRenderMode();
 
+    sConfigData.mVideo = new EGG::Video(spRenderModeObj);
+    sConfigData.mXfbMgr = new EGG::XfbManager;
+    for (int i = 0; i < 2; ++i) {
+        sConfigData.mXfbMgr->attach(new EGG::Xfb(sConfigData.mRootHeapMem2));
+    }
+    sConfigData.mDisplay = new EGG::AsyncDisplay(1);
+    EGG::Thread::initialize();
+    sConfigData.mCreatorThread = new EGG::Thread(OSGetCurrentThread(), 4);
+    sConfigData.mPerfView = new EGG::ProcessMeter(TRUE);
+
     EGG::DvdFile::initialize();
     EGG::Exception::create(64, 32, 4, 0);
-    // EGG::Exception::setPadInfo(pointer); pointer needs to be defined
     sConfigData.mRootHeapMem2->becomeCurrentHeap();
 }
 
 void RPSysSystem::create() {
-    //! Requires different code for rev 0. Doesn't match there.
     spInstance = new (sConfigData.GetSystemHeap()) RPSysSystem;
 }
 
@@ -69,7 +77,24 @@ void RPSysSystem::mainLoop() {
         sConfigData.mDisplay->beginFrame();
         sConfigData.mPerfView->measureBeginFrame();
         RP_GET_INSTANCE(RPSysDvdStatus)->update();
+        //! Tentative (for Wii Fit Plus, confirmed in Wii Sports)
         RP_GET_INSTANCE(RPSysSceneMgr)->getCurrentSceneRP();
+        //! RPGrpRenderer::CalculateTexCopyBackground();
+        sConfigData.mDisplay->beginRender();
+        sConfigData.mPerfView->measureBeginRender();
+        RP_GET_INSTANCE(RPSysSceneMgr)->draw();
+        sConfigData.mPerfView->draw();
+        sConfigData.mPerfView->measureEndRender();
+        EGG_GET_INSTANCE(EGG::CoreControllerMgr)->beginFrame();
+        RP_GET_INSTANCE(RPSysSceneMgr)->calc();
+        EGG_GET_INSTANCE(EGG::CoreControllerMgr)->endFrame();
+        RP_GET_INSTANCE(RPSndAudioMgr)->calc();
+        sConfigData.mPerfView->measureEndFrame();
+        RP_GET_INSTANCE(RPSysDvdStatus)->draw();
+        RP_GET_INSTANCE(RPSysHomeMenuMgr)->drawBanIcon();
+        RP_GET_INSTANCE(RPSysSceneMgr)->getCurrentSceneRP();
+        sConfigData.mDisplay->endRender();
+        sConfigData.mDisplay->endFrame();
     }
 }
 
@@ -98,27 +123,40 @@ void RPSysSystem::startLoadCount() {
     mLoadCount = 0;
 }
 
+void RPSysSystem::setDimming(BOOL dim) {
+    VIEnableDimming(dim);
+}
+
+void RPSysSystem::setAutoSleepTime(u8 time) {
+    WPADSetAutoSleepTime(time);
+}
+
 const char* RPSysSystem::getTimeStampString() {
     return mpTimeStampString;
 }
+
+RPSysSystem::~RPSysSystem() {}
 
 /**
  * @brief Constructor
  */
 
-RPSysSystem::RPSysSystem() : mEffectWorkSize(0) {
+RPSysSystem::RPSysSystem() {
     mpResourceHeap = NULL;
     mpReserveHeap = NULL;
     mpAssertHeap = NULL;
-    HEAP_0x14 = NULL;
+    mpDebugHeap = NULL;
     mpCurrentHeap = NULL;
+    mUNK_0x18 = NULL;
+    mUNK_0x1C = NULL;
+    mUNK_0x20 = NULL;
+    mUNK_0x24 = NULL;
     OSInitMutex(&mCurrentHeapMutex);
     mpNandThread = NULL;
     mpDvdThread = NULL;
-    mpWc24Thread = NULL;
     mNandEndMessage = FOURCC('n', 'a', 'n', 'd');
-    mDvdEndMessage = FOURCC('d', 'i', 's', 'k');  // "disk"
-    mWc24EndMessage = FOURCC('w', 'c', '2', '4'); // "wc24"
+    mDvdEndMessage = FOURCC('d', 'i', 's', 'k');
+    mPowerFlag = 1;
     mFrameRate = 1;
     sConfigData.GetDisplay()->setFrameRate(mFrameRate);
     mLoadCount = 0;
@@ -154,6 +192,11 @@ void RPSysSystem::setupLocalSettings() {
     }
 }
 
+void RPSysSystem::setCallBack() {
+    OSSetResetCallback(softResetCallBack);
+    OSSetPowerCallback(shutdownSystemCallBack);
+}
+
 /**
  * @brief Controls whether the game restarts or returns to the Wii Menu upon a
  * soft reset.
@@ -161,7 +204,6 @@ void RPSysSystem::setupLocalSettings() {
 void RPSysSystem::softResetCallBack() {
     if (RP_GET_INSTANCE(RPSysDvdStatus)->isErrorOccured()) {
         RP_GET_INSTANCE(RPSysSceneMgr)->returnToMenu(FALSE);
-
     } else {
         VIEnableDimming(FALSE);
 
@@ -174,5 +216,7 @@ void RPSysSystem::softResetCallBack() {
 }
 
 void RPSysSystem::shutdownSystemCallBack() {
-    RP_GET_INSTANCE(RPSysSceneMgr)->shutdownSystem(FALSE);
+    if (RP_GET_INSTANCE(RPSysSystem)->mPowerFlag) {
+        RP_GET_INSTANCE(RPSysSceneMgr)->shutdownSystem(FALSE);
+    }
 }

@@ -264,6 +264,14 @@ public:
     }
 
     /**
+     * @brief Sets how many minutes it will take until
+     * the remote powers off when left idle
+     *
+     * @param time Minutes
+     */
+    void setAutoSleepTime(u8 time);
+
+    /**
      * @brief Gets the thread for asynchronous NAND operations
      */
     EGG::TaskThread* getNandThread();
@@ -331,39 +339,39 @@ private:
     static void shutdownSystemCallBack();
 
 private:
-    //! Effect manager work memory size
-    u32 mEffectWorkSize; // at 0x4
-
     //! Heap used by the resource manager
-    EGG::Heap* mpResourceHeap; // at 0x8
+    EGG::Heap* mpResourceHeap; // at 0x4
     //! Heap reserving memory in the MEM1 region
-    EGG::Heap* mpReserveHeap; // at 0xC
+    EGG::Heap* mpReserveHeap; // at 0x8
     //! Heap used for error handling when other heaps are exhausted
-    EGG::Heap* mpAssertHeap; // at 0x10
+    EGG::Heap* mpAssertHeap; // at 0xC
     //! @unused
-    EGG::Heap* HEAP_0x14;
+    EGG::Heap* mpDebugHeap; // at 0x10
 
     //! Backup of the EGG current heap while it is changed
-    EGG::Heap* mpCurrentHeap; // at 0x18
+    EGG::Heap* mpCurrentHeap; // at 0x14
+    u32 mUNK_0x18;
+    u32 mUNK_0x1C;
+    u32 mUNK_0x20;
+    u32 mUNK_0x24;
     //! Mutex to guard changing the current heap
-    OSMutex mCurrentHeapMutex; // at 0x1C
+    OSMutex mCurrentHeapMutex; // at 0x28
 
     //! Thread for asynchronous NAND operations
-    EGG::TaskThread* mpNandThread; // at 0x34
+    EGG::TaskThread* mpNandThread; // at 0x40
     //! Thread for asynchronous disc operations
-    EGG::TaskThread* mpDvdThread; // at 0x38
-    //! Thread for asynchronous WiiConnect24 operations
-    EGG::TaskThread* mpWc24Thread; // at 0x3C
+    EGG::TaskThread* mpDvdThread; // at 0x44
 
     //! Task-end thread message for asynchronous NAND operations
-    u32 mNandEndMessage; // at 0x40
+    u32 mNandEndMessage; // at 0x48
     //! Task-end thread message for asynchronous disc operations
-    u32 mDvdEndMessage; // at 0x44
-    //! Task-end thread message for asynchronous WiiConnect24 operations
-    u32 mWc24EndMessage; // at 0x48
+    u32 mDvdEndMessage; // at 0x4C
 
+    //! Determines if power operations are safe or have been triggered
+    //! (tentative)
+    bool mPowerFlag; // at 0x50
     //! Number of ticks per frame
-    u8 mFrameRate; // at 0x4C
+    u8 mFrameRate; // at 0x51
     //! Average frame duration, in seconds (assumes 60fps)
     f32 mFrameTime; // at 0x50
     //! Total number of frames spent loading resources

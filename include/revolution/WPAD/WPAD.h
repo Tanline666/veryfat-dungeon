@@ -313,6 +313,8 @@ void WPADControlMotor(s32 chan, u32 command);
 void WPADEnableMotor(BOOL enable);
 BOOL WPADIsMotorEnabled(void);
 
+void WPADSetAutoSleepTime(u8 time);
+
 s32 WPADControlLed(s32 chan, u8 flags, WPADCallback pCallback);
 
 BOOL WPADSaveConfig(WPADSaveCallback pCallback);

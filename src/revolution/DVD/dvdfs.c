@@ -229,31 +229,6 @@ BOOL DVDFastOpen(s32 entrynum, DVDFileInfo* info) {
     return TRUE;
 }
 
-BOOL DVDOpen(const char* path, DVDFileInfo* info) {
-    s32 entrynum = DVDConvertPathToEntrynum(path);
-
-    if (entrynum < 0) {
-        char dir[128];
-        DVDGetCurrentDir(dir, sizeof(dir));
-
-        OSReport("Warning: DVDOpen(): file '%s' was not found under %s.\n",
-                 path, dir);
-
-        return FALSE;
-    }
-
-    if (DVDNodeIsFolder(FstStart[entrynum])) {
-        return FALSE;
-    }
-
-    info->offset = FstStart[entrynum].offset >> __DVDLayoutFormat;
-    info->size = FstStart[entrynum].size;
-    info->callback = NULL;
-    info->block.state = DVD_STATE_IDLE;
-
-    return TRUE;
-}
-
 BOOL DVDClose(DVDFileInfo* info) {
     DVDCancel(&info->block);
     return TRUE;
@@ -315,10 +290,12 @@ BOOL DVDGetCurrentDir(char* buffer, u32 maxlen) {
 BOOL DVDReadAsyncPrio(DVDFileInfo* info, void* dst, s32 size, s32 offset,
                       DVDAsyncCallback callback, s32 prio) {
     // clang-format off
+#line 823
     OS_ASSERT(offset >= 0 && offset <= info->size, "DVDReadAsync(): specified area is out of the file  ");
     // clang-format on
 
     // clang-format off
+#line 829
     OS_ASSERT(offset + size >= 0 && offset + size < info->size + 32, "DVDReadAsync(): specified area is out of the file  ");
     // clang-format on
 
@@ -344,10 +321,12 @@ s32 DVDReadPrio(DVDFileInfo* info, void* dst, s32 size, s32 offset, s32 prio) {
     s32 ret;
 
     // clang-format off
+#line 893
     OS_ASSERT(offset >= 0 && offset <= info->size, "DVDRead(): specified area is out of the file  ");
     // clang-format on
 
     // clang-format off
+#line 899
     OS_ASSERT(offset + size >= 0 && offset + size < info->size + 32, "DVDRead(): specified area is out of the file  ");
     // clang-format on
 
@@ -385,4 +364,8 @@ static void cbForReadSync(s32 result, DVDCommandBlock* block) {
 #pragma unused(block)
 
     OSWakeupThread(&__DVDThreadQueue);
+}
+
+void* DVDGetFSTLocation(void) {
+    return BootInfo->fstStart;
 }

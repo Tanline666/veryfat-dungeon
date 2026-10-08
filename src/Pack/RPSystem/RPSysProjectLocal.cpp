@@ -2,29 +2,19 @@
 
 #include <cstring>
 
-RP_SINGLETON_IMPL_EX(RPSysProjectLocal);
+RP_SINGLETON_IMPL(RPSysProjectLocal);
 
 /**
  * @brief Constructor
  *
  * @param pHeap Parent heap
  */
-RPSysProjectLocal::RPSysProjectLocal(EGG::Heap* pHeap)
-    : mpParentHeap(pHeap),
-
-      mRegion(ERegion_NTSC_U),
+RPSysProjectLocal::RPSysProjectLocal()
+    : mRegion(ERegion_NTSC_U),
       mLocale(EArea_USA),
       mLanguage(EArea_USA),
       mFrameRate(EFrameRate_60Hz),
-      mSoundStorage(EStorage_DVDStream),
-
-#if defined(PACK_SPORTS)
-      mPack(RPSysSceneCreator::EPackID_SportsPack)
-#elif defined(PACK_PARTY)
-      mPack(RPSysSceneCreator::EPackID_PartyPack)
-#endif
-{
-}
+      mSoundStorage(EStorage_DVDStream) {}
 
 /**
  * @brief Destructor
@@ -79,15 +69,46 @@ void RPSysProjectLocal::appendLocalDirectory(char* pPath, const char* pSuffix) {
         break;
     }
 
+    case EArea_Quebec: {
+        std::strcat(pPath, "FU/");
+        break;
+    }
+
+    case EArea_Latin: {
+        std::strcat(pPath, "SU/");
+        break;
+    }
+
+    case EArea_Korea: {
+        std::strcat(pPath, "KR/");
+        break;
+    }
+
+    case EArea_China: {
+        std::strcat(pPath, "CN/");
+        break;
+    }
+
+    case EArea_Taiwan: {
+        std::strcat(pPath, "TW/");
+        break;
+    }
+
     default: {
         break;
     }
     }
 
     // @bug The default argument is an empty string, not NULL
+#if defined(BUG_FIX)
+    if (pSuffix != "") {
+        std::strcat(pPath, pSuffix);
+    }
+#else
     if (pSuffix != NULL) {
         std::strcat(pPath, pSuffix);
     }
+#endif
 }
 
 /**

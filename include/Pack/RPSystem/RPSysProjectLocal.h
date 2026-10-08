@@ -14,7 +14,7 @@
  * @brief Runtime project localization
  */
 class RPSysProjectLocal {
-    RP_SINGLETON_DECL_EX(RPSysProjectLocal);
+    RP_SINGLETON_DECL(RPSysProjectLocal);
 
 public:
     /**
@@ -38,7 +38,12 @@ public:
         EArea_Spain,
         EArea_Netherlands,
         EArea_Japan,
-        EArea_USA
+        EArea_USA,
+        EArea_Quebec,
+        EArea_Latin,
+        EArea_Korea,
+        EArea_China,
+        EArea_Taiwan,
     };
 
     /**
@@ -92,13 +97,6 @@ public:
     }
 
     /**
-     * @brief Gets the current Pack Project game ID
-     */
-    RPSysSceneCreator::EPackID getPack() const {
-        return mPack;
-    }
-
-    /**
      * @brief Gets the current game locale
      */
     EArea getLocale() const {
@@ -129,8 +127,6 @@ public:
 private:
     //! Game region
     ERegion mRegion; // at 0x8
-    //! Pack Project title
-    RPSysSceneCreator::EPackID mPack; // at 0xC
     //! Game locale
     EArea mLocale; // at 0x10
     //! Game language

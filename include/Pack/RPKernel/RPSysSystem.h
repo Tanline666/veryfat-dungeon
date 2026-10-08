@@ -189,10 +189,8 @@ public:
 
     /**
      * @brief Updates the system state during resource loading
-     *
-     * @param hide Disable "Now Loading" text
      */
-    void loadFrameWork(bool hide);
+    void loadFrameWork();
 
     /**
      * @brief Gets the number of ticks per frame
@@ -247,6 +245,8 @@ public:
      * @brief Tests whether the current load count is over five seconds (600f)
      */
     bool isLoadCountEnd() const;
+
+    void returnToMenu();
 
     /**
      * @brief Turns on/off screen dimming

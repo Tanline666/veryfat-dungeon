@@ -773,6 +773,7 @@ config.libs = [
         "objects": [
             Object(NonMatching, "Pack/RPSystem/RPSysRenderMode.cpp"),
             Object(NonMatching, "Pack/RPSystem/RPSysSceneMgr.cpp"),
+            Object(Matching, "Pack/RPSystem/RPSysProjectLocal.cpp"),
         ],
     },
 ]

@@ -867,8 +867,17 @@ Pack/RPSystem/RPSysRenderMode.cpp:
 	.text       start:0x801DA5BC end:0x801DA674
 
 Pack/RPSystem/RPSysSceneMgr.cpp:
-	.text       start:0x801DA674 end:0x801DB144
+	.text       start:0x801DA674 end:0x801DB27C
+
+Pack/RPSystem/RPSysProjectLocal.cpp:
+	.text       start:0x801DB27C end:0x801DB4B0
+	.rodata     start:0x80699608 end:0x80699638
+	.data       start:0x80740010 end:0x80740050
+	.sbss       start:0x80816CD0 end:0x80816CD8
 
 Pack/RPKernel/RPSysMiddleDBGenInfo.cpp:
 	.text       start:0x801EBA48 end:0x801EBABC
 	.data       start:0x80740540 end:0x8074054C
+
+Pack/RPKernel/RPSysLytDynamicAnm.cpp:
+	.text       start:0x801EBEC8 end:0x801EC430

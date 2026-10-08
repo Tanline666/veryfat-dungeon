@@ -15,6 +15,7 @@
 #define DECOMP_FORCEACTIVE_DTOR(module, cls)
 #define DECOMP_INLINE
 #define DECOMP_DONT_INLINE
+#define DECOMP_I_BOMB
 // Compile with matching hacks.
 // (This version of CW does not support pragmas inside macros.)
 #else
@@ -43,6 +44,18 @@
 
 #define DECOMP_INLINE inline
 #define DECOMP_DONT_INLINE __attribute__((never_inline))
+#define DECOMP_I_BOMB                                                          \
+    int i_bomb;                                                                \
+    (void)i_bomb;                                                              \
+    (void)i_bomb;                                                              \
+    (void)i_bomb;                                                              \
+    (void)i_bomb;                                                              \
+    (void)i_bomb;                                                              \
+    (void)i_bomb;                                                              \
+    (void)i_bomb;                                                              \
+    (void)i_bomb;                                                              \
+    (void)i_bomb;                                                              \
+    (void)i_bomb;
 #endif
 
 #endif

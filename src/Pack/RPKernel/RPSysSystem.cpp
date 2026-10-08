@@ -98,6 +98,25 @@ void RPSysSystem::mainLoop() {
     }
 }
 
+void RPSysSystem::loadFrameWork() {
+    EGG_GET_INSTANCE(EGG::CoreControllerMgr)->endFrame();
+    RP_GET_INSTANCE(RPSndAudioMgr)->calc();
+    RP_GET_INSTANCE(RPSysDvdStatus)->draw();
+    RP_GET_INSTANCE(RPSysHomeMenuMgr)->drawBanIcon();
+    sConfigData.mDisplay->endRender();
+    sConfigData.mDisplay->endFrame();
+    sConfigData.mDisplay->beginFrame();
+    RP_GET_INSTANCE(RPSysDvdStatus)->update();
+    sConfigData.mDisplay->beginRender();
+    RP_GET_INSTANCE(RPSysSceneMgr)->drawMgrFader();
+    EGG_GET_INSTANCE(EGG::CoreControllerMgr)->beginFrame();
+    //! RPSysHomeMenuMgr function at 801F2864
+    mLoadCount += mFrameRate;
+    if (RP_GET_INSTANCE(RPSysSceneMgr)->isShutDownReserved()) {
+        returnToMenu();
+    }
+}
+
 void RPSysSystem::setupTVMode() {
     int i;
 
@@ -113,6 +132,8 @@ void RPSysSystem::setupTVMode() {
     } else {
         EGG::Screen::SetTVMode(EGG::Screen::TV_MODE_STD);
     }
+
+    DECOMP_I_BOMB;
 }
 
 RPSysSceneCreator::ESceneID RPSysSystem::getBootScene() {
@@ -202,15 +223,19 @@ void RPSysSystem::setCallBack() {
  * soft reset.
  */
 void RPSysSystem::softResetCallBack() {
-    if (RP_GET_INSTANCE(RPSysDvdStatus)->isErrorOccured()) {
-        RP_GET_INSTANCE(RPSysSceneMgr)->returnToMenu(FALSE);
-    } else {
-        VIEnableDimming(FALSE);
+    if (RP_GET_INSTANCE(RPSysSystem)->mPowerFlag) {
+        //! TODO(texline) isErrorOccured is an inline in Wii Fit Plus.
+        //! Maybe check the value directly?
+        if (RP_GET_INSTANCE(RPSysDvdStatus)->isErrorOccured()) {
+            RP_GET_INSTANCE(RPSysSceneMgr)->returnToMenu(FALSE);
+        } else {
+            VIEnableDimming(FALSE);
 
-        if (RP_GET_INSTANCE(RPSysSceneMgr)->isNormalState() &&
-            !RP_GET_INSTANCE(RPSysHomeMenuMgr)->softReset()) {
+            if (RP_GET_INSTANCE(RPSysSceneMgr)->isNormalState() &&
+                !RP_GET_INSTANCE(RPSysHomeMenuMgr)->softReset()) {
 
-            RP_GET_INSTANCE(RPSysSceneMgr)->softReset(FALSE);
+                RP_GET_INSTANCE(RPSysSceneMgr)->softReset(FALSE);
+            }
         }
     }
 }

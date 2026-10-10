@@ -41,39 +41,65 @@ bool NandSoundArchive::Open(const char* pPath) {
     }
 
     if (NANDOpen(pPath, &mFileInfo, NAND_ACCESS_READ)) {
-        return false;
+        return FALSE;
     }
 
-    mOpen = true;
+    mOpen = TRUE;
 
     if (!LoadFileHeader()) {
-        return false;
+        return FALSE;
     }
-
-    char currentDir[64];
-    NANDGetCurrentDir(currentDir);
-    u32 currDirLen = std::strlen(currentDir);
 
     char extRoot[FILE_PATH_MAX];
-    std::strncpy(extRoot, currentDir, currDirLen + 1);
-
-    for (int i = std::strlen(pPath) - 1; i >= 0; i--) {
-        if (pPath[i] == '/' || pPath[i] == '\\') {
-            // @bug Long path can overflow extRoot buffer
-            std::strncat(extRoot, pPath, i);
-            extRoot[currDirLen + i] = '\0';
-            break;
+    char* extRootPtr = extRoot;
+    char* pathLimit = &extRoot[FILE_PATH_MAX];
+    char pathStart = pPath[0];
+    if (pathStart != '/' && pathStart != '\\') {
+        char currentDir[64];
+        if (NANDGetCurrentDir(currentDir)) {
+            return FALSE;
         }
+
+        const char* srcPtr = currentDir;
+        while (*srcPtr != '\0') {
+            if (extRootPtr >= pathLimit) {
+                return FALSE;
+            }
+            *extRootPtr++ = *srcPtr++;
+        }
+        if (extRootPtr >= pathLimit) {
+            return FALSE;
+        }
+        *extRootPtr++ = '/';
     }
 
+    const char* srcPtr = pPath;
+    const char* start = pPath;
+    while (*srcPtr != '\0') {
+        if (*srcPtr == '/' || *srcPtr == '\\') {
+            while (start < srcPtr) {
+                if (extRootPtr >= pathLimit) {
+                    return FALSE;
+                }
+                *extRootPtr++ = *start++;
+            }
+        }
+        srcPtr++;
+    }
+
+    if (extRootPtr >= pathLimit) {
+        return FALSE;
+    }
+    *extRootPtr++ = '\0';
+
     SetExternalFileRoot(extRoot);
-    return true;
+    return TRUE;
 }
 
 void NandSoundArchive::Close() {
     if (mOpen) {
         NANDClose(&mFileInfo);
-        mOpen = false;
+        mOpen = FALSE;
     }
 
     Shutdown();

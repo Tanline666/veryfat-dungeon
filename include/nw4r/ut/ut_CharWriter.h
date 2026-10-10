@@ -2,9 +2,8 @@
 #define NW4R_UT_CHAR_WRITER_H
 #include <nw4r/types_nw4r.h>
 
-#include <nw4r/ut/ut_Color.h>
-
 #include <nw4r/math.h>
+#include <nw4r/ut/ut_Color.h>
 
 #include <revolution/GX.h>
 
@@ -33,11 +32,20 @@ public:
     void EnableLinearFilter(bool atSmall, bool atLarge);
     f32 Print(u16 ch);
 
+    void ResetTextureCache() {
+        mLoadingTexture.Reset();
+    }
+
     void SetColorMapping(Color min, Color max) {
         mColorMapping.min = min;
         mColorMapping.max = max;
     }
-
+    const Color GetColorMappingMin() const {
+        return mColorMapping.min;
+    }
+    const Color GetColorMappingMax() const {
+        return mColorMapping.max;
+    }
     void ResetColorMapping() {
         SetColorMapping(DEFAULT_COLOR_MAPPING_MIN, DEFAULT_COLOR_MAPPING_MAX);
     }
@@ -68,6 +76,10 @@ public:
     void SetScale(f32 x, f32 y) {
         mScale.x = x;
         mScale.y = y;
+    }
+    void SetScale(f32 xy) {
+        mScale.x = xy;
+        mScale.y = xy;
     }
 
     f32 GetCursorX() const {
@@ -131,6 +143,7 @@ public:
     }
 
     void SetFontSize(f32 width, f32 height);
+    void SetFontSize(f32 height);
 
     f32 GetFontWidth() const;
     f32 GetFontHeight() const;
@@ -156,7 +169,8 @@ private:
         GradationMode gradationMode; // at 0x8
     };
 
-    struct TextureFilter {
+    class TextureFilter {
+    public:
         GXTexFilter atSmall; // at 0x0
         GXTexFilter atLarge; // at 0x4
 
@@ -165,7 +179,8 @@ private:
         }
     };
 
-    struct LoadingTexture {
+    class LoadingTexture {
+    public:
         GXTexMapID slot;      // at 0x0
         void* texture;        // at 0x4
         TextureFilter filter; // at 0x8
@@ -195,9 +210,6 @@ private:
     void PrintGlyph(f32 x, f32 y, f32 z, const Glyph& rGlyph);
 
     void LoadTexture(const Glyph& rGlyph, GXTexMapID slot);
-    void ResetTextureCache() {
-        mLoadingTexture.Reset();
-    }
 
 private:
     ColorMapping mColorMapping;   // at 0x0

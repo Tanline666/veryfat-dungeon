@@ -99,7 +99,7 @@ bool DvdFileStream::Open(const DVDFileInfo* pInfo, bool close) {
 void DvdFileStream::Close() {
     if (mCloseEnableFlg && mAvailable) {
         DVDClose(&mFileInfo.dvdInfo);
-        mAvailable = false;
+        mAvailable = FALSE;
     }
 }
 

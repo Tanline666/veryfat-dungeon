@@ -123,6 +123,30 @@ nw4r/g3d/res/g3d_restev.cpp:
 nw4r/g3d/res/g3d_resmat.cpp:
 	.text       start:0x80035DE0 end:0x800380CC
 
+nw4r/g3d/res/g3d_resvtx.cpp:
+	.text       start:0x800380D0 end:0x800384E8
+
+nw4r/g3d/res/g3d_restex.cpp:
+	.text       start:0x800384F0 end:0x800386FC
+
+nw4r/g3d/res/g3d_resnode.cpp:
+	.text       start:0x80038700 end:0x80038A08
+	.sdata2     start:0x80817E90 end:0x80817E9C
+
+nw4r/g3d/res/g3d_resanm.cpp:
+	.text       start:0x80038A10 end:0x80038C54
+	.sdata2     start:0x80817EA0 end:0x80817EB4
+
+nw4r/g3d/g3d_transform.cpp:
+	.text       start:0x8003C690 end:0x8003C994
+
+nw4r/g3d/g3d_anmshp.cpp:
+	.text       start:0x80044050 end:0x8004583C
+	.rodata     start:0x8068A930 end:0x8068A97C
+	.data       start:0x80709010 end:0x80709150
+	.sdata      start:0x80813B78 end:0x80813B80
+	.sdata2     start:0x80817FA8 end:0x80817FB8
+
 nw4r/g3d/platform/g3d_gpu.cpp:
 	.text       start:0x80045D70 end:0x80046290
 	.sdata2     start:0x80817FC0 end:0x80817FD8
@@ -146,6 +170,14 @@ nw4r/g3d/g3d_state.cpp:
 	.sdata      start:0x80813B88 end:0x80813B90
 	.sbss       start:0x80816100 end:0x80816120
 	.sdata2     start:0x80817FE0 end:0x80818008
+
+nw4r/g3d/g3d_draw1mat1shp.cpp:
+	.text       start:0x80049F70 end:0x8004ACB4
+
+nw4r/g3d/g3d_calcview.cpp:
+	.text       start:0x8004ACC0 end:0x8004CF40
+	.rodata     start:0x8068B160 end:0x8068B17C
+	.sdata2     start:0x80818028 end:0x80818034
 
 nw4r/g3d/g3d_scnmdl.cpp:
 	.text       start:0x80058640 end:0x8005AFEC
@@ -235,6 +267,7 @@ nw4r/math/math_triangular.cpp:
 
 nw4r/math/math_geometry.cpp:
 	.text       start:0x8006AAF0 end:0x8006B940
+	.sdata2     start:0x80818260 end:0x80818274
 
 nw4r/snd/snd_AnimSound.cpp:
 	.text       start:0x8006B940 end:0x8006B994
@@ -254,6 +287,15 @@ nw4r/snd/snd_BasicSound.cpp:
 	.data       start:0x8070A340 end:0x8070A378
 	.sbss       start:0x80816188 end:0x8081618C
 	.sdata2     start:0x808182E8 end:0x808182F8
+
+nw4r/snd/snd_MemorySoundArchive.cpp:
+	.text       start:0x80079690 end:0x80079B40
+	.data       start:0x8070A590 end:0x8070A610
+
+nw4r/snd/snd_NandSoundArchive.cpp:
+	.text       start:0x8007AFD0 end:0x8007B8D8
+	.data       start:0x8070A868 end:0x8070A8E8
+	.sbss       start:0x808161A8 end:0x808161B0
 
 nw4r/snd/snd_SoundArchive.cpp:
 	.text       start:0x80081920 end:0x80082020
@@ -308,6 +350,29 @@ nw4r/ut/ut_DvdLockedFileStream.cpp:
 	.data       start:0x8070AD70 end:0x8070ADD4
 	.bss        start:0x807A9CC8 end:0x807A9CE0
 	.sbss       start:0x80816218 end:0x80816230
+
+nw4r/ut/ut_NandFileStream.cpp:
+	.text       start:0x80093710 end:0x80093EDC
+	.ctors      start:0x80688D1C end:0x80688D20
+	.data       start:0x8070ADD8 end:0x8070AE34
+	.sbss       start:0x80816230 end:0x80816234
+
+nw4r/ut/ut_LockedCache.cpp:
+	.text       start:0x80093EE0 end:0x800940B8
+	.ctors      start:0x80688D20 end:0x80688D24
+	.bss        start:0x807A9CE0 end:0x807A9CFC
+
+nw4r/ut/ut_CharWriter.cpp:
+	.text       start:0x80094BF0 end:0x8009639C
+	.bss        start:0x807A9D00 end:0x807A9D10
+	.sbss       start:0x80816238 end:0x80816240
+	.sdata2     start:0x80818650 end:0x80818670
+
+nw4r/ut/ut_TextWriterBase.cpp:
+	.text       start:0x800963A0 end:0x8009B714
+	.ctors      start:0x80688D24 end:0x80688D28
+	.bss        start:0x807A9D10 end:0x807A9D28
+	.sbss       start:0x80816240 end:0x80816258
 
 egg/math/eggMatrix.cpp:
 	extab       start:0x80006720 end:0x80006750

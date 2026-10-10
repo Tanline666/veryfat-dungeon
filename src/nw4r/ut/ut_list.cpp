@@ -38,7 +38,7 @@ void List_Append(List* pList, void* pObject) {
     pList->numObjects++;
 }
 
-//! Unused in US Rev 0.
+//! Unused in Wii Fit Plus. Kept for reference
 void List_Prepend(List* pList, void* pObject) {
     if (pList->headObject == NULL) {
         SetFirstObject(pList, pObject);
@@ -89,7 +89,7 @@ void List_Remove(List* pList, void* pObject) {
 
     // Fix previous node relationship
     if (pLink->prevObject == NULL) {
-        pList->headObject = NW4R_UT_LIST_GET_LINK(*pList, pObject)->nextObject;
+        pList->headObject = pLink->nextObject;
     } else {
         NW4R_UT_LIST_GET_LINK(*pList, pLink->prevObject)->nextObject =
             pLink->nextObject;

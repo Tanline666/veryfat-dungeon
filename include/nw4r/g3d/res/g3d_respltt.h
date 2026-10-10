@@ -25,7 +25,7 @@ struct ResPlttData {
 class ResPltt : public ResCommon<ResPlttData> {
 public:
     static const u32 SIGNATURE = FOURCC('P', 'L', 'T', '0');
-    static const int REVISION = 1;
+    static const int REVISION = 3;
 
 public:
     NW4R_G3D_RESOURCE_FUNC_DEF(ResPltt);
@@ -38,9 +38,7 @@ public:
         return ref().revision;
     }
 
-    bool CheckRevision() const {
-        return GetRevision() == REVISION;
-    }
+    bool CheckRevision() const;
 
     void DCStore(bool sync);
 

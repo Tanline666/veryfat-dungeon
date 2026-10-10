@@ -15,7 +15,7 @@ public:
 
 public:
     explicit DvdLockedFileStream(s32 entrynum);
-    DvdLockedFileStream(const DVDFileInfo* pInfo, bool close);
+    explicit DvdLockedFileStream(const DVDFileInfo* pInfo, bool close = TRUE);
     virtual ~DvdLockedFileStream(); // at 0xC
 
     virtual void Close();
@@ -52,7 +52,7 @@ private:
     void CancelMutex();
 
 private:
-    bool mCancelFlag; // at 0x6F
+    volatile bool mCancelFlag; // at 0x6F
 
     static bool sInitialized;
     static OSMutex sMutex;

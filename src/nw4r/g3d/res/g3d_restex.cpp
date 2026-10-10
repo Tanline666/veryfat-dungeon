@@ -14,6 +14,11 @@ void ResPltt::DCStore(bool sync) {
     }
 }
 
+bool ResPltt::CheckRevision() const {
+    u32 rev = GetRevision();
+    return (rev == REVISION) || (rev == 1);
+}
+
 bool ResTex::GetTexObjParam(void** ppTexData, u16* pWidth, u16* pHeight,
                             GXTexFmt* pFormat, f32* pMinLod, f32* pMaxLod,
                             GXBool* pMipMap) const {
@@ -92,6 +97,11 @@ bool ResTex::GetTexObjCIParam(void** ppTexData, u16* pWidth, u16* pHeight,
     }
 
     return true;
+}
+
+bool ResTex::CheckRevision() const {
+    u32 rev = GetRevision();
+    return (rev == REVISION) || (rev == 1);
 }
 
 void ResTex::Init() {

@@ -93,16 +93,17 @@ bool NandFileStream::Open(const NANDFileInfo* pInfo, u32 mode,
 
     mFileInfo.nandInfo = *pInfo;
 
-    u32 fileSize;
-    if (NANDGetLength(&mFileInfo.nandInfo, &fileSize) != NAND_RESULT_OK) {
-        if (enableClose) {
-            NANDClose(&mFileInfo.nandInfo);
+    if (mCanRead) {
+        u32 fileSize;
+        if (NANDGetLength(&mFileInfo.nandInfo, &fileSize) != NAND_RESULT_OK) {
+            if (enableClose) {
+                NANDClose(&mFileInfo.nandInfo);
+            }
+            return false;
         }
-
-        return false;
+        mFilePosition.SetFileSize(fileSize);
     }
 
-    mFilePosition.SetFileSize(fileSize);
     mFilePosition.Seek(0, SEEK_ORIGIN_BEG);
 
     mCloseOnDestroyFlg = false;
@@ -151,12 +152,14 @@ bool NandFileStream::ReadAsync(void* pDst, u32 size, StreamCallback pCallback,
     return success;
 }
 
-void NandFileStream::Write(const void* pSrc, u32 size) {
+s32 NandFileStream::Write(const void* pSrc, u32 size) {
     NANDSeek(&mFileInfo.nandInfo, mFilePosition.Tell(), NAND_SEEK_BEG);
     s32 result = NANDWrite(&mFileInfo.nandInfo, pSrc, size);
 
-    // @bug Error code will be interpreted as a negative size
-    mFilePosition.Append(result);
+    if (result > 0) {
+        mFilePosition.Append(result);
+    }
+    return result;
 }
 
 bool NandFileStream::WriteAsync(const void* pSrc, u32 size,

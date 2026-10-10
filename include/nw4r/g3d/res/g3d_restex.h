@@ -36,7 +36,7 @@ struct ResTexData {
 class ResTex : public ResCommon<ResTexData> {
 public:
     static const u32 SIGNATURE = FOURCC('T', 'E', 'X', '0');
-    static const int REVISION = 1;
+    static const int REVISION = 3;
 
 public:
     NW4R_G3D_RESOURCE_FUNC_DEF(ResTex);
@@ -47,9 +47,7 @@ public:
         return ref().revision;
     }
 
-    bool CheckRevision() const {
-        return GetRevision() == REVISION;
-    }
+    bool CheckRevision() const;
 
     bool GetTexObjParam(void** ppTexData, u16* pWidth, u16* pHeight,
                         GXTexFmt* pFormat, f32* pMinLod, f32* pMaxLod,

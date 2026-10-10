@@ -87,6 +87,10 @@ void CharWriter::SetupGX() {
 void CharWriter::SetFontSize(f32 width, f32 height) {
     SetScale(width / mFont->GetWidth(), height / mFont->GetHeight());
 }
+void CharWriter::SetFontSize(f32 height) {
+    const f32 scale = height / mFont->GetHeight();
+    SetScale(scale);
+}
 
 f32 CharWriter::GetFontWidth() const {
     return mScale.x * mFont->GetWidth();
@@ -196,7 +200,7 @@ void CharWriter::UpdateVertexColor() {
     mVertexColor.rd = mTextColor.gradationMode == GRADMODE_NONE ? mTextColor.start : mTextColor.end;
     // clang-format on
 
-    mVertexColor.lu.a = (mVertexColor.lu.a * mAlpha) / 255,
+    mVertexColor.lu.a = (mVertexColor.lu.a * mAlpha) / 255;
     mVertexColor.ru.a = (mVertexColor.ru.a * mAlpha) / 255;
     mVertexColor.ld.a = (mVertexColor.ld.a * mAlpha) / 255;
     mVertexColor.rd.a = (mVertexColor.rd.a * mAlpha) / 255;

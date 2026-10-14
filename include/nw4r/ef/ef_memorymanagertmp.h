@@ -23,6 +23,11 @@ template <typename T> class NW4R_EF_MEMORY_MANAGER_TMP_CLASS {
     int mStructSize;              // at 0x1C
 
 public:
+    ::nw4r::ut::List& GetLeasedList() {
+        return mLeasedList;
+    }
+
+public:
     static const u32 OBJECT_ID_BASE = 0x10000;
 
 public:
@@ -42,13 +47,15 @@ public:
         }
     }
 
+protected:
     virtual void AssignObjectID(void* pObj) {
         static_cast< ::nw4r::ef::LinkedObject*>(pObj)->mObjectID +=
             OBJECT_ID_BASE;
     } // at 0x8
 
+public:
     // Not implemented for Particle
-    void GarbageCollection();
+    void GarbageCollection() {}
 
     T* Alloc() {
         void* pPtr = ::nw4r::ut::List_GetFirst(&mFreeList);

@@ -13,8 +13,8 @@ RP_SINGLETON_IMPL(RPSysResourceManager);
  * @brief List of scenes whose resources should be cached
  */
 const RPSysSceneCreator::ESceneID RPSysResourceManager::CACHED_SCENES[] = {
-    RPSysSceneCreator::ESceneID_RPSysPlayerSelectScene,
-    RPSysSceneCreator::ESceneID_RPSysNunchukCheckScene,
+    RPSysSceneCreator::ESceneID_RPHealthPlayerSelectScene,
+    RPSysSceneCreator::ESceneID_RPHealthControllerCheckScene,
 
 #if defined(PACK_SPORTS)
     RPSysSceneCreator::ESceneID_RPBsbScene,
@@ -43,17 +43,6 @@ const RPSysSceneCreator::ESceneID RPSysResourceManager::CACHED_SCENES[] = {
     RPSysSceneCreator::ESceneID_RPPartyRootScene,
     RPSysSceneCreator::ESceneID_RPPartyMainScene,
 #endif
-};
-
-/**
- * @brief Static directory names for each pack
- */
-// clang-format off
-const char* RPSysResourceManager::STATIC_DIR_NAMES[RPSysSceneCreator::EPackID_Max] = {
-    "SportsStatic/", // EPackID_SportsPack
-    "PartyStatic/",  // EPackID_PartyPack
-    "HealthStatic/", // EPackID_HealthPack
-    "MusicStatic/",  // EPackID_MusicPack
 };
 // clang-format on
 
@@ -240,9 +229,7 @@ void RPSysResourceManager::RemoveFromFileList(RPSysFile* pFile) {
     nw4r::ut::List_Remove(&mResourceLists[EList_FileList], pFile);
 }
 
-/**
- * @brief Loads all archives and other assets with static lifetime
- */
+/*
 void RPSysResourceManager::LoadStaticArchives() {
     RPSysProjectLocal* pProjectLocal = RP_GET_INSTANCE(RPSysProjectLocal);
     EGG::Heap* pResHeap = RP_GET_INSTANCE(RPSysSystem)->getResourceHeap();
@@ -270,6 +257,7 @@ void RPSysResourceManager::LoadStaticArchives() {
 
     RP_GET_INSTANCE(RPSysFontManager)->LoadResFonts();
 }
+    */
 
 /**
  * @brief Loads the specified file and adds it to the resource cache

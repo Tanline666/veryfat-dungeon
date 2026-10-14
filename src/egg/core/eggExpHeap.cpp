@@ -112,4 +112,16 @@ void ExpHeap::initAllocator(Allocator* pAllocator, s32 align) {
     MEMInitAllocatorForExpHeap(pAllocator, mHeapHandle, align);
 }
 
+namespace {
+void free_all_visitor(void* pMemBlock, MEMiHeapHead* pHead, u32 param) {
+#pragma unused(param)
+    MEMFreeToExpHeap(pHead, pMemBlock);
+}
+} // namespace
+
+void ExpHeap::freeAll() {
+    this->dispose();
+    MEMVisitAllocatedForExpHeap(mHeapHandle, free_all_visitor, 0);
+}
+
 } // namespace EGG

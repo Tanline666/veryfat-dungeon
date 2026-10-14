@@ -76,6 +76,8 @@ void RPSysEffectMgr::stopAllEffect() {
             mpEffectCreators[i]->stopAllEffect();
         }
     }
+
+    DECOMP_I_BOMB
 }
 
 /**
@@ -228,53 +230,13 @@ void RPSysEffectMgr::LoadResource() {
     if (mpEffectCreators[EDrawScene_Cursor] != NULL &&
         !mpEffectCreators[EDrawScene_Cursor]->isActive()) {
 
-        RPSysSceneCreator::EPackID pack =
-            RP_GET_INSTANCE(RPSysProjectLocal)->getPack();
+        EGG::Archive* pCursorArchive =
+            RP_GET_INSTANCE(RPSysResourceManager)->GetStaticLayoutArchive();
 
-        EGG::Archive* pCursorArchive = NULL;
-
-        switch (pack) {
-        case RPSysSceneCreator::EPackID_SportsPack: {
-        case RPSysSceneCreator::EPackID_PartyPack: {
-            pCursorArchive =
-                RP_GET_INSTANCE(RPSysResourceManager)->GetStaticCommonArchive();
-            break;
-        }
-
-        /* EPackID_HealthPack, EPackID_MusicPack */
-        default: {
-            pCursorArchive =
-                RP_GET_INSTANCE(RPSysResourceManager)->GetStaticLayoutArchive();
-            break;
-        }
-        }
-        }
-
-        void* pCursorEffect = NULL;
-        void* pCursorTexture = NULL;
-
-        switch (pack) {
-        case RPSysSceneCreator::EPackID_SportsPack: {
-        case RPSysSceneCreator::EPackID_PartyPack: {
-            pCursorEffect = RPSysResourceManager::GetFileFromArchive(
-                pCursorArchive, "nw4r_defcursor_pack.breff");
-
-            pCursorTexture = RPSysResourceManager::GetFileFromArchive(
-                pCursorArchive, "nw4r_defcursor_pack.breft");
-            break;
-        }
-
-        /* EPackID_HealthPack, EPackID_MusicPack */
-        default: {
-            pCursorEffect = RPSysResourceManager::GetFileFromArchive(
-                pCursorArchive, "pack_cursor_fix.breff");
-
-            pCursorTexture = RPSysResourceManager::GetFileFromArchive(
-                pCursorArchive, "pack_cursor_fix.breft");
-            break;
-        }
-        }
-        }
+        void* pCursorEffect = RPSysResourceManager::GetFileFromArchive(
+            pCursorArchive, "pack_cursor_fix.breff");
+        void* pCursorTexture = RPSysResourceManager::GetFileFromArchive(
+            pCursorArchive, "pack_cursor_fix.breft");
 
         mpEffectCreators[EDrawScene_Cursor]->setEffectResource(pCursorEffect,
                                                                pCursorTexture);
@@ -283,59 +245,8 @@ void RPSysEffectMgr::LoadResource() {
     if (mpEffectCreators[EDrawScene_Static] != NULL &&
         !mpEffectCreators[EDrawScene_Static]->isActive()) {
 
-        EGG::Archive* pStaticArchive = NULL;
-
-        RPSysSceneCreator::EPackID pack =
-            RP_GET_INSTANCE(RPSysProjectLocal)->getPack();
-
-        switch (pack) {
-        case RPSysSceneCreator::EPackID_SportsPack: {
-        case RPSysSceneCreator::EPackID_PartyPack: {
-            pStaticArchive =
-                RP_GET_INSTANCE(RPSysResourceManager)->GetStaticCommonArchive();
-            break;
-        }
-
-        /* EPackID_HealthPack, EPackID_MusicPack */
-        default: {
-            pStaticArchive =
-                RP_GET_INSTANCE(RPSysResourceManager)->GetStaticLayoutArchive();
-            break;
-        }
-        }
-        }
-
-        void* pStaticEffect;
-        void* pStaticTexture;
-
-        const char* pFileNames[][2] = {
-            // EPackID_SportsPack
-            "sports_common.breff",
-            "sports_common.breft",
-
-            // EPackID_PartyPack
-            "basic_common.breff",
-            "basic_common.breft",
-
-            // EPackID_HealthPack
-            NULL, // huh???
-            NULL,
-
-            // EPackID_MusicPack
-            "effect_music.breff",
-            "effect_music.breft",
-        };
-
-        if (pFileNames[pack][0] && pFileNames[pack][1] != NULL) {
-            pStaticEffect = RPSysResourceManager::GetFileFromArchive(
-                pStaticArchive, pFileNames[pack][0]);
-
-            pStaticTexture = RPSysResourceManager::GetFileFromArchive(
-                pStaticArchive, pFileNames[pack][1]);
-
-            mpEffectCreators[EDrawScene_Static]->setEffectResource(
-                pStaticEffect, pStaticTexture);
-        }
+        EGG::Archive* pStaticArchive =
+            RP_GET_INSTANCE(RPSysResourceManager)->GetStaticLayoutArchive();
     }
 }
 

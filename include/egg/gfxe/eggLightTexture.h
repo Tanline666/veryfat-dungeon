@@ -1,9 +1,11 @@
 #ifndef EGG_GFXE_LIGHT_TEXTURE_H
 #define EGG_GFXE_LIGHT_TEXTURE_H
+#include <egg/types_egg.h>
+
 #include "eggCapTexture.h"
-#include "eggIBinary.h"
 #include "eggScreen.h"
-#include "types_egg.h"
+
+#include <egg/core/eggIBinary.h>
 
 namespace EGG {
 class LightTexture : public CapTexture, public IBinary<LightTexture> {

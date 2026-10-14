@@ -2,7 +2,6 @@
 #define RP_KERNEL_EFFECT_MGR_H
 #include <Pack/types_pack.h>
 
-#include <Pack/RPKernel/IRPSysHostIOSocket.h>
 #include <Pack/RPKernel/RPSysEffectCreator.h>
 #include <Pack/RPSingleton.h>
 
@@ -17,7 +16,7 @@ class RPSysEffectCreator;
 /**
  * @brief Effect manager
  */
-class RPSysEffectMgr : public IRPSysHostIOSocket {
+class RPSysEffectMgr {
     RP_SINGLETON_DECL_EX(RPSysEffectMgr);
 
 public:

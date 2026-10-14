@@ -6,23 +6,25 @@
 
 namespace EGG {
 
-class Quatf {
+struct Quatf : Vector3f {
 public:
     Quatf() {}
-    Quatf(f32 fw, Vector3f vxyz) : v(vxyz), w(fw) {}
+    Quatf(f32 fw, Vector3f vxyz) : w(fw), Vector3f(vxyz) {}
     ~Quatf() {}
 
     void multScalar(f32 scale) {
-        v *= scale;
         w *= scale;
+        x *= scale;
+        y *= scale;
+        z *= scale;
     }
 
     void set(f32 fw, f32 fx, f32 fy, f32 fz);
     void setAxisRotation(const Vector3f& rAxis, f32 angle);
+    void slerpTo(const Quatf& rQuat, f32 t, Quatf& rOut) const;
 
 public:
-    Vector3f v; // at 0x0
-    f32 w;      // at 0xC
+    f32 w; // at 0xC
 };
 
 } // namespace EGG

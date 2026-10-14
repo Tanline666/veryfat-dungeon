@@ -33,6 +33,7 @@ public:
     virtual u32 resizeForMBlock(void* pBlock, u32 size); // at 0x20
     virtual u32 getAllocatableSize(s32 align = 4);       // at 0x24
     virtual u32 adjust();                                // at 0x28
+    void freeAll();
 };
 
 } // namespace EGG

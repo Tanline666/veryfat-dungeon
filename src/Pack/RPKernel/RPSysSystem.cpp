@@ -72,6 +72,19 @@ void RPSysSystem::create() {
     spInstance = new (sConfigData.GetSystemHeap()) RPSysSystem;
 }
 
+void RPSysSystem::setup() {
+    mpResourceHeap = EGG::ExpHeap::create(sConfigData.mRootHeapMem1, 0);
+    //! PLACEHOLDER
+    mpReserveHeap = EGG::ExpHeap::create(sConfigData.mRootHeapMem2, 0);
+    mpAssertHeap = EGG::ExpHeap::create(sConfigData.mRootHeapMem2, 0);
+    mpDebugHeap = EGG::ExpHeap::create(sConfigData.mRootHeapMem2, 0);
+    //! size for mpCurrentHeap is a literal
+    mpCurrentHeap = EGG::ExpHeap::create(sConfigData.mRootHeapMem1, 1);
+
+    OSSetResetCallback(softResetCallBack);
+    OSSetPowerCallback(shutdownSystemCallBack);
+}
+
 void RPSysSystem::mainLoop() {
     while (TRUE) {
         sConfigData.mDisplay->beginFrame();
@@ -136,8 +149,12 @@ void RPSysSystem::setupTVMode() {
     DECOMP_I_BOMB;
 }
 
+void RPSysSystem::setDisplayClearColor(nw4r::ut::Color color) {
+    sConfigData.GetDisplay()->setClearColor(color);
+}
+
 RPSysSceneCreator::ESceneID RPSysSystem::getBootScene() {
-    return RPSysSceneCreator::ESceneID_RPSysBootScene;
+    return RPSysSceneCreator::ESceneID_RPHealthPackBootScene;
 }
 
 void RPSysSystem::startLoadCount() {

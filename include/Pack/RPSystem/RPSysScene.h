@@ -314,6 +314,7 @@ private:
     EGG::Heap* mpSceneHeap; // at 0x38
     //! Scene flags
     EGG::TBitFlag<u32> mFlags; // at 0x3C
+    u32 UNK_0x40;
     //! ID of the previous scene
     s32 mCreatorSceneID; // at 0x40
 };

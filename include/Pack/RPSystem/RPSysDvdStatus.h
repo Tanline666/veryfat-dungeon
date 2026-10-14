@@ -14,7 +14,7 @@
  * @brief Disc drive status
  */
 class RPSysDvdStatus {
-    RP_SINGLETON_DECL_EX(RPSysDvdStatus);
+    RP_SINGLETON_DECL(RPSysDvdStatus);
 
 public:
     /**
@@ -43,7 +43,7 @@ private:
         EErrorStatus_Busy,          //!< Drive is busy
         EErrorStatus_NoOrWrongDisk, //!< Disk is ejected or is the wrong game
         EErrorStatus_DiskError,     //!< Cannot read from the disk
-        EErrorStatus_Fatal          //!< Fatal error
+        EErrorStatus_Fatal = -5,    //!< Fatal error
     };
 
     //! Number of error messages per language

@@ -41,9 +41,9 @@ Thread::Thread(OSThread* pOSThread, int capacity) {
     mOSThread = pOSThread;
 
     mStackSize =
-        nw4r::ut::GetOffsetFromPtr(pOSThread->stackBegin, pOSThread->stackEnd);
+        nw4r::ut::GetOffsetFromPtr(pOSThread->stackEnd, pOSThread->stackBegin);
 
-    mStackMemory = pOSThread->stackBegin;
+    mStackMemory = pOSThread->stackEnd;
 
     setCommonMesgQueue(capacity, Heap::getCurrentHeap());
 }
@@ -103,9 +103,8 @@ void Thread::setCommonMesgQueue(int capacity, Heap* pHeap) {
 
     mMesgBuffer = static_cast<OSMessage*>(
         Heap::alloc(capacity * sizeof(OSMessage), 4, pHeap));
-#line 262
-    EGG_ASSERT(mMesgBuffer);
 
+    EGG_ASSERT(mMesgBuffer);
     OSInitMessageQueue(&mMesgQueue, mMesgBuffer, mMesgNum);
     nw4r::ut::List_Append(&sThreadList, this);
 }

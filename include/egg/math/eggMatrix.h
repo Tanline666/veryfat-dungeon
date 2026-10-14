@@ -81,9 +81,14 @@ public:
 
     void makeQ(const Quatf& rQuat);
     void makeS(const Vector3f& rScale);
+    void fromQuat(const Quatf& rQuat);
+    void toQuat(Quatf& q) const;
 
+    void slerpTo(const Matrix34f& rMtx, Matrix34f& rOut, f32 t) const;
     void setAxisRotation(const Vector3f& rAxis, f32 angle);
+    Vector3f multVector(const Vector3f& rVec) const;
     void loadPosMtx(u32 id);
+    void multiplyTo(const Matrix34f& rOp, Matrix34f& rResult) const;
 };
 
 } // namespace EGG

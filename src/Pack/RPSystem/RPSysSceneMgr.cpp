@@ -466,7 +466,7 @@ void RPSysSceneMgr::updateState() {
         } else if (mState == EState_ReturnToMenu || mState == EState_Shutdown) {
             // Dummy scene change to allow RPSysSceneCreator::destroy() to exit
             success = changeSceneAfterFadeOut(
-                RPSysSceneCreator::ESceneID_RPSysBootScene);
+                RPSysSceneCreator::ESceneID_RPHealthPackBootScene);
         }
 
         if (success) {
@@ -474,7 +474,7 @@ void RPSysSceneMgr::updateState() {
 
             if (mState == EState_SoftReset) {
                 if (getCurrentSceneID() !=
-                    RPSysSceneCreator::ESceneID_RPSysBootScene) {
+                    RPSysSceneCreator::ESceneID_RPHealthPackBootScene) {
 
                     resetFadeColor();
                 }

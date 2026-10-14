@@ -311,7 +311,7 @@ private:
     //! List of scenes whose resources should be cached
     static const RPSysSceneCreator::ESceneID CACHED_SCENES[];
     //! Static directory names for each pack
-    static const char* STATIC_DIR_NAMES[RPSysSceneCreator::EPackID_Max];
+    static const char* STATIC_DIR_NAMES[1];
     //! Absolute path to the kokeshi asset archive
     static const char* KOKESHI_ARCHIVE_PATH;
 

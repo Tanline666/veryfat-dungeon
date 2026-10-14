@@ -7,7 +7,7 @@
 
 #include <cstring>
 
-RP_SINGLETON_IMPL_EX(RPSysDvdStatus);
+RP_SINGLETON_IMPL(RPSysDvdStatus);
 
 /**
  * @brief Game disc name
@@ -262,12 +262,7 @@ void RPSysDvdStatus::draw() {
  *
  * @param pHeap Parent heap
  */
-RPSysDvdStatus::RPSysDvdStatus(EGG::Heap* pHeap)
-    : mpParentHeap(pHeap), mErrorStatus(EErrorStatus_Success) {
-
-    mpErrorMessage = new (pHeap) char[MESSAGE_BUFFER_SIZE];
-
-    mpErrorFader = new (pHeap) EGG::ColorFader(0.0f, 0.0f, 640.0f, 456.0f);
+RPSysDvdStatus::RPSysDvdStatus() : mErrorStatus(EErrorStatus_Success) {
     mpErrorFader->setStatus(EGG::ColorFader::STATUS_PREPARE_IN);
 }
 

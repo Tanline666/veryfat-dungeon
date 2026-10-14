@@ -288,6 +288,10 @@ nw4r/snd/snd_BasicSound.cpp:
 	.sbss       start:0x80816188 end:0x8081618C
 	.sdata2     start:0x808182E8 end:0x808182F8
 
+nw4r/snd/snd_DvdSoundArchive.cpp:
+	.text       start:0x800747F0 end:0x80074F18
+	.data       start:0x8070A3C8 end:0x8070A450
+
 nw4r/snd/snd_MemorySoundArchive.cpp:
 	.text       start:0x80079690 end:0x80079B40
 	.data       start:0x8070A590 end:0x8070A610
@@ -398,6 +402,11 @@ egg/core/eggHeap.cpp:
 egg/core/eggAllocator.cpp:
 	.text       start:0x800BB464 end:0x800BB4FC
 	.data       start:0x8070B730 end:0x8070B744
+
+egg/core/eggThread.cpp:
+	.text       start:0x800BB4FC end:0x800BB898
+	.data       start:0x8070B748 end:0x8070B760
+	.bss        start:0x807AA328 end:0x807AA334
 
 egg/core/eggGraphicsFifo.cpp:
 	.text       start:0x800BC254 end:0x800BC398
@@ -928,6 +937,10 @@ Pack/RPKernel/RPSysSystem.cpp:
 main.cpp:
 	.text       start:0x801D8B24 end:0x801D8B58
 
+Pack/RPSystem/RPSysSceneCreator.cpp:
+	.text       start:0x801D8B58 end:0x801D9E60
+	.rodata     start:0x80698CC8 end:0x806995F0
+
 Pack/RPSystem/RPSysRenderMode.cpp:
 	.text       start:0x801DA5BC end:0x801DA674
 
@@ -940,9 +953,23 @@ Pack/RPSystem/RPSysProjectLocal.cpp:
 	.data       start:0x80740010 end:0x80740050
 	.sbss       start:0x80816CD0 end:0x80816CD8
 
+Pack/RPKernel/RPSysEffectMgr.cpp:
+	.text       start:0x801E1600 end:0x801E3400
+	.data       start:0x80740298 end:0x807403B0
+
+Pack/RPKernel/RPSysFrameCtrl.cpp:
+	.text       start:0x801E5CE8 end:0x801E5F78
+	.sdata2     start:0x80819C40 end:0x80819C50
+
+Pack/RPKernel/RPSysEffectCreator.cpp:
+	.text       start:0x801E5F78 end:0x801E6E6C
+
 Pack/RPKernel/RPSysMiddleDBGenInfo.cpp:
 	.text       start:0x801EBA48 end:0x801EBABC
 	.data       start:0x80740540 end:0x8074054C
 
 Pack/RPKernel/RPSysLytDynamicAnm.cpp:
 	.text       start:0x801EBEC8 end:0x801EC430
+
+Pack/RPHealth/RPHealthCommon/RPHealthWiiBoard.cpp:
+	.text       start:0x802B3ED8 end:0x802B4A70

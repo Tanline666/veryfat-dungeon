@@ -22,104 +22,74 @@ public:
     /**
      * @brief Pack Project scene ID
      */
+    //! Below names are tentative
     enum ESceneID {
-        // RPSystem
-        ESceneID_RPSysBootScene,         //!< Logo
-        ESceneID_RPSysPlayerSelectScene, //!< Player Select
-        ESceneID_RPSysNunchukCheckScene, //!< Nunchuk Check
+        ESceneID_RPHealthPlayerSelectScene, //!< Wii Fit Plaza
+        ESceneID_RPHealthMainMenu,          //!< Main Menu
+        ESceneID_RPHealthUserSettings,      //!< User settings
 
-        // RPSports
-        ESceneID_RPBsbScene,                   //!< Baseball
-        ESceneID_RPBowScene,                   //!< Bowling
-        ESceneID_RPGolScene,                   //!< Golf
-        ESceneID_RPTnsScene,                   //!< Tennis
-        ESceneID_RPBoxScene,                   //!< Boxing
-        ESceneID_RPSportsPackTitleScene,       //!< Sports Pack
-        ESceneID_RPSportsMainScene,            //!< Main Menu
-        ESceneID_RPSportsTrainingMenuScene,    //!< Training Menu
-        ESceneID_RPSportsPhysicalMenuScene,    //!< Physical Test (Menu)
-        ESceneID_RPSportsPhysicalPreviewScene, //!< Physical Test (Description)
-        ESceneID_RPSportsPhysicalResultScene,  //!< Physical Test (Result)
-        ESceneID_RPGolCourseSelectScene,       //!< Golf (Course Select)
+        //! TODO(texline): Is this a channel thing?
+        ESceneID_RPHealthLaunchDisk,
 
-#if defined(PACK_SPORTS)
-        ESceneID_Max,
-#endif
+        ESceneID_RPHealthBodyTest,       //!< Body Test
+        ESceneID_RPHealthBodyTestResult, //!< Body Test results
+        ESceneID_RPHealthSimpleCheck,    //!< Simple Test
+        ESceneID_RPHealthHoldCheck,      //!< Unknown (TODO)
+        ESceneID_RPHealthConnectCheck,   //!< Please connect balance board
+        ESceneID_RPHealthBalanceTest,    //!< Balance tests in body check
+        ESceneID_RPHealthCapture, //!< Unknown (Points to Wii Fit Plaza with
+                                  //!< different args. Screenshot mode?)
+        ESceneID_RPHealthPackBootScene,     //!< Unknown (TODO)
+        ESceneID_RPHealthTitleScene,        //!< Only used in E3 demo
+        ESceneID_RPHealthGuestMode,         //!< Guest training menu
+        ESceneID_RPHealthFirstSettingScene, //!< Setting up a new player
+        ESceneID_RPHealthContinue, //!< Unknown (Is this even a formal scene?
+                                   //!< Wii Fit U seems to indicate that this is
+                                   //!< just for animating characters in other
+                                   //!< scenes)
+        ESceneID_RPHealthBasicSettingScene,    //!< Non-user settings
+        ESceneID_RPHealthControllerCheckScene, //!< Please connect/disconnect
+                                               //!< nunchuk
+        ESceneID_RPHealthPairingScene,         //!< Controller setup?
+        ESceneID_RPHealthRest,                 //!< Similar to RPHealthContinue?
+        ESceneID_RPHealthGetBack,              //!< Unknown (TODO)
 
-        // RPParty
-        ESceneID_Unknown09h,
-        ESceneID_RPFshScene,            //!< Fishing
-        ESceneID_RPHkyScene,            //!< Laser Hockey
-        ESceneID_RPDucScene,            //!< Shooting Range
-        ESceneID_RPPnpScene,            //!< Table Tennis
-        ESceneID_RPBilScene,            //!< Billiards
-        ESceneID_RPCowScene,            //!< Charge!
-        ESceneID_RPWlyScene,            //!< Find Mii
-        ESceneID_RPTnkScene,            //!< Tanks!
-        ESceneID_RPBomScene,            //!< Pose Mii
-        ESceneID_RPPartyPackTitleScene, //!< Party Pack
-        ESceneID_RPPartyRootScene,      //!< Mii/GameMgr Setup
-        ESceneID_RPPartyMainScene,      //!< Main Menu
+        ESceneID_RPHealthTrainingMenuScene,
+        ESceneID_RPHealthMyMenuScene,
+        ESceneID_RPHealthGameConnectScene, //!< Unknown (links to My Menu)
+        ESceneID_RPHealthTrainingScene,
 
-#if defined(PACK_PARTY)
-        ESceneID_Max,
-#endif
+        //! Wii Fit
+        ESceneID_RPHealthSkiScene,       //!< Ski Slalom and Snowboard Slalom
+        ESceneID_RPHealthSkiJumpScene,   //!< Ski Jumping
+        ESceneID_RPHealthHulaHoopScene,  //!< (Super) Hula Hoop
+        ESceneID_RPHealthIraIraScene,    //!< Balance Bubble (Plus)
+        ESceneID_RPHealthStepScene,      //!< Basic Step and Advanced Step
+        ESceneID_RPHealthKoroScene,      //!< Table Tilt (Plus)
+        ESceneID_RPHealthZazenScene,     //!< Lotus Focus
+        ESceneID_RPHealthRopeScene,      //!< Tightrope Walking
+        ESceneID_RPHealthHeadingScene,   //!< Soccer Heading
+        ESceneID_RPHealthPenguinScene,   //!< Penguin Slide
+        ESceneID_RPHealthBoxerciseScene, //!< Rhythm Boxing
+        ESceneID_RPHealthJoggingScene,   //!< Basic Run, 2P Run, Free Run
 
-    // During the development of Wii Sports and Wii Play,
-    // Wii Fit and Wii Music were very early in development.
-#if defined(PACK_SPORTS) || defined(PACK_PARTY)
-        // RPHealth
-        ESceneID_RPHealthTitleScene,    //!< Health Pack
-        ESceneID_RPHealthCounselScene,  //!< Counseling
-        ESceneID_RPHealthYogaScene,     //!< Yoga
-        ESceneID_RPHealthTrainingScene, //!< Training (Menu)
-        ESceneID_RPHealthRadioGymScene, //!< Radio Calisthenics
-        ESceneID_RPHealthGraphScene,    //!< Health Graph
-        ESceneID_RPHealthBalanceScene,  //!< Balance Test
-        ESceneID_RPHealthSkiScene,      //!< Balance Ski
-        ESceneID_Unknown23h,
-        ESceneID_Unknown24h,
+        //! Wii Fit Plus
+        ESceneID_RPHealthRhythmKungfuScene,   //!< Rhythm Kung Fu
+        ESceneID_RPHealthDungeonJoggingScene, //!< Obstacle Course
+        ESceneID_RPHealthSkateBoardScene,     //!< Skateboard Arena
+        ESceneID_RPHealthJugglingScene,       //!< Big-Top Juggling
+        ESceneID_RPHealthParadeScene,         //!< Rhythm Parade
+        ESceneID_RPHealthCalculationScene,    //!< Perfect 10
+        ESceneID_RPHealthBicycleScene,        //!< Island Cycling
+        ESceneID_RPHealthGolfScene,           //!< Driving Range
+        ESceneID_RPHealthJogQuizScene,        //!< Basic Run Plus
+        ESceneID_RPHealthPataScene,           //!< Birds-Eye Bulls-Eye
+        ESceneID_RPHealthSegwayScene,         //!< Segway Circuit
+        ESceneID_RPHealthShootingScene,       //!< Snowball Fight
+        ESceneID_RPHealthColorScene,          //!< Tilt City
 
-        // RPMusic
-        ESceneID_RPDrmScene,        //!< Drum
-        ESceneID_RPOchScene,        //!< Orchestra
-        ESceneID_RPMpeScene1,       //!< Music Experiment 1
-        ESceneID_RPMpeScene2,       //!< Music Experiment 2
-        ESceneID_RPMpeScene3,       //!< Music Experiment 3
-        ESceneID_RPMpeScene4,       //!< Music Experiment 4
-        ESceneID_RPMpeScene5,       //!< Music Experiment 5
-        ESceneID_RPMusicTitleScene, //!< Music Pack
-
-        // Pack Project
-        ESceneID_RPAllPackScene,        //!< Pack Project
-        ESceneID_RPBasicDebugScene,     //!< Basic
-        ESceneID_RPGraphicsDebugScene,  //!< Graphics
-        ESceneID_RPSystemDebugScene,    //!< System
-        ESceneID_RPLayoutDebugScene,    //!< Layout
-        ESceneID_RPCursorDebugScene,    //!< Cursor
-        ESceneID_RPVibrationDebugScene, //!< Vibration
-        ESceneID_RPResultDebugScene,    //!< Result
-        ESceneID_RPUIDebugScene,        //!< UI Test
-        ESceneID_RPSmkTrainingScene,    //!< New Recruit Training (Mr. Sumaki)
-        ESceneID_RPMntTrainingScene,    //!< New Recruit Training (Mr. Minato)
-        ESceneID_RPBsbDebugScene,       //!< Baseball Debug
-        ESceneID_RPDrmDebugScene,       //!< Drum Debug
-        ESceneID_RPOchDebugScene,       //!< Orchestra Debug
-        ESceneID_RPOchSelectScene,      //!< Orchestra Music Select
-#endif
-    };
-
-    /**
-     * @brief Pack Project game ID
-     */
-    enum EPackID {
-        EPackID_SportsPack, //!< Wii Sports
-        EPackID_PartyPack,  //!< Wii Play
-        EPackID_HealthPack, //!< Wii Fit
-        EPackID_MusicPack,  //!< Wii Music
-
-        EPackID_Max,
-        EPackID_AllPack = EPackID_Max, //!< Pack Project
+        ESceneID_RPHealthStaffCredit,     //!< Wii Fit credits
+        ESceneID_RPHealthStaffCreditPlus, //!< Wii Fit Plus credits
     };
 
     /**
@@ -129,14 +99,6 @@ public:
         ECreateType_Standard, //!< Overwrite outgoing scene
         ECreateType_Sibling,  //!< Become sibling of outgoing scene
         ECreateType_Child,    //!< Become child of outgoing scene
-    };
-
-    /**
-     * @brief Scene load type
-     */
-    enum ELoadType {
-        ELoadType_Blank,   //!< No additional display
-        ELoadType_Message, //!< Display "Now Loading" message
     };
 
     /**
@@ -177,22 +139,18 @@ public:
     struct SceneAttr {
         //! Scene ID
         ESceneID scene; // at 0x0
-        //! Pack ID
-        EPackID pack; // at 0x4
 
         //! How to create the scene
-        ECreateType createType; // at 0x8
-        //! How to load the scene
-        ELoadType loadType; // at 0xC
+        ECreateType createType; // at 0x4
         //! How to exit the scene
-        EExitType exitType; // at 0x10
+        EExitType exitType; // at 0x8
         //! How to configure the scene audio
-        EAudioType audioType; // at 0x14
+        EAudioType audioType; // at 0xC
 
         //! Root resource directory
-        const char* pResDirName; // at 0x18
+        const char* pResDirName; // at 0x10
         //! Readable name
-        const char* pSceneName; // at 0x1C
+        const char* pSceneName; // at 0x14
     };
 
 public:
@@ -254,25 +212,11 @@ public:
     s32 getSceneID(ESportID sport);
 
     /**
-     * @brief Gets the specified scene's pack ID
-     *
-     * @param id Scene ID
-     */
-    EPackID getPackID(s32 id);
-
-    /**
      * @brief Gets the specified scene's creation type
      *
      * @param id Scene ID
      */
     ECreateType getCreateType(s32 id);
-
-    /**
-     * @brief Gets the specified scene's load type
-     *
-     * @param id Scene ID
-     */
-    ELoadType getLoadType(s32 id);
 
     /**
      * @brief Gets the specified scene's exit type
@@ -297,41 +241,12 @@ private:
      */
     s32 getEntryIndex(ESceneID id);
 
-#if defined(PACK_SPORTS)
-    /**
-     * @brief Creates the specified Sports Pack scene
-     *
-     * @param id Scene ID
-     */
-    RPSysScene* createSportsScene(s32 id) DECOMP_DONT_INLINE;
-#endif
-
-#if defined(PACK_PARTY)
-    /**
-     * @brief Creates the specified Party Pack scene
-     *
-     * @param id Scene ID
-     */
-    RPSysScene* createPartyScene(s32 id) DECOMP_DONT_INLINE;
-#endif
-
-#if defined(PACK_HEALTH)
     /**
      * @brief Creates the specified Health Pack scene
      *
      * @param id Scene ID
      */
-    RPSysScene* createHealthScene(s32 id) DECOMP_DONT_INLINE;
-#endif
-
-#if defined(PACK_MUSIC)
-    /**
-     * @brief Creates the specified Music Pack scene
-     *
-     * @param id Scene ID
-     */
-    RPSysScene* createMusicScene(s32 id) DECOMP_DONT_INLINE;
-#endif
+    RPSysScene* createFitScene(s32 id) DECOMP_DONT_INLINE;
 
 private:
     //! Information about every Pack Project scene

@@ -573,6 +573,7 @@ config.libs = [
             Object(NonMatching, "nw4r/snd/snd_AxManager.cpp"),
             Object(NonMatching, "nw4r/snd/snd_Bank.cpp"),
             Object(NonMatching, "nw4r/snd/snd_BasicSound.cpp"),
+            Object(NonMatching, "nw4r/snd/snd_DvdSoundArchive.cpp"),
             Object(Matching, "nw4r/snd/snd_MemorySoundArchive.cpp"),
             Object(NonMatching, "nw4r/snd/snd_NandSoundArchive.cpp"),
             Object(NonMatching, "nw4r/snd/snd_SoundArchive.cpp"),
@@ -609,10 +610,11 @@ config.libs = [
         "progress_category": "egg",
         "objects": [
             Object(NonMatching, "egg/math/eggMatrix.cpp"),
-            Object(NonMatching, "egg/core/eggExpHeap.cpp"),
-            Object(NonMatching, "egg/core/eggFrmHeap.cpp"),
+            Object(Matching, "egg/core/eggExpHeap.cpp"),
+            Object(Matching, "egg/core/eggFrmHeap.cpp"),
             Object(Matching, "egg/core/eggHeap.cpp"),
             Object(Matching, "egg/core/eggAllocator.cpp"),
+            Object(Matching, "egg/core/eggThread.cpp"),
             Object(Matching, "egg/core/eggGraphicsFifo.cpp"),
             Object(Matching, "egg/core/eggSceneManager.cpp"),
             Object(Matching, "egg/core/eggVideo.cpp"),
@@ -776,6 +778,9 @@ config.libs = [
         "objects": [
             Object(NonMatching, "Pack/RPKernel/RPSysSystem.cpp"),
             Object(Matching, "main.cpp"),
+            Object(NonMatching, "Pack/RPKernel/RPSysEffectMgr.cpp"),
+            Object(Matching, "Pack/RPKernel/RPSysFrameCtrl.cpp"),
+            Object(NonMatching, "Pack/RPKernel/RPSysEffectCreator.cpp"),
             Object(Matching, "Pack/RPKernel/RPSysMiddleDBGenInfo.cpp"),
         ],
     },
@@ -785,9 +790,19 @@ config.libs = [
         "cflags": cflags_rp,
         "progress_category": "system",
         "objects": [
+            Object(NonMatching, "Pack/RPSystem/RPSysSceneCreator.cpp"),
             Object(NonMatching, "Pack/RPSystem/RPSysRenderMode.cpp"),
             Object(NonMatching, "Pack/RPSystem/RPSysSceneMgr.cpp"),
             Object(Matching, "Pack/RPSystem/RPSysProjectLocal.cpp"),
+        ],
+    },
+    {
+        "lib": "RP",
+        "mw_version": config.linker_version,
+        "cflags": cflags_rp,
+        "progress_category": "healthcommon",
+        "objects": [
+            Object(NonMatching, "Pack/RPHealth/RPHealthCommon/RPHealthWiiBoard.cpp"),
         ],
     },
 ]
@@ -821,6 +836,7 @@ config.progress_categories = [
     ProgressCategory("rfl", "RVLFaceLib"),
     ProgressCategory("kernel", "RPKernel"),
     ProgressCategory("system", "RPSystem"),
+    ProgressCategory("healthcommon", "RPHealthCommon"),
 ]
 config.progress_each_module = args.verbose
 # Optional extra arguments to `objdiff-cli report generate`

@@ -108,6 +108,7 @@ RPSysScene::RPSysScene()
       mpCommonObject(NULL),
       mpEffectCreator(NULL),
       mpSceneHeap(NULL),
+      UNK_0x40(NULL),
       mCreatorSceneID(-1) {}
 
 /**

@@ -257,11 +257,8 @@ void RPSysScene::loadResourceFunc(void* pArg) {
     if (RP_GET_INSTANCE(RPSysSceneCreator)->getAudioType(p->getSceneID()) ==
         RPSysSceneCreator::EAudioType_Common) {
 
-        RP_GET_INSTANCE(RPSndAudioMgr)
-            ->openArchive(RP_COMMON_SOUND_PATH, NULL,
-                          EGG::ArcPlayer::SARC_STORAGE_DVD, NULL);
-
-        if (p->getSceneID() == RPSysSceneCreator::ESceneID_RPSysBootScene) {
+        if (p->getSceneID() ==
+            RPSysSceneCreator::ESceneID_RPHealthPackBootScene) {
             RP_GET_INSTANCE(RPSndAudioMgr)->loadGroup("GROUP_LOGO");
         } else {
             RP_GET_INSTANCE(RPSndAudioMgr)->loadGroup("GROUP_COMMON_01");

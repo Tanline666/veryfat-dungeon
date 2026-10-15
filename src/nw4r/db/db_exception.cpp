@@ -16,6 +16,10 @@ static void* RunThread_(void* arg);
 
 static void DumpException_(const ExceptionCallbackParam* exPtr);
 
+static bool IsValidStackAddr_(u32 addr);
+
+static void ShowStackTrace_(u32 sp);
+
 static void Exception_Printf_(const char* fmt, ...);
 
 static void PrintContext_(u16 error, const OSContext* context, u32 dsisr,
@@ -24,7 +28,23 @@ static void PrintContext_(u16 error, const OSContext* context, u32 dsisr,
 static void ShowMainInfo_(u16 error, const OSContext* context, u32 dsisr,
                           u32 dar);
 
+static void ShowGPR_(const OSContext* pContext);
+
+static void ShowGPRMap_(const OSContext* pContext);
+
+static void ShowSRR0Map_(const OSContext* pContext);
+
+static void ShowFloat_(const OSContext* pContext);
+
+static void ShowFloatSub_(s32 index, f32 f);
+
 static void setFPException(u32 type);
+
+static bool ShowMapInfoSubroutine_(u32 address, bool flag);
+
+static void WaitTime_(s32 time);
+
+static void DrawConsoleEndless_(ConsoleHandle console);
 
 static ExceptionHead sException;
 // TODO(texline) why?
@@ -83,7 +103,19 @@ void ErrorHandler_(u16 error, OSContext* context, u32 dsisr, u32 dar) {
 
     OSSendMessage(&sException.msgQueue, (OSMessage)(&exCallbackObject),
                   OS_MSG_BLOCKING);
-    OSEnableScheduler();
+    if (OSGetCurrentThread() == NULL) {
+        VISetPreRetraceCallback(NULL);
+        VISetPostRetraceCallback(NULL);
+        u32 msr = PPCMfmsr();
+        msr |= MSR_RI;
+        PPCMtmsr(msr);
+
+        DumpException_(&exCallbackObject);
+    }
+
+    while (OSEnableScheduler() > 0) {
+    }
+
     OSYieldThread();
     OSDisableScheduler();
 }
@@ -123,9 +155,70 @@ void DumpException_(const ExceptionCallbackParam* exPtr) {
         sException.frameMemory =
             detail::DirectPrint_SetupFB(sException.renderMode);
     }
-    while (true) {
+    while (TRUE) {
         PrintContext_(error, context, dsisr, dar);
+        if (sException.console && DirectPrint_IsActive()) {
+            Console_DrawDirect(sException.console);
+        }
+        if (sException.callback) {
+            u16 dispInfo = sException.dispInfo;
+            while (dispInfo == sException.dispInfo) {
+                if (!(*(sException.callback))(sException.console,
+                                              sException.callbackArg)) {
+                    return;
+                }
+            }
+        } else if (sException.console) {
+            DrawConsoleEndless_(sException.console);
+        } else {
+            return;
+        }
     }
+}
+
+bool IsValidStackAddr_(u32 addr) {
+    const u32 OFFSET_MASK = 0x0FFFFFFF;
+    if (addr == NULL || (u32)addr == 0xffffffff) {
+        return FALSE;
+    }
+
+    if (OSIsMEM1Region(addr)) {
+        if ((addr & OFFSET_MASK) >= OSGetPhysicalMem1Size()) {
+            return FALSE;
+        }
+    } else if (OSIsMEM2Region(addr)) {
+        if ((addr & OFFSET_MASK) >= OSGetPhysicalMem2Size()) {
+            return FALSE;
+        }
+    } else {
+        return FALSE;
+    }
+    return TRUE;
+}
+
+void ShowStackTrace_(u32 sp) {
+    Exception_Printf_("-------------------------------- TRACE\n");
+
+    u32 i;
+    u32* p;
+
+    Exception_Printf_("Address:   BackChain   LR save\n");
+    p = reinterpret_cast<u32*>(sp);
+
+    for (i = 0; i < 16; i++) {
+        if (!IsValidStackAddr_(u32(p))) {
+            break;
+        }
+        Exception_Printf_("%08X:  %08X    %08X ", p, p[0], p[1]);
+
+        if (!ShowMapInfoSubroutine_(p[1], false)) {
+            Exception_Printf_("\n");
+        }
+
+        p = (u32*)*p;
+    }
+
+    return;
 }
 
 void Exception_Printf_(const char* fmt, ...) {
@@ -133,7 +226,7 @@ void Exception_Printf_(const char* fmt, ...) {
     {
         va_list vlist;
         va_start(vlist, fmt);
-        vprintf(fmt, vlist);
+        OSVReport(fmt, vlist);
         va_end(vlist);
     }
     if (sException.console) {
@@ -148,7 +241,7 @@ void Exception_Printf_(const char* fmt, ...) {
     }
 }
 
-void PrintContext_(u16 error, const OSContext* context, u32 dsisr, u32 dar) {
+void PrintContext_(u16 error, const OSContext* pContext, u32 dsisr, u32 dar) {
     if (error > OS_ERR_MAX) {
         Exception_Printf_("******** USER HALT ********\nFrameMemory:%XH\n",
                           sException.frameMemory);
@@ -160,17 +253,43 @@ void PrintContext_(u16 error, const OSContext* context, u32 dsisr, u32 dar) {
     {
         if (sException.dispInfo & EXCEPTION_INFO_MAIN) {
             Exception_Printf_("---MainInfo---\n");
-            ShowMainInfo_(error, context, dsisr, dar);
+            ShowMainInfo_(error, pContext, dsisr, dar);
         }
+        if (sException.dispInfo & EXCEPTION_INFO_GPR) {
+            Exception_Printf_("---EXCEPTION_INFO_GPR---\n");
+            ShowGPR_(pContext);
+        }
+        if (sException.dispInfo & EXCEPTION_INFO_SRR0MAP) {
+            Exception_Printf_("---EXCEPTION_INFO_SRR0MAP---\n");
+            ShowSRR0Map_(pContext);
+        }
+        if (sException.dispInfo & EXCEPTION_INFO_GPRMAP) {
+            Exception_Printf_("---EXCEPTION_INFO_GPRMAP---\n");
+            ShowGPRMap_(pContext);
+        }
+        if (sException.dispInfo & EXCEPTION_INFO_FPR) {
+            Exception_Printf_("---EXCEPTION_INFO_FPR---\n");
+            ShowFloat_(pContext);
+            Exception_Printf_(" MSR:%08XH     FPSCR:%08XH\n", sException.msr,
+                              sException.fpscr);
+        }
+        if (sException.dispInfo & EXCEPTION_INFO_TRACE) {
+            Exception_Printf_("---EXCEPTION_INFO_TRACE---\n");
+            ShowStackTrace_(sException.stackPointer);
+        }
+
+        Exception_Printf_("--------------------------------\n");
     }
+
+    DECOMP_I_BOMB
 }
 
-void ShowMainInfo_(u16 error, const OSContext* context, u32 dsisr, u32 dar) {
+void ShowMainInfo_(u16 error, const OSContext* pContext, u32 dsisr, u32 dar) {
     if (error < OS_ERR_MAX) {
-        Exception_Printf_("CONTEXT:%08XH  (%s EXCEPTION)\n", context,
+        Exception_Printf_("CONTEXT:%08XH  (%s EXCEPTION)\n", pContext,
                           CPU_EXP_NAME[error]);
     } else {
-        Exception_Printf_("CONTEXT:%08XH\n", context);
+        Exception_Printf_("CONTEXT:%08XH\n", pContext);
     }
     if (error == OS_ERR_FP_EXCEPTION) {
         u32 fpscr = sException.fpscr;
@@ -219,9 +338,92 @@ void ShowMainInfo_(u16 error, const OSContext* context, u32 dsisr, u32 dar) {
             Exception_Printf_(" FPE: Inexact result\n");
         }
     }
-    Exception_Printf_("SRR0:   %08XH   SRR1:%08XH\n", context->srr0,
-                      context->srr1);
+    Exception_Printf_("SRR0:   %08XH   SRR1:%08XH\n", pContext->srr0,
+                      pContext->srr1);
     Exception_Printf_("DSISR:  %08XH   DAR: %08XH\n", dsisr, dar);
+}
+
+void ShowGPR_(const OSContext* pContext) {
+    Exception_Printf_("-------------------------------- GPR\n");
+    for (int reg = 0; reg < 10; reg++) {
+        Exception_Printf_("R%02d:%08XH  R%02d:%08XH  R%02d:%08XH\n", reg,
+                          pContext->gprs[reg], reg + 11,
+                          pContext->gprs[reg + 11], reg + 22,
+                          pContext->gprs[reg + 22]);
+    }
+    Exception_Printf_("R%02d:%08XH  R%02d:%08XH\n", 10, pContext->gprs[10],
+                      10 + 11, pContext->gprs[10 + 11]);
+}
+
+void ShowGPRMap_(const OSContext* pContext) {
+    bool drawnFlag = FALSE;
+
+    Exception_Printf_("-------------------------------- GPRMAP\n");
+    for (int reg = 0; reg < 31; reg++) {
+        u32 address = pContext->gprs[reg];
+        if (address < 0x80000000 || 0x82ffffff < address) {
+            continue;
+        }
+        drawnFlag = TRUE;
+
+        Exception_Printf_("R%02d: %08XH ", reg, address);
+        if (!ShowMapInfoSubroutine_(address, FALSE)) {
+            Exception_Printf_(" no information\n");
+        }
+    }
+
+    if (drawnFlag == FALSE) {
+        Exception_Printf_("  no register which seem to address.\n");
+    }
+
+    return;
+}
+
+void ShowSRR0Map_(const OSContext* pContext) {
+    Exception_Printf_("-------------------------------- SRR0MAP\n");
+    u32 srr0 = pContext->srr0;
+    if (!(srr0 < 0x80000000 || 0x82FFFFFF < srr0)) {
+        Exception_Printf_("SRR0: %08XH ", srr0);
+
+        if (!ShowMapInfoSubroutine_(srr0, FALSE)) {
+            Exception_Printf_(" no information\n");
+        }
+    }
+    return;
+}
+
+void ShowFloatSub_(s32 index, f32 f) {
+    if (isnan(f)) {
+        Exception_Printf_("F%02d: Nan      ", index);
+    } else if (isinfinite(f)) {
+        if (*((u8*)&f) & 0x80) {
+            Exception_Printf_("F%02d:+Inf      ", index);
+        } else {
+            Exception_Printf_("F%02d:-Inf      ", index);
+        }
+    } else {
+        if (f == 0.0f) {
+            Exception_Printf_("F%02d: 0.0      ", index);
+        } else {
+            Exception_Printf_("F%02d:%+.3E", index, f);
+        }
+    }
+}
+
+void ShowFloat_(const OSContext* pContext) {
+    Exception_Printf_("-------------------------------- FPR\n");
+    for (s32 reg = 0; reg < 10; reg++) {
+        ShowFloatSub_(reg, pContext->fprs[reg]);
+        Exception_Printf_(" ");
+        ShowFloatSub_(reg + 11, pContext->fprs[reg + 11]);
+        Exception_Printf_(" ");
+        ShowFloatSub_(reg + 22, pContext->fprs[reg + 22]);
+        Exception_Printf_("\n");
+    }
+    ShowFloatSub_(10, pContext->fprs[10]);
+    Exception_Printf_(" ");
+    ShowFloatSub_(21, pContext->fprs[21]);
+    Exception_Printf_("\n");
 }
 
 void setFPException(u32 type) {
@@ -232,6 +434,67 @@ void setFPException(u32 type) {
 
     } else {
         (void)OSSetErrorHandler(OS_ERR_FP_EXCEPTION, NULL);
+    }
+}
+
+bool ShowMapInfoSubroutine_(u32 address, bool flag) {
+    if (!MapFile_Exists()) {
+        return FALSE;
+    }
+
+    if (address < 0x80000000 || 0x82FFFFFF < address) {
+        return FALSE;
+    }
+
+    {
+        enum { STR_LEN = 260 };
+        u8 strBuf[STR_LEN];
+
+        if (MapFile_QuerySymbol(address, strBuf, 260)) {
+            if (flag) {
+                Exception_Printf_("\n");
+            }
+            Exception_Printf_("%s\n", strBuf);
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+}
+
+ConsoleHandle Exception_SetConsole(ConsoleHandle console,
+                                   const GXRenderModeObj* pRenderMode) {
+    ConsoleHandle old = sException.console;
+    sException.console = console;
+    sException.renderMode = pRenderMode;
+    return old;
+}
+
+void Exception_SetUserCallback(ExceptionUserCallback callback, void* pArg) {
+    sException.callback = callback;
+    sException.callbackArg = pArg;
+}
+
+void WaitTime_(s32 time) {
+    if (time == 0) {
+        return;
+    }
+
+    s64 start = OSGetTime();
+    while (OS_TICKS_TO_MSEC(OSGetTime() - start) < time) {
+    }
+}
+
+void DrawConsoleEndless_(ConsoleHandle console) {
+    s32 line = Console_GetBufferHeadLine(console);
+    while (TRUE) {
+        if (line >= Console_GetTotalLines(console)) {
+            line = Console_GetBufferHeadLine(console);
+        }
+        Console_SetViewBaseLine(console, line);
+        Console_DrawDirect(console);
+        WaitTime_(200);
+        line++;
     }
 }
 

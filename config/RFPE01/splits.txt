@@ -14,11 +14,30 @@ Sections:
 	.sdata2     type:rodata align:4
 	.sbss2      type:bss align:32
 
+nw4r/db/db_directPrint.cpp:
+	.text       start:0x80007280 end:0x80007D3C
+	.rodata     start:0x8068A360 end:0x8068A614
+	.bss        start:0x80760500 end:0x80760524
+	.sbss       start:0x80816060 end:0x80816068
+
 nw4r/db/db_console.cpp:
 	.text       start:0x80007D40 end:0x80008820
+	.bss        start:0x80760528 end:0x80760940
 
 nw4r/db/db_exception.cpp:
-	.text       start:0x80008820 end:0x800098E0
+	.text       start:0x80008820 end:0x800098D4
+	.bss        start:0x80760940 end:0x80764CA0
+	.sbss       start:0x80816070 end:0x80816074
+
+nw4r/db/db_mapFile.cpp:
+	.text       start:0x800098E0 end:0x80009FA4
+
+nw4r/db/db_assert.cpp:
+	.text       start:0x8000BB10 end:0x8000C048
+	.data       start:0x80708328 end:0x807083A8
+	.bss        start:0x80764EE0 end:0x80764F10
+	.sdata      start:0x80813AE8 end:0x80813AF8
+	.sbss       start:0x80816098 end:0x808160A8
 
 nw4r/ef/ef_draworder.cpp:
 	.text       start:0x8000C050 end:0x8000C170
@@ -40,6 +59,15 @@ nw4r/ef/ef_emitter.cpp:
 
 nw4r/ef/ef_animcurve.cpp:
 	.text       start:0x8000F9E0 end:0x800148E0
+
+nw4r/ef/ef_postfield.cpp:
+	.text       start:0x800148E0 end:0x80017F70
+	.sdata2     start:0x80817A20 end:0x80817A58
+
+nw4r/ef/ef_particle.cpp:
+	.text       start:0x80017F70 end:0x80018DD4
+	.data       start:0x80708650 end:0x80708664
+	.sdata2     start:0x80817A58 end:0x80817AA8
 
 nw4r/ef/ef_particlemanager.cpp:
 	.text       start:0x80018DE0 end:0x8001B0E4

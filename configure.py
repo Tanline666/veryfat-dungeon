@@ -472,8 +472,11 @@ config.libs = [
         "cflags": cflags_libnw4r_db,
         "progress_category": "nw4r",
         "objects": [
+            Object(NonMatching, "nw4r/db/db_directPrint.cpp"),
             Object(NonMatching, "nw4r/db/db_console.cpp"),
             Object(NonMatching, "nw4r/db/db_exception.cpp"),
+            Object(NonMatching, "nw4r/db/db_mapFile.cpp"),
+            Object(NonMatching, "nw4r/db/db_assert.cpp"),
         ],
     },
     {
@@ -486,6 +489,9 @@ config.libs = [
             Object(NonMatching, "nw4r/ef/ef_effect.cpp"),
             Object(NonMatching, "nw4r/ef/ef_effectsystem.cpp"),
             Object(NonMatching, "nw4r/ef/ef_emitter.cpp"),
+            Object(NonMatching, "nw4r/ef/ef_animcurve.cpp"),
+            Object(NonMatching, "nw4r/ef/ef_postfield.cpp"),
+            Object(NonMatching, "nw4r/ef/ef_particle.cpp"),
             Object(NonMatching, "nw4r/ef/ef_particlemanager.cpp"),
             Object(NonMatching, "nw4r/ef/ef_resource.cpp"),
             Object(Matching, "nw4r/ef/ef_handle.cpp"),

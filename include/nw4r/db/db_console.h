@@ -34,13 +34,13 @@ struct ConsoleHead {
     u16 UNK_0xA;
     u16 firstPrint; // at 0xC
     u16 xPosPrint;  // at 0xE
-    u16 UNK_0x10;
-    s32 UNK_0x14;
-    s32 topLine;    // at 0x18
-    s16 posX;       // at 0x1C
-    s16 posY;       // at 0x1E
-    u16 linesShown; // at 0x20
-    bool isVisible; // at 0x22
+    u16 bufHead;
+    s32 bufHeadLine; // at 0x14
+    s32 topLine;     // at 0x18
+    s16 posX;        // at 0x1C
+    s16 posY;        // at 0x1E
+    u16 linesShown;  // at 0x20
+    bool isVisible;  // at 0x22
     u8 PAD_0x23;
     nw4r::ut::TextWriter* writer; // at 0x24
     ConsoleHandle next;           // at 0x28
@@ -48,8 +48,50 @@ struct ConsoleHead {
 
 } // namespace detail
 
+void Console_DrawDirect(ConsoleHandle console);
 void Console_VFPrintf(ConsoleOutputType type, ConsoleHandle handle,
                       const char* fmt, std::va_list vlist);
+
+inline void Console_VPrintf(ConsoleHandle handle, const char* pFmt,
+                            va_list vList) {
+    Console_VFPrintf(CONSOLE_OUTPUT_ALL, handle, pFmt, vList);
+}
+
+void Console_Printf(ConsoleHandle console, const char* pFmt, ...);
+
+inline u16 Console_GetViewHeight(ConsoleHandle console) {
+    return console->linesShown;
+}
+
+inline bool Console_SetVisible(ConsoleHandle console, bool isVisible) {
+    bool old;
+    old = console->isVisible;
+    console->isVisible = isVisible;
+    return old;
+}
+
+inline s32 Console_SetViewBaseLine(ConsoleHandle console, s32 line) {
+    s32 old;
+    old = console->topLine;
+    console->topLine = line;
+    return old;
+}
+
+s32 Console_GetTotalLines(ConsoleHandle console);
+
+inline s32 Console_GetBufferHeadLine(ConsoleHandle console) {
+    return console->bufHeadLine;
+}
+
+inline s32 Console_ShowLatestLine(ConsoleHandle console) {
+    s32 baseLine =
+        Console_GetTotalLines(console) - Console_GetViewHeight(console);
+    if (baseLine < 0) {
+        baseLine = 0;
+    }
+    Console_SetViewBaseLine(console, baseLine);
+    return baseLine;
+}
 
 } // namespace db
 } // namespace nw4r

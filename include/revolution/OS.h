@@ -27,6 +27,7 @@ extern "C" {
 #include <revolution/OS/OSLink.h>
 #include <revolution/OS/OSMemory.h>
 #include <revolution/OS/OSMessage.h>
+#include <revolution/OS/OSModule.h>
 #include <revolution/OS/OSMutex.h>
 #include <revolution/OS/OSNet.h>
 #include <revolution/OS/OSPlayRecord.h>

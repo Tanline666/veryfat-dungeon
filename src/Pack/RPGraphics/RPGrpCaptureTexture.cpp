@@ -3,11 +3,11 @@
 #include <egg/gfxe.h>
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  *
- * @param pScreen Capture source
- * @param format Texture format
- * @param flags Creation flags
+ * \~ @param pScreen Capture source
+ * \~ @param format Texture format
+ * \~ @param flags Creation flags
  */
 RPGrpCaptureTexture::RPGrpCaptureTexture(RPGrpScreen* pScreen, GXTexFmt format,
                                          u32 flags)
@@ -29,9 +29,9 @@ RPGrpCaptureTexture::RPGrpCaptureTexture(RPGrpScreen* pScreen, GXTexFmt format,
 }
 
 /**
- * @brief Captures the EFB contents as a texture
+ * \~ @brief Captures the EFB contents as a texture
  *
- * @param format Texture format override (optional)
+ * \~ @param format Texture format override (optional)
  */
 void RPGrpCaptureTexture::Capture(int format) {
     if (mEfbFlags & EEfbFlag_ColorUpdate) {

@@ -8,7 +8,7 @@
 //! @{
 
 /**
- * @brief Pack Project bootup scene
+ * \~ @brief Pack Project bootup scene
  */
 class RPSysBootScene : public RPSysScene {
 private:

@@ -10,7 +10,7 @@
 //! @{
 
 /**
- * @brief NAND Mii database accessor
+ * \~ @brief NAND Mii database accessor
  */
 class RPSysOfficialDB {
 private:
@@ -19,47 +19,47 @@ private:
 
 public:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      */
     RPSysOfficialDB();
 
     /**
-     * @brief Destructor
+     * \~ @brief Destructor
      */
     virtual ~RPSysOfficialDB(); // at 0x8
 
     /**
-     * @brief Finds the index holding the Mii with the specified create ID
+     * \~ @brief Finds the index holding the Mii with the specified create ID
      *
-     * @param pCreateID Mii create ID
-     * @return Database index, or -1 if not found
+     * \~ @param pCreateID Mii create ID
+     * \~ @return Database index, or -1 if not found
      */
     s16 GetIndexFromCreateID(const RFLCreateID* pCreateID);
 
     /**
-     * @brief Resets the database to the latest states
+     * \~ @brief Resets the database to the latest states
      */
     void Reset();
 
     /**
-     * @brief Gets the number of valid Miis in the database
+     * \~ @brief Gets the number of valid Miis in the database
      */
     u16 GetValidNum();
 
     /**
-     * @brief Gets the state of the specified database index
+     * \~ @brief Gets the state of the specified database index
      *
-     * @param index Database index
+     * \~ @param index Database index
      */
     RPSysKokeshiManager::OfficialDBState GetState(u16 index) {
         return mStates[index];
     }
 
     /**
-     * @brief Sets the state of the specified database index
+     * \~ @brief Sets the state of the specified database index
      *
-     * @param index Database index
-     * @param state New state
+     * \~ @param index Database index
+     * \~ @param state New state
      */
     void SetState(u16 index, RPSysKokeshiManager::OfficialDBState state) {
         mStates[index] = state;

@@ -6,12 +6,12 @@
 //! @{
 
 /**
- * @brief Controller Mii data loader
+ * \~ @brief Controller Mii data loader
  */
 class RPSysKokeshiCtrlDataLoader {
 private:
     /**
-     * @brief Data loading state
+     * \~ @brief Data loading state
      */
     enum ELoadState {
         ELoadState_Start,  //!< Begin request
@@ -27,39 +27,39 @@ private:
 
 public:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      *
-     * @param chan Remote channel
+     * \~ @param chan Remote channel
      */
     explicit RPSysKokeshiCtrlDataLoader(s32 chan);
 
     /**
-     * @brief Destructor
+     * \~ @brief Destructor
      */
     virtual ~RPSysKokeshiCtrlDataLoader(); // at 0x8
 
     /**
-     * @brief Tests whether an error occurred while loading data
+     * \~ @brief Tests whether an error occurred while loading data
      */
     BOOL isError() const;
 
     /**
-     * @brief Begins loading Mii data from the controller
+     * \~ @brief Begins loading Mii data from the controller
      */
     void load();
 
     /**
-     * @brief Tests whether the loader is in an idle state
+     * \~ @brief Tests whether the loader is in an idle state
      */
     BOOL isIdle() const;
 
     /**
-     * @brief Updates the loader state
+     * \~ @brief Updates the loader state
      */
     void calc();
 
     /**
-     * @brief Gets the WPAD channel this loader is using
+     * \~ @brief Gets the WPAD channel this loader is using
      */
     s32 getChannel() const {
         return mChannel;

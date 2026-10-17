@@ -26,7 +26,7 @@
 
 /**
  * Define common functions for resource classes.
- * @note Hides ResCommon::ref, why did they do this???
+ * \~ @note Hides ResCommon::ref, why did they do this???
  */
 #define NW4R_G3D_RESOURCE_FUNC_DEF(T)                                          \
     NW4R_G3D_RESOURCE_FUNC_DEF_IMPL(T, T##Data)

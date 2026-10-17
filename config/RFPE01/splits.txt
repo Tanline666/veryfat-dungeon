@@ -224,6 +224,9 @@ nw4r/g3d/g3d_calcvtx.cpp:
 	.text       start:0x8005D080 end:0x8005D81C
 	.sdata2     start:0x80818128 end:0x8081812C
 
+nw4r/lyt/lyt_init.cpp:
+	.text       start:0x8005D820 end:0x8005D874
+
 nw4r/lyt/lyt_pane.cpp:
 	.text       start:0x8005D880 end:0x8005E9DC
 	.ctors      start:0x80688CDC end:0x80688CE0
@@ -507,6 +510,11 @@ egg/audio/eggAudioSystem.cpp:
 	.text       start:0x800C8C4C end:0x800C8DA0
 	.sbss       start:0x80816408 end:0x8081640C
 	.sdata2     start:0x80818D38 end:0x80818D48
+
+egg/util/eggException.cpp:
+	.text       start:0x800C9034 end:0x800C9524
+	.data       start:0x8070BCC0 end:0x8070BCCC
+	.sbss       start:0x80816410 end:0x80816424
 
 runtime/__init_cpp_exceptions.cpp:
 	.text       start:0x800CA118 end:0x800CA188
@@ -855,7 +863,7 @@ revolution/ESP/ESP.c:
 	.text       start:0x801674E0 end:0x80167E60
 
 homebuttonLib/HBMFrameController.cpp:
-	.text       start:0x80167E60 end:0x80168010
+	.text       start:0x80167E60 end:0x8016800C
 	.rodata     start:0x80692058 end:0x8069205C
 	.data       start:0x8072BC60 end:0x8072BC88
 
@@ -869,6 +877,12 @@ homebuttonLib/HBMGUIManager.cpp:
 homebuttonLib/HBMController.cpp:
 	.text       start:0x80169940 end:0x8016A290
 	.bss        start:0x80810130 end:0x808102C8
+
+homebuttonLib/HBMAxSound.cpp:
+	.text       start:0x8016ABB0 end:0x8016B184
+
+homebuttonLib/HBMCommon.cpp:
+	.text       start:0x8016B190 end:0x8016B474
 
 homebuttonLib/nw4hbm/ut_list.cpp:
 	.text       start:0x80180880 end:0x801809F0
@@ -913,6 +927,8 @@ RVLFaceLib/RFL_MakeTex.c:
 	extab       start:0x80006988 end:0x800069C8
 	extabindex  start:0x80006F54 end:0x80006FB4
 	.text       start:0x8018EDF4 end:0x801916B4
+	.rodata     start:0x80693520 end:0x806935E0
+	.sdata2     start:0x808198E8 end:0x808199A4
 
 RVLFaceLib/RFL_Icon.c:
 	extab       start:0x800069C8 end:0x800069D0
@@ -968,12 +984,15 @@ main.cpp:
 Pack/RPSystem/RPSysSceneCreator.cpp:
 	.text       start:0x801D8B58 end:0x801D9E60
 	.rodata     start:0x80698CC8 end:0x806995F0
+	.sbss       start:0x80816CB8 end:0x80816CBC
 
 Pack/RPSystem/RPSysRenderMode.cpp:
 	.text       start:0x801DA5BC end:0x801DA674
 
 Pack/RPSystem/RPSysSceneMgr.cpp:
 	.text       start:0x801DA674 end:0x801DB27C
+	.data       start:0x8073FFE8 end:0x80740010
+	.sbss       start:0x80816CC8 end:0x80816CCC
 
 Pack/RPSystem/RPSysProjectLocal.cpp:
 	.text       start:0x801DB27C end:0x801DB4B0
@@ -984,6 +1003,10 @@ Pack/RPSystem/RPSysProjectLocal.cpp:
 Pack/RPKernel/RPSysEffectMgr.cpp:
 	.text       start:0x801E1600 end:0x801E3400
 	.data       start:0x80740298 end:0x807403B0
+
+Pack/RPKernel/RPSysLayout.cpp:
+	.text       start:0x801E3DEC end:0x801E5CE8
+	.rodata     start:0x80699B10 end:0x80699B18
 
 Pack/RPKernel/RPSysFrameCtrl.cpp:
 	.text       start:0x801E5CE8 end:0x801E5F78

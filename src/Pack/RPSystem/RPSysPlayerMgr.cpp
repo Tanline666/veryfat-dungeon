@@ -7,7 +7,7 @@
 RP_SINGLETON_IMPL_EX(RPSysPlayerMgr);
 
 /**
- * @brief Resets the old data to a default state
+ * \~ @brief Resets the old data to a default state
  */
 void RPSysPlayerMgr::resetOldData() {
     for (int i = 0; i < OLD_DATA_LEN; i++) {
@@ -23,28 +23,28 @@ void RPSysPlayerMgr::resetOldData() {
 }
 
 /**
- * @brief Gets the player at the specified index
+ * \~ @brief Gets the player at the specified index
  *
- * @param idx Player index
+ * \~ @param idx Player index
  */
 const RPSysPlayer& RPSysPlayerMgr::getPlayer(s32 idx) const {
     return mpPlayers[idx];
 }
 
 /**
- * @brief Gets the remote channel associated with the specified player
+ * \~ @brief Gets the remote channel associated with the specified player
  *
- * @param idx Player index
+ * \~ @param idx Player index
  */
 u8 RPSysPlayerMgr::getChannel(s32 idx) const {
     return mpPlayers[idx].getChannel();
 }
 
 /**
- * @brief Gets the speaker flag required to play sounds through the
+ * \~ @brief Gets the speaker flag required to play sounds through the
  * specified player's remote
  *
- * @param player Player index
+ * \~ @param player Player index
  */
 u32 RPSysPlayerMgr::getSpeakerFlag(s32 player) const {
     // TODO(kiwi) Uses something from RPSysCoreController
@@ -73,7 +73,7 @@ u32 RPSysPlayerMgr::getSpeakerFlag(s32 player) const {
 }
 
 /**
- * @brief Writes the save data for all players
+ * \~ @brief Writes the save data for all players
  */
 void RPSysPlayerMgr::saveAllData() {
     for (int i = 0; i < mPlayerNum; i++) {
@@ -88,25 +88,25 @@ void RPSysPlayerMgr::saveAllData() {
 }
 
 /**
- * @brief Tests whether the specified player has completed the A+B check
+ * \~ @brief Tests whether the specified player has completed the A+B check
  *
- * @param player Player index
+ * \~ @param player Player index
  */
 bool RPSysPlayerMgr::isABPress(s32 player) const {
     return mFlags & 1 << static_cast<u8>(player);
 }
 
 /**
- * @brief Sets that the specified player has completed the A+B check
+ * \~ @brief Sets that the specified player has completed the A+B check
  *
- * @param player Player index
+ * \~ @param player Player index
  */
 void RPSysPlayerMgr::setABPress(s32 player) {
     mFlags |= 1 << static_cast<u8>(player);
 }
 
 /**
- * @brief Resets the manager state
+ * \~ @brief Resets the manager state
  */
 void RPSysPlayerMgr::reset() {
     mPlayerNum = 0;
@@ -118,18 +118,18 @@ void RPSysPlayerMgr::reset() {
 }
 
 /**
- * @brief Sets the number of players
+ * \~ @brief Sets the number of players
  *
- * @param num Player count
+ * \~ @param num Player count
  */
 void RPSysPlayerMgr::setPlayerNum(s32 num) {
     mPlayerNum = num;
 }
 
 /**
- * @brief Sets the number of controllers
+ * \~ @brief Sets the number of controllers
  *
- * @param num Controller count
+ * \~ @param num Controller count
  */
 void RPSysPlayerMgr::setRemoteNum(s32 num) {
     mRemoteNum = num < mPlayerNum ? num : mPlayerNum;
@@ -145,7 +145,7 @@ void RPSysPlayerMgr::setRemoteNum(s32 num) {
 }
 
 /**
- * @brief Tests whether the old data configuration for the current player
+ * \~ @brief Tests whether the old data configuration for the current player
  * count is usable
  */
 bool RPSysPlayerMgr::isValidOldData() {
@@ -203,11 +203,11 @@ bool RPSysPlayerMgr::isValidOldData() {
 }
 
 /**
- * @brief Gets the old data configuration for the current player count
+ * \~ @brief Gets the old data configuration for the current player count
  *
- * @param[out] pDataSrc Mii data source
- * @param[out] pIndex Mii database index
- * @param idx Player index
+ * \~ @param[out] pDataSrc Mii data source
+ * \~ @param[out] pIndex Mii database index
+ * \~ @param idx Player index
  */
 void RPSysPlayerMgr::getOldData(s8* pDataSrc, u16* pIndex, s32 idx) {
     s32 rel2Abs[RP_MAX_PLAYERS] = {
@@ -227,10 +227,10 @@ void RPSysPlayerMgr::getOldData(s8* pDataSrc, u16* pIndex, s32 idx) {
 }
 
 /**
- * @brief Tests whether the old data configuration for the specified player
+ * \~ @brief Tests whether the old data configuration for the specified player
  * describes a Mii from a controller database
  *
- * @param idx Player index
+ * \~ @param idx Player index
  */
 bool RPSysPlayerMgr::isCtrlOldData(s32 idx) {
     s32 rel2Abs[RP_MAX_PLAYERS] = {
@@ -256,7 +256,7 @@ bool RPSysPlayerMgr::isCtrlOldData(s32 idx) {
 }
 
 /**
- * @brief Updates the old data configuration for the current player count
+ * \~ @brief Updates the old data configuration for the current player count
  */
 void RPSysPlayerMgr::calcOldData() {
     // Can't use old data when people are sharing remotes
@@ -283,7 +283,7 @@ void RPSysPlayerMgr::calcOldData() {
 }
 
 /**
- * @brief Loads the old data configuration from the save file
+ * \~ @brief Loads the old data configuration from the save file
  */
 void RPSysPlayerMgr::loadOldData() {
     s32 rel2Abs[RP_MAX_PLAYERS] = {
@@ -340,7 +340,7 @@ void RPSysPlayerMgr::loadOldData() {
 }
 
 /**
- * @brief Writes the old data configuration to the save file
+ * \~ @brief Writes the old data configuration to the save file
  */
 void RPSysPlayerMgr::saveOldData() {
     s32 rel2Abs[RP_MAX_PLAYERS] = {
@@ -403,9 +403,9 @@ void RPSysPlayerMgr::saveOldData() {
 }
 
 /**
- * @brief Loads the save data for the specified player
+ * \~ @brief Loads the save data for the specified player
  *
- * @param idx Player index
+ * \~ @param idx Player index
  */
 void RPSysPlayerMgr::loadData(s32 idx) {
     RPSysPlayerArg arg;
@@ -418,7 +418,7 @@ void RPSysPlayerMgr::loadData(s32 idx) {
 }
 
 /**
- * @brief Loads the save data for all players
+ * \~ @brief Loads the save data for all players
  */
 void RPSysPlayerMgr::loadAllData() {
     RPSysPlayerArg arg;
@@ -433,12 +433,12 @@ void RPSysPlayerMgr::loadAllData() {
 }
 
 /**
- * @brief Sets the Mii avatar associated with the specified player
+ * \~ @brief Sets the Mii avatar associated with the specified player
  *
- * @param dataSrc Mii data source
- * @param index Mii database index
- * @param rCreateID Mii create ID
- * @param idx Player index
+ * \~ @param dataSrc Mii data source
+ * \~ @param index Mii database index
+ * \~ @param rCreateID Mii create ID
+ * \~ @param idx Player index
  */
 void RPSysPlayerMgr::setAvatar(s8 dataSrc, u16 index,
                                const RFLCreateID& rCreateID, s32 idx) {
@@ -447,9 +447,9 @@ void RPSysPlayerMgr::setAvatar(s8 dataSrc, u16 index,
 }
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  *
- * @param pHeap Parent heap
+ * \~ @param pHeap Parent heap
  */
 RPSysPlayerMgr::RPSysPlayerMgr(EGG::Heap* pHeap)
     : mpParentHeap(pHeap),
@@ -479,6 +479,6 @@ RPSysPlayerMgr::RPSysPlayerMgr(EGG::Heap* pHeap)
 }
 
 /**
- * @brief Destructor
+ * \~ @brief Destructor
  */
 RPSysPlayerMgr::~RPSysPlayerMgr() {}

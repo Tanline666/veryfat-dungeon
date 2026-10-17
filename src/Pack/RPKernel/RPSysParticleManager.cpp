@@ -1,23 +1,23 @@
 #include <Pack/RPKernel.h>
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  */
 RPSysParticleManager::RPSysParticleManager() : mModifyFlags(0) {
     Reset();
 }
 
 /**
- * @brief Destructor
+ * \~ @brief Destructor
  */
 RPSysParticleManager::~RPSysParticleManager() {}
 
 /**
- * @brief Prepares this particle manager for creation
+ * \~ @brief Prepares this particle manager for creation
  *
- * @param pParent Parent emitter
- * @param pResource Emitter resource data
- * @return Success
+ * \~ @param pParent Parent emitter
+ * \~ @param pResource Emitter resource data
+ * \~ @return Success
  */
 bool RPSysParticleManager::Initialize(nw4r::ef::Emitter* pParent,
                                       nw4r::ef::EmitterResource* pResource) {
@@ -28,7 +28,7 @@ bool RPSysParticleManager::Initialize(nw4r::ef::Emitter* pParent,
 }
 
 /**
- * @brief Updates the particles' state and applies any modifiers
+ * \~ @brief Updates the particles' state and applies any modifiers
  */
 void RPSysParticleManager::Calc() {
     nw4r::ef::ParticleManager::Calc();
@@ -75,9 +75,9 @@ void RPSysParticleManager::Calc() {
 }
 
 /**
- * @brief Sets the life of all active particles
+ * \~ @brief Sets the life of all active particles
  *
- * @param life New life
+ * \~ @param life New life
  */
 void RPSysParticleManager::SetParticleLife(u16 life) {
     mModifyFlags |= EFlag_ModifyLife;
@@ -85,9 +85,9 @@ void RPSysParticleManager::SetParticleLife(u16 life) {
 }
 
 /**
- * @brief Sets the size of all active particles
+ * \~ @brief Sets the size of all active particles
  *
- * @param rSize New size
+ * \~ @param rSize New size
  */
 void RPSysParticleManager::SetParticleSize(const nw4r::math::VEC2& rSize) {
     mModifyFlags |= EFlag_ModifySize;
@@ -95,9 +95,9 @@ void RPSysParticleManager::SetParticleSize(const nw4r::math::VEC2& rSize) {
 }
 
 /**
- * @brief Sets the rotation of all active particles
+ * \~ @brief Sets the rotation of all active particles
  *
- * @param rRotate New rotation
+ * \~ @param rRotate New rotation
  */
 void RPSysParticleManager::SetParticleRotate(const nw4r::math::VEC3& rRotate) {
     mModifyFlags |= EFlag_ModifyRotate;
@@ -105,7 +105,7 @@ void RPSysParticleManager::SetParticleRotate(const nw4r::math::VEC3& rRotate) {
 }
 
 /**
- * @brief Resets all particle modifiers
+ * \~ @brief Resets all particle modifiers
  */
 void RPSysParticleManager::Reset() {
     mModifyFlags = 0;

@@ -5,9 +5,9 @@
 RP_SINGLETON_IMPL(RPSysProjectLocal);
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  *
- * @param pHeap Parent heap
+ * \~ @param pHeap Parent heap
  */
 RPSysProjectLocal::RPSysProjectLocal()
     : mRegion(ERegion_NTSC_U),
@@ -17,15 +17,15 @@ RPSysProjectLocal::RPSysProjectLocal()
       mSoundStorage(EStorage_DVDStream) {}
 
 /**
- * @brief Destructor
+ * \~ @brief Destructor
  */
 RPSysProjectLocal::~RPSysProjectLocal() {}
 
 /**
- * @brief Appends the locale directory to the specified path
+ * \~ @brief Appends the locale directory to the specified path
  *
- * @param pPath Path to append to
- * @param pSuffix Optional suffix to append after the locale
+ * \~ @param pPath Path to append to
+ * \~ @param pSuffix Optional suffix to append after the locale
  */
 void RPSysProjectLocal::appendLocalDirectory(char* pPath, const char* pSuffix) {
     switch (mLocale) {
@@ -112,18 +112,18 @@ void RPSysProjectLocal::appendLocalDirectory(char* pPath, const char* pSuffix) {
 }
 
 /**
- * @brief Sets the current locale
+ * \~ @brief Sets the current locale
  *
- * @param locale Locale area
+ * \~ @param locale Locale area
  */
 void RPSysProjectLocal::setLocale(EArea locale) {
     mLocale = locale;
 }
 
 /**
- * @brief Sets the current language
+ * \~ @brief Sets the current language
  *
- * @param lang Language area
+ * \~ @param lang Language area
  */
 void RPSysProjectLocal::setLanguage(EArea lang) {
     mLanguage = lang;

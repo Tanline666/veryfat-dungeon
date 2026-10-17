@@ -10,7 +10,7 @@ class RPGrpCamera;
 class RPGrpScreen;
 
 /**
- * @brief Model rendering scene
+ * \~ @brief Model rendering scene
  */
 class RPGrpModelScene {
 private:

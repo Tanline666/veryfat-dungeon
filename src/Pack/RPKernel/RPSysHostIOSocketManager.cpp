@@ -3,24 +3,24 @@
 RP_SINGLETON_IMPL(RPSysHostIOSocketManager);
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  */
 RPSysHostIOSocketManager::RPSysHostIOSocketManager() {
     // Stubbed for release
 }
 
 /**
- * @brief Destructor
+ * \~ @brief Destructor
  */
 RPSysHostIOSocketManager::~RPSysHostIOSocketManager() {
     // Stubbed for release
 }
 
 /**
- * @brief Adds a new host I/O socket to the node tree
+ * \~ @brief Adds a new host I/O socket to the node tree
  *
- * @param pChild New child socket
- * @param pParent Parent socket
+ * \~ @param pChild New child socket
+ * \~ @param pParent Parent socket
  */
 void RPSysHostIOSocketManager::AddHostIOSocket(
     IRPSysHostIOSocket* /* pChild */, IRPSysHostIOSocket* /* pParent */) {
@@ -28,7 +28,7 @@ void RPSysHostIOSocketManager::AddHostIOSocket(
 }
 
 /**
- * @brief Updates the state of the host I/O sockets
+ * \~ @brief Updates the state of the host I/O sockets
  */
 void RPSysHostIOSocketManager::Update() {
     // Stubbed for release

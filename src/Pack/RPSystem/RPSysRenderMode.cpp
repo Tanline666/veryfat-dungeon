@@ -6,7 +6,7 @@
 namespace {
 
 /**
- * @brief Render mode configuration for NTSC (interlaced)
+ * \~ @brief Render mode configuration for NTSC (interlaced)
  */
 GXRenderModeObj localNtsc640x456IntDf = {
     VI_TVMODE_NTSC_INT, // tvInfo
@@ -38,7 +38,7 @@ GXRenderModeObj localNtsc640x456IntDf = {
 };
 
 /**
- * @brief Render mode configuration for NTSC (progressive)
+ * \~ @brief Render mode configuration for NTSC (progressive)
  */
 GXRenderModeObj localNtsc640x456Prog = {
     VI_TVMODE_NTSC_PROG, // tvInfo
@@ -70,7 +70,7 @@ GXRenderModeObj localNtsc640x456Prog = {
 };
 
 /**
- * @brief Render mode configuration for PAL50 (interlaced)
+ * \~ @brief Render mode configuration for PAL50 (interlaced)
  */
 GXRenderModeObj localPal50_640x456IntDf = {
     VI_TVMODE_PAL_INT, // tvInfo
@@ -102,7 +102,7 @@ GXRenderModeObj localPal50_640x456IntDf = {
 };
 
 /**
- * @brief Render mode configuration for NTSC video
+ * \~ @brief Render mode configuration for NTSC video
  */
 GXRenderModeObj localPal60_640x456IntDf = {
     VI_TVMODE_EURGB60_INT, // tvInfo
@@ -134,7 +134,7 @@ GXRenderModeObj localPal60_640x456IntDf = {
 };
 
 /**
- * @brief Render mode configuration for PAL (progressive)
+ * \~ @brief Render mode configuration for PAL (progressive)
  */
 GXRenderModeObj localPal60_640x456Prog = {
     VI_TVMODE_EURGB60_PROG, // tvInfo
@@ -168,7 +168,7 @@ GXRenderModeObj localPal60_640x456Prog = {
 } // namespace
 
 /**
- * @brief Render mode configurations
+ * \~ @brief Render mode configurations
  */
 GXRenderModeObj* const RPSysRenderMode::spRenderModeTable[EFormat_Max] = {
     &localNtsc640x456IntDf,   // EFormat_Ntsc
@@ -179,12 +179,12 @@ GXRenderModeObj* const RPSysRenderMode::spRenderModeTable[EFormat_Max] = {
 };
 
 /**
- * @brief Adjusts a render mode to account for widescreen/50Hz formats
+ * \~ @brief Adjusts a render mode to account for widescreen/50Hz formats
  *
- * @param pOriginX Pointer to render mode viXOrigin
- * @param pWidth Pointer to render mode viWidth
- * @param format Render mode format
- * @param wide Whether the display is widescreen
+ * \~ @param pOriginX Pointer to render mode viXOrigin
+ * \~ @param pWidth Pointer to render mode viWidth
+ * \~ @param format Render mode format
+ * \~ @param wide Whether the display is widescreen
  */
 void RPSysRenderMode::adjust(u16* pOriginX, u16* pWidth, EFormat format,
                              bool wide) {

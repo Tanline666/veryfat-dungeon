@@ -1,0 +1,4 @@
+#ifndef HOME_BUTTON_LIB_COMMON_H
+#define HOME_BUTTON_LIB_COMMON_H
+
+#endif

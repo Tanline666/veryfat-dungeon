@@ -10,12 +10,12 @@
 #include <cwchar>
 
 /**
- * @brief Whether the last NWC24 operation was successful
+ * \~ @brief Whether the last NWC24 operation was successful
  */
 BOOL RPSysNWC24Manager::sSuccess = true;
 
 /**
- * @brief Suspends the WiiConnect24 scheduler so the library can be opened
+ * \~ @brief Suspends the WiiConnect24 scheduler so the library can be opened
  */
 void RPSysNWC24Manager::initialize() {
     s32 err = NWC24SuspendScheduler();
@@ -42,9 +42,9 @@ void RPSysNWC24Manager::initialize() {
 }
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  *
- * @param pHeap Heap to use for allocations
+ * \~ @param pHeap Heap to use for allocations
  */
 RPSysNWC24Manager::RPSysNWC24Manager(EGG::Heap* pHeap) {
     mpNwc24Work = new (pHeap, 32) u8[sizeof(NWC24Work)];
@@ -52,20 +52,20 @@ RPSysNWC24Manager::RPSysNWC24Manager(EGG::Heap* pHeap) {
 }
 
 /**
- * @brief Destructor
+ * \~ @brief Destructor
  */
 RPSysNWC24Manager::~RPSysNWC24Manager() {}
 
 /**
- * @brief Attempts to commit a message to the Wii Message Board
+ * \~ @brief Attempts to commit a message to the Wii Message Board
  *
- * @param pAltName Mail letter alt name
- * @param pMsg Mail letter message (can be a format string)
- * @param date Mail letter send date
- * @param pAvatar Mii avatar to include
- * @param argc Number of message format arguments
- * @param argv Message format arguments
- * @return Success
+ * \~ @param pAltName Mail letter alt name
+ * \~ @param pMsg Mail letter message (can be a format string)
+ * \~ @param date Mail letter send date
+ * \~ @param pAvatar Mii avatar to include
+ * \~ @param argc Number of message format arguments
+ * \~ @param argv Message format arguments
+ * \~ @return Success
  */
 bool RPSysNWC24Manager::commitMail(const wchar_t* pAltName, const wchar_t* pMsg,
                                    RPTime16 date, const RPSysAvatar* pAvatar,
@@ -216,9 +216,9 @@ bool RPSysNWC24Manager::commitMail(const wchar_t* pAltName, const wchar_t* pMsg,
 }
 
 /**
- * @brief Attempts to open the WiiConnect24 library for use
+ * \~ @brief Attempts to open the WiiConnect24 library for use
  *
- * @return True if the library is opened, false if not
+ * \~ @return True if the library is opened, false if not
  */
 bool RPSysNWC24Manager::openLib() {
     NWC24Work* pNwc24Work = reinterpret_cast<NWC24Work*>(mpNwc24Work);
@@ -262,7 +262,7 @@ bool RPSysNWC24Manager::openLib() {
 }
 
 /**
- * @brief Closes the WiiConnect24 library
+ * \~ @brief Closes the WiiConnect24 library
  */
 void RPSysNWC24Manager::closeLib() {
     switch (NWC24CloseLib()) {

@@ -13,7 +13,7 @@
 class RPGrpModel;
 
 /**
- * @brief Light map draw path
+ * \~ @brief Light map draw path
  */
 class RPGrpDrawPathLightMap : public RPGrpDrawPath {
 public:

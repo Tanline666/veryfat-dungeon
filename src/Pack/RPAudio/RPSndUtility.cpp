@@ -5,17 +5,17 @@
 #include <nw4r/ut.h>
 
 /**
- * @brief Active sound archive player
+ * \~ @brief Active sound archive player
  */
 nw4r::snd::SoundArchivePlayer* RPSndUtility::spSoundArchivePlayer = NULL;
 
 /**
- * @brief Sets the panning of the sound handle to match the DPD position
+ * \~ @brief Sets the panning of the sound handle to match the DPD position
  *
- * @param rHandle Sound handle
- * @param rDpdPos DPD position
- * @param scale Panning scale
- * @return Success
+ * \~ @param rHandle Sound handle
+ * \~ @param rDpdPos DPD position
+ * \~ @param scale Panning scale
+ * \~ @return Success
  */
 bool RPSndUtility::setHandleDpdPan(nw4r::snd::SoundHandle& rHandle,
                                    const nw4r::math::VEC2& rDpdPos, f32 scale) {

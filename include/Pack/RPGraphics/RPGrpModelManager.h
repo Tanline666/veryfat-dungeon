@@ -10,7 +10,7 @@ class RPGrpDrawPathManager;
 class RPGrpModelScene;
 
 /**
- * @brief Model manager
+ * \~ @brief Model manager
  */
 class RPGrpModelManager {
 public:
@@ -19,7 +19,7 @@ public:
 
 public:
     /**
-     * @brief Gets the currently active manager instance
+     * \~ @brief Gets the currently active manager instance
      */
     static RPGrpModelManager* GetCurrent() {
         return spCurrent;

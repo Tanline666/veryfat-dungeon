@@ -12,42 +12,42 @@ class RPGrpModel;
 class RPGrpShadowTexture : public EGG::ShadowTexture {
 public:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      *
-     * @param size Texture size (width/height)
-     * @param format Texture format
-     * @param mdlNum Maximum number of scene models to gather
+     * \~ @param size Texture size (width/height)
+     * \~ @param format Texture format
+     * \~ @param mdlNum Maximum number of scene models to gather
      */
     RPGrpShadowTexture(u16 size, int format, u16 mdlNum)
         : EGG::ShadowTexture(size, format, mdlNum) {}
 
     /**
-     * @brief Destructor
+     * \~ @brief Destructor
      */
     virtual ~RPGrpShadowTexture() override {} // at 0x8
 
     /**
-     * @brief Replaces a texture on the specified model
+     * \~ @brief Replaces a texture on the specified model
      *
-     * @param pModel Target model
-     * @param pName Texture name (format string)
-     * @param ... Format string arguments
+     * \~ @param pModel Target model
+     * \~ @param pName Texture name (format string)
+     * \~ @param ... Format string arguments
      */
     void Replace(RPGrpModel* pModel, const char* pName, ...);
 
     /**
-     * @brief Adds a new model to the shadow texture
+     * \~ @brief Adds a new model to the shadow texture
      *
-     * @param pModel Model
-     * @param density Model density
+     * \~ @param pModel Model
+     * \~ @param density Model density
      */
     void AddModel(RPGrpModel* pModel, f32 density);
 
     /**
-     * @brief Adds a new model with materials to the shadow texture
+     * \~ @brief Adds a new model with materials to the shadow texture
      *
-     * @param pModel Model
-     * @param density Model density
+     * \~ @param pModel Model
+     * \~ @param density Model density
      */
     void AddModelUseMaterial(RPGrpModel* pModel, f32 density);
 };

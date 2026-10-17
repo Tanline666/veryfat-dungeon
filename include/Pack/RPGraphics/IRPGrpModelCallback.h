@@ -11,7 +11,7 @@
 class RPGrpModel;
 
 /**
- * @brief Model callback interface
+ * \~ @brief Model callback interface
  */
 class IRPGrpModelCallback {
 public:

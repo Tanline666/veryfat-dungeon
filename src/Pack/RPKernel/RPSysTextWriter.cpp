@@ -11,7 +11,7 @@
 RP_SINGLETON_IMPL(RPSysTextWriter);
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  */
 RPSysTextWriter::RPSysTextWriter() {
     nw4r::ut::RomFont* pRomFont =
@@ -23,12 +23,12 @@ RPSysTextWriter::RPSysTextWriter() {
 }
 
 /**
- * @brief Destructor
+ * \~ @brief Destructor
  */
 RPSysTextWriter::~RPSysTextWriter() {}
 
 /**
- * @brief Resets all text settings
+ * \~ @brief Resets all text settings
  */
 void RPSysTextWriter::Reset() {
     SetAlpha(255);
@@ -51,7 +51,7 @@ void RPSysTextWriter::Reset() {
 }
 
 /**
- * @brief Prints formatted text to the screen at the specified coordinates
+ * \~ @brief Prints formatted text to the screen at the specified coordinates
  * @details Coordinates use a left-upper origin
  */
 void RPSysTextWriter::Printf(f32 x, f32 y, const char* pMsg, ...) {
@@ -70,7 +70,7 @@ void RPSysTextWriter::Printf(f32 x, f32 y, const char* pMsg, ...) {
 }
 
 /**
- * @brief Prints formatted text to the screen at the specified coordinates
+ * \~ @brief Prints formatted text to the screen at the specified coordinates
  * @details Coordinates use a center-canvas origin
  */
 void RPSysTextWriter::PrintfZeroCenter(f32 x, f32 y, const char* pMsg, ...) {
@@ -108,7 +108,7 @@ void RPSysTextWriter::PrintfZeroCenter(f32 x, f32 y, const char* pMsg, ...) {
 }
 
 /**
- * @brief Sets up a GX context for rendering
+ * \~ @brief Sets up a GX context for rendering
  */
 void RPSysTextWriter::Begin() {
     mIsInBegin = true;
@@ -135,7 +135,7 @@ void RPSysTextWriter::Begin() {
 }
 
 /**
- * @brief Ends the rendering context
+ * \~ @brief Ends the rendering context
  */
 void RPSysTextWriter::End() {
     mIsInBegin = false;

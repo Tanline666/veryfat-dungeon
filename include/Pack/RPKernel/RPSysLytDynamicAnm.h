@@ -11,13 +11,13 @@
 //! @{
 
 /**
- * @brief Layout "dynamic" in/out animation
+ * \~ @brief Layout "dynamic" in/out animation
  * @details Direction and length configurable by layout artists via user data
  */
 class RPSysLytDynamicAnm {
 public:
     /**
-     * @brief Direction in which the pane will animate out
+     * \~ @brief Direction in which the pane will animate out
      */
     enum EDirection {
         EDirection_Up,
@@ -29,61 +29,61 @@ public:
 
 public:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      *
-     * @param pParent Parent pane
-     * @param direction Animation direction
-     * @param frameNum Number of frames to animate
+     * \~ @param pParent Parent pane
+     * \~ @param direction Animation direction
+     * \~ @param frameNum Number of frames to animate
      */
     RPSysLytDynamicAnm(nw4r::lyt::Pane* pParent, EDirection direction,
                        s16 frameNum);
 
     /**
-     * @brief Resets the dynamic animation
+     * \~ @brief Resets the dynamic animation
      */
     void reset();
 
     /**
-     * @brief Flips the horizontal direction of the animation
-     * @note If the animation has a vertical direction, this function will never
-     * reverse it.
+     * \~ @brief Flips the horizontal direction of the animation
+     * \~ @note If the animation has a vertical direction, this function will
+     * never reverse it.
      *
-     * @param reverse Whether to reverse the horizontal direction
+     * \~ @param reverse Whether to reverse the horizontal direction
      */
     void reverseAnmHDirection(bool reverse);
 
     /**
-     * @brief Starts playing the animation inwards
+     * \~ @brief Starts playing the animation inwards
      * @details The pane will move opposite the animation direction until it
      * is back at its original position.
      *
-     * @param frame Starting frame (-1 to play from the ending frame)
+     * \~ @param frame Starting frame (-1 to play from the ending frame)
      */
     void startAnmIn(s16 frame);
 
     /**
-     * @brief Starts playing the animation outwards
+     * \~ @brief Starts playing the animation outwards
      * @details The pane will move in the animation direction until it is no
      * longer visible.
      *
-     * @param frame Starting frame (-1 to play from the ending frame)
+     * \~ @param frame Starting frame (-1 to play from the ending frame)
      */
     void startAnmOut(s16 frame);
 
     /**
-     * @brief Updates the dynamic animation
+     * \~ @brief Updates the dynamic animation
      */
     void calc();
 
     /**
-     * @brief Tests whether the pane has finished animating in
+     * \~ @brief Tests whether the pane has finished animating in
      */
     bool isFinishedAnmIn() const {
         return mState == EState_FinishIn;
     }
 
     /**
-     * @brief Tests whether the pane has finished animating out
+     * \~ @brief Tests whether the pane has finished animating out
      */
     bool isFinishedAnmOut() const {
         return mState == EState_FinishOut;
@@ -91,7 +91,7 @@ public:
 
 private:
     /**
-     * @brief Animation state
+     * \~ @brief Animation state
      */
     enum EState {
         EState_FinishOut, //!< The pane has finished animating out

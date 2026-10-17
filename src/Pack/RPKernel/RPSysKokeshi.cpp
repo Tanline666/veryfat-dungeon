@@ -8,9 +8,9 @@
 #include <egg/core.h>
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  *
- * @param pGenInfo Mii generation parameters
+ * \~ @param pGenInfo Mii generation parameters
  */
 RPSysKokeshi::RPSysKokeshi(const RPSysKokeshiGenInfo* pGenInfo)
     : RPSysAvatar(pGenInfo) {
@@ -18,14 +18,14 @@ RPSysKokeshi::RPSysKokeshi(const RPSysKokeshiGenInfo* pGenInfo)
 }
 
 /**
- * @brief Destructor
+ * \~ @brief Destructor
  */
 RPSysKokeshi::~RPSysKokeshi() {}
 
 /**
- * @brief Loads the assets necessary for this avatar
+ * \~ @brief Loads the assets necessary for this avatar
  *
- * @param pOverloadInfo Overload parameters
+ * \~ @param pOverloadInfo Overload parameters
  */
 void RPSysKokeshi::LoadResource(const RPSysKokeshiOverloadInfo* pOverloadInfo) {
     RPSysAvatar::LoadResource(pOverloadInfo);
@@ -136,9 +136,9 @@ void RPSysKokeshi::LoadResource(const RPSysKokeshiOverloadInfo* pOverloadInfo) {
 }
 
 /**
- * @brief Applies all lightmap textures to this avatar
+ * \~ @brief Applies all lightmap textures to this avatar
  *
- * @param drawScene Draw scene index
+ * \~ @param drawScene Draw scene index
  */
 void RPSysKokeshi::ApplyLightTexture(u8 drawScene) {
     RPGrpDrawPathLightMap* pLightMap = RPGrpModelManager::GetCurrent()
@@ -169,9 +169,9 @@ void RPSysKokeshi::ApplyLightTexture(u8 drawScene) {
 }
 
 /**
- * @brief Gets the transformation matrix of the head joint/node
+ * \~ @brief Gets the transformation matrix of the head joint/node
  *
- * @param[out] pMtx Transformation matrix
+ * \~ @param[out] pMtx Transformation matrix
  */
 void RPSysKokeshi::GetHeadJointMtx(EGG::Matrix34f* pMtx) {
     RP_GET_INSTANCE(RPSysKokeshiManager)
@@ -180,9 +180,9 @@ void RPSysKokeshi::GetHeadJointMtx(EGG::Matrix34f* pMtx) {
 }
 
 /**
- * @brief Gets the transformation matrix of the left hand joint/node
+ * \~ @brief Gets the transformation matrix of the left hand joint/node
  *
- * @param[out] pMtx Transformation matrix
+ * \~ @param[out] pMtx Transformation matrix
  */
 void RPSysKokeshi::GetLeftHandJointMtx(EGG::Matrix34f* pMtx) {
     RP_GET_INSTANCE(RPSysKokeshiManager)
@@ -191,9 +191,9 @@ void RPSysKokeshi::GetLeftHandJointMtx(EGG::Matrix34f* pMtx) {
 }
 
 /**
- * @brief Gets the transformation matrix of the right hand joint/node
+ * \~ @brief Gets the transformation matrix of the right hand joint/node
  *
- * @param[out] pMtx Transformation matrix
+ * \~ @param[out] pMtx Transformation matrix
  */
 void RPSysKokeshi::GetRightHandJointMtx(EGG::Matrix34f* pMtx) {
     RP_GET_INSTANCE(RPSysKokeshiManager)
@@ -202,7 +202,7 @@ void RPSysKokeshi::GetRightHandJointMtx(EGG::Matrix34f* pMtx) {
 }
 
 /**
- * @brief Handles post-constructor initialization
+ * \~ @brief Handles post-constructor initialization
  */
 void RPSysKokeshi::Construct() {
     RPSysAvatar::Construct();

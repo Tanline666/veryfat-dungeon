@@ -3,9 +3,9 @@
 #include <RVLFaceLib.h>
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  *
- * @param src Mii data source to view
+ * \~ @param src Mii data source to view
  */
 RPSysKokeshiIterater::RPSysKokeshiIterater(RFLDataSource src)
     : mDataSource(src) {
@@ -14,12 +14,12 @@ RPSysKokeshiIterater::RPSysKokeshiIterater(RFLDataSource src)
 }
 
 /**
- * @brief Destructor
+ * \~ @brief Destructor
  */
 RPSysKokeshiIterater::~RPSysKokeshiIterater() {}
 
 /**
- * @brief Moves the iterator back to the start
+ * \~ @brief Moves the iterator back to the start
  */
 void RPSysKokeshiIterater::Reset() {
     mIsInitialized = false;
@@ -27,9 +27,9 @@ void RPSysKokeshiIterater::Reset() {
 }
 
 /**
- * @brief Advances the iterator to the next Mii
+ * \~ @brief Advances the iterator to the next Mii
  *
- * @return Whether the iterator is valid
+ * \~ @return Whether the iterator is valid
  */
 bool RPSysKokeshiIterater::Update() {
     bool success = false;
@@ -91,9 +91,9 @@ bool RPSysKokeshiIterater::Update() {
 }
 
 /**
- * @brief Advances the iterator one index
+ * \~ @brief Advances the iterator one index
  *
- * @return Whether the iterator is valid
+ * \~ @return Whether the iterator is valid
  */
 bool RPSysKokeshiIterater::Increment() {
     if (!mIsInitialized) {

@@ -9,7 +9,7 @@
 //! @{
 
 /**
- * @brief Pause menu manager
+ * \~ @brief Pause menu manager
  */
 class RPSysPauseMgr {
     RP_SINGLETON_DECL_EX(RPSysPauseMgr);
@@ -25,7 +25,7 @@ private:
     BOOL mPause;
     u32 mUNK_0x0C;
     f32 mFloats_0x10[120];
-    RPSysPauseMenu *mPauseMenu;
+    RPSysPauseMenu* mPauseMenu;
 };
 
 //! @}

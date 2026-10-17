@@ -6,7 +6,10 @@ extern "C" {
 #endif
 
 /**
- * For including FDLIBM declarations without also including its many macros.
+ * \~ @brief For including FDLIBM declarations without also including its many
+ * macros.
+ * \~japanese @brief
+ * FDLIBMマクロを除き、FDLIBMの宣言を引き続くためのヘダーです。
  */
 
 double atan(double x);

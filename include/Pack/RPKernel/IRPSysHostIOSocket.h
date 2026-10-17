@@ -6,36 +6,36 @@
 //! @{
 
 /**
- * @brief Host I/O socket
+ * \~ @brief Host I/O socket
  */
 class IRPSysHostIOSocket {
 public:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      *
-     * @param pName Socket name
-     * @param ... Format string arguments
+     * \~ @param pName Socket name
+     * \~ @param ... Format string arguments
      */
     IRPSysHostIOSocket(const char* pName, ...);
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      */
     IRPSysHostIOSocket();
 
     /**
-     * @brief Destructor
+     * \~ @brief Destructor
      */
     virtual ~IRPSysHostIOSocket(); // at 0x8
 
     /**
-     * @brief Handles property events from the host
+     * \~ @brief Handles property events from the host
      */
     virtual void ListenPropertyEvent() { // at 0xC
         // Stubbed for release
     }
 
     /**
-     * @brief Generates UI control messages for the host
+     * \~ @brief Generates UI control messages for the host
      */
     virtual void GenMessage() { // at 0x10
         // Stubbed for release

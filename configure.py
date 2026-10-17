@@ -545,6 +545,7 @@ config.libs = [
         "cflags": cflags_libnw4r_lyt,
         "progress_category": "nw4r",
         "objects": [
+            Object(NonMatching, "nw4r/lyt/lyt_init.cpp"),
             Object(NonMatching, "nw4r/lyt/lyt_pane.cpp"),
             Object(NonMatching, "nw4r/lyt/lyt_group.cpp"),
             Object(NonMatching, "nw4r/lyt/lyt_picture.cpp"),
@@ -637,6 +638,7 @@ config.libs = [
             Object(NonMatching, "egg/audio/eggAudioExpMgr.cpp"),
             Object(NonMatching, "egg/audio/eggAudioMgr.cpp"),
             Object(Matching, "egg/audio/eggAudioSystem.cpp"),
+            Object(NonMatching, "egg/util/eggException.cpp"),
         ],
     },
     {
@@ -749,10 +751,12 @@ config.libs = [
         "cflags": cflags_hbm,
         "progress_category": "hbm",
         "objects": [
-            Object(NonMatching, "homebuttonLib/HBMFrameController.cpp"),
+            Object(Matching, "homebuttonLib/HBMFrameController.cpp"),
             Object(NonMatching, "homebuttonLib/HBMAnmController.cpp"),
             Object(NonMatching, "homebuttonLib/HBMGUIManager.cpp"),
             Object(NonMatching, "homebuttonLib/HBMController.cpp"),
+            Object(NonMatching, "homebuttonLib/HBMAxSound.cpp"),
+            Object(NonMatching, "homebuttonLib/HBMCommon.cpp"),
         ],
     },
     {
@@ -785,6 +789,7 @@ config.libs = [
             Object(NonMatching, "Pack/RPKernel/RPSysSystem.cpp"),
             Object(Matching, "main.cpp"),
             Object(NonMatching, "Pack/RPKernel/RPSysEffectMgr.cpp"),
+            Object(NonMatching, "Pack/RPKernel/RPSysLayout.cpp"),
             Object(Matching, "Pack/RPKernel/RPSysFrameCtrl.cpp"),
             Object(NonMatching, "Pack/RPKernel/RPSysEffectCreator.cpp"),
             Object(Matching, "Pack/RPKernel/RPSysMiddleDBGenInfo.cpp"),

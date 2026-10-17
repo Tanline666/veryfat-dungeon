@@ -12,34 +12,34 @@
 //! @{
 
 /**
- * @brief HOME Menu manager
+ * \~ @brief HOME Menu manager
  */
 class RPSysHomeMenuMgr {
     RP_SINGLETON_DECL_EX(RPSysHomeMenuMgr);
 
 public:
     /**
-     * @brief Icon when HOME Menu is disabled
+     * \~ @brief Icon when HOME Menu is disabled
      */
     class BanIcon {
     public:
         /**
-         * @brief Constructor
+         * \~ @brief Constructor
          */
         BanIcon();
 
         /**
-         * @brief Updates this icon's state
+         * \~ @brief Updates this icon's state
          */
         void calc();
 
         /**
-         * @brief Renders this icon's state
+         * \~ @brief Renders this icon's state
          */
         void draw();
 
         /**
-         * @brief Resets this icon's state
+         * \~ @brief Resets this icon's state
          */
         void clear() {
             mState = EState_Hide;
@@ -48,7 +48,7 @@ public:
         }
 
         /**
-         * @brief Enables this icon
+         * \~ @brief Enables this icon
          */
         void switchOn() {
             mState = EState_FadeIn;
@@ -57,16 +57,16 @@ public:
         }
 
         /**
-         * @brief Tests whether this icon is visible
+         * \~ @brief Tests whether this icon is visible
          */
         bool isDisp() const {
             return mState != EState_Hide;
         }
 
         /**
-         * @brief Attaches a texture to this icon
+         * \~ @brief Attaches a texture to this icon
          *
-         * @param pTexture Icon texture
+         * \~ @param pTexture Icon texture
          */
         void setTexture(const EGG::ResTIMG* pTexture) {
             mpTexture = pTexture;
@@ -74,7 +74,7 @@ public:
 
     private:
         /**
-         * @brief State machine state
+         * \~ @brief State machine state
          */
         enum EState {
             EState_Hide,    //!< Icon is not displaying
@@ -102,7 +102,7 @@ public:
     };
 
     /**
-     * @brief HOME Menu state
+     * \~ @brief HOME Menu state
      */
     enum EMenuState {
         EMenuState_End,   //!< Menu is closing
@@ -113,48 +113,48 @@ public:
 
 public:
     /**
-     * @brief Initializes this manager's state
+     * \~ @brief Initializes this manager's state
      */
     void init();
 
     /**
-     * @brief Initializes the HBM library
+     * \~ @brief Initializes the HBM library
      */
     void initHomeButtonInfo();
 
     /**
-     * @brief Performs a soft reset
+     * \~ @brief Performs a soft reset
      *
-     * @return Whether HBM will perform the reset
+     * \~ @return Whether HBM will perform the reset
      */
     bool softReset();
 
     /**
-     * @brief Updates this manager's state
+     * \~ @brief Updates this manager's state
      */
     void update();
 
     /**
-     * @brief Renders the HOME Menu if it is visible
+     * \~ @brief Renders the HOME Menu if it is visible
      */
     void draw();
 
     /**
-     * @brief Renders the ban icon if it is visible
+     * \~ @brief Renders the ban icon if it is visible
      */
     void drawBanIcon();
 
     /**
-     * @brief Toggles whether the HOME Menu is disabled
+     * \~ @brief Toggles whether the HOME Menu is disabled
      *
-     * @param disable Whether to disable the menu
+     * \~ @param disable Whether to disable the menu
      */
     void disable(bool disable) {
         mIsDisabled = disable;
     }
 
     /**
-     * @brief Tests whether the HOME Menu is currently active
+     * \~ @brief Tests whether the HOME Menu is currently active
      */
     bool isActive() const {
         return mIsActive;
@@ -168,21 +168,21 @@ private:
 
 private:
     /**
-     * @brief HBM library sound callback
+     * \~ @brief HBM library sound callback
      *
-     * @param event HBM event
-     * @param arg Event argument
-     * @return Whether this callback handled the playback for HBM
+     * \~ @param event HBM event
+     * \~ @param arg Event argument
+     * \~ @return Whether this callback handled the playback for HBM
      */
     static BOOL soundCallback(int event, int arg);
 
     /**
-     * @brief Checks whether the HOME Menu should be opened
+     * \~ @brief Checks whether the HOME Menu should be opened
      */
     void checkMenuStart();
 
     /**
-     * @brief Checks whether the HOME Menu should be closed
+     * \~ @brief Checks whether the HOME Menu should be closed
      */
     void checkMenuEnd();
 

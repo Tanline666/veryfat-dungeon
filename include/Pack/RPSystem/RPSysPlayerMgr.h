@@ -25,7 +25,7 @@ struct RPSysPlayerOldData {
 };
 
 /**
- * @brief Player manager
+ * \~ @brief Player manager
  */
 class RPSysPlayerMgr {
     RP_SINGLETON_DECL_EX(RPSysPlayerMgr);
@@ -37,141 +37,141 @@ public:
 
 public:
     /**
-     * @brief Resets the old data to a default state
+     * \~ @brief Resets the old data to a default state
      */
     void resetOldData();
 
     /**
-     * @brief Gets the player at the specified index
+     * \~ @brief Gets the player at the specified index
      *
-     * @param idx Player index
+     * \~ @param idx Player index
      */
     const RPSysPlayer& getPlayer(s32 idx) const;
 
     /**
-     * @brief Gets the remote channel associated with the specified player
+     * \~ @brief Gets the remote channel associated with the specified player
      *
-     * @param idx Player index
+     * \~ @param idx Player index
      */
     u8 getChannel(s32 idx) const;
 
     /**
-     * @brief Gets the speaker flag required to play sounds through the
+     * \~ @brief Gets the speaker flag required to play sounds through the
      * specified player's remote
      *
-     * @param player Player index
+     * \~ @param player Player index
      */
     u32 getSpeakerFlag(s32 player) const;
 
     /**
-     * @brief Writes the save data for all players
+     * \~ @brief Writes the save data for all players
      */
     void saveAllData();
 
     /**
-     * @brief Tests whether the specified player has completed the A+B check
+     * \~ @brief Tests whether the specified player has completed the A+B check
      *
-     * @param player Player index
+     * \~ @param player Player index
      */
     bool isABPress(s32 player) const;
 
     /**
-     * @brief Sets that the specified player has completed the A+B check
+     * \~ @brief Sets that the specified player has completed the A+B check
      *
-     * @param player Player index
+     * \~ @param player Player index
      */
     void setABPress(s32 player);
 
     /**
-     * @brief Resets the manager state
+     * \~ @brief Resets the manager state
      */
     void reset();
 
     /**
-     * @brief Gets the configured number of players
+     * \~ @brief Gets the configured number of players
      */
     s32 getPlayerNum() const {
         return mPlayerNum;
     }
 
     /**
-     * @brief Sets the number of players
+     * \~ @brief Sets the number of players
      *
-     * @param num Player count
+     * \~ @param num Player count
      */
     void setPlayerNum(s32 num);
 
     /**
-     * @brief Gets the number of controllers
+     * \~ @brief Gets the number of controllers
      */
     s32 getRemoteNum() const {
         return mRemoteNum;
     }
 
     /**
-     * @brief Sets the number of controllers
+     * \~ @brief Sets the number of controllers
      *
-     * @param num Controller count
+     * \~ @param num Controller count
      */
     void setRemoteNum(s32 num);
 
     /**
-     * @brief Tests whether the old data configuration for the current player
+     * \~ @brief Tests whether the old data configuration for the current player
      * count is usable
      */
     bool isValidOldData();
 
     /**
-     * @brief Gets the old data configuration for the specified player
+     * \~ @brief Gets the old data configuration for the specified player
      *
-     * @param[out] pDataSrc Mii data source
-     * @param[out] pIndex Mii database index
-     * @param idx Player index
+     * \~ @param[out] pDataSrc Mii data source
+     * \~ @param[out] pIndex Mii database index
+     * \~ @param idx Player index
      */
     void getOldData(s8* pDataSrc, u16* pIndex, s32 idx);
 
     /**
-     * @brief Tests whether the old data configuration for the specified player
-     * describes a Mii from a controller database
+     * \~ @brief Tests whether the old data configuration for the specified
+     * player describes a Mii from a controller database
      *
-     * @param idx Player index
+     * \~ @param idx Player index
      */
     bool isCtrlOldData(s32 idx);
 
     /**
-     * @brief Updates the old data configuration for the current player count
+     * \~ @brief Updates the old data configuration for the current player count
      */
     void calcOldData();
 
     /**
-     * @brief Loads the old data configuration from the save file
+     * \~ @brief Loads the old data configuration from the save file
      */
     void loadOldData();
 
     /**
-     * @brief Writes the old data configuration to the save file
+     * \~ @brief Writes the old data configuration to the save file
      */
     void saveOldData();
 
     /**
-     * @brief Loads the save data for the specified player
+     * \~ @brief Loads the save data for the specified player
      *
-     * @param idx Player index
+     * \~ @param idx Player index
      */
     void loadData(s32 idx);
 
     /**
-     * @brief Loads the save data for all players
+     * \~ @brief Loads the save data for all players
      */
     void loadAllData();
 
     /**
-     * @brief Sets the Mii avatar associated with the specified player
+     * \~ @brief Sets the Mii avatar associated with the specified player
      *
-     * @param dataSrc Mii data source
-     * @param index Mii database index
-     * @param rCreateID Mii create ID
-     * @param idx Player index
+     * \~ @param dataSrc Mii data source
+     * \~ @param index Mii database index
+     * \~ @param rCreateID Mii create ID
+     * \~ @param idx Player index
      */
     void setAvatar(s8 dataSrc, u16 index, const RFLCreateID& rCreateID,
                    s32 idx);

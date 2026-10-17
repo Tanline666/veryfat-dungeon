@@ -93,6 +93,9 @@ inline s32 Console_ShowLatestLine(ConsoleHandle console) {
     return baseLine;
 }
 
+ConsoleHandle Console_Create(void* pBuffer, u16 width, u16 height, u16 view,
+                             u16 prio, u16 attr);
+
 } // namespace db
 } // namespace nw4r
 

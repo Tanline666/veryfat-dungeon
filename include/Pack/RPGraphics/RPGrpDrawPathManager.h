@@ -18,12 +18,12 @@ class RPGrpDrawPathXluSnap;
 class RPGrpModelScene;
 
 /**
- * @brief Draw path manager
+ * \~ @brief Draw path manager
  */
 class RPGrpDrawPathManager : public EGG::IScnProc {
 public:
     /**
-     * @brief Flags to enable draw path types with Construct
+     * \~ @brief Flags to enable draw path types with Construct
      */
     enum {
         EFlag_DrawPathLightMap = 1 << 0,

@@ -11,12 +11,12 @@
 RP_SINGLETON_IMPL(RPSysKokeshiManager);
 
 /**
- * @brief Default value for output alpha
+ * \~ @brief Default value for output alpha
  */
 const u8 RPSysKokeshiManager::DEFAULT_OUTPUT_ALPHA = 128;
 
 /**
- * @brief Clothing texture filenames
+ * \~ @brief Clothing texture filenames
  */
 const char* RPSysKokeshiManager::CLOTHING_TEXTURE_NAMES[ClothingTexture_Max] = {
     "dummy_tex_a",
@@ -24,7 +24,7 @@ const char* RPSysKokeshiManager::CLOTHING_TEXTURE_NAMES[ClothingTexture_Max] = {
 };
 
 /**
- * @brief Lightmap texture names
+ * \~ @brief Lightmap texture names
  */
 const char* RPSysKokeshiManager::LIGHT_TEXTURE_NAMES[LightMap_Max] = {
     "lm_0",
@@ -32,22 +32,22 @@ const char* RPSysKokeshiManager::LIGHT_TEXTURE_NAMES[LightMap_Max] = {
 };
 
 /**
- * @brief Main material name
+ * \~ @brief Main material name
  */
 const char* RPSysKokeshiManager::MAIN_MATERIAL_NAME = "mt_main";
 
 /**
- * @brief Face library resource filename
+ * \~ @brief Face library resource filename
  */
 const char* RPSysKokeshiManager::RFL_RES_NAME = "RFL_Res.dat";
 
 /**
- * @brief Common message filename
+ * \~ @brief Common message filename
  */
 const char* RPSysKokeshiManager::COMMON_MESSAGE_NAME = "common_message.bmg";
 
 /**
- * @brief Hand model filenames
+ * \~ @brief Hand model filenames
  */
 const char* RPSysKokeshiManager::HAND_FILE_NAMES[HandType_Max] = {
     "G3D/ava_handA.brres",
@@ -55,7 +55,7 @@ const char* RPSysKokeshiManager::HAND_FILE_NAMES[HandType_Max] = {
 };
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  */
 RPSysKokeshiManager::RPSysKokeshiManager()
     : IRPSysHostIOSocket("Kokeshi Manager") {
@@ -86,14 +86,14 @@ RPSysKokeshiManager::RPSysKokeshiManager()
 }
 
 /**
- * @brief Destructor
+ * \~ @brief Destructor
  */
 RPSysKokeshiManager::~RPSysKokeshiManager() {}
 
 /**
- * @brief Creates all lightmap textures
+ * \~ @brief Creates all lightmap textures
  *
- * @param drawScene Draw scene index
+ * \~ @param drawScene Draw scene index
  */
 void RPSysKokeshiManager::CreateLightTexture(u8 drawScene) {
     RPGrpDrawPathLightMap* pLightMap = RPGrpModelManager::GetCurrent()
@@ -107,10 +107,10 @@ void RPSysKokeshiManager::CreateLightTexture(u8 drawScene) {
 }
 
 /**
- * @brief Applies the specified expression to the Mii model
+ * \~ @brief Applies the specified expression to the Mii model
  *
- * @param pModel Mii model
- * @param expr New expression
+ * \~ @param pModel Mii model
+ * \~ @param expr New expression
  */
 void RPSysKokeshiManager::ChangeExpression(RPGrpModel* pModel,
                                            RFLExpression expr) {
@@ -126,9 +126,9 @@ void RPSysKokeshiManager::ChangeExpression(RPGrpModel* pModel,
 }
 
 /**
- * @brief Gets the current expression of the Mii model
+ * \~ @brief Gets the current expression of the Mii model
  *
- * @param pModel Mii model
+ * \~ @param pModel Mii model
  */
 RFLExpression RPSysKokeshiManager::GetExpression(RPGrpModel* pModel) {
     if (pModel->GetKind() != RPGrpModel::Kind_RFL) {
@@ -143,18 +143,18 @@ RFLExpression RPSysKokeshiManager::GetExpression(RPGrpModel* pModel) {
 }
 
 /**
- * @brief Gets the number of valid Miis in the official database
+ * \~ @brief Gets the number of valid Miis in the official database
  */
 u16 RPSysKokeshiManager::GetOfficialDBValidNum() {
     return RP_GET_INSTANCE(RPSysKokeshiManager)->mpOfficialDB->GetValidNum();
 }
 
 /**
- * @brief Finds the official database index holding the Mii with the
+ * \~ @brief Finds the official database index holding the Mii with the
  * specified create ID
  *
- * @param pCreateID Mii create ID
- * @return Official database index, or -1 if not found
+ * \~ @param pCreateID Mii create ID
+ * \~ @return Official database index, or -1 if not found
  */
 s16 RPSysKokeshiManager::GetOfficialDBIndexFromCreateID(
     const RFLCreateID* pCreateID) {
@@ -164,7 +164,7 @@ s16 RPSysKokeshiManager::GetOfficialDBIndexFromCreateID(
 }
 
 /**
- * @brief Resets the manager state
+ * \~ @brief Resets the manager state
  */
 void RPSysKokeshiManager::Reset() {
     mpOfficialDB->Reset();
@@ -172,10 +172,10 @@ void RPSysKokeshiManager::Reset() {
 }
 
 /**
- * @brief Sets the material type of the Mii model
+ * \~ @brief Sets the material type of the Mii model
  *
- * @param pModel Mii model
- * @param type New material type
+ * \~ @param pModel Mii model
+ * \~ @param type New material type
  */
 void RPSysKokeshiManager::SetMaterialType(RPGrpModel* pModel,
                                           RPGrpModelRfl::MaterialType type) {
@@ -187,10 +187,10 @@ void RPSysKokeshiManager::SetMaterialType(RPGrpModel* pModel,
 }
 
 /**
- * @brief Sets the brightness color of the Mii model
+ * \~ @brief Sets the brightness color of the Mii model
  *
- * @param pModel Mii model
- * @param color New brightness color
+ * \~ @param pModel Mii model
+ * \~ @param color New brightness color
  */
 void RPSysKokeshiManager::SetBrightnessColor(RPGrpModel* pModel,
                                              GXColor color) {
@@ -202,7 +202,7 @@ void RPSysKokeshiManager::SetBrightnessColor(RPGrpModel* pModel,
 }
 
 /**
- * @brief Loads all static lifetime resources required by this manager
+ * \~ @brief Loads all static lifetime resources required by this manager
  */
 void RPSysKokeshiManager::LoadStaticResource() {
     RPSysSystem* pSystem = RP_GET_INSTANCE(RPSysSystem);
@@ -282,13 +282,13 @@ void RPSysKokeshiManager::LoadStaticResource() {
 }
 
 /**
- * @brief Creates a Kokeshi-related model
+ * \~ @brief Creates a Kokeshi-related model
  *
- * @param pFile Resource file
- * @param index Model index
- * @param viewNo Renderer view ID
- * @param typeOption Model type option
- * @param bufferOption nw4r::g3d replacement buffer option
+ * \~ @param pFile Resource file
+ * \~ @param index Model index
+ * \~ @param viewNo Renderer view ID
+ * \~ @param typeOption Model type option
+ * \~ @param bufferOption nw4r::g3d replacement buffer option
  */
 RPGrpModel* RPSysKokeshiManager::CreateModel(void* pFile, u16 index, u8 viewNo,
                                              u32 typeOption, u32 bufferOption) {
@@ -332,12 +332,12 @@ RPGrpModel* RPSysKokeshiManager::CreateModel(void* pFile, u16 index, u8 viewNo,
 }
 
 /**
- * @brief Creates a Kokeshi face model
+ * \~ @brief Creates a Kokeshi face model
  *
- * @param rLocation Mii location
- * @param resolution Texture resolution
- * @param exprFlag Facial expression flags
- * @param viewNo Renderer view ID
+ * \~ @param rLocation Mii location
+ * \~ @param resolution Texture resolution
+ * \~ @param exprFlag Facial expression flags
+ * \~ @param viewNo Renderer view ID
  */
 RPGrpModel*
 RPSysKokeshiManager::CreateNigaoeModel(const RPSysKokeshiLocation& rLocation,
@@ -370,10 +370,10 @@ RPSysKokeshiManager::CreateNigaoeModel(const RPSysKokeshiLocation& rLocation,
 }
 
 /**
- * @brief Creates a Kokeshi-related texture
+ * \~ @brief Creates a Kokeshi-related texture
  *
- * @param pFile Resource file
- * @param pName Texture name
+ * \~ @param pFile Resource file
+ * \~ @param pName Texture name
  */
 RPGrpTexture* RPSysKokeshiManager::CreateTexture(void* pFile,
                                                  const char* pName) {
@@ -411,9 +411,9 @@ RPGrpTexture* RPSysKokeshiManager::CreateTexture(void* pFile,
 }
 
 /**
- * @brief Creates a Kokeshi-related texture
+ * \~ @brief Creates a Kokeshi-related texture
  *
- * @param pTexData Texture data
+ * \~ @param pTexData Texture data
  */
 RPGrpTexture* RPSysKokeshiManager::CreateTexture(void* pTexData) {
     // TODO(kiwi) I think ResTIMG and GXTexObj have the same layout, but this
@@ -422,11 +422,11 @@ RPGrpTexture* RPSysKokeshiManager::CreateTexture(void* pTexData) {
 }
 
 /**
- * @brief Changes the clothing textures of the specified Mii model
+ * \~ @brief Changes the clothing textures of the specified Mii model
  *
- * @param pModel Mii model
- * @param pTextureA Clothing texture A
- * @param pTextureB Clothing texture B
+ * \~ @param pModel Mii model
+ * \~ @param pTextureA Clothing texture A
+ * \~ @param pTextureB Clothing texture B
  */
 void RPSysKokeshiManager::ChangeTexture(RPGrpModel* pModel,
                                         RPGrpTexture* pTextureA,
@@ -439,11 +439,11 @@ void RPSysKokeshiManager::ChangeTexture(RPGrpModel* pModel,
 }
 
 /**
- * @brief Sets the material colors of the specified Mii model
+ * \~ @brief Sets the material colors of the specified Mii model
  *
- * @param pModel Mii model
- * @param body Body color
- * @param skin Skin color
+ * \~ @param pModel Mii model
+ * \~ @param body Body color
+ * \~ @param skin Skin color
  */
 void RPSysKokeshiManager::SetMatColor(RPGrpModel* pModel, GXColor body,
                                       GXColor skin) {
@@ -461,13 +461,13 @@ void RPSysKokeshiManager::SetMatColor(RPGrpModel* pModel, GXColor body,
 }
 
 /**
- * @brief Configures the TEV color effect of the specified Mii model
+ * \~ @brief Configures the TEV color effect of the specified Mii model
  *
- * @param pModel Mii model
- * @param alpha Effect alpha
- * @param r Red component
- * @param g Green component
- * @param b Blue component
+ * \~ @param pModel Mii model
+ * \~ @param alpha Effect alpha
+ * \~ @param r Red component
+ * \~ @param g Green component
+ * \~ @param b Blue component
  */
 void RPSysKokeshiManager::SetMatTevColorEffect(RPGrpModel* pModel, u8 alpha,
                                                u8 r, u8 g, u8 b) {
@@ -480,10 +480,10 @@ void RPSysKokeshiManager::SetMatTevColorEffect(RPGrpModel* pModel, u8 alpha,
 }
 
 /**
- * @brief Gets the additional info about the specified Mii
+ * \~ @brief Gets the additional info about the specified Mii
  *
- * @param rLocation Mii location
- * @param[out] pInfo Additional info
+ * \~ @param rLocation Mii location
+ * \~ @param[out] pInfo Additional info
  */
 void RPSysKokeshiManager::GetAdditionalInfo(
     const RPSysKokeshiLocation& rLocation, RFLAdditionalInfo* pInfo) {
@@ -500,11 +500,11 @@ void RPSysKokeshiManager::GetAdditionalInfo(
 }
 
 /**
- * @brief Removes the model's scaling from the transformation matrix
+ * \~ @brief Removes the model's scaling from the transformation matrix
  *
- * @param[out] pOut Transformation matrix with scaling removed
- * @param pModel Model whose scale should be used
- * @param pIn Initial transformation matrix
+ * \~ @param[out] pOut Transformation matrix with scaling removed
+ * \~ @param pModel Model whose scale should be used
+ * \~ @param pIn Initial transformation matrix
  */
 void RPSysKokeshiManager::GetModelBaseScaleInvalidatedMtx(
     nw4r::math::MTX34* pOut, RPGrpModel* pModel, const nw4r::math::MTX34* pIn) {
@@ -528,21 +528,21 @@ void RPSysKokeshiManager::GetModelBaseScaleInvalidatedMtx(
 }
 
 /**
- * @brief Gets the archive filename for the specified hand type
+ * \~ @brief Gets the archive filename for the specified hand type
  *
- * @param type Hand model type
+ * \~ @param type Hand model type
  */
 const char* RPSysKokeshiManager::GetHandFileName(u32 type) {
     return HAND_FILE_NAMES[type];
 }
 
 /**
- * @brief Gets the Mii location for the specified player slot
+ * \~ @brief Gets the Mii location for the specified player slot
  * @details If the specified index is invalid, this function provides a
  * random guest Mii location.
  *
- * @param idx Player index
- * @param[out] pLocation Mii location
+ * \~ @param idx Player index
+ * \~ @param[out] pLocation Mii location
  */
 void RPSysKokeshiManager::GetLocationPlayer(u8 idx,
                                             RPSysKokeshiLocation* pLocation) {
@@ -566,11 +566,11 @@ void RPSysKokeshiManager::GetLocationPlayer(u8 idx,
 }
 
 /**
- * @brief Gets the Mii location of a "friend" Mii
+ * \~ @brief Gets the Mii location of a "friend" Mii
  *
- * @param src Mii data source
- * @param pMiddleDB Middle database (for RFLDataSource_Middle)
- * @param[out] pLocation Mii location
+ * \~ @param src Mii data source
+ * \~ @param pMiddleDB Middle database (for RFLDataSource_Middle)
+ * \~ @param[out] pLocation Mii location
  */
 void RPSysKokeshiManager::GetLocationFriend(RFLDataSource src,
                                             RPSysMiddleDB* pMiddleDB,
@@ -675,10 +675,10 @@ void RPSysKokeshiManager::GetLocationFriend(RFLDataSource src,
 }
 
 /**
- * @brief Registers the specified Mii location with the in-memory official
+ * \~ @brief Registers the specified Mii location with the in-memory official
  * database
  *
- * @param rLocation Mii location
+ * \~ @param rLocation Mii location
  */
 void RPSysKokeshiManager::RegistLocation(
     const RPSysKokeshiLocation& rLocation) {
@@ -691,23 +691,23 @@ void RPSysKokeshiManager::RegistLocation(
 }
 
 /**
- * @brief Sets the active controller manager
+ * \~ @brief Sets the active controller manager
  *
- * @param pCtrlMgr Controller manager
+ * \~ @param pCtrlMgr Controller manager
  */
 void RPSysKokeshiManager::SetCtrlMgr(RPSysKokeshiCtrlMgr* pCtrlMgr) {
     mpCtrlMgr = pCtrlMgr;
 }
 
 /**
- * @brief Clears the active controller manager
+ * \~ @brief Clears the active controller manager
  */
 void RPSysKokeshiManager::ClearCtrlMgr() {
     mpCtrlMgr = NULL;
 }
 
 /**
- * @brief Updates the active controller manager's state
+ * \~ @brief Updates the active controller manager's state
  */
 void RPSysKokeshiManager::UpdateCtrlMgr() {
     if (mpCtrlMgr != NULL) {
@@ -716,10 +716,10 @@ void RPSysKokeshiManager::UpdateCtrlMgr() {
 }
 
 /**
- * @brief Gets the index of the controller resource heap that is the current
+ * \~ @brief Gets the index of the controller resource heap that is the current
  * global heap
  *
- * @return Controller channel, or -1 if not applicable
+ * \~ @return Controller channel, or -1 if not applicable
  */
 s32 RPSysKokeshiManager::GetCurrentCtrlHeap() const {
     EGG::Heap* pCurrentHeap = EGG::Heap::getCurrentHeap();

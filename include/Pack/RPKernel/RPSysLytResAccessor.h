@@ -10,7 +10,7 @@
 //! @{
 
 /**
- * @brief ArcResourceAccessor wrapper
+ * \~ @brief ArcResourceAccessor wrapper
  * @details Allows linking fonts from the font manager
  */
 class RPSysLytResAccessor {
@@ -18,28 +18,28 @@ class RPSysLytResAccessor {
 
 public:
     /**
-     * @brief Creates a resource accessor from the specified heap
+     * \~ @brief Creates a resource accessor from the specified heap
      *
-     * @param pHeap Heap to use for allocations
+     * \~ @param pHeap Heap to use for allocations
      */
     static RPSysLytResAccessor* create(EGG::Heap* pHeap = NULL);
 
     /**
-     * @brief Attempts to mount an archive
+     * \~ @brief Attempts to mount an archive
      *
-     * @param pBinary Archive binary data
-     * @param pRootDir Root directory to open (optional)
-     * @return Success
+     * \~ @param pBinary Archive binary data
+     * \~ @param pRootDir Root directory to open (optional)
+     * \~ @return Success
      */
     bool mountArchive(void* pBinary, const char* pRootDir = NULL);
 
     /**
-     * @brief Gets the specified resource from the currently open archive
+     * \~ @brief Gets the specified resource from the currently open archive
      * @details Font queries are redirected to the font manager
      *
-     * @param type Resource type
-     * @param pName Resource name
-     * @param[out] pSize Resource data size
+     * \~ @param type Resource type
+     * \~ @param pName Resource name
+     * \~ @param[out] pSize Resource data size
      */
     void* getResource(u32 type, const char* pName, u32* pSize = NULL) {
         return mpImpl->GetResource(type, pName, pSize);
@@ -47,22 +47,22 @@ public:
 
 private:
     /**
-     * @brief Internal implementation
+     * \~ @brief Internal implementation
      */
     class InternalAccessor : public nw4r::lyt::ArcResourceAccessor {
     public:
         /**
-         * @brief Constructor
+         * \~ @brief Constructor
          */
         InternalAccessor();
 
         /**
-         * @brief Gets the specified resource from the currently open archive
+         * \~ @brief Gets the specified resource from the currently open archive
          * @details Font queries are redirected to the font manager
          *
-         * @param type Resource type
-         * @param pName Resource name
-         * @param[out] pSize Resource data size
+         * \~ @param type Resource type
+         * \~ @param pName Resource name
+         * \~ @param[out] pSize Resource data size
          */
         virtual void* GetResource(u32 type, const char* pName,
                                   u32* pSize) override; // at 0xC
@@ -70,7 +70,7 @@ private:
 
 private:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      */
     RPSysLytResAccessor();
 

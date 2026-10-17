@@ -3,12 +3,12 @@
 #include <nw4r/g3d.h>
 
 /**
- * @brief Applies light settings from the specified scene resource
+ * \~ @brief Applies light settings from the specified scene resource
  *
- * @param handle File resource handle
- * @param pName Scene file name
- * @param frame Animation frame (defaults to the first frame)
- * @param lightSetRef Light set reference number (defaults to index 0)
+ * \~ @param handle File resource handle
+ * \~ @param pName Scene file name
+ * \~ @param frame Animation frame (defaults to the first frame)
+ * \~ @param lightSetRef Light set reference number (defaults to index 0)
  */
 void RPGrpLightManager::LoadScnLight(RPGrpHandle handle, const char* pName,
                                      f32 frame, u32 lightSetRef) {

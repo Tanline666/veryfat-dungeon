@@ -11,9 +11,9 @@
 RP_SINGLETON_IMPL_EX(RPSysEffectMgr);
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  *
- * @param pHeap Parent heap
+ * \~ @param pHeap Parent heap
  */
 RPSysEffectMgr::RPSysEffectMgr(EGG::Heap* pHeap) : mpParentHeap(pHeap) {
     for (int i = 0; i < EDrawScene_Max; i++) {
@@ -25,10 +25,10 @@ RPSysEffectMgr::RPSysEffectMgr(EGG::Heap* pHeap) : mpParentHeap(pHeap) {
 }
 
 /**
- * @brief Attaches a new effect creator to the specified scene
+ * \~ @brief Attaches a new effect creator to the specified scene
  *
- * @param pCreator Effect creator
- * @param drawScene Effect draw scene
+ * \~ @param pCreator Effect creator
+ * \~ @param drawScene Effect draw scene
  */
 void RPSysEffectMgr::setCreator(RPSysEffectCreator* pCreator, u32 drawScene) {
     if (pCreator == NULL) {
@@ -39,9 +39,9 @@ void RPSysEffectMgr::setCreator(RPSysEffectCreator* pCreator, u32 drawScene) {
 }
 
 /**
- * @brief Releases the specified effect creator from its scene
+ * \~ @brief Releases the specified effect creator from its scene
  *
- * @param pCreator Effect creator
+ * \~ @param pCreator Effect creator
  */
 void RPSysEffectMgr::resetCreator(RPSysEffectCreator* pCreator) {
     if (pCreator == NULL) {
@@ -57,7 +57,7 @@ void RPSysEffectMgr::resetCreator(RPSysEffectCreator* pCreator) {
 }
 
 /**
- * @brief Kills all effects and particles
+ * \~ @brief Kills all effects and particles
  */
 void RPSysEffectMgr::stopAllEffect() {
     nw4r::ef::EffectSystem* pSystem = nw4r::ef::EffectSystem::GetInstance();
@@ -81,9 +81,9 @@ void RPSysEffectMgr::stopAllEffect() {
 }
 
 /**
- * @brief Updates the state of effects
+ * \~ @brief Updates the state of effects
  *
- * @param setting Effect update type
+ * \~ @param setting Effect update type
  */
 void RPSysEffectMgr::update(ECalcSetting setting) {
     (void)nw4r::ef::EffectSystem::GetInstance();
@@ -102,10 +102,10 @@ void RPSysEffectMgr::update(ECalcSetting setting) {
 }
 
 /**
- * @brief Applies a framebuffer capture texture to all effects
+ * \~ @brief Applies a framebuffer capture texture to all effects
  *
- * @param pTexture Framebuffer texture
- * @param rData Framebuffer texture information
+ * \~ @param pTexture Framebuffer texture
+ * \~ @param rData Framebuffer texture information
  */
 void RPSysEffectMgr::setCaptureEfb(void* pTexture, const EfbTexData& rData) {
     nw4r::ef::Resource* pResource = nw4r::ef::Resource::GetInstance();
@@ -128,11 +128,11 @@ void RPSysEffectMgr::setCaptureEfb(void* pTexture, const EfbTexData& rData) {
 }
 
 /**
- * @brief Draws the specified set of effects
+ * \~ @brief Draws the specified set of effects
  *
- * @param rViewMtx Graphics configuration
- * @param drawGroup Effect draw group
- * @param drawScene Effect draw scene
+ * \~ @param rViewMtx Graphics configuration
+ * \~ @param drawGroup Effect draw group
+ * \~ @param drawScene Effect draw scene
  */
 void RPSysEffectMgr::draw(const nw4r::math::MTX34& rViewMtx, u32 drawGroup,
                           u32 drawScene) {
@@ -172,11 +172,11 @@ DECOMP_FORCELITERAL(RPSysEffectMgr_cpp,
                     4503599627370496.0);
 
 /**
- * @brief Creates an instance of the specified effect
+ * \~ @brief Creates an instance of the specified effect
  *
- * @param pName Effect name
- * @param drawGroup Effect draw group
- * @param drawScene Effect draw scene
+ * \~ @param pName Effect name
+ * \~ @param drawGroup Effect draw group
+ * \~ @param drawScene Effect draw scene
  */
 nw4r::ef::Effect* RPSysEffectMgr::createEffect(const char* pName, u32 drawGroup,
                                                u32 drawScene) {
@@ -192,10 +192,10 @@ nw4r::ef::Effect* RPSysEffectMgr::createEffect(const char* pName, u32 drawGroup,
 }
 
 /**
- * @brief Creates a memory manager using the specified settings
+ * \~ @brief Creates a memory manager using the specified settings
  *
- * @param pArg Effect memory settings
- * @return Effect work memory size
+ * \~ @param pArg Effect memory settings
+ * \~ @return Effect work memory size
  */
 u32 RPSysEffectMgr::createMemoryManager(EffectArg* pArg) {
     u32 workSize = RPSysEffectMemoryManager::CalcMemorySize( //
@@ -224,7 +224,7 @@ u32 RPSysEffectMgr::createMemoryManager(EffectArg* pArg) {
 }
 
 /**
- * @brief Loads the assets required by system effect scenes
+ * \~ @brief Loads the assets required by system effect scenes
  */
 void RPSysEffectMgr::LoadResource() {
     if (mpEffectCreators[EDrawScene_Cursor] != NULL &&
@@ -251,7 +251,7 @@ void RPSysEffectMgr::LoadResource() {
 }
 
 /**
- * @brief Destructor
+ * \~ @brief Destructor
  */
 RPSysEffectMgr::~RPSysEffectMgr() {
     stopAllEffect();

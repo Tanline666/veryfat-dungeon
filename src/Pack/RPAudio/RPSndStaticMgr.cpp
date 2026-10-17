@@ -11,7 +11,7 @@
 #include <Pack/RPAudio/rp_Static_sound.brsar.inc>
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  */
 RPSndStaticMgr::RPSndStaticMgr() : ArcPlayer(NULL) {
     for (int i = 0; i < RP_MAX_CONTROLLERS; i++) {
@@ -20,14 +20,14 @@ RPSndStaticMgr::RPSndStaticMgr() : ArcPlayer(NULL) {
 }
 
 /**
- * @brief Destructor
+ * \~ @brief Destructor
  */
 RPSndStaticMgr::~RPSndStaticMgr() {}
 
 /**
- * @brief Mounts the static sound archive
+ * \~ @brief Mounts the static sound archive
  *
- * @return Success
+ * \~ @return Success
  */
 bool RPSndStaticMgr::setupArchive() {
     mSoundHeap = &RP_GET_INSTANCE(RPSndAudioMgr)->getSoundHeap();
@@ -40,7 +40,7 @@ bool RPSndStaticMgr::setupArchive() {
 }
 
 /**
- * @brief Updates the state of the sound player
+ * \~ @brief Updates the state of the sound player
  */
 void RPSndStaticMgr::calc() {
     for (int i = 0; i < RP_MAX_CONTROLLERS; i++) {
@@ -67,11 +67,11 @@ void RPSndStaticMgr::calc() {
 }
 
 /**
- * @brief Starts a sound effect through the main output and the specified
+ * \~ @brief Starts a sound effect through the main output and the specified
  * player's remote output
  *
- * @param id Sound effect ID
- * @param player Player index
+ * \~ @param id Sound effect ID
+ * \~ @param player Player index
  */
 void RPSndStaticMgr::startSe(u32 id, s32 player) {
     s32 chan = EGG_GET_INSTANCE(EGG::CoreControllerMgr)
@@ -94,10 +94,10 @@ void RPSndStaticMgr::startSe(u32 id, s32 player) {
 }
 
 /**
- * @brief Configures the main and remote output volumes for the specified
+ * \~ @brief Configures the main and remote output volumes for the specified
  * sound
  *
- * @param playerFlag Player output line flags
+ * \~ @param playerFlag Player output line flags
  */
 void RPSndStaticMgr::setRemoteSend(u32 playerFlag) {
     if (!mSoundHandle.IsAttachedSound()) {

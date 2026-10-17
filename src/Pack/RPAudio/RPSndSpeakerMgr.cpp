@@ -8,14 +8,14 @@
 RP_SINGLETON_IMPL_EX(RPSndSpeakerMgr);
 
 /**
- * @brief Resets the state of each remote speaker
+ * \~ @brief Resets the state of each remote speaker
  */
 void RPSndSpeakerMgr::reset() {
     connectAll();
 }
 
 /**
- * @brief Updates the state of each remote speaker
+ * \~ @brief Updates the state of each remote speaker
  */
 void RPSndSpeakerMgr::calc() {
     s32 chan;
@@ -57,25 +57,25 @@ void RPSndSpeakerMgr::calc() {
 }
 
 /**
- * @brief Finalizes the state of each remote speaker
+ * \~ @brief Finalizes the state of each remote speaker
  */
 void RPSndSpeakerMgr::exit() {
     disconnectAll();
 }
 
 /**
- * @brief Fetches the latest WPAD master volume
+ * \~ @brief Fetches the latest WPAD master volume
  */
 void RPSndSpeakerMgr::updateMasterVolume() {
     mMasterVolume = WPADGetSpeakerVolume();
 }
 
 /**
- * @brief Toggles enabling output of the specified remote speaker
+ * \~ @brief Toggles enabling output of the specified remote speaker
  *
- * @param chan Remote speaker channel
- * @param enable Whether to enable the speaker output
- * @return Previous enable status
+ * \~ @param chan Remote speaker channel
+ * \~ @param enable Whether to enable the speaker output
+ * \~ @return Previous enable status
  */
 bool RPSndSpeakerMgr::setEnableSw(s32 chan, bool enable) {
     if (!mIsSpeakerSetUp[chan]) {
@@ -109,14 +109,14 @@ bool RPSndSpeakerMgr::setEnableSw(s32 chan, bool enable) {
 }
 
 /**
- * @brief Configures the main and remote output volumes of the specified
+ * \~ @brief Configures the main and remote output volumes of the specified
  * sound handle
  *
- * @param pHandle Sound handle
- * @param playerFlag Player output line flags
- * @param mainOut Main output volume
- * @param remoteOut Remote output volume
- * @param muteOut Main output volume when the remote speaker is muted
+ * \~ @param pHandle Sound handle
+ * \~ @param playerFlag Player output line flags
+ * \~ @param mainOut Main output volume
+ * \~ @param remoteOut Remote output volume
+ * \~ @param muteOut Main output volume when the remote speaker is muted
  */
 void RPSndSpeakerMgr::setRemoteSend(nw4r::snd::SoundHandle* pHandle,
                                     u32 playerFlag, f32 mainOut, f32 remoteOut,
@@ -157,9 +157,9 @@ void RPSndSpeakerMgr::setRemoteSend(nw4r::snd::SoundHandle* pHandle,
 }
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  *
- * @param pHeap Parent heap
+ * \~ @param pHeap Parent heap
  */
 RPSndSpeakerMgr::RPSndSpeakerMgr(EGG::Heap* pHeap) : mpParentHeap(pHeap) {
     for (int i = 0; i < RP_MAX_CONTROLLERS; i++) {
@@ -183,15 +183,15 @@ RPSndSpeakerMgr::RPSndSpeakerMgr(EGG::Heap* pHeap) : mpParentHeap(pHeap) {
 }
 
 /**
- * @brief Destructor
+ * \~ @brief Destructor
  */
 RPSndSpeakerMgr::~RPSndSpeakerMgr() {}
 
 /**
- * @brief Callback for new remote connections
+ * \~ @brief Callback for new remote connections
  *
- * @param chan Remote channel
- * @param result WPAD library result
+ * \~ @param chan Remote channel
+ * \~ @param result WPAD library result
  */
 void RPSndSpeakerMgr::setSpeakerOnCallback(s32 chan, s32 result) {
     if (RP_GET_INSTANCE(RPSndSpeakerMgr)->mIsDisconnected) {
@@ -202,10 +202,10 @@ void RPSndSpeakerMgr::setSpeakerOnCallback(s32 chan, s32 result) {
 }
 
 /**
- * @brief Callback for remote disconnections
+ * \~ @brief Callback for remote disconnections
  *
- * @param chan Remote channel
- * @param result WPAD library result
+ * \~ @param chan Remote channel
+ * \~ @param result WPAD library result
  */
 void RPSndSpeakerMgr::setSpeakerOffCallback(s32 chan, s32 result) {
     if (RP_GET_INSTANCE(RPSndSpeakerMgr)->mIsDisconnected) {
@@ -216,10 +216,10 @@ void RPSndSpeakerMgr::setSpeakerOffCallback(s32 chan, s32 result) {
 }
 
 /**
- * @brief Callback for initializing remote speaker connections
+ * \~ @brief Callback for initializing remote speaker connections
  *
- * @param chan Remote channel
- * @param result WPAD library result
+ * \~ @param chan Remote channel
+ * \~ @param result WPAD library result
  */
 void RPSndSpeakerMgr::setSpeakerSetupCallback(s32 chan, s32 result) {
     if (result == WPAD_ERR_OK) {
@@ -230,10 +230,10 @@ void RPSndSpeakerMgr::setSpeakerSetupCallback(s32 chan, s32 result) {
 }
 
 /**
- * @brief Callback for finalizing remote speaker connections
+ * \~ @brief Callback for finalizing remote speaker connections
  *
- * @param chan Remote channel
- * @param result WPAD library result
+ * \~ @param chan Remote channel
+ * \~ @param result WPAD library result
  */
 void RPSndSpeakerMgr::setSpeakerShutdownCallback(s32 chan, s32 result) {
     if (result == WPAD_ERR_OK || result == WPAD_ERR_NO_CONTROLLER) {
@@ -244,7 +244,7 @@ void RPSndSpeakerMgr::setSpeakerShutdownCallback(s32 chan, s32 result) {
 }
 
 /**
- * @brief Attempts to connect to all remote speakers
+ * \~ @brief Attempts to connect to all remote speakers
  */
 void RPSndSpeakerMgr::connectAll() {
     for (int i = 0; i < RP_MAX_CONTROLLERS; i++) {
@@ -264,7 +264,7 @@ void RPSndSpeakerMgr::connectAll() {
     mIsDisconnected = false;
 }
 /**
- * @brief Attempts to disconnect from all remote speakers
+ * \~ @brief Attempts to disconnect from all remote speakers
  */
 void RPSndSpeakerMgr::disconnectAll() {
     for (int i = 0; i < RP_MAX_CONTROLLERS; i++) {
@@ -278,7 +278,7 @@ void RPSndSpeakerMgr::disconnectAll() {
 }
 
 /**
- * @brief Tests whether the manager has no connections and is in an idle
+ * \~ @brief Tests whether the manager has no connections and is in an idle
  * state
  */
 bool RPSndSpeakerMgr::isDisconnectAllFinished() {
@@ -290,10 +290,10 @@ bool RPSndSpeakerMgr::isDisconnectAllFinished() {
 }
 
 /**
- * @brief Converts player-indexed bitflags to remote channel output flags
+ * \~ @brief Converts player-indexed bitflags to remote channel output flags
  *
- * @param playerFlag Player flags
- * @return Remote channel output line flags
+ * \~ @param playerFlag Player flags
+ * \~ @return Remote channel output line flags
  */
 u32 RPSndSpeakerMgr::changeBitPlayerToChannel(u32 playerFlag) {
     u32 channelFlag = 0;
@@ -318,10 +318,10 @@ u32 RPSndSpeakerMgr::changeBitPlayerToChannel(u32 playerFlag) {
 }
 
 /**
- * @brief Requests a change in the specified remote speaker's state
+ * \~ @brief Requests a change in the specified remote speaker's state
  *
- * @param chan Remote speaker channel
- * @param on Whether to turn the speaker on
+ * \~ @param chan Remote speaker channel
+ * \~ @param on Whether to turn the speaker on
  */
 void RPSndSpeakerMgr::setSpeakerSw(s32 chan, bool on) {
     BOOL enabled = OSDisableInterrupts();
@@ -348,10 +348,10 @@ void RPSndSpeakerMgr::setSpeakerSw(s32 chan, bool on) {
 }
 
 /**
- * @brief Processes the specified remote speaker connection
+ * \~ @brief Processes the specified remote speaker connection
  *
- * @param chan Remote speaker channel
- * @param on Whether to turn the speaker on
+ * \~ @param chan Remote speaker channel
+ * \~ @param on Whether to turn the speaker on
  */
 void RPSndSpeakerMgr::taskSpeakerSw(s32 chan, bool on) {
     mIsBusy = true;
@@ -370,9 +370,9 @@ void RPSndSpeakerMgr::taskSpeakerSw(s32 chan, bool on) {
 }
 
 /**
- * @brief Tests whether the specified connection task has completed
+ * \~ @brief Tests whether the specified connection task has completed
  *
- * @param chan Remote speaker channel
+ * \~ @param chan Remote speaker channel
  */
 bool RPSndSpeakerMgr::isTaskFinished(s32 chan) {
     return RP_GET_INSTANCE(RPSndSpeakerMgr)->mTaskQueue[chan].finish == true;

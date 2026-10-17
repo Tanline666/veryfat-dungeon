@@ -3,11 +3,11 @@
 #include <revolution/GX.h>
 
 /**
- * @brief Applies the specified player material color to the window frame
+ * \~ @brief Applies the specified player material color to the window frame
  * @details The color is applied to TEV color register 1
  *
- * @param idx Player index
- * @param content Whether to also apply the color to the content
+ * \~ @param idx Player index
+ * \~ @param content Whether to also apply the color to the content
  */
 void RPSysLytWindow::applyPlayerColor(u32 idx, bool content) {
     const GXColor& rColor = RPSysLayout::getPlayerColor(idx);
@@ -23,10 +23,10 @@ void RPSysLytWindow::applyPlayerColor(u32 idx, bool content) {
 }
 
 /**
- * @brief Applies the CPU player material color to the window frame
+ * \~ @brief Applies the CPU player material color to the window frame
  * @details The color is applied to TEV color register 1
  *
- * @param content Whether to also apply the color to the content
+ * \~ @param content Whether to also apply the color to the content
  */
 void RPSysLytWindow::applyCpuColor(bool content) {
     const GXColor& rColor = RPSysLayout::getCpuColor();

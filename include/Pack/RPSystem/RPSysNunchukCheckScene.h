@@ -9,7 +9,7 @@
 //! @{
 
 /**
- * @brief Pack Project Nunchuk check scene
+ * \~ @brief Pack Project Nunchuk check scene
  */
 class RPSysNunchukCheckScene : public RPSysScene, public IRPSysHostIOSocket {
 private:

@@ -293,30 +293,10 @@
 //! @brief Utilities
 
 //! @ingroup rp
-//! @defgroup rp_sports RPSports
-//! @brief Wii Sports
-
-//! @ingroup rp
-//! @defgroup rp_party RPParty
-//! @brief Wii Play
+//! @defgroup rp_sports RPHealth
+//! @brief Wii Fit, Wii Fit Plus
 
 // END RP
-//
-
-//
-// BEGIN RPSports
-//! @ingroup rp_sports
-//! @defgroup rp_sports_todo dummy
-//! @brief dummy
-// END RPSports
-//
-
-//
-// BEGIN RPParty
-//! @ingroup rp_party
-//! @defgroup rp_party_todo dummy
-//! @brief dummy
-// END RPParty
 //
 
 

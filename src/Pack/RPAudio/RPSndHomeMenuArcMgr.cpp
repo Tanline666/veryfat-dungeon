@@ -1,21 +1,21 @@
 #include <Pack/RPAudio.h>
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  */
 RPSndHomeMenuArcMgr::RPSndHomeMenuArcMgr()
     : ArcPlayer(&getSoundHeap()), mIsInitialized(false) {}
 
 /**
- * @brief Destructor
+ * \~ @brief Destructor
  */
 RPSndHomeMenuArcMgr::~RPSndHomeMenuArcMgr() {}
 
 /**
- * @brief Mounts the provided sound archive
+ * \~ @brief Mounts the provided sound archive
  *
- * @param pBinary Binary sound archive
- * @return Success
+ * \~ @param pBinary Binary sound archive
+ * \~ @return Success
  */
 bool RPSndHomeMenuArcMgr::setupArchive(const void* pBinary) {
     bool success = setupMemoryArchive(pBinary, &getSoundHeap()) != NULL;
@@ -25,7 +25,7 @@ bool RPSndHomeMenuArcMgr::setupArchive(const void* pBinary) {
 }
 
 /**
- * @brief Updates the state of the sound player
+ * \~ @brief Updates the state of the sound player
  */
 void RPSndHomeMenuArcMgr::calc() {
     if (!mIsInitialized) {

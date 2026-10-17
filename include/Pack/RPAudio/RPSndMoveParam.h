@@ -15,57 +15,57 @@
  ******************************************************************************/
 
 /**
- * @brief Configurable value interpolation
+ * \~ @brief Configurable value interpolation
  */
 class RPSndMoveValueF32 {
 public:
     /**
-     * @brief Move value callback
+     * \~ @brief Move value callback
      *
-     * @param value Current move value
-     * @param pUserData Callback user argument
+     * \~ @param value Current move value
+     * \~ @param pUserData Callback user argument
      */
     typedef void (*Callback)(f32 value, void* pUserData);
 
 public:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      */
     RPSndMoveValueF32();
 
     /**
-     * @brief Begins interpolation of this value
+     * \~ @brief Begins interpolation of this value
      *
-     * @param target Interpolation target
-     * @param frame Interpolation duration
+     * \~ @param target Interpolation target
+     * \~ @param frame Interpolation duration
      */
     void moveValue(f32 target, u32 frame);
 
     /**
-     * @brief Updates the interpolation state
+     * \~ @brief Updates the interpolation state
      *
-     * @return Whether interpolation is ongoing
+     * \~ @return Whether interpolation is ongoing
      */
     virtual bool update(); // at 0x8
 
     /**
-     * @brief Updates the interpolation state
-     * @note This is used to call update with an instance of the base class
-     * @return Whether interpolation is ongoing
+     * \~ @brief Updates the interpolation state
+     * \~ @note This is used to call update with an instance of the base class
+     * \~ @return Whether interpolation is ongoing
      */
     bool doUpdate() {
         return update();
     }
 
     /**
-     * @brief Gets the number of remaining interpolation frames
+     * \~ @brief Gets the number of remaining interpolation frames
      */
     u32 getFrame() const {
         return mFrame;
     }
 
     /**
-     * @brief Accesses the current value
+     * \~ @brief Accesses the current value
      */
     f32 getValue() const {
         return mValue;
@@ -94,7 +94,7 @@ protected:
  ******************************************************************************/
 
 /**
- * @brief Move parameter linked-list item
+ * \~ @brief Move parameter linked-list item
  */
 class RPSndMoveParamLink {
 public:
@@ -109,12 +109,12 @@ public:
  ******************************************************************************/
 
 /**
- * @brief Sound parameter interpolation
+ * \~ @brief Sound parameter interpolation
  */
 class RPSndMoveParam : public RPSndMoveParamLink, public RPSndMoveValueF32 {
 public:
     /**
-     * @brief Move parameter type
+     * \~ @brief Move parameter type
      */
     enum ParamCategory {
         ParamCategory_SoundPitch,  //!< Controls pitch of the attached sound
@@ -125,17 +125,17 @@ public:
 
 public:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      *
-     * @param category Sound parameter category
-     * @param rHandle Sound handle
+     * \~ @param category Sound parameter category
+     * \~ @param rHandle Sound handle
      */
     RPSndMoveParam(ParamCategory category, nw4r::snd::SoundHandle& rHandle);
 
     /**
-     * @brief Updates the interpolation state
+     * \~ @brief Updates the interpolation state
      *
-     * @return Whether interpolation is ongoing
+     * \~ @return Whether interpolation is ongoing
      */
     virtual bool update(); // at 0x8
 
@@ -155,12 +155,12 @@ private:
  ******************************************************************************/
 
 /**
- * @brief Move parameter manager
+ * \~ @brief Move parameter manager
  */
 class RPSndMoveParamMgr {
 public:
     /**
-     * @brief Updates the state of all move parameters
+     * \~ @brief Updates the state of all move parameters
      */
     static void update();
 

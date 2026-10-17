@@ -22,12 +22,12 @@ class RPGrpModelRecord;
 class RPGrpTexture;
 
 /**
- * @brief Base class for model implementations
+ * \~ @brief Base class for model implementations
  */
 class RPGrpModel {
 public:
     /**
-     * @brief Model class type
+     * \~ @brief Model class type
      */
     enum Kind {
         Kind_None, //!< Dummy value
@@ -36,14 +36,14 @@ public:
     };
 
     /**
-     * @brief Model creation type flags
+     * \~ @brief Model creation type flags
      */
     enum TypeOption {
         TypeOption_NoSimple = 1 << 0, //!< Require ScnMdl even without buffers
     };
 
     /**
-     * @brief Bound creation type flags
+     * \~ @brief Bound creation type flags
      */
     enum BoundOption {
         BoundOption_Sphere = 1 << 0,
@@ -244,15 +244,15 @@ public:
     }
 
     /**
-     * @brief Gets the allocator used for model-related allocations
+     * \~ @brief Gets the allocator used for model-related allocations
      */
     static EGG::Allocator* GetAllocator() {
         return spAllocator;
     }
     /**
-     * @brief Sets the allocator used for model-related allocations
+     * \~ @brief Sets the allocator used for model-related allocations
      *
-     * @param pAllocator New allocator
+     * \~ @param pAllocator New allocator
      */
     static void SetAllocator(EGG::Allocator* pAllocator) {
         spAllocator = pAllocator;

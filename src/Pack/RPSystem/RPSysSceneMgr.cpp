@@ -5,15 +5,15 @@
 
 #include <revolution/VI.h>
 
-RP_SINGLETON_IMPL_EX(RPSysSceneMgr);
+RP_SINGLETON_IMPL(RPSysSceneMgr);
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  *
- * @param pHeap Parent heap
+ * \~ @param pHeap Parent heap
  */
-RPSysSceneMgr::RPSysSceneMgr(EGG::Heap* pHeap)
-    : mpParentHeap(pHeap), mState(EState_Normal) {
+RPSysSceneMgr::RPSysSceneMgr()
+    : mState(EState_Normal), mMenuPage(EMenu_Main), UNK_0x34(0) {
 
     mpSceneFader = new EGG::ColorFader(             //
         0.0f, 0.0f,                                 //
@@ -23,17 +23,17 @@ RPSysSceneMgr::RPSysSceneMgr(EGG::Heap* pHeap)
 }
 
 /**
- * @brief Gets the currently active scene as the Pack Project type
+ * \~ @brief Gets the currently active scene as the Pack Project type
  */
 RPSysScene* RPSysSceneMgr::getCurrentSceneRP() const {
     return static_cast<RPSysScene*>(getCurrentScene());
 }
 
 /**
- * @brief Performs a soft reset
+ * \~ @brief Performs a soft reset
  *
- * @param fromHBM Whether the request came from HBM
- * @return Success
+ * \~ @param fromHBM Whether the request came from HBM
+ * \~ @return Success
  */
 bool RPSysSceneMgr::softReset(bool fromHBM) {
     if (mState == EState_Normal) {
@@ -53,10 +53,10 @@ bool RPSysSceneMgr::softReset(bool fromHBM) {
 }
 
 /**
- * @brief Returns to the IPL
+ * \~ @brief Returns to the IPL
  *
- * @param fromHBM Whether the request came from HBM
- * @return Success
+ * \~ @param fromHBM Whether the request came from HBM
+ * \~ @return Success
  */
 bool RPSysSceneMgr::returnToMenu(bool fromHBM) {
     if (mState == EState_Normal) {
@@ -75,10 +75,10 @@ bool RPSysSceneMgr::returnToMenu(bool fromHBM) {
 }
 
 /**
- * @brief Powers off the console
+ * \~ @brief Powers off the console
  *
- * @param fromHBM Whether the request came from HBM
- * @return Success
+ * \~ @param fromHBM Whether the request came from HBM
+ * \~ @return Success
  */
 bool RPSysSceneMgr::shutdownSystem(bool fromHBM) {
     if (mState == EState_Normal) {
@@ -97,28 +97,32 @@ bool RPSysSceneMgr::shutdownSystem(bool fromHBM) {
 }
 
 /**
- * @brief Tests whether this manager is operating normally
+ * \~ @brief Tests whether this manager is operating normally
  */
 bool RPSysSceneMgr::isNormalState() const {
     return mState == EState_Normal;
 }
 
 /**
- * @brief Tests whether this manager is currently shutting down the system
+ * \~ @brief Tests whether this manager is currently shutting down the system
  */
 bool RPSysSceneMgr::isShutDownReserved() const {
     return mState == EState_Shutdown;
 }
 
 /**
- * @brief Tests whether this manager is currently returning to the IPL
+ * \~ @brief Tests whether this manager is currently returning to the IPL
  */
 bool RPSysSceneMgr::getReturnToMenu() const {
     return mState == EState_ReturnToMenu;
 }
 
+RPSysSceneMgr::EMenu RPSysSceneMgr::getMenuPage() const {
+    return mMenuPage;
+}
+
 /**
- * @brief Disables the guard state and returns to normal operation
+ * \~ @brief Disables the guard state and returns to normal operation
  */
 void RPSysSceneMgr::resetGuard() {
     if (mState == EState_Guard) {
@@ -127,26 +131,26 @@ void RPSysSceneMgr::resetGuard() {
 }
 
 /**
- * @brief Tests whether this manager is currently exiting the program
+ * \~ @brief Tests whether this manager is currently exiting the program
  */
 bool RPSysSceneMgr::isApplicationEndReserved() {
     return getReturnToMenu() || isShutDownReserved();
 }
 
 /**
- * @brief Tests whether a DVD error should exit the program
+ * \~ @brief Tests whether a DVD error should exit the program
  */
 bool RPSysSceneMgr::isDvdErrorApplicationEnd() {
     return mState != EState_Normal;
 }
 
 /**
- * @brief Requests a scene change after fading out
+ * \~ @brief Requests a scene change after fading out
  * @details A scene id of -1 will select the current scene.
  *
- * @param id New scene ID
- * @param reconfigure Whether to fully reconfigure the scene
- * @return Success
+ * \~ @param id New scene ID
+ * \~ @param reconfigure Whether to fully reconfigure the scene
+ * \~ @return Success
  */
 bool RPSysSceneMgr::changeNextSceneAfterFade(s32 id, bool reconfigure) {
     //! Scene change method
@@ -261,23 +265,23 @@ _do_change:
 }
 
 /**
- * @brief Resets the duration of all faders
+ * \~ @brief Resets the duration of all faders
  */
 void RPSysSceneMgr::resetFadeFrame() {
     mpSceneFader->setFrame(DEFAULT_FADE_FRAME);
     mCurrentFader->setFrame(DEFAULT_FADE_FRAME);
 }
 /**
- * @brief Gets the duration of the scene fader
+ * \~ @brief Gets the duration of the scene fader
  */
 u16 RPSysSceneMgr::getFadeFrame() {
     return mpSceneFader->getFrame();
 }
 
 /**
- * @brief Sets the duration of all faders
+ * \~ @brief Sets the duration of all faders
  *
- * @param frame Fade duration, in frames
+ * \~ @param frame Fade duration, in frames
  */
 void RPSysSceneMgr::setFadeFrame(u16 frame) {
     mpSceneFader->setFrame(frame);
@@ -285,7 +289,7 @@ void RPSysSceneMgr::setFadeFrame(u16 frame) {
 }
 
 /**
- * @brief Resets the color of all faders
+ * \~ @brief Resets the color of all faders
  * @details The default fader color is white.
  */
 void RPSysSceneMgr::resetFadeColor() {
@@ -294,16 +298,16 @@ void RPSysSceneMgr::resetFadeColor() {
 }
 
 /**
- * @brief Gets the color of the manager fader
+ * \~ @brief Gets the color of the manager fader
  */
 nw4r::ut::Color RPSysSceneMgr::getFadeColor() {
     return mCurrentFader->getColor();
 }
 
 /**
- * @brief Sets the color of all faders
+ * \~ @brief Sets the color of all faders
  *
- * @param color Fade color
+ * \~ @param color Fade color
  */
 void RPSysSceneMgr::setFadeColor(nw4r::ut::Color color) {
     mpSceneFader->setColor(color);
@@ -311,59 +315,59 @@ void RPSysSceneMgr::setFadeColor(nw4r::ut::Color color) {
 }
 
 /**
- * @brief Sets the color of the scene fader
+ * \~ @brief Sets the color of the scene fader
  *
- * @param color Fade color
+ * \~ @param color Fade color
  */
 void RPSysSceneMgr::setSceneFadeColor(nw4r::ut::Color color) {
     mpSceneFader->setColor(color);
 }
 
 /**
- * @brief Gets the status of the scene fader
+ * \~ @brief Gets the status of the scene fader
  */
 EGG::Fader::EStatus RPSysSceneMgr::getSceneStatus() {
     return mpSceneFader->getStatus();
 }
 
 /**
- * @brief Sets the status of the scene fader
+ * \~ @brief Sets the status of the scene fader
  *
- * @param status Fade status
+ * \~ @param status Fade status
  */
 void RPSysSceneMgr::setSceneStatus(EGG::Fader::EStatus status) {
     mpSceneFader->setStatus(status);
 }
 
 /**
- * @brief Begins fading in the manager fader
+ * \~ @brief Begins fading in the manager fader
  *
- * @return Success
+ * \~ @return Success
  */
 bool RPSysSceneMgr::startMgrFadeIn() {
     return fadeIn();
 }
 
 /**
- * @brief Begins fading in the scene fader
+ * \~ @brief Begins fading in the scene fader
  *
- * @return Success
+ * \~ @return Success
  */
 bool RPSysSceneMgr::startSceneFadeIn() {
     return mpSceneFader->fadeIn();
 }
 
 /**
- * @brief Begins fading out the scene fader
+ * \~ @brief Begins fading out the scene fader
  *
- * @return Success
+ * \~ @return Success
  */
 bool RPSysSceneMgr::startSceneFadeOut() {
     return mpSceneFader->fadeOut();
 }
 
 /**
- * @brief Tests whether the scene is fully visible
+ * \~ @brief Tests whether the scene is fully visible
  */
 bool RPSysSceneMgr::isDisplay() {
     return mCurrentFader->getStatus() == EGG::Fader::STATUS_PREPARE_OUT &&
@@ -371,7 +375,7 @@ bool RPSysSceneMgr::isDisplay() {
 }
 
 /**
- * @brief Tests whether the scene is visibly obscured
+ * \~ @brief Tests whether the scene is visibly obscured
  */
 bool RPSysSceneMgr::isBlank() {
     return mCurrentFader->getStatus() == EGG::Fader::STATUS_PREPARE_IN ||
@@ -379,7 +383,7 @@ bool RPSysSceneMgr::isBlank() {
 }
 
 /**
- * @brief Tests whether the scene is fading out
+ * \~ @brief Tests whether the scene is fading out
  */
 bool RPSysSceneMgr::isFadeOut() {
     return mCurrentFader->getStatus() == EGG::Fader::STATUS_FADE_OUT ||
@@ -387,7 +391,7 @@ bool RPSysSceneMgr::isFadeOut() {
 }
 
 /**
- * @brief Tests whether all asynchronous tasks have finished
+ * \~ @brief Tests whether all asynchronous tasks have finished
  */
 bool RPSysSceneMgr::isTaskFinished() {
     if (RP_GET_INSTANCE(RPSysSaveDataMgr)->isNandAccessFinish() &&
@@ -402,7 +406,7 @@ bool RPSysSceneMgr::isTaskFinished() {
 }
 
 /**
- * @brief Tests whether a scene change would be allowed
+ * \~ @brief Tests whether a scene change would be allowed
  */
 bool RPSysSceneMgr::isSceneChangeEnable() {
     if (mCurrentFader->getStatus() == EGG::Fader::STATUS_PREPARE_OUT &&
@@ -418,30 +422,30 @@ bool RPSysSceneMgr::isSceneChangeEnable() {
 }
 
 /**
- * @brief Updates the state of the scene fader
+ * \~ @brief Updates the state of the scene fader
  *
- * @return Whether the fade has finished
+ * \~ @return Whether the fade has finished
  */
 bool RPSysSceneMgr::calcSceneFader() {
     return mpSceneFader->calc();
 }
 
 /**
- * @brief Displays the state of the scene fader
+ * \~ @brief Displays the state of the scene fader
  */
 void RPSysSceneMgr::drawSceneFader() {
     mpSceneFader->draw();
 }
 
 /**
- * @brief Displays the state of the manager fader
+ * \~ @brief Displays the state of the manager fader
  */
 void RPSysSceneMgr::drawMgrFader() {
     mCurrentFader->draw();
 }
 
 /**
- * @brief Updates the state of the current scene
+ * \~ @brief Updates the state of the current scene
  */
 void RPSysSceneMgr::calcCurrentScene() {
     updateState();
@@ -449,7 +453,7 @@ void RPSysSceneMgr::calcCurrentScene() {
 }
 
 /**
- * @brief Updates the state of this manager
+ * \~ @brief Updates the state of this manager
  */
 void RPSysSceneMgr::updateState() {
     if (mState == EState_Normal) {
@@ -495,6 +499,6 @@ void RPSysSceneMgr::updateState() {
 }
 
 /**
- * @brief Destructor
+ * \~ @brief Destructor
  */
 RPSysSceneMgr::~RPSysSceneMgr() {}

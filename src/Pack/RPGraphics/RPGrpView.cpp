@@ -13,19 +13,19 @@
  ******************************************************************************/
 
 /**
- * @brief Default framebuffer clear color
+ * \~ @brief Default framebuffer clear color
  */
 GXColor RPGrpView::DEFAULT_CLEAR_COLOR = {0, 0, 0, 255};
 
 /**
- * @brief View clipper instance
+ * \~ @brief View clipper instance
  */
 RPGrpView::Clipper RPGrpView::sClipper;
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  *
- * @param no View ID
+ * \~ @param no View ID
  */
 RPGrpView::RPGrpView(u8 no)
     : mViewNo(no),
@@ -38,26 +38,26 @@ RPGrpView::RPGrpView(u8 no)
       mpScreenEffect(NULL) {}
 
 /**
- * @brief Initializes this view's state
+ * \~ @brief Initializes this view's state
  */
 void RPGrpView::Configure() {}
 
 /**
- * @brief Attaches a screen effect to this view
+ * \~ @brief Attaches a screen effect to this view
  */
 void RPGrpView::CreateScreenEffect() {
     mpScreenEffect = new ScreenEffect();
 }
 
 /**
- * @brief Updates this view's state
+ * \~ @brief Updates this view's state
  */
 void RPGrpView::Calc() {
     RPGrpView::PrepareDraw();
 }
 
 /**
- * @brief Prepares this view for a new frame
+ * \~ @brief Prepares this view for a new frame
  */
 void RPGrpView::PrepareDraw() {
     if (!IsSysCalc()) {
@@ -70,7 +70,7 @@ void RPGrpView::PrepareDraw() {
 }
 
 /**
- * @brief Clears the framebuffer of the attached screen
+ * \~ @brief Clears the framebuffer of the attached screen
  */
 void RPGrpView::ClearBuffer() {
     GXColor clearColor = EGG::StateGX::getEfbClearColor();
@@ -111,10 +111,10 @@ void RPGrpView::ClearBuffer() {
 }
 
 /**
- * @brief Attaches a new screen to this view
+ * \~ @brief Attaches a new screen to this view
  *
- * @param pScreen Screen rendering surface
- * @return Previously attached screen
+ * \~ @param pScreen Screen rendering surface
+ * \~ @return Previously attached screen
  */
 RPGrpScreen* RPGrpView::AttachScreen(RPGrpScreen* pScreen) {
     RPGrpScreen* pOldScreen = mpScreen;
@@ -123,7 +123,7 @@ RPGrpScreen* RPGrpView::AttachScreen(RPGrpScreen* pScreen) {
 }
 
 /**
- * @brief Configures the GX projection matrix
+ * \~ @brief Configures the GX projection matrix
  */
 void RPGrpView::SetProjectionGX() const {
     EGG::DrawGX::SetCameraMtx(GetEnableCamera()->GetSavedCameraMatrix());
@@ -155,10 +155,10 @@ void RPGrpView::SetProjectionGX() const {
 }
 
 /**
- * @brief Converts a position from world-space to screen-space
+ * \~ @brief Converts a position from world-space to screen-space
  *
- * @param[out] pScreenPos Position in screen-space
- * @param rWorldPos Position in world-space
+ * \~ @param[out] pScreenPos Position in screen-space
+ * \~ @param rWorldPos Position in world-space
  */
 void RPGrpView::GetWorldToScreen(nw4r::math::VEC3* pScreenPos,
                                  const nw4r::math::VEC3& rWorldPos) const {
@@ -170,10 +170,10 @@ void RPGrpView::GetWorldToScreen(nw4r::math::VEC3* pScreenPos,
 }
 
 /**
- * @brief Converts a position from screen-space to world-space
+ * \~ @brief Converts a position from screen-space to world-space
  *
- * @param[out] pWorldPos Position in world-space
- * @param rScreenPos Position in screen-space
+ * \~ @param[out] pWorldPos Position in world-space
+ * \~ @param rScreenPos Position in screen-space
  */
 void RPGrpView::GetScreenToWorld(nw4r::math::VEC3* pWorldPos,
                                  const nw4r::math::VEC2& rScreenPos) const {
@@ -185,7 +185,7 @@ void RPGrpView::GetScreenToWorld(nw4r::math::VEC3* pWorldPos,
 }
 
 /**
- * @brief Gets the screen used by this view.
+ * \~ @brief Gets the screen used by this view.
  * @details If no screen is attached, this function returns the root screen.
  */
 RPGrpScreen* RPGrpView::GetEnableScreen() const {
@@ -197,7 +197,7 @@ RPGrpScreen* RPGrpView::GetEnableScreen() const {
 }
 
 /**
- * @brief Gets the camera used by this view.
+ * \~ @brief Gets the camera used by this view.
  * @details If no camera is attached, this function returns the default
  * camera.
  */
@@ -210,12 +210,12 @@ RPGrpCamera* RPGrpView::GetEnableCamera() const {
 }
 
 /**
- * @brief Tests whether the specified bounding sphere falls within the
+ * \~ @brief Tests whether the specified bounding sphere falls within the
  * view frustum
  *
- * @param pScreen Screen rendering surface
- * @param rPos Bounding sphere position
- * @param radius Bounding sphere radius
+ * \~ @param pScreen Screen rendering surface
+ * \~ @param rPos Bounding sphere position
+ * \~ @param radius Bounding sphere radius
  */
 bool RPGrpView::Clip(const nw4r::math::VEC3& rPos, f32 radius) const {
     nw4r::math::VEC3 local;
@@ -232,9 +232,9 @@ bool RPGrpView::Clip(const nw4r::math::VEC3& rPos, f32 radius) const {
  ******************************************************************************/
 
 /**
- * @brief Re-calculates this clipper's clipping planes
+ * \~ @brief Re-calculates this clipper's clipping planes
  *
- * @param pScreen Screen rendering surface
+ * \~ @param pScreen Screen rendering surface
  */
 void RPGrpView::Clipper::Calc(const RPGrpScreen* pScreen) {
     f32 ny = pScreen->GetNearZ() * pScreen->GetTanFovy();
@@ -257,12 +257,12 @@ void RPGrpView::Clipper::Calc(const RPGrpScreen* pScreen) {
 }
 
 /**
- * @brief Tests whether the specified bounding sphere falls within the
+ * \~ @brief Tests whether the specified bounding sphere falls within the
  * view frustum
  *
- * @param pScreen Screen rendering surface
- * @param rPos Bounding sphere position
- * @param radius Bounding sphere radius
+ * \~ @param pScreen Screen rendering surface
+ * \~ @param rPos Bounding sphere position
+ * \~ @param radius Bounding sphere radius
  */
 bool RPGrpView::Clipper::Clip(const RPGrpScreen* pScreen,
                               const nw4r::math::VEC3& rPos, f32 radius) {
@@ -299,7 +299,7 @@ bool RPGrpView::Clipper::Clip(const RPGrpScreen* pScreen,
  ******************************************************************************/
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  */
 RPGrpView::ScreenEffect::ScreenEffect() {
     mColorMultiply = EGG::DrawGX::WHITE;
@@ -311,9 +311,9 @@ RPGrpView::ScreenEffect::ScreenEffect() {
 }
 
 /**
- * @brief Draws this effect to the specified screen
+ * \~ @brief Draws this effect to the specified screen
  *
- * @param pScreen Screen rendering surface
+ * \~ @param pScreen Screen rendering surface
  */
 void RPGrpView::ScreenEffect::Draw(const RPGrpScreen* pScreen) {
     bool needBlur = mBlurAlpha > 0;

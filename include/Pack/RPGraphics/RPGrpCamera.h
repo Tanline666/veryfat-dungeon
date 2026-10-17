@@ -12,12 +12,12 @@
 class RPGrpScreen;
 
 /**
- * @brief Camera controller
+ * \~ @brief Camera controller
  */
 class RPGrpCamera {
 public:
     /**
-     * @brief Camera behavior type
+     * \~ @brief Camera behavior type
      */
     enum ECameraType {
         //! Use the G3D camera animation result
@@ -75,103 +75,103 @@ private:
 
 public:
     /**
-     * @brief Initializes the camera system
+     * \~ @brief Initializes the camera system
      */
     static void Initialize();
 
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      */
     RPGrpCamera();
 
     /**
-     * @brief Destructor
+     * \~ @brief Destructor
      */
     virtual ~RPGrpCamera() {} // at 0x8
 
     /**
-     * @brief Copies the state from another camera
+     * \~ @brief Copies the state from another camera
      *
-     * @param rOther Camera from which to copy
+     * \~ @param rOther Camera from which to copy
      */
     virtual void CopyFromAnother(const RPGrpCamera& rOther); // at 0xC
 
     /**
-     * @brief Resets the camera transformation
+     * \~ @brief Resets the camera transformation
      */
     void Identity();
 
     /**
-     * @brief Updates the camera state based on the camera type
+     * \~ @brief Updates the camera state based on the camera type
      */
     void CalcMatrix();
 
     /**
-     * @brief Saves the current state of the view matrix
+     * \~ @brief Saves the current state of the view matrix
      */
     void SaveCameraMatrix();
 
     /**
-     * @brief Converts a position from world-space to screen-space
+     * \~ @brief Converts a position from world-space to screen-space
      *
-     * @param[out] pScreenPos Position in screen-space
-     * @param rWorldPos Position in world-space
-     * @param pScreen Screen
+     * \~ @param[out] pScreenPos Position in screen-space
+     * \~ @param rWorldPos Position in world-space
+     * \~ @param pScreen Screen
      */
     void GetWorldToScreen(nw4r::math::VEC3* pScreenPos,
                           const nw4r::math::VEC3& rWorldPos,
                           const RPGrpScreen* pScreen) const;
 
     /**
-     * @brief Converts a position from screen-space to world-space
+     * \~ @brief Converts a position from screen-space to world-space
      *
-     * @param[out] pWorldPos Position in world-space
-     * @param rScreenPos Position in screen-space
-     * @param pScreen Screen
+     * \~ @param[out] pWorldPos Position in world-space
+     * \~ @param rScreenPos Position in screen-space
+     * \~ @param pScreen Screen
      */
     void GetScreenToWorld(nw4r::math::VEC3* pWorldPos,
                           const nw4r::math::VEC3& rScreenPos,
                           const RPGrpScreen* pScreen) const;
 
     /**
-     * @brief Converts a position from screen-space to world-space
+     * \~ @brief Converts a position from screen-space to world-space
      *
-     * @param[out] pWorldPos Position in world-space
-     * @param rScreenPos Position in screen-space
-     * @param pScreen Screen
+     * \~ @param[out] pWorldPos Position in world-space
+     * \~ @param rScreenPos Position in screen-space
+     * \~ @param pScreen Screen
      */
     void GetScreenToWorld(nw4r::math::VEC3* pWorldPos,
                           const nw4r::math::VEC2& rScreenPos,
                           const RPGrpScreen* pScreen) const;
 
     /**
-     * @brief Applies camera settings from the specified scene resource
+     * \~ @brief Applies camera settings from the specified scene resource
      *
-     * @param scn Scene resource
-     * @param refNumber Camera reference number
-     * @param frame Animation frame (defaults to the first frame)
+     * \~ @param scn Scene resource
+     * \~ @param refNumber Camera reference number
+     * \~ @param frame Animation frame (defaults to the first frame)
      */
     void LoadScnCameraMatrix(const nw4r::g3d::ResAnmScn scn, u8 refNumber,
                              f32 frame = 0.0f);
 
     /**
-     * @brief Sets the type of this camera
+     * \~ @brief Sets the type of this camera
      *
-     * @param type New camera type
+     * \~ @param type New camera type
      */
     void SetCameraType(ECameraType type) {
         mCameraType = type;
     }
 
     /**
-     * @brief Accesses the saved state of the view matrix
+     * \~ @brief Accesses the saved state of the view matrix
      */
     const nw4r::math::MTX34& GetSavedCameraMatrix() const {
         return mSavedViewMtx;
     }
 
     /**
-     * @brief Accesses the default camera object
+     * \~ @brief Accesses the default camera object
      */
     static RPGrpCamera& GetDefaultCamera() {
         return sDefaultCamera;
@@ -179,7 +179,7 @@ public:
 
 private:
     /**
-     * @brief Bit flags to control SyncFromMatrix behavior
+     * \~ @brief Bit flags to control SyncFromMatrix behavior
      */
     enum ESyncFlag {
         //! Derive position using the world matrix
@@ -227,7 +227,7 @@ private:
     };
 
     /**
-     * @brief Camera state flags
+     * \~ @brief Camera state flags
      */
     enum {
         EFlag_5 = 1 << 5,
@@ -236,9 +236,9 @@ private:
 
 private:
     /**
-     * @brief Derives components of the camera state from the world matrix
+     * \~ @brief Derives components of the camera state from the world matrix
      *
-     * @param flags Flags controlling which components to update
+     * \~ @param flags Flags controlling which components to update
      */
     void SyncFromMatrix(u16 flags);
 };

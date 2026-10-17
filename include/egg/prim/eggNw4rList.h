@@ -32,9 +32,9 @@ private:
 /**
  * List for-each macro.
  *
- * @param TYPE Element type
- * @param NAME Element name
- * @param LIST Reference to list
+ * \~ @param TYPE Element type
+ * \~ @param NAME Element name
+ * \~ @param LIST Reference to list
  */
 #define EGG_NW4R_LIST_FOREACH(TYPE, NAME, LIST)                                \
     for (TYPE* NAME = NULL; (NAME = (LIST).getNext(NAME)) != NULL;)

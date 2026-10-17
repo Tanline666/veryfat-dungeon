@@ -12,44 +12,44 @@
 //! @{
 
 /**
- * @brief Base class for Mii avatars
+ * \~ @brief Base class for Mii avatars
  */
 class RPSysAvatar : public RP_DEBUG_STUB_1 {
 public:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      *
-     * @param pGenInfo Mii generation parameters
+     * \~ @param pGenInfo Mii generation parameters
      */
     explicit RPSysAvatar(const RPSysKokeshiGenInfo* pGenInfo);
 
     /**
-     * @brief Destructor
+     * \~ @brief Destructor
      */
     virtual ~RPSysAvatar() override; // at 0x8
 
     /**
-     * @brief Loads the assets necessary for this avatar
+     * \~ @brief Loads the assets necessary for this avatar
      *
-     * @param pOverloadInfo Overload parameters
+     * \~ @param pOverloadInfo Overload parameters
      */
     virtual void LoadResource(
         const RPSysKokeshiOverloadInfo* pOverloadInfo = NULL); // at 0xC
 
     /**
-     * @brief Applies all lightmap textures to this avatar
+     * \~ @brief Applies all lightmap textures to this avatar
      *
-     * @param drawScene Draw scene index
+     * \~ @param drawScene Draw scene index
      */
     virtual void ApplyLightTexture(u8 drawScene) = 0; // at 0x10
 
     /**
-     * @brief Gets the RFL favorite color of this avatar
+     * \~ @brief Gets the RFL favorite color of this avatar
      */
     GXColor GetFavoriteColor() const;
 
     /**
-     * @brief Accesses the Mii generation parameters
+     * \~ @brief Accesses the Mii generation parameters
      */
     const RPSysKokeshiGenInfo& GetGenInfo() const {
         return mGenInfo;
@@ -57,12 +57,12 @@ public:
 
 protected:
     /**
-     * @brief Handles post-constructor initialization
+     * \~ @brief Handles post-constructor initialization
      */
     void Construct();
 
     /**
-     * @brief Registers this avatar with the kokeshi manager
+     * \~ @brief Registers this avatar with the kokeshi manager
      */
     void Setup();
 

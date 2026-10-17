@@ -139,7 +139,6 @@ void SceneManager::createScene(s32 id, Scene* pParent) {
     Heap* pParentHeap = mRootHeapType == ROOT_HEAP_TYPE_MEM1 ? pParentHeap_Mem1
                                                              : pParentHeap_Mem2;
 
-#line 267
     EGG_ASSERT(pParentHeap_Mem1 && pParentHeap_Mem2);
 
     locked = pParentHeap->tstDisableAllocation() ? TRUE : FALSE;

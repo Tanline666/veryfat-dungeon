@@ -10,35 +10,37 @@
 //! @{
 
 /**
- * @brief Screen text writer
+ * \~ @brief Screen text writer
  */
 class RPSysTextWriter : public nw4r::ut::TextWriter {
     RP_SINGLETON_DECL(RPSysTextWriter);
 
 public:
     /**
-     * @brief Resets all text settings
+     * \~ @brief Resets all text settings
      */
     void Reset();
 
     /**
-     * @brief Prints formatted text to the screen at the specified coordinates
+     * \~ @brief Prints formatted text to the screen at the specified
+     * coordinates
      * @details Coordinates use a left-upper origin
      */
     void Printf(f32 x, f32 y, const char* pMsg, ...);
 
     /**
-     * @brief Prints formatted text to the screen at the specified coordinates
+     * \~ @brief Prints formatted text to the screen at the specified
+     * coordinates
      * @details Coordinates use a center-canvas origin
      */
     void PrintfZeroCenter(f32 x, f32 y, const char* pMsg, ...);
 
     /**
-     * @brief Sets up a GX context for rendering
+     * \~ @brief Sets up a GX context for rendering
      */
     void Begin();
     /**
-     * @brief Ends the rendering context
+     * \~ @brief Ends the rendering context
      */
     void End();
 

@@ -14,7 +14,7 @@
 class RPSysCommonObject;
 
 /**
- * @brief Pack Project scene
+ * \~ @brief Pack Project scene
  */
 class RPSysScene : public EGG::Scene, public IRPGrpDrawObject {
     friend class RPSysSceneCreator;
@@ -27,55 +27,55 @@ public:
 
 public:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      */
     RPSysScene();
 
     /**
      * @name Internal events
-     * @brief These functions are internal, and should not be overriden.
+     * \~ @brief These functions are internal, and should not be overriden.
      */
     /**@{*/
     /**
-     * @brief Updates the scene state
+     * \~ @brief Updates the scene state
      */
     virtual void calc() override; // at 0xC
 
     /**
-     * @brief Renders the scene state
+     * \~ @brief Renders the scene state
      */
     virtual void draw() override; // at 0x10
 
     /**
-     * @brief Enters the scene
+     * \~ @brief Enters the scene
      */
     virtual void enter() override; // at 0x14
 
     /**
-     * @brief Exits the scene
+     * \~ @brief Exits the scene
      */
     virtual void exit() override; // at 0x18
 
     /**
-     * @brief Re-initializes the scene
+     * \~ @brief Re-initializes the scene
      */
     virtual void reinit() override; // at 0x1C
 
     /**
-     * @brief Prepares for destruction of (and transition from) a child scene
+     * \~ @brief Prepares for destruction of (and transition from) a child scene
      */
     virtual void incoming_childDestroy() override; // at 0x20
 
     /**
-     * @brief Prepares for creation of (and transition to) a child scene
+     * \~ @brief Prepares for creation of (and transition to) a child scene
      */
     virtual void outgoing_childCreate() override; // at 0x24
     /**@}*/
 
     /**
      * @name Lifecycle hooks
-     * @brief These functions are mostly empty stubs, and should be overridden
-     * to provide scene functionality.
+     * \~ @brief These functions are mostly empty stubs, and should be
+     * overridden to provide scene functionality.
      */
     /**@{*/
     virtual UnkStruct& VF_0x3C() {
@@ -83,216 +83,213 @@ public:
     } // at 0x3C
 
     /**
-     * @brief Pause callback
+     * \~ @brief Pause callback
      *
-     * @param enter Whether the pause menu is being entered
+     * \~ @param enter Whether the pause menu is being entered
      */
     virtual void pauseCallBack(bool /* enter */) {} // at 0x40
 
     /**
-     * @brief Initializes the scene's state for the first time
+     * \~ @brief Initializes the scene's state for the first time
      */
     virtual void Configure() {} // at 0x44
 
     /**
-     * @brief Loads the scene's required assets
+     * \~ @brief Loads the scene's required assets
      */
     virtual void LoadResource() {} // at 0x48
 
     /**
-     * @brief Re-initializes the scene's state
+     * \~ @brief Re-initializes the scene's state
      */
     virtual void Reset() {} // at 0x4C
 
     /**
-     * @brief Updates the scene's state
+     * \~ @brief Updates the scene's state
      */
     virtual void Calculate() {} // at 0x50
 
     /**
-     * @brief Exits the scene
+     * \~ @brief Exits the scene
      */
     virtual void Exit() {} // at 0x54
 
     /**
-     * @brief Runs an asynchronous task on the DVD thread
+     * \~ @brief Runs an asynchronous task on the DVD thread
      */
     virtual void taskAsync() {} // at 0x58
     /**@}*/
 
     /**
-     * @brief Tests whether the scene is fully visible
+     * \~ @brief Tests whether the scene is fully visible
      */
     bool isSceneDisplay() const;
 
     /**
-     * @brief Tests whether the scene is visibly obscured
+     * \~ @brief Tests whether the scene is visibly obscured
      */
     bool isSceneBlank() const;
 
     /**
-     * @brief Tests whether a scene change would be allowed
+     * \~ @brief Tests whether a scene change would be allowed
      */
     bool isSceneChangeEnable() const;
 
     /**
-     * @brief Tests whether NAND access would be safe
+     * \~ @brief Tests whether NAND access would be safe
      */
     bool isNandAccessEnable() const;
 
     /**
-     * @brief Sets the duration of all faders
+     * \~ @brief Sets the duration of all faders
      *
-     * @param frame Fade duration, in frames
+     * \~ @param frame Fade duration, in frames
      */
     void setFadeFrame(u16 frame);
 
     /**
-     * @brief Gets the color of the manager fader
+     * \~ @brief Gets the color of the manager fader
      */
     nw4r::ut::Color getFadeColor() const;
 
     /**
-     * @brief Sets the color of all faders
+     * \~ @brief Sets the color of all faders
      *
-     * @param color Fade color
+     * \~ @param color Fade color
      */
     void setFadeColor(nw4r::ut::Color color);
 
     /**
-     * @brief Sets the color of the scene fader
+     * \~ @brief Sets the color of the scene fader
      *
-     * @param color Fade color
+     * \~ @param color Fade color
      */
     void setSceneFadeColor(nw4r::ut::Color color);
 
     /**
-     * @brief Begins fading in the scene fader
+     * \~ @brief Begins fading in the scene fader
      *
-     * @return Success
+     * \~ @return Success
      */
     bool startFadeIn();
 
     /**
-     * @brief Begins fading out the scene fader
+     * \~ @brief Begins fading out the scene fader
      *
-     * @return Success
+     * \~ @return Success
      */
     bool startFadeOut();
 
     /**
-     * @brief Toggles screen dimming
-     * @note If "Screen Saver Mode" is disabled, dimming is always OFF.
+     * \~ @brief Toggles screen dimming
+     * \~ @note If "Screen Saver Mode" is disabled, dimming is always OFF.
      *
-     * @param enable Whether to dim the screen
+     * \~ @param enable Whether to dim the screen
      */
     void setDimming(bool enable);
 
     /**
-     * @brief Sets this scene's parent/creator ID
+     * \~ @brief Sets this scene's parent/creator ID
      *
-     * @param id ID of this scene's parent/creator
+     * \~ @param id ID of this scene's parent/creator
      */
     void setCreatorSceneID(s32 id);
 
     /**
-     * @brief Gets this scene's parent/creator ID
+     * \~ @brief Gets this scene's parent/creator ID
      */
     s32 getCreatorSceneID() const;
 
     /**
-     * @brief Marks this scene as a child of the previous scene
+     * \~ @brief Marks this scene as a child of the previous scene
      */
     void setChildScene();
 
     /**
-     * @brief Displays the game's build date timestamp
+     * \~ @brief Displays the game's build date timestamp
      *
-     * @param color Text color
+     * \~ @param color Text color
      */
     void drawTimeStamp(nw4r::ut::Color color);
 
     /**
-     * @brief Marks that this scene requires an asynchronous task
+     * \~ @brief Marks that this scene requires an asynchronous task
      */
     void setTaskAsync();
 
     /**
-     * @brief Tests whether this scene's asynchronous task has finished
+     * \~ @brief Tests whether this scene's asynchronous task has finished
      */
     bool isTaskAsyncFinish() const;
 
 private:
     /**
-     * @brief Prepares this scene to be entered
+     * \~ @brief Prepares this scene to be entered
      */
     DECOMP_INLINE void incomingScene();
 
     /**
-     * @brief Prepares this scene to be exited
+     * \~ @brief Prepares this scene to be exited
      */
     void outgoingScene();
 
     /**
-     * @brief Finalizes this scene after being exited
+     * \~ @brief Finalizes this scene after being exited
      */
     void exitScenePost();
 
     /**
-     * @brief Initializes this scene's members
+     * \~ @brief Initializes this scene's members
      */
+    //! NOTE: This is virtual in Wii Fit Plus! Examine vtable here (texline)
     void init();
 
     void loadUpdate();
 
     /**
-     * @brief Creates the asynchronous task thread if requested by the scene
+     * \~ @brief Creates the asynchronous task thread if requested by the scene
      */
     void initTaskAsync();
 
     /**
-     * @brief Enables the "Now Loading" message display
-     */
-    void enableLoadMessage();
-
-    /**
-     * @brief Loads this scene's resources asynchronously
+     * \~ @brief Loads this scene's resources asynchronously.
+     * \~japanese @brief シーンのリソースを非同期にロードする。
      */
     void load();
 
     /**
-     * @brief Loads this scene's resources asynchronously, displaying a "Now
-     * Loading" message if the feature is enabled
+     * \~ @deprecated Loads this scene's resources asynchronously, displaying a
+     * "Now Loading" message if the feature is enabled
      */
     void loadMessage();
 
     /**
-     * @brief Polls the status of the DVD task thread
+     * \~ @brief Polls the status of the DVD task thread
      */
     void updateDvdEndMessage();
 
     /**
-     * @brief Polls the status of the NAND task thread
+     * \~ @brief Polls the status of the NAND task thread
      */
     void updateNandEndMessage();
 
     /**
-     * @brief Thread function for the LoadResource phase
+     * \~ @brief Thread function for the LoadResource phase
      *
-     * @param pArg Thread function argument
+     * \~ @param pArg Thread function argument
      */
     static void loadResourceFunc(void* pArg);
 
     /**
-     * @brief Thread function for the scene's task
+     * \~ @brief Thread function for the scene's task
      *
-     * @param pArg Thread function argument
+     * \~ @param pArg Thread function argument
      */
     static void taskAsyncFunc(void* pArg);
 
 private:
     /**
-     * @brief Scene flags
+     * \~ @brief Scene flags
      */
     enum {
         EFlag_LoadMessage,      //!< Display "Now Loading" message

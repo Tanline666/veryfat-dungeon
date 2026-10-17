@@ -10,7 +10,7 @@
 //! @{
 
 /**
- * @brief Wide-char text tag processor
+ * \~ @brief Wide-char text tag processor
  */
 class RPSysTagProcessor : public nw4r::ut::WideTagProcessor {
     RP_SINGLETON_DECL(RPSysTagProcessor);

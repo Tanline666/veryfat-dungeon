@@ -11,7 +11,7 @@
 class RPSysMiddleDB;
 
 /**
- * @brief Mii storage location
+ * \~ @brief Mii storage location
  */
 class RPSysKokeshiLocation {
 private:
@@ -25,49 +25,49 @@ private:
 
 public:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      */
     RPSysKokeshiLocation();
 
     /**
-     * @brief Destructor
+     * \~ @brief Destructor
      */
     virtual ~RPSysKokeshiLocation(); // at 0x8
 
     /**
-     * @brief Gets the data source where this Mii exists
+     * \~ @brief Gets the data source where this Mii exists
      */
     RFLDataSource GetDataSource() const {
         return mDataSource;
     }
 
     /**
-     * @brief Sets the data source where this Mii exists
+     * \~ @brief Sets the data source where this Mii exists
      *
-     * @param src New data source
+     * \~ @param src New data source
      */
     void SetDataSource(RFLDataSource src) {
         mDataSource = src;
     }
 
     /**
-     * @brief Gets the index of this Mii in its database
+     * \~ @brief Gets the index of this Mii in its database
      */
     u16 GetIndex() const {
         return mIndex;
     }
 
     /**
-     * @brief Sets the index of this Mii in its database
+     * \~ @brief Sets the index of this Mii in its database
      *
-     * @param index New index
+     * \~ @param index New index
      */
     void SetIndex(u16 index) {
         mIndex = index;
     }
 
     /**
-     * @brief Accesses the middle database where this Mii exists
+     * \~ @brief Accesses the middle database where this Mii exists
      * @details If the data source is not `RFLDataSource_Middle`, this should be
      * NULL.
      */
@@ -76,7 +76,7 @@ public:
     }
 
     /**
-     * @brief Sets the middle database where this Mii exists
+     * \~ @brief Sets the middle database where this Mii exists
      */
     void SetMiddleDB(RPSysMiddleDB* pMiddleDB) {
         mpMiddleDB = pMiddleDB;

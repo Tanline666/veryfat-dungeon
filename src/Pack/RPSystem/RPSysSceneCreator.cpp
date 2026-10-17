@@ -7,7 +7,7 @@ RP_SINGLETON_IMPL_EX(RPSysSceneCreator);
 #define RP_MAIN_SCENE_DIR "RPHealthMainScene/"
 
 /**
- * @brief Information about every Pack Project scene
+ * \~ @brief Information about every Pack Project scene
  */
 const RPSysSceneCreator::SceneAttr RPSysSceneCreator::SCENE_ATTR_TABLE[] = {
     // clang-format off
@@ -21,11 +21,11 @@ const RPSysSceneCreator::SceneAttr RPSysSceneCreator::SCENE_ATTR_TABLE[] = {
     {ESceneID_RPHealthSimpleCheck, ECreateType_Sibling, EExitType_Standard, EAudioType_Scene, RP_COMMON_DIR, "Simple Check"},
     {ESceneID_RPHealthHoldCheck, ECreateType_Sibling, EExitType_Standard, EAudioType_Scene, RP_COMMON_DIR, "Hold Check"},
     {ESceneID_RPHealthConnectCheck, ECreateType_Sibling, EExitType_2, EAudioType_Scene, RP_COMMON_DIR, "Connect Check"},
-    {ESceneID_RPHealthBalanceTest, ECreateType_Sibling, EExitType_Standard, EAudioType_Scene, RP_COMMON_DIR, "Balance Test"},
+    {ESceneID_RPHealthBalanceTest, ECreateType_Sibling, EExitType_Standard, EAudioType_Scene, "RPHealthBalance/", "Balance Test"},
     {ESceneID_RPHealthCapture, ECreateType_Standard, EExitType_Sibling, EAudioType_Scene, "RPHealthPlayerSelect/", "Capture"},
     {ESceneID_RPHealthPackBootScene, ECreateType_Standard, EExitType_Sibling, EAudioType_Scene, "RPHealthTitle/", /* Boot */ "ブート"},
     {ESceneID_RPHealthTitleScene, ECreateType_Sibling, EExitType_Sibling, EAudioType_Scene, "RPHealthTitle/", /* Title */ "タイトル"},
-    {ESceneID_RPHealthGuestMode, ECreateType_Sibling, EExitType_2, EAudioType_Scene, "RPHealthTitle/", "Guest Mode"},
+    {ESceneID_RPHealthGuestMode, ECreateType_Sibling, EExitType_2, EAudioType_Scene, RP_COMMON_DIR, "Guest Mode"},
     {ESceneID_RPHealthFirstSettingScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Scene, "RPHealthFirstSetting/", "First Settings"},
     {ESceneID_RPHealthContinue, ECreateType_Sibling, EExitType_2, EAudioType_Scene, RP_MAIN_SCENE_DIR, "Continue"},
     {ESceneID_RPHealthBasicSettingScene, ECreateType_Sibling, EExitType_2, EAudioType_Scene, RP_MAIN_SCENE_DIR, "Basic Settings"},
@@ -35,7 +35,36 @@ const RPSysSceneCreator::SceneAttr RPSysSceneCreator::SCENE_ATTR_TABLE[] = {
     {ESceneID_RPHealthGetBack, ECreateType_Sibling, EExitType_2, EAudioType_Scene, RP_MAIN_SCENE_DIR, "Get Back"},
 
     {ESceneID_RPHealthTrainingMenuScene, ECreateType_Sibling, EExitType_2, EAudioType_Scene, "RPHealthMenu/", "Training Menu"},
+    {ESceneID_RPHealthMyMenuScene, ECreateType_Sibling, EExitType_2, EAudioType_Scene, "RPHealthMyMenu/", "Locker Room"},
+    {ESceneID_RPHealthGameConnectScene, ECreateType_Sibling, EExitType_2, EAudioType_Scene, "RPHealthMyMenu/", "Game Connect"},
+    {ESceneID_RPHealthTrainingScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Scene, "RPHealthTraining/", "Training"},
 
+    //! Wii Fit activities
+    {ESceneID_RPHealthSkiScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthSki/", "Ski"},
+    {ESceneID_RPHealthSkiJumpScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthSkiJump/", "Ski Jumping"},
+    {ESceneID_RPHealthHulaHoopScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthHulaHoop/", "Hoop Twirl"},
+    {ESceneID_RPHealthIraIraScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthIraIra/", "Ira Ira"},
+    {ESceneID_RPHealthStepScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthStep/", "Step Class"},
+    {ESceneID_RPHealthKoroScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthKoro/", "Ball Rolling"},
+    {ESceneID_RPHealthZazenScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthZazen/", "Zazen"},
+    {ESceneID_RPHealthRopeScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthRope/", "Ropewalking"},
+    {ESceneID_RPHealthHeadingScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthHeading/", "Soccer Heading"},
+    {ESceneID_RPHealthPenguinScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthPenguin/", "Penguin"},
+    {ESceneID_RPHealthBoxerciseScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthBoxercise/", "Boxercise"},
+    {ESceneID_RPHealthJoggingScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthJogging/", "Jogging"},
+
+    //! Wii Fit Plus activities
+    {ESceneID_RPHealthRhythmKungfuScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthRhythmKungfu/", "Kungfu"},
+    {ESceneID_RPHealthDungeonJoggingScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthDungeonJogging/", "Dungeon"},
+    {ESceneID_RPHealthSkateBoardScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthSkateBoard/", "SkateBoard"},
+    {ESceneID_RPHealthJugglingScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthJuggling/", "Juggling"},
+    {ESceneID_RPHealthParadeScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthParade/", "Parade"},
+    {ESceneID_RPHealthCalculationScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthCalculation/", "Calculation"},
+    {ESceneID_RPHealthBicycleScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthBicycle/", "Bicycle"},
+    {ESceneID_RPHealthGolfScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthGolf/", "Golf"},
+    {ESceneID_RPHealthJogQuizScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthJogging/", "JogQuiz"},
+    {ESceneID_RPHealthPataScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthPata/", "Pata"},
+    {ESceneID_RPHealthSegwayScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthBicycle/", "Segway"},
     {ESceneID_RPHealthShootingScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthShooting/", "Shooting"},
     {ESceneID_RPHealthColorScene, ECreateType_Sibling, EExitType_Standard, EAudioType_Common, "RPHealthColor/", "Color"},
 
@@ -46,18 +75,18 @@ const RPSysSceneCreator::SceneAttr RPSysSceneCreator::SCENE_ATTR_TABLE[] = {
 };
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  *
- * @param pHeap Parent heap
+ * \~ @param pHeap Parent heap
  */
 RPSysSceneCreator::RPSysSceneCreator(EGG::Heap* pHeap)
     : mpParentHeap(pHeap), mPrevSceneID(-1) {}
 
 /**
- * @brief Gets the index of the specified scene's entry in the table
+ * \~ @brief Gets the index of the specified scene's entry in the table
  *
- * @param id Scene ID
- * @return Entry index, or -1 if not found
+ * \~ @param id Scene ID
+ * \~ @return Entry index, or -1 if not found
  */
 s32 RPSysSceneCreator::getEntryIndex(ESceneID id) {
     for (s32 i = 0; i < ARRAY_SIZE(SCENE_ATTR_TABLE); i++) {
@@ -70,12 +99,12 @@ s32 RPSysSceneCreator::getEntryIndex(ESceneID id) {
 }
 
 /**
- * @brief Requests a scene change after fading out
+ * \~ @brief Requests a scene change after fading out
  * @details A scene id of -1 will select the current scene.
  *
- * @param id New scene ID
- * @param reconfigure Whether to fully reconfigure the scene
- * @return Success
+ * \~ @param id New scene ID
+ * \~ @param reconfigure Whether to fully reconfigure the scene
+ * \~ @return Success
  */
 bool RPSysSceneCreator::changeSceneAfterFade(s32 id, bool reconfigure) {
     bool success = false;
@@ -107,18 +136,18 @@ bool RPSysSceneCreator::changeSceneAfterFade(s32 id, bool reconfigure) {
 }
 
 /**
- * @brief Changes to the title scene
+ * \~ @brief Changes to the title scene
  *
- * @return Success
+ * \~ @return Success
  */
 bool RPSysSceneCreator::changeSoftReset() {
     return changeSceneAfterFade(ESceneID_RPHealthPlayerSelectScene);
 }
 
 /**
- * @brief Destroys the specified scene
+ * \~ @brief Destroys the specified scene
  *
- * @param id Scene ID
+ * \~ @param id Scene ID
  */
 void RPSysSceneCreator::destroy(s32 /* id */) {
     if (RP_GET_INSTANCE(RPSysSceneMgr)->isApplicationEndReserved()) {
@@ -127,9 +156,9 @@ void RPSysSceneCreator::destroy(s32 /* id */) {
 }
 
 /**
- * @brief Gets the specified scene's exit type
+ * \~ @brief Gets the specified scene's exit type
  *
- * @param id Scene ID
+ * \~ @param id Scene ID
  */
 RPSysSceneCreator::EExitType RPSysSceneCreator::getExitType(s32 id) {
     s32 index = getEntryIndex(static_cast<ESceneID>(id));
@@ -145,9 +174,9 @@ RPSysSceneCreator::EExitType RPSysSceneCreator::getExitType(s32 id) {
 }
 
 /**
- * @brief Gets the specified scene's audio type
+ * \~ @brief Gets the specified scene's audio type
  *
- * @param id Scene ID
+ * \~ @param id Scene ID
  */
 RPSysSceneCreator::EAudioType RPSysSceneCreator::getAudioType(s32 id) {
     s32 index = getEntryIndex(static_cast<ESceneID>(id));
@@ -163,10 +192,10 @@ RPSysSceneCreator::EAudioType RPSysSceneCreator::getAudioType(s32 id) {
 }
 
 /**
- * @brief Gets the specified scene's resource directory
+ * \~ @brief Gets the specified scene's resource directory
  * @details A scene id of -1 will select the current scene.
  *
- * @param id Scene ID
+ * \~ @param id Scene ID
  */
 const char* RPSysSceneCreator::getResDirName(s32 id) {
     if (id < 0) {
@@ -186,9 +215,9 @@ const char* RPSysSceneCreator::getResDirName(s32 id) {
 }
 
 /**
- * @brief Gets the specified scene's creation type
+ * \~ @brief Gets the specified scene's creation type
  *
- * @param id Scene ID
+ * \~ @param id Scene ID
  */
 RPSysSceneCreator::ECreateType RPSysSceneCreator::getCreateType(s32 id) {
     s32 index = getEntryIndex(static_cast<ESceneID>(id));
@@ -205,9 +234,9 @@ RPSysSceneCreator::ECreateType RPSysSceneCreator::getCreateType(s32 id) {
 
 #if defined(PACK_SPORTS)
 /**
- * @brief Creates the specified Sports Pack scene
+ * \~ @brief Creates the specified Sports Pack scene
  *
- * @param id Scene ID
+ * \~ @param id Scene ID
  */
 RPSysScene* RPSysSceneCreator::createSportsScene(s32 id) {
     switch (id) {
@@ -268,9 +297,9 @@ RPSysScene* RPSysSceneCreator::createSportsScene(s32 id) {
 
 #if defined(PACK_PARTY)
 /**
- * @brief Creates the specified Party Pack scene
+ * \~ @brief Creates the specified Party Pack scene
  *
- * @param id Scene ID
+ * \~ @param id Scene ID
  */
 RPSysScene* RPSysSceneCreator::createPartyScene(s32 id) {
     switch (id) {
@@ -330,6 +359,6 @@ RPSysScene* RPSysSceneCreator::createPartyScene(s32 id) {
 #endif
 
 /**
- * @brief Destructor
+ * \~ @brief Destructor
  */
 RPSysSceneCreator::~RPSysSceneCreator() {}

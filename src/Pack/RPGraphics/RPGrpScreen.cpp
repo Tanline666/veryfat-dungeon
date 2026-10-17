@@ -3,15 +3,15 @@
 #include <egg/gfxe.h>
 
 /**
- * @brief Screen hierarchy root
+ * \~ @brief Screen hierarchy root
  */
 RPGrpScreen RPGrpScreen::sRootScreen;
 
 /**
- * @brief Initializes the screen system
+ * \~ @brief Initializes the screen system
  *
- * @param maxX Screen width limits for all TV modes
- * @param maxY Screen height limits for all TV modes
+ * \~ @param maxX Screen width limits for all TV modes
+ * \~ @param maxY Screen height limits for all TV modes
  */
 void RPGrpScreen::Initialize(const u16 maxX[TV_MODE_MAX],
                              const u16 maxY[TV_MODE_MAX]) {
@@ -20,20 +20,20 @@ void RPGrpScreen::Initialize(const u16 maxX[TV_MODE_MAX],
 }
 
 /**
- * @brief Configures the GX rendering state to draw a quad
+ * \~ @brief Configures the GX rendering state to draw a quad
  */
 void RPGrpScreen::BeginDrawQuad() const {
     EGG::DrawGX::BeginDrawScreen(mCanvasMode == CANVAS_LU, false, false);
 }
 
 /**
- * @brief Draws a colored quad to this screen
+ * \~ @brief Draws a colored quad to this screen
  *
- * @param x1 Left point of the quad
- * @param y1 Top point of the quad
- * @param x2 Right point of the quad
- * @param y2 Bottom point of the quad
- * @param color Fill color
+ * \~ @param x1 Left point of the quad
+ * \~ @param y1 Top point of the quad
+ * \~ @param x2 Right point of the quad
+ * \~ @param y2 Bottom point of the quad
+ * \~ @param color Fill color
  */
 void RPGrpScreen::DrawQuad(f32 x1, f32 y1, f32 x2, f32 y2,
                            GXColor color) const {
@@ -45,23 +45,23 @@ void RPGrpScreen::DrawQuad(f32 x1, f32 y1, f32 x2, f32 y2,
 }
 
 /**
- * @brief Configures the GX rendering state to draw a textured quad
+ * \~ @brief Configures the GX rendering state to draw a textured quad
  *
- * @param alpha Whether to enable the raster alpha channel
+ * \~ @param alpha Whether to enable the raster alpha channel
  */
 void RPGrpScreen::BeginDrawQuadTexture(bool alpha) const {
     EGG::DrawGX::BeginDrawScreen(mCanvasMode == CANVAS_LU, true, alpha);
 }
 
 /**
- * @brief Draws a textured quad to this screen
+ * \~ @brief Draws a textured quad to this screen
  * @details It is assumed the texture has already been loaded to GX_TEXMAP0.
  *
- * @param x1 Left point of the quad
- * @param y1 Top point of the quad
- * @param x2 Right point of the quad
- * @param y2 Bottom point of the quad
- * @param color Material color
+ * \~ @param x1 Left point of the quad
+ * \~ @param y1 Top point of the quad
+ * \~ @param x2 Right point of the quad
+ * \~ @param y2 Bottom point of the quad
+ * \~ @param color Material color
  */
 void RPGrpScreen::DrawQuadTexture(f32 x1, f32 y1, f32 x2, f32 y2,
                                   GXColor color) const {
@@ -73,14 +73,14 @@ void RPGrpScreen::DrawQuadTexture(f32 x1, f32 y1, f32 x2, f32 y2,
 }
 
 /**
- * @brief Draws a textured quad to this screen
+ * \~ @brief Draws a textured quad to this screen
  *
- * @param x1 Left point of the quad
- * @param y1 Top point of the quad
- * @param x2 Right point of the quad
- * @param y2 Bottom point of the quad
- * @param rTexture Fill texture
- * @param color Material color
+ * \~ @param x1 Left point of the quad
+ * \~ @param y1 Top point of the quad
+ * \~ @param x2 Right point of the quad
+ * \~ @param y2 Bottom point of the quad
+ * \~ @param rTexture Fill texture
+ * \~ @param color Material color
  */
 void RPGrpScreen::DrawQuadTexture(f32 x1, f32 y1, f32 x2, f32 y2,
                                   const RPGrpTexture& rTexture,
@@ -90,14 +90,14 @@ void RPGrpScreen::DrawQuadTexture(f32 x1, f32 y1, f32 x2, f32 y2,
 }
 
 /**
- * @brief Draws a textured quad to this screen
+ * \~ @brief Draws a textured quad to this screen
  *
- * @param x1 Left point of the quad
- * @param y1 Top point of the quad
- * @param x2 Right point of the quad
- * @param y2 Bottom point of the quad
- * @param pResTIMG Fill texture
- * @param color Material color
+ * \~ @param x1 Left point of the quad
+ * \~ @param y1 Top point of the quad
+ * \~ @param x2 Right point of the quad
+ * \~ @param y2 Bottom point of the quad
+ * \~ @param pResTIMG Fill texture
+ * \~ @param color Material color
  */
 void RPGrpScreen::DrawQuadTexture(f32 x1, f32 y1, f32 x2, f32 y2,
                                   const EGG::ResTIMG* pResTIMG,

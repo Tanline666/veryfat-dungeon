@@ -30,6 +30,9 @@ ctx.*
 objdiff.json
 compile_commands.json
 
+# Doxygen
+docs/
+
 # Miscellaneous
 /*.txt
 *.exe

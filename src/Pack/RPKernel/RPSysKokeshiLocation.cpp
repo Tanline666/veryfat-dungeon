@@ -2,14 +2,13 @@
 
 #include <RVLFaceLib.h>
 
-
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  */
 RPSysKokeshiLocation::RPSysKokeshiLocation()
     : mDataSource(RFLDataSource_Official), mIndex(0), mpMiddleDB(NULL) {}
 
 /**
- * @brief Destructor
+ * \~ @brief Destructor
  */
 RPSysKokeshiLocation::~RPSysKokeshiLocation() {}

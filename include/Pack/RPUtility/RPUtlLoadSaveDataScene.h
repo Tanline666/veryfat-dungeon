@@ -5,7 +5,7 @@
 #include <Pack/RPSystem/RPSysScene.h>
 
 /**
- * @brief Base class for scenes which need to load the save file
+ * \~ @brief Base class for scenes which need to load the save file
  */
 class RPUtlLoadSaveDataScene : public RPSysScene {
 public:

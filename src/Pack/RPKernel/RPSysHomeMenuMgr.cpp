@@ -29,13 +29,13 @@ RP_SINGLETON_IMPL_EX(RPSysHomeMenuMgr);
 #define BANICON_SIZE 28.0f
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  */
 RPSysHomeMenuMgr::BanIcon::BanIcon()
     : mpTexture(NULL), mState(EState_Hide), mTimer(0), mAlpha(0) {}
 
 /**
- * @brief Updates this icon's state
+ * \~ @brief Updates this icon's state
  */
 void RPSysHomeMenuMgr::BanIcon::calc() {
     switch (mState) {
@@ -76,7 +76,7 @@ void RPSysHomeMenuMgr::BanIcon::calc() {
 }
 
 /**
- * @brief Renders this icon's state
+ * \~ @brief Renders this icon's state
  */
 void RPSysHomeMenuMgr::BanIcon::draw() {
     GXColor color;
@@ -122,21 +122,21 @@ void RPSysHomeMenuMgr::BanIcon::draw() {
  ******************************************************************************/
 
 /**
- * @brief HOME Menu sound archive manager
+ * \~ @brief HOME Menu sound archive manager
  */
 RPSndHomeMenuArcMgr* RPSysHomeMenuMgr::spHomeMenuArcMgr = NULL;
 
 /**
- * @brief Sound archive heap size
+ * \~ @brief Sound archive heap size
  */
 u32 RPSysHomeMenuMgr::sSoundHeapSize = 0x7D000;
 
 /**
- * @brief HBM library sound callback
+ * \~ @brief HBM library sound callback
  *
- * @param event HBM event
- * @param arg Event argument
- * @return Whether this callback handled the playback for HBM
+ * \~ @param event HBM event
+ * \~ @param arg Event argument
+ * \~ @return Whether this callback handled the playback for HBM
  */
 BOOL RPSysHomeMenuMgr::soundCallback(int event, int arg) {
     switch (event) {
@@ -152,9 +152,9 @@ BOOL RPSysHomeMenuMgr::soundCallback(int event, int arg) {
 }
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  *
- * @param pHeap Parent heap
+ * \~ @param pHeap Parent heap
  */
 RPSysHomeMenuMgr::RPSysHomeMenuMgr(EGG::Heap* pHeap) : mpParentHeap(pHeap) {
     mIsInitialized = false;
@@ -196,12 +196,12 @@ RPSysHomeMenuMgr::RPSysHomeMenuMgr(EGG::Heap* pHeap) : mpParentHeap(pHeap) {
 }
 
 /**
- * @brief Destructor
+ * \~ @brief Destructor
  */
 RPSysHomeMenuMgr::~RPSysHomeMenuMgr() {}
 
 /**
- * @brief Initializes this manager's state
+ * \~ @brief Initializes this manager's state
  */
 void RPSysHomeMenuMgr::init() {
     mIsDisabled = false;
@@ -218,7 +218,7 @@ void RPSysHomeMenuMgr::init() {
 }
 
 /**
- * @brief Initializes the HBM library
+ * \~ @brief Initializes the HBM library
  */
 void RPSysHomeMenuMgr::initHomeButtonInfo() {
     // TODO(kiwi) Inline?
@@ -337,7 +337,7 @@ void RPSysHomeMenuMgr::initHomeButtonInfo() {
 }
 
 /**
- * @brief Checks whether the HOME Menu should be opened
+ * \~ @brief Checks whether the HOME Menu should be opened
  */
 void RPSysHomeMenuMgr::checkMenuStart() {
     bool pressedBtn = false;
@@ -384,7 +384,7 @@ void RPSysHomeMenuMgr::checkMenuStart() {
 }
 
 /**
- * @brief Checks whether the HOME Menu should be closed
+ * \~ @brief Checks whether the HOME Menu should be closed
  */
 void RPSysHomeMenuMgr::checkMenuEnd() {
     mIsVisible = true;
@@ -445,9 +445,9 @@ void RPSysHomeMenuMgr::checkMenuEnd() {
 }
 
 /**
- * @brief Performs a soft reset
+ * \~ @brief Performs a soft reset
  *
- * @return Whether HBM will perform the reset
+ * \~ @return Whether HBM will perform the reset
  */
 bool RPSysHomeMenuMgr::softReset() {
     if (mIsActive && !mIsSoftReset) {
@@ -460,7 +460,7 @@ bool RPSysHomeMenuMgr::softReset() {
 }
 
 /**
- * @brief Updates this manager's state
+ * \~ @brief Updates this manager's state
  */
 void RPSysHomeMenuMgr::update() {
     f32 current = RPGrpScreen::GetSizeXMax();
@@ -569,7 +569,7 @@ void RPSysHomeMenuMgr::update() {
 }
 
 /**
- * @brief Renders the HOME Menu if it is visible
+ * \~ @brief Renders the HOME Menu if it is visible
  */
 void RPSysHomeMenuMgr::draw() {
     if (!mIsInitialized) {
@@ -582,7 +582,7 @@ void RPSysHomeMenuMgr::draw() {
 }
 
 /**
- * @brief Renders the ban icon if it is visible
+ * \~ @brief Renders the ban icon if it is visible
  */
 void RPSysHomeMenuMgr::drawBanIcon() {
     if (!mIsInitialized) {

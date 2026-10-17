@@ -10,14 +10,14 @@
 //! @{
 
 /**
- * @brief Font manager
+ * \~ @brief Font manager
  */
 class RPSysFontManager {
     RP_SINGLETON_DECL(RPSysFontManager);
 
 public:
     /**
-     * @brief Pack Project resource fonts
+     * \~ @brief Pack Project resource fonts
      */
     enum ResFontType {
         //! New Rodin (Demibold, 32pt, I4 tex format)
@@ -41,40 +41,40 @@ public:
 
 public:
     /**
-     * @brief Loads the ROM font provided by the system
+     * \~ @brief Loads the ROM font provided by the system
      */
     void LoadRomFont();
 
     /**
-     * @brief Loads all resource fonts required by this pack
+     * \~ @brief Loads all resource fonts required by this pack
      */
     void LoadResFonts();
 
     /**
-     * @brief Gets the index of the specified resource font
+     * \~ @brief Gets the index of the specified resource font
      *
-     * @param pName Font name
+     * \~ @param pName Font name
      */
     u8 GetResFontIndex(const char* pName) const;
 
     /**
-     * @brief Gets the data of the specified resource font
+     * \~ @brief Gets the data of the specified resource font
      *
-     * @param pName Font name
+     * \~ @param pName Font name
      */
     void* GetResFontData(const char* pName) const;
 
     /**
-     * @brief Accesses the ROM font provided by the system
+     * \~ @brief Accesses the ROM font provided by the system
      */
     nw4r::ut::RomFont* GetRomFont() const {
         return mpRomFont;
     }
 
     /**
-     * @brief Accesses the specified resource font
+     * \~ @brief Accesses the specified resource font
      *
-     * @param idx Font index
+     * \~ @param idx Font index
      */
     nw4r::ut::ResFont* GetResFont(u8 idx) const {
         return mpResFonts[idx];
@@ -82,10 +82,10 @@ public:
 
 private:
     /**
-     * @brief Loads the specified resource font from the provided archive
+     * \~ @brief Loads the specified resource font from the provided archive
      *
-     * @param idx Font index
-     * @param pArchive Font archive
+     * \~ @param idx Font index
+     * \~ @param pArchive Font archive
      */
     void LoadResFont(u8 idx, EGG::Archive* pArchive);
 

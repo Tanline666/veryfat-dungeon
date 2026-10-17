@@ -12,9 +12,9 @@
 #endif
 
 /**
- * @brief Displays the game's build date timestamp
+ * \~ @brief Displays the game's build date timestamp
  *
- * @param color Text color
+ * \~ @param color Text color
  */
 void RPSysScene::drawTimeStamp(nw4r::ut::Color color) {
     enum {
@@ -74,7 +74,8 @@ void RPSysScene::drawTimeStamp(nw4r::ut::Color color) {
 void RPSysScene::loadUpdate() {}
 
 /**
- * @brief Marks that this scene requires an asynchronous task
+ * \~ @brief Marks that this scene requires an asynchronous task.
+ * \~japanese @brief シーンを非同期タスクが必要なプロパティと設定する。
  */
 void RPSysScene::setTaskAsync() {
     mFlags.setBit(EFlag_TaskAsyncSet);
@@ -82,7 +83,8 @@ void RPSysScene::setTaskAsync() {
 }
 
 /**
- * @brief Tests whether this scene's asynchronous task has finished
+ * \~ @brief Tests whether this scene's asynchronous task has finished.
+ * \~japanese @brief シーンの非同期タスクの完了判定を行います。
  */
 bool RPSysScene::isTaskAsyncFinish() const {
     return mFlags.onBit(EFlag_TaskAsyncSet) &&
@@ -90,20 +92,16 @@ bool RPSysScene::isTaskAsyncFinish() const {
 }
 
 /**
- * @brief Enables the "Now Loading" message display
- */
-void RPSysScene::enableLoadMessage() {
-    mFlags.setBit(EFlag_LoadMessage);
-}
-
-/**
- * @brief Loads this scene's resources asynchronously
+ * \~ @brief Loads this scene's resources asynchronously.
+ * \~japanese @brief シーンのリソースを非同期にロードする。
  */
 void RPSysScene::load() {
+#if 0
     if (mFlags.onBit(EFlag_LoadMessage)) {
         // Need to use loadMessage()
         return;
     }
+#endif
 
     BOOL success = FALSE;
     OSMessage msg;
@@ -116,7 +114,7 @@ void RPSysScene::load() {
 
     do {
         do {
-            RP_GET_INSTANCE(RPSysSystem)->loadFrameWork(true);
+            RP_GET_INSTANCE(RPSysSystem)->loadFrameWork();
 
             EGG::TaskThread* pDvdThread =
                 RP_GET_INSTANCE(RPSysSystem)->getDvdThread();
@@ -129,10 +127,11 @@ void RPSysScene::load() {
 }
 
 /**
- * @brief Loads this scene's resources asynchronously, displaying a "Now
+ * \~ @deprecated Loads this scene's resources asynchronously, displaying a "Now
  * Loading" message if the feature is enabled
  */
 void RPSysScene::loadMessage() {
+#if 0
     if (mFlags.offBit(EFlag_LoadMessage)) {
         // Need to use load()
         return;
@@ -179,10 +178,11 @@ void RPSysScene::loadMessage() {
             RP_GET_INSTANCE(RPSysSceneMgr)->startSceneFadeOut();
         }
     }
+#endif
 }
 
 /**
- * @brief Creates the asynchronous task thread if requested by the scene
+ * \~ @brief Creates the asynchronous task thread if requested by the scene
  */
 void RPSysScene::initTaskAsync() {
     if (mFlags.onBit(EFlag_TaskAsyncSet) &&
@@ -197,7 +197,7 @@ void RPSysScene::initTaskAsync() {
 }
 
 /**
- * @brief Polls the status of the DVD task thread
+ * \~ @brief Polls the status of the DVD task thread
  */
 void RPSysScene::updateDvdEndMessage() {
     if (mFlags.onBit(EFlag_TaskAsyncSet) &&
@@ -220,7 +220,7 @@ void RPSysScene::updateDvdEndMessage() {
 }
 
 /**
- * @brief Polls the status of the NAND task thread
+ * \~ @brief Polls the status of the NAND task thread
  */
 void RPSysScene::updateNandEndMessage() {
     if (!RP_GET_INSTANCE(RPSysSaveDataMgr)->isNandAccessFinish()) {
@@ -247,9 +247,9 @@ void RPSysScene::updateNandEndMessage() {
 }
 
 /**
- * @brief Thread function for the LoadResource phase
+ * \~ @brief Thread function for the LoadResource phase
  *
- * @param pArg Thread function argument
+ * \~ @param pArg Thread function argument
  */
 void RPSysScene::loadResourceFunc(void* pArg) {
     RPSysScene* p = static_cast<RPSysScene*>(pArg);
@@ -269,9 +269,9 @@ void RPSysScene::loadResourceFunc(void* pArg) {
 }
 
 /**
- * @brief Thread function for the scene's task
+ * \~ @brief Thread function for the scene's task
  *
- * @param pArg Thread function argument
+ * \~ @param pArg Thread function argument
  */
 void RPSysScene::taskAsyncFunc(void* pArg) {
     RPSysScene* p = static_cast<RPSysScene*>(pArg);

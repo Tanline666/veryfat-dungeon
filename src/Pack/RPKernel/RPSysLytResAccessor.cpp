@@ -12,17 +12,17 @@
  ******************************************************************************/
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  */
 RPSysLytResAccessor::InternalAccessor::InternalAccessor() {}
 
 /**
- * @brief Gets the specified resource from the currently open archive
+ * \~ @brief Gets the specified resource from the currently open archive
  * @details Font queries are redirected to the font manager
  *
- * @param type Resource type
- * @param pName Resource name
- * @param[out] pSize Resource data size
+ * \~ @param type Resource type
+ * \~ @param pName Resource name
+ * \~ @param[out] pSize Resource data size
  */
 void* RPSysLytResAccessor::InternalAccessor::GetResource(u32 type,
                                                          const char* pName,
@@ -46,14 +46,14 @@ void* RPSysLytResAccessor::InternalAccessor::GetResource(u32 type,
  ******************************************************************************/
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  */
 RPSysLytResAccessor::RPSysLytResAccessor() : mpImpl(NULL) {}
 
 /**
- * @brief Creates a resource accessor from the specified heap
+ * \~ @brief Creates a resource accessor from the specified heap
  *
- * @param pHeap Heap to use for allocations
+ * \~ @param pHeap Heap to use for allocations
  */
 RPSysLytResAccessor* RPSysLytResAccessor::create(EGG::Heap* pHeap) {
     if (pHeap == NULL) {
@@ -70,11 +70,11 @@ RPSysLytResAccessor* RPSysLytResAccessor::create(EGG::Heap* pHeap) {
 }
 
 /**
- * @brief Attempts to mount an archive
+ * \~ @brief Attempts to mount an archive
  *
- * @param pBinary Archive binary data
- * @param pRootDir Root directory to open (optional)
- * @return Success
+ * \~ @param pBinary Archive binary data
+ * \~ @param pRootDir Root directory to open (optional)
+ * \~ @return Success
  */
 bool RPSysLytResAccessor::mountArchive(void* pBinary, const char* pRootDir) {
     bool success = false;

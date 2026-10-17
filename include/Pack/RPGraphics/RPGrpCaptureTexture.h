@@ -11,12 +11,12 @@
 class RPGrpScreen;
 
 /**
- * @brief Screen capture texture wrapper
+ * \~ @brief Screen capture texture wrapper
  */
 class RPGrpCaptureTexture {
 public:
     /**
-     * @brief Flags for use with the constructor
+     * \~ @brief Flags for use with the constructor
      */
     enum {
         //! Whether to enable the mipmap filter
@@ -36,35 +36,35 @@ private:
 
 public:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      *
-     * @param pScreen Capture source
-     * @param format Texture format
-     * @param flags Creation flags
+     * \~ @param pScreen Capture source
+     * \~ @param format Texture format
+     * \~ @param flags Creation flags
      */
     RPGrpCaptureTexture(RPGrpScreen* pScreen, GXTexFmt format, u32 flags = 0);
 
     /**
-     * @brief Destructor
+     * \~ @brief Destructor
      */
     virtual ~RPGrpCaptureTexture() {} // at 0x8
 
     /**
-     * @brief Captures the EFB contents as a texture
+     * \~ @brief Captures the EFB contents as a texture
      *
-     * @param format Texture format override (optional)
+     * \~ @param format Texture format override (optional)
      */
     void Capture(int format = -1);
 
     /**
-     * @brief Accesses the underlying capture texture
+     * \~ @brief Accesses the underlying capture texture
      */
     EGG::CapTexture* GetCapTexture() const {
         return mpCapTexture;
     }
 
     /**
-     * @brief Tests whether the mipmap filter is enabled
+     * \~ @brief Tests whether the mipmap filter is enabled
      */
     bool IsMipMapEnable() const {
         return (mTexFlags & ETexFlag_MipMap) != 0;
@@ -72,7 +72,7 @@ public:
 
 private:
     /**
-     * @brief EFB setting flag
+     * \~ @brief EFB setting flag
      */
     enum EEfbFlag {
         //! Whether to clear the EFB color channel when copying the texture
@@ -84,7 +84,7 @@ private:
     };
 
     /**
-     * @brief Texture settting flag
+     * \~ @brief Texture settting flag
      */
     enum ETexFlag {
         //! Whether to enable the mipmap filter

@@ -14,14 +14,14 @@
 class RPSysEffectCreator;
 
 /**
- * @brief Effect manager
+ * \~ @brief Effect manager
  */
 class RPSysEffectMgr {
     RP_SINGLETON_DECL_EX(RPSysEffectMgr);
 
 public:
     /**
-     * @brief Effect draw scene ID
+     * \~ @brief Effect draw scene ID
      */
     enum EDrawScene {
         EDrawScene_Scene,  //!< Scene effects
@@ -32,7 +32,7 @@ public:
     };
 
     /**
-     * @brief Effect draw group ID
+     * \~ @brief Effect draw group ID
      */
     enum EDrawGroup {
         EDrawGroup_Layer0,
@@ -47,7 +47,7 @@ public:
     };
 
     /**
-     * @brief Effect update type
+     * \~ @brief Effect update type
      */
     enum ECalcSetting {
         ECalcSetting_All,    //!< Update all effects
@@ -55,7 +55,7 @@ public:
     };
 
     /**
-     * @brief Effect memory settings
+     * \~ @brief Effect memory settings
      */
     struct EffectArg {
         //! Heap to use for allocations
@@ -72,7 +72,7 @@ public:
     };
 
     /**
-     * @brief Framebuffer texture information
+     * \~ @brief Framebuffer texture information
      */
     struct EfbTexData {
         //! Texture format (GXTexFmt)
@@ -85,69 +85,69 @@ public:
 
 public:
     /**
-     * @brief Attaches a new effect creator to the specified scene
+     * \~ @brief Attaches a new effect creator to the specified scene
      *
-     * @param pCreator Effect creator
-     * @param drawScene Effect draw scene
+     * \~ @param pCreator Effect creator
+     * \~ @param drawScene Effect draw scene
      */
     void setCreator(RPSysEffectCreator* pCreator, u32 drawScene);
 
     /**
-     * @brief Releases the specified effect creator from its scene
+     * \~ @brief Releases the specified effect creator from its scene
      *
-     * @param pCreator Effect creator
+     * \~ @param pCreator Effect creator
      */
     void resetCreator(RPSysEffectCreator* pCreator);
 
     /**
-     * @brief Kills all effects and particles
+     * \~ @brief Kills all effects and particles
      */
     void stopAllEffect();
 
     /**
-     * @brief Updates the state of effects
+     * \~ @brief Updates the state of effects
      *
-     * @param setting Effect update type
+     * \~ @param setting Effect update type
      */
     void update(ECalcSetting setting);
 
     /**
-     * @brief Applies a framebuffer capture texture to all effects
+     * \~ @brief Applies a framebuffer capture texture to all effects
      *
-     * @param pTexture Framebuffer texture
-     * @param rData Framebuffer texture information
+     * \~ @param pTexture Framebuffer texture
+     * \~ @param rData Framebuffer texture information
      */
     void setCaptureEfb(void* pTexture, const EfbTexData& rData);
 
     /**
-     * @brief Draws the specified set of effects
+     * \~ @brief Draws the specified set of effects
      *
-     * @param rViewMtx View matrix
-     * @param drawGroup Effect draw group
-     * @param drawScene Effect draw scene
+     * \~ @param rViewMtx View matrix
+     * \~ @param drawGroup Effect draw group
+     * \~ @param drawScene Effect draw scene
      */
     void draw(const nw4r::math::MTX34& rViewMtx, u32 drawGroup, u32 drawScene);
 
     /**
-     * @brief Creates an instance of the specified effect
+     * \~ @brief Creates an instance of the specified effect
      *
-     * @param pName Effect name
-     * @param drawGroup Effect draw group
-     * @param drawScene Effect draw scene
+     * \~ @param pName Effect name
+     * \~ @param drawGroup Effect draw group
+     * \~ @param drawScene Effect draw scene
      */
     nw4r::ef::Effect* createEffect(const char* pName, u32 drawGroup,
                                    u32 drawScene);
 
     /**
-     * @brief Creates a memory manager using the specified settings
+     * \~ @brief Creates a memory manager using the specified settings
      *
-     * @param pArg Effect memory settings
-     * @return Effect work memory size
+     * \~ @param pArg Effect memory settings
+     * \~ @return Effect work memory size
      */
     u32 createMemoryManager(EffectArg* pArg);
 
     /**
-     * @brief Loads the assets required by system Effect draw scenes
+     * \~ @brief Loads the assets required by system Effect draw scenes
      */
     void LoadResource();
 

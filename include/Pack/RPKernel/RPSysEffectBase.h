@@ -11,276 +11,277 @@
 //! @{
 
 /**
- * @brief Effect wrapper
+ * \~ @brief Effect wrapper
  */
 class RPSysEffect {
 public:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      *
-     * @param pName Effect name
-     * @param drawGroup Effect draw group
-     * @param drawScene Effect draw scene
+     * \~ @param pName Effect name
+     * \~ @param drawGroup Effect draw group
+     * \~ @param drawScene Effect draw scene
      */
     RPSysEffect(const char* pName, u32 drawGroup, u32 drawScene);
 
     /**
-     * @brief Destructor
+     * \~ @brief Destructor
      */
     virtual ~RPSysEffect(); // at 0x8
 
     /**
-     * @brief Creates this effect if it does not yet exist
+     * \~ @brief Creates this effect if it does not yet exist
      *
-     * @return Success
+     * \~ @return Success
      */
     virtual bool create(); // at 0xC
 
     /**
-     * @brief Fades away and destroys this effect
+     * \~ @brief Fades away and destroys this effect
      */
     virtual void fade(); // at 0x10
 
     /**
-     * @brief Fades away this effect without destroying the handle
+     * \~ @brief Fades away this effect without destroying the handle
      */
     virtual void followFade(); // at 0x14
 
     /**
-     * @brief Destroys this effect and all of its particles
+     * \~ @brief Destroys this effect and all of its particles
      */
     virtual void forceKill(); // at 0x18
 
     /**
-     * @brief Toggles whether this effect will update
+     * \~ @brief Toggles whether this effect will update
      *
-     * @param disable Whether to disable updating
+     * \~ @param disable Whether to disable updating
      */
     virtual void setDisableCalc(bool disable); // at 0x1C
 
     /**
-     * @brief Toggles whether this effect will draw
+     * \~ @brief Toggles whether this effect will draw
      *
-     * @param disable Whether to disable drawing
+     * \~ @param disable Whether to disable drawing
      */
     virtual void setDisableDraw(bool disable); // at 0x20
 
     /**
-     * @brief Toggles whether this effect will update and draw
+     * \~ @brief Toggles whether this effect will update and draw
      *
-     * @param disable Whether to disable both updating and drawing
+     * \~ @param disable Whether to disable both updating and drawing
      */
     virtual void setDisableCalcDraw(bool disable); // at 0x24
 
     /**
-     * @brief Sets the lifetime of all particles
+     * \~ @brief Sets the lifetime of all particles
      *
-     * @param life Lifetime, in ticks
+     * \~ @param life Lifetime, in ticks
      */
     virtual void setLife(u16 life); // at 0x28
 
     /**
-     * @brief Sets the emission ratio of all emitters
+     * \~ @brief Sets the emission ratio of all emitters
      *
-     * @param ratio Emission ratio
+     * \~ @param ratio Emission ratio
      */
     virtual void setEmitRatio(f32 ratio); // at 0x2C
 
     /**
-     * @brief Sets the emission interval of all emitters
+     * \~ @brief Sets the emission interval of all emitters
      *
-     * @param interval Emission interval
+     * \~ @param interval Emission interval
      */
     virtual void setEmitInterval(u16 interval); // at 0x30
 
     /**
-     * @brief Sets the number of circular divisions of all emitters
+     * \~ @brief Sets the number of circular divisions of all emitters
      *
-     * @param emitDiv Number of emitter divisions
+     * \~ @param emitDiv Number of emitter divisions
      */
     virtual void setEmitEmitDiv(u16 emitDiv); // at 0x34
 
     /**
-     * @brief Sets the emission power in the radiation direction
+     * \~ @brief Sets the emission power in the radiation direction
      *
-     * @param power Emission power
+     * \~ @param power Emission power
      */
     virtual void setPowerRadiationDir(f32 power); // at 0x38
 
     /**
-     * @brief Sets the emission power in the specified direction
+     * \~ @brief Sets the emission power in the specified direction
      *
-     * @param power Emission power
+     * \~ @param power Emission power
      */
     virtual void setPowerSpecDir(f32 power); // at 0x3C
 
     /**
-     * @brief Adds emission power in the specified direction
+     * \~ @brief Adds emission power in the specified direction
      *
-     * @param add Emission power addend
+     * \~ @param add Emission power addend
      */
     virtual void setPowerSpecDirAdd(f32 add); // at 0x40
 
     /**
-     * @brief Sets the specified direction of emission
+     * \~ @brief Sets the specified direction of emission
      *
-     * @param rDir Specified direction
+     * \~ @param rDir Specified direction
      */
     virtual void setSpecDir(const nw4r::math::VEC3& rDir); // at 0x44
 
     /**
-     * @brief Adds to the specified direction of emission
+     * \~ @brief Adds to the specified direction of emission
      *
-     * @param rDir Specified direction addend
+     * \~ @param rDir Specified direction addend
      */
     virtual void setSpecDirAdd(const nw4r::math::VEC3& rAdd); // at 0x48
 
     /**
-     * @brief Sets this effect's velocity
+     * \~ @brief Sets this effect's velocity
      *
-     * @param rVelocity Velocity
+     * \~ @param rVelocity Velocity
      */
     virtual void setVelocity(const nw4r::math::VEC3& rVelocity); // at 0x4C
 
     /**
-     * @brief Sets the color of all particles
+     * \~ @brief Sets the color of all particles
      *
-     * @param r Color red component
-     * @param g Color green component
-     * @param b Color blue component
-     * @param a Color alpha component
+     * \~ @param r Color red component
+     * \~ @param g Color green component
+     * \~ @param b Color blue component
+     * \~ @param a Color alpha component
      */
     virtual void setColor(u8 r, u8 g, u8 b, u8 a); // at 0x50
 
     /**
-     * @brief Sets the color of all particles
+     * \~ @brief Sets the color of all particles
      * @details This function assumes full alpha
      *
-     * @param r Color red component
-     * @param g Color green component
-     * @param b Color blue component
+     * \~ @param r Color red component
+     * \~ @param g Color green component
+     * \~ @param b Color blue component
      */
     virtual void setColor(u8 r, u8 g, u8 b); // at 0x54
 
     /**
-     * @brief Sets the color alpha component of all particles
+     * \~ @brief Sets the color alpha component of all particles
      * @details This function assumes a white color
      *
-     * @param a Color alpha component
+     * \~ @param a Color alpha component
      */
     virtual void setColor(u8 a); // at 0x58
 
     /**
-     * @brief Sets the default size of all particles
+     * \~ @brief Sets the default size of all particles
      *
-     * @param rSize Default particle size
+     * \~ @param rSize Default particle size
      */
     virtual void
     setDefaultParticleSize(const nw4r::math::VEC2& rSize); // at 0x5C
 
     /**
-     * @brief Sets the scale of all particles
+     * \~ @brief Sets the scale of all particles
      *
-     * @param rSize Particle scale
+     * \~ @param rSize Particle scale
      */
     virtual void setParticleScale(nw4r::math::VEC2& rScale); // at 0x60
 
     /**
-     * @brief Sets the default rotation of all particles
+     * \~ @brief Sets the default rotation of all particles
      *
-     * @param rRotate Default particle rotation
+     * \~ @param rRotate Default particle rotation
      */
     virtual void
     setDefaultParticleRotate(const nw4r::math::VEC3& rRotate); // at 0x64
 
     /**
-     * @brief Sets the rotation of all particles
+     * \~ @brief Sets the rotation of all particles
      *
-     * @param rRotate Particle rotation
+     * \~ @param rRotate Particle rotation
      */
     virtual void setParticleRotate(const nw4r::math::VEC3& rRotate); // at 0x68
 
     /**
-     * @brief Sets the scale of all emitters
+     * \~ @brief Sets the scale of all emitters
      *
-     * @param rScale Emitter scale
+     * \~ @param rScale Emitter scale
      */
     virtual void setLocalScale(const nw4r::math::VEC3& rScale); // at 0x6C
 
     /**
-     * @brief Sets this effect's scale without also indirectly scaling particles
+     * \~ @brief Sets this effect's scale without also indirectly scaling
+     * particles
      *
-     * @param rScale New effect scale
-     * @param pParticleScale Current particle scale (optional)
+     * \~ @param rScale New effect scale
+     * \~ @param pParticleScale Current particle scale (optional)
      */
     virtual void
     setDynamicsScale(const nw4r::math::VEC3& rScale,
                      const nw4r::math::VEC2* pParticleScale); // at 0x70
 
     /**
-     * @brief Sets this effect's scale
+     * \~ @brief Sets this effect's scale
      *
-     * @param scale Effect scale (uniform)
+     * \~ @param scale Effect scale (uniform)
      */
     virtual void setScale(f32 scale); // at 0x74
 
     /**
-     * @brief Sets this effect's scale
+     * \~ @brief Sets this effect's scale
      *
-     * @param rScale Effect scale
+     * \~ @param rScale Effect scale
      */
     virtual void setScale(const nw4r::math::VEC3& rScale); // at 0x78
 
     /**
-     * @brief Sets this effect's position
+     * \~ @brief Sets this effect's position
      *
-     * @param rPosition Effect position
+     * \~ @param rPosition Effect position
      */
     virtual void setPos(const nw4r::math::VEC3& rPosition); // at 0x7C
 
     /**
-     * @brief Sets this effect's transformation matrix
+     * \~ @brief Sets this effect's transformation matrix
      *
-     * @param rTransform Effect transformation matrix
+     * \~ @param rTransform Effect transformation matrix
      */
     virtual void setMtx(const nw4r::math::MTX34& rTransform); // at 0x80
 
     /**
-     * @brief Toggles whether a particle animation is enabled
+     * \~ @brief Toggles whether a particle animation is enabled
      *
-     * @param idx Particle animation index
-     * @param enable Whether to enable the animation
+     * \~ @param idx Particle animation index
+     * \~ @param enable Whether to enable the animation
      */
     virtual void setPtclAnim(int idx, bool enable); // at 0x84
 
     /**
-     * @brief Flushes this effect's configuration
+     * \~ @brief Flushes this effect's configuration
      */
     virtual void update(); // at 0x88
 
     /**
-     * @brief Tests whether the specified flag in emitter userdata is set
+     * \~ @brief Tests whether the specified flag in emitter userdata is set
      *
-     * @param idx Userdata bitflag index
+     * \~ @param idx Userdata bitflag index
      */
     virtual bool getUserFlag(int idx) const; // at 0x8C
 
     virtual u8 fn_801941BC(int idx) const; // at 0x90
 
     /**
-     * @brief Clears this effect's configuration
+     * \~ @brief Clears this effect's configuration
      */
     virtual void reset(); // at 0x94
 
     /**
-     * @brief Tests whether this effect is attached to an instance
+     * \~ @brief Tests whether this effect is attached to an instance
      */
     bool isValid() const {
         return mHandle.IsValid();
     }
 
     /**
-     * @brief Tests whether this effect's instance is alive
+     * \~ @brief Tests whether this effect's instance is alive
      */
     bool isAlive() const {
         return mHandle.IsAlive();
@@ -288,7 +289,7 @@ public:
 
 private:
     /**
-     * @brief Effect state flags
+     * \~ @brief Effect state flags
      */
     enum {
         EFlag_PositionDirty,  //!< Effect position should be flushed

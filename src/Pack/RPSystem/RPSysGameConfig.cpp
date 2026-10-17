@@ -3,9 +3,9 @@
 RP_SINGLETON_IMPL_EX(RPSysGameConfig);
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  *
- * @param pHeap Parent heap
+ * \~ @param pHeap Parent heap
  */
 RPSysGameConfig::RPSysGameConfig(EGG::Heap* pHeap)
     : RPSysTagParameters("GameConfig"),
@@ -34,6 +34,6 @@ RPSysGameConfig::RPSysGameConfig(EGG::Heap* pHeap)
 }
 
 /**
- * @brief Destructor
+ * \~ @brief Destructor
  */
 RPSysGameConfig::~RPSysGameConfig() {}

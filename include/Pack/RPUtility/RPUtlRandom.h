@@ -3,33 +3,34 @@
 #include <Pack/types_pack.h>
 
 /**
- * @brief LCG random number generator
+ * \~ @brief LCG random number generator
  */
 class RPUtlRandom {
 public:
     /**
-     * @brief Seeds the generator using the system clock
+     * \~ @brief Seeds the generator using the system clock
      */
     static void initialize();
 
     /**
-     * @brief Generates a random unsigned 32-bit integer
+     * \~ @brief Generates a random unsigned 32-bit integer
      */
     static u32 getU32() {
         return calc();
     }
 
     /**
-     * @brief Generates a random unsigned 32-bit integer in the range [0, max)
+     * \~ @brief Generates a random unsigned 32-bit integer in the range [0,
+     * max)
      *
-     * @param max Upper bound (exclusive)
+     * \~ @param max Upper bound (exclusive)
      */
     static u32 getU32(u32 max) {
         return max * getF32();
     }
 
     /**
-     * @brief Generates a random floating point value in the range [0, 1)
+     * \~ @brief Generates a random floating point value in the range [0, 1)
      */
     static f32 getF32() {
         // Limited to u16 bounds
@@ -44,7 +45,7 @@ public:
 
 private:
     /**
-     * @brief Advances the generator seed
+     * \~ @brief Advances the generator seed
      */
     static u32 calc() {
         return (sSeed = sSeed * MULT + 1);

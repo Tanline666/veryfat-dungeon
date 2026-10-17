@@ -13,7 +13,7 @@
 class RPGrpModel;
 
 /**
- * @brief Kokeshi body manager interface
+ * \~ @brief Kokeshi body manager interface
  */
 class IRPSysKokeshiBodyManager {
 public:

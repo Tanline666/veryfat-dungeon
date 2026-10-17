@@ -11,15 +11,15 @@
 class RPGrpModel;
 
 /**
- * @brief AABB and spherical model bounds
+ * \~ @brief AABB and spherical model bounds
  */
 class RPGrpModelBoundingInfo : public EGG::ModelBoundingInfo {
 public:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      *
-     * @param flags Bound type flags
-     * @param pModel Owner model
+     * \~ @param flags Bound type flags
+     * \~ @param pModel Owner model
      */
     RPGrpModelBoundingInfo(u32 flags, RPGrpModel* pModel);
 };

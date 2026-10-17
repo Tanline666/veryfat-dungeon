@@ -71,8 +71,8 @@ inline u16 List_GetSize(const List* pList) {
 /**
  * Initializes a List object for use with the specified type.
  *
- * @param LIST Reference to list
- * @param T List element type
+ * \~ @param LIST Reference to list
+ * \~ @param T List element type
  */
 #define NW4R_UT_LIST_INIT(LIST, T)                                             \
     nw4r::ut::List_Init(&(LIST), offsetof(T, link))
@@ -80,8 +80,8 @@ inline u16 List_GetSize(const List* pList) {
 /**
  * Gets the underlying Link within the specified object.
  *
- * @param LIST Reference to list
- * @param OBJ Pointer to list object
+ * \~ @param LIST Reference to list
+ * \~ @param OBJ Pointer to list object
  */
 #define NW4R_UT_LIST_GET_LINK(LIST, OBJ)                                       \
     reinterpret_cast<nw4r::ut::Link*>((u8*)(OBJ) + (LIST).offset)
@@ -89,10 +89,10 @@ inline u16 List_GetSize(const List* pList) {
 /**
  * List for-each macro.
  *
- * @param TYPE Element type
- * @param NAME Element name
- * @param LIST Reference to list
- * @param ... Statement(s) to execute
+ * \~ @param TYPE Element type
+ * \~ @param NAME Element name
+ * \~ @param LIST Reference to list
+ * \~ @param ... Statement(s) to execute
  */
 #define NW4R_UT_LIST_FOREACH(TYPE, NAME, LIST, ...)                            \
     {                                                                          \
@@ -108,10 +108,10 @@ inline u16 List_GetSize(const List* pList) {
 /**
  * List for-each macro (reverse order).
  *
- * @param TYPE Element type
- * @param NAME Element name
- * @param LIST Reference to list
- * @param ... Statement(s) to execute
+ * \~ @param TYPE Element type
+ * \~ @param NAME Element name
+ * \~ @param LIST Reference to list
+ * \~ @param ... Statement(s) to execute
  */
 #define NW4R_UT_LIST_FOREACH_REV(TYPE, NAME, LIST, ...)                        \
     {                                                                          \
@@ -127,10 +127,10 @@ inline u16 List_GetSize(const List* pList) {
 /**
  * List for-each macro, with robust iteration.
  *
- * @param TYPE Element type
- * @param NAME Element name
- * @param LIST Reference to list
- * @param ... Statement(s) to execute
+ * \~ @param TYPE Element type
+ * \~ @param NAME Element name
+ * \~ @param LIST Reference to list
+ * \~ @param ... Statement(s) to execute
  */
 #define NW4R_UT_LIST_FOREACH_SAFE(TYPE, NAME, LIST, ...)                       \
     {                                                                          \

@@ -9,60 +9,60 @@
 //! @{
 
 /**
- * @brief Particle manager
+ * \~ @brief Particle manager
  */
 class RPSysParticleManager : public nw4r::ef::ParticleManager {
 public:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      */
     RPSysParticleManager();
 
     /**
-     * @brief Destructor
+     * \~ @brief Destructor
      */
     virtual ~RPSysParticleManager() override; // at 0x20
 
     /**
-     * @brief Prepares this particle manager for creation
+     * \~ @brief Prepares this particle manager for creation
      *
-     * @param pParent Parent emitter
-     * @param pResource Emitter resource data
-     * @return Success
+     * \~ @param pParent Parent emitter
+     * \~ @param pResource Emitter resource data
+     * \~ @return Success
      */
     virtual bool
     Initialize(nw4r::ef::Emitter* pParent,
                nw4r::ef::EmitterResource* pResource) override; // at 0x10
 
     /**
-     * @brief Updates the particles' state and applies any modifiers
+     * \~ @brief Updates the particles' state and applies any modifiers
      */
     virtual void Calc() override; // at 0x18
 
     /**
-     * @brief Sets the life of all active particles
+     * \~ @brief Sets the life of all active particles
      *
-     * @param life New life
+     * \~ @param life New life
      */
     virtual void SetParticleLife(u16 life); // at 0x24
 
     /**
-     * @brief Sets the size of all active particles
+     * \~ @brief Sets the size of all active particles
      *
-     * @param rSize New size
+     * \~ @param rSize New size
      */
     virtual void SetParticleSize(const nw4r::math::VEC2& rSize); // at 0x28
 
     /**
-     * @brief Sets the rotation of all active particles
+     * \~ @brief Sets the rotation of all active particles
      *
-     * @param rRotate New rotation
+     * \~ @param rRotate New rotation
      */
     virtual void SetParticleRotate(const nw4r::math::VEC3& rRotate); // at 0x2C
 
 private:
     /**
-     * @brief Particle modifier flags
+     * \~ @brief Particle modifier flags
      */
     enum {
         EFlag_ModifyLife = 1 << 0,   //!< Life modifier is set
@@ -72,7 +72,7 @@ private:
 
 private:
     /**
-     * @brief Resets all particle modifiers
+     * \~ @brief Resets all particle modifiers
      */
     virtual void Reset(); // at 0x30
 

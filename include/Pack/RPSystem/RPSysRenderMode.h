@@ -8,12 +8,12 @@
 //! @{
 
 /**
- * @brief Render mode utilities
+ * \~ @brief Render mode utilities
  */
 class RPSysRenderMode {
 public:
     /**
-     * @brief Render mode formats
+     * \~ @brief Render mode formats
      */
     enum EFormat {
         EFormat_Ntsc,     //!< NTSC
@@ -28,21 +28,21 @@ public:
 
 public:
     /**
-     * @brief Gets the render mode for the specified format
+     * \~ @brief Gets the render mode for the specified format
      *
-     * @param format Render mode format
+     * \~ @param format Render mode format
      */
     static GXRenderModeObj* getRenderMode(EFormat format) {
         return spRenderModeTable[format];
     }
 
     /**
-     * @brief Adjusts a render mode to account for widescreen/50Hz formats
+     * \~ @brief Adjusts a render mode to account for widescreen/50Hz formats
      *
-     * @param pOriginX Pointer to render mode viXOrigin
-     * @param pWidth Pointer to render mode viWidth
-     * @param format Render mode format
-     * @param wide Whether the display is widescreen
+     * \~ @param pOriginX Pointer to render mode viXOrigin
+     * \~ @param pWidth Pointer to render mode viWidth
+     * \~ @param format Render mode format
+     * \~ @param wide Whether the display is widescreen
      */
     static void adjust(u16* pOriginX, u16* pWidth, EFormat format, bool wide);
 

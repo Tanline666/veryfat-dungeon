@@ -11,56 +11,56 @@
 class RPGrpCamera;
 
 /**
- * @brief Renderer view for 3D graphics
+ * \~ @brief Renderer view for 3D graphics
  */
 class RPGrpViewRender3D : public RPGrpView {
 public:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      *
-     * @param no View ID
+     * \~ @param no View ID
      */
     explicit RPGrpViewRender3D(u8 no);
 
     /**
-     * @brief Gets the type of this view
+     * \~ @brief Gets the type of this view
      */
     virtual EType GetType() const override { // at 0xC
         return EType_Render3D;
     }
 
     /**
-     * @brief Attaches a new camera to this view
+     * \~ @brief Attaches a new camera to this view
      *
-     * @param pCamera New camera
-     * @return Previously attached camera
+     * \~ @param pCamera New camera
+     * \~ @return Previously attached camera
      */
     virtual RPGrpCamera* AttachCamera(RPGrpCamera* pCamera) override;
 
     /**
-     * @brief Gets the camera currently attached to this view
+     * \~ @brief Gets the camera currently attached to this view
      */
     virtual RPGrpCamera* GetCamera() const override { // at 0x14
         return mpCamera;
     }
 
     /**
-     * @brief Updates this view's state
+     * \~ @brief Updates this view's state
      */
     virtual void Calc() override; // at 0x1C
 
     /**
-     * @brief Prepares this view for a new frame
+     * \~ @brief Prepares this view for a new frame
      */
     virtual void PrepareDraw() override; // at 0x20
 
     /**
-     * @brief Renders the contents of this view
+     * \~ @brief Renders the contents of this view
      */
     virtual void Draw() override; // at 0x24
 
     /**
-     * @brief Prepares this view for a new render pass
+     * \~ @brief Prepares this view for a new render pass
      */
     virtual void PrepareDrawGX() override; // at 0x28
 

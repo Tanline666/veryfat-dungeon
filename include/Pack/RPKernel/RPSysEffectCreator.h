@@ -12,94 +12,94 @@
 //! @{
 
 /**
- * @brief Effect creator
+ * \~ @brief Effect creator
  */
 class RPSysEffectCreator : public EGG::Disposer {
 public:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      *
-     * @param drawScene Effect draw scene
+     * \~ @param drawScene Effect draw scene
      */
     explicit RPSysEffectCreator(u32 drawScene);
 
     /**
-     * @brief Destructor
+     * \~ @brief Destructor
      */
     virtual ~RPSysEffectCreator(); // at 0x8
 
     /**
-     * @brief Attaches new effect resource files
+     * \~ @brief Attaches new effect resource files
      *
-     * @param pEffectProject Binary effect data project (.BREFF)
-     * @param pTextureProject Binary effect texture project (.BREFT)
+     * \~ @param pEffectProject Binary effect data project (.BREFF)
+     * \~ @param pTextureProject Binary effect texture project (.BREFT)
      */
     void setEffectResource(void* pEffectProject, void* pTextureProject);
 
     /**
-     * @brief Releases the attached effect resource files
+     * \~ @brief Releases the attached effect resource files
      */
     void resetEffectResource();
 
     /**
-     * @brief Creates the effect system for slow-motion effects
+     * \~ @brief Creates the effect system for slow-motion effects
      */
     void createSlowSystem();
 
     /**
-     * @brief Sets the frame rate of the slow-motion system
+     * \~ @brief Sets the frame rate of the slow-motion system
      *
-     * @param frameRate Frame rate (0, 1)
+     * \~ @param frameRate Frame rate (0, 1)
      */
     void setFrameRate(f32 frameRate);
 
     /**
-     * @brief Tests whether the slow-motion effect system exists
+     * \~ @brief Tests whether the slow-motion effect system exists
      */
     bool isSlowSystem() const;
 
     /**
-     * @brief Tests whether effects are currently updating in slow motion
+     * \~ @brief Tests whether effects are currently updating in slow motion
      */
     bool isSlowEffect() const;
 
     /**
-     * @brief Kills all effects owned by this creator
+     * \~ @brief Kills all effects owned by this creator
      */
     void stopAllEffect();
 
     /**
-     * @brief Creates an instance of the specified effect
+     * \~ @brief Creates an instance of the specified effect
      *
-     * @param pName Effect name
-     * @param drawGroup Effect draw group
+     * \~ @param pName Effect name
+     * \~ @param drawGroup Effect draw group
      */
     nw4r::ef::Effect* createEffect(const char* pName, u32 drawGroup);
 
     /**
-     * @brief Updates all effects owned by this creator
+     * \~ @brief Updates all effects owned by this creator
      */
     void update();
 
     /**
-     * @brief Draws the specified set of effects
+     * \~ @brief Draws the specified set of effects
      *
-     * @param rDrawInfo Graphics configuration
-     * @param drawGroup Effect draw group
-     * @param drawScene Effect draw scene
+     * \~ @param rDrawInfo Graphics configuration
+     * \~ @param drawGroup Effect draw group
+     * \~ @param drawScene Effect draw scene
      */
     void draw(const nw4r::ef::DrawInfo& rDrawInfo, u32 drawGroup,
               u32 drawScene);
 
     /**
-     * @brief Tests whether this creator has resource files attached
+     * \~ @brief Tests whether this creator has resource files attached
      */
     bool isActive() const {
         return mpEffectProject != NULL && mpTextureProject != NULL;
     }
 
     /**
-     * @brief Accesses the attached effect texture project
+     * \~ @brief Accesses the attached effect texture project
      */
     nw4r::ef::TextureProject* getTextureProject() const {
         return mpTextureProject;
@@ -107,7 +107,7 @@ public:
 
 private:
     /**
-     * @brief Save buffer index
+     * \~ @brief Save buffer index
      */
     enum ESaveBuffer {
         ESaveBuffer_1st, //!< First of the two alternating buffers

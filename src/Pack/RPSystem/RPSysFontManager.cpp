@@ -8,7 +8,7 @@
 RP_SINGLETON_IMPL(RPSysFontManager);
 
 /**
- * @brief Font resource filenames
+ * \~ @brief Font resource filenames
  */
 const char* RPSysFontManager::RES_FONT_NAMES[ResFontType_Max] = {
     "pac_nRodDb_32_I4.brfnt",   // ResFontType_nRodDb_32_I4
@@ -21,7 +21,7 @@ const char* RPSysFontManager::RES_FONT_NAMES[ResFontType_Max] = {
 };
 
 /**
- * @brief Whether each font resource is required by this pack
+ * \~ @brief Whether each font resource is required by this pack
  */
 const BOOL RPSysFontManager::sIsNeedResFont[ResFontType_Max] = {
     TRUE,  // ResFontType_nRodDb_32_I4
@@ -34,7 +34,7 @@ const BOOL RPSysFontManager::sIsNeedResFont[ResFontType_Max] = {
 };
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  */
 RPSysFontManager::RPSysFontManager() {
     mpRomFont = new nw4r::ut::RomFont();
@@ -46,12 +46,12 @@ RPSysFontManager::RPSysFontManager() {
 }
 
 /**
- * @brief Destructor
+ * \~ @brief Destructor
  */
 RPSysFontManager::~RPSysFontManager() {}
 
 /**
- * @brief Loads the ROM font provided by the system
+ * \~ @brief Loads the ROM font provided by the system
  */
 void RPSysFontManager::LoadRomFont() {
     EGG::Heap* pResHeap = RP_GET_INSTANCE(RPSysSystem)->getResourceHeap();
@@ -62,7 +62,7 @@ void RPSysFontManager::LoadRomFont() {
 }
 
 /**
- * @brief Loads all resource fonts required by this pack
+ * \~ @brief Loads all resource fonts required by this pack
  */
 void RPSysFontManager::LoadResFonts() {
     EGG::Archive* pFontArchive =
@@ -78,9 +78,9 @@ void RPSysFontManager::LoadResFonts() {
 }
 
 /**
- * @brief Gets the index of the specified resource font
+ * \~ @brief Gets the index of the specified resource font
  *
- * @param pName Font name
+ * \~ @param pName Font name
  */
 u8 RPSysFontManager::GetResFontIndex(const char* pName) const {
     for (u8 i = 0; i < ResFontType_Max; i++) {
@@ -93,9 +93,9 @@ u8 RPSysFontManager::GetResFontIndex(const char* pName) const {
 }
 
 /**
- * @brief Gets the data of the specified resource font
+ * \~ @brief Gets the data of the specified resource font
  *
- * @param pName Font name
+ * \~ @param pName Font name
  */
 void* RPSysFontManager::GetResFontData(const char* pName) const {
     u8 idx = GetResFontIndex(pName);
@@ -103,10 +103,10 @@ void* RPSysFontManager::GetResFontData(const char* pName) const {
 }
 
 /**
- * @brief Loads the specified resource font from the provided archive
+ * \~ @brief Loads the specified resource font from the provided archive
  *
- * @param idx Font index
- * @param pArchive Font archive
+ * \~ @param idx Font index
+ * \~ @param pArchive Font archive
  */
 void RPSysFontManager::LoadResFont(u8 idx, EGG::Archive* pArchive) {
     // TODO(kiwi) Inline?

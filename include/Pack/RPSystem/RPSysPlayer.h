@@ -9,24 +9,24 @@
 //! @addtogroup rp_system
 //! @{
 /**
- * @brief Player function parameter set
+ * \~ @brief Player function parameter set
  */
 struct RPSysPlayerArg {
     u8 placeholder[1000];
 };
 
 /**
- * @brief Player object
+ * \~ @brief Player object
  */
 class RPSysPlayer {
 public:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      */
     RPSysPlayer();
 
     /**
-     * @brief Destructor
+     * \~ @brief Destructor
      */
     ~RPSysPlayer() {
         // @bug Memory leak
@@ -40,50 +40,51 @@ public:
     }
 
     /**
-     * @brief Resets the data to a default state
+     * \~ @brief Resets the data to a default state
      */
     void reset();
 
     /**
-     * @brief Sets the Mii avatar associated with this player
+     * \~ @brief Sets the Mii avatar associated with this player
      *
-     * @param dataSrc Mii data source
-     * @param index Mii database index
-     * @param rCreateID Mii create ID
+     * \~ @param dataSrc Mii data source
+     * \~ @param index Mii database index
+     * \~ @param rCreateID Mii create ID
      */
     void setAvatar(s8 dataSrc, u16 index, const RFLCreateID& rCreateID);
 
     /**
-     * @brief Loads this player's data
+     * \~ @brief Loads this player's data
      *
-     * @param rArg Parameter set
+     * \~ @param rArg Parameter set
      */
     void loadData(const RPSysPlayerArg& rArg);
 
     /**
-     * @brief Saves this player's data
+     * \~ @brief Saves this player's data
      *
-     * @param rArg Parameter set
+     * \~ @param rArg Parameter set
      */
     void saveData(const RPSysPlayerArg& rArg);
 
     /**
-     * @brief Gets the controller channel used by this player
+     * \~ @brief Gets the controller channel used by this player
      */
     u8 getChannel() const {
         return mChannel;
     }
     /**
-     * @brief Sets the controller channel used by this player
+     * \~ @brief Sets the controller channel used by this player
      *
-     * @param chan Controller channel
+     * \~ @param chan Controller channel
      */
     void setChannel(u8 chan) {
         mChannel = chan;
     }
 
     /**
-     * @brief Gets the RFL data source where this player's avatar can be found
+     * \~ @brief Gets the RFL data source where this player's avatar can be
+     * found
      * @details If the data source was never configured, this value will be -1.
      */
     s8 getDataSource() const {
@@ -91,14 +92,14 @@ public:
     }
 
     /**
-     * @brief Gets the database index where this player's avatar can be found
+     * \~ @brief Gets the database index where this player's avatar can be found
      */
     u16 getIndex() const {
         return mIndex;
     }
 
     /**
-     * @brief Accesses the Mii create ID of this player's avatar
+     * \~ @brief Accesses the Mii create ID of this player's avatar
      */
     const RFLCreateID& getCreateID() const {
         return mCreateID;

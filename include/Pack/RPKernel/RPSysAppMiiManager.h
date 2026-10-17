@@ -10,7 +10,7 @@
 //! @{
 
 /**
- * @brief Application Mii data manager
+ * \~ @brief Application Mii data manager
  */
 class RPSysAppMiiManager {
 protected:
@@ -21,43 +21,43 @@ protected:
 
 public:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      *
-     * @param num Mii buffer capacity
-     * @param pHeap Heap to use for allocations
+     * \~ @param num Mii buffer capacity
+     * \~ @param pHeap Heap to use for allocations
      */
     RPSysAppMiiManager(u16 num, EGG::Heap* pHeap);
 
     /**
-     * @brief Destructor
+     * \~ @brief Destructor
      */
     virtual ~RPSysAppMiiManager(); // at 0x8
 
     /**
-     * @brief Loads the Mii data resources
+     * \~ @brief Loads the Mii data resources
      */
     virtual void LoadResource() = 0; // at 0xC
 
     /**
-     * @brief Gets the capacity of the Mii buffer
+     * \~ @brief Gets the capacity of the Mii buffer
      */
     u16 GetNumData() const {
         return mNumData;
     }
 
     /**
-     * @brief Accesses the specified Mii character data (.RCD)
+     * \~ @brief Accesses the specified Mii character data (.RCD)
      *
-     * @param index Database index
+     * \~ @param index Database index
      */
     const RFLCharData* GetCharData(u16 index) const {
         return mppCharData[index];
     }
 
     /**
-     * @brief Accesses the specified Mii store data (.RSD)
+     * \~ @brief Accesses the specified Mii store data (.RSD)
      *
-     * @param index Database index
+     * \~ @param index Database index
      */
     const RFLStoreData* GetStoreData(u16 index) const {
         return mppStoreData[index];

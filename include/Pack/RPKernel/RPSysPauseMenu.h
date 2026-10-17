@@ -1,8 +1,10 @@
 #ifndef RP_KERNEL_PAUSE_MENU_H
 #define RP_KERNEL_PAUSE_MENU_H
 
-#include <nw4r/lyt.h>
 #include <Pack/types_pack.h>
+
+#include <nw4r/lyt.h>
+
 
 //! @addtogroup rp_kernel
 //! @{
@@ -14,7 +16,7 @@ class RPSysLytAnmObj;
 class RPSysLytTextBox;
 
 /**
- * @brief Library that handles pause menu layout.
+ * \~ @brief Library that handles pause menu layout.
  */
 
 class RPSysPauseMenu {
@@ -35,7 +37,7 @@ private:
     u8 mPAD_0x1E[2];
     nw4r::lyt::Pane* mPane_0x20;
     RPSysLytBounding* mBounding; // at 0x24
-    RPSysLytTextBox* mTextBox; // at 0x28
+    RPSysLytTextBox* mTextBox;   // at 0x28
     bool mUNK_0x2C;
     bool mUNK_0x2D;
     u8 mPAD_0x2E[10];

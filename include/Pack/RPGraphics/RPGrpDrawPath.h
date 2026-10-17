@@ -8,7 +8,7 @@
 //! @{
 
 /**
- * @brief Base class for draw paths
+ * \~ @brief Base class for draw paths
  */
 class RPGrpDrawPath {
 protected:

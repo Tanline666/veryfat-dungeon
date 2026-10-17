@@ -8,20 +8,20 @@
 //! @{
 
 /**
- * @brief NW4R layout picture extension
+ * \~ @brief NW4R layout picture extension
  */
 class RPSysLytPicture : public nw4r::lyt::Picture {
 public:
     /**
-     * @brief Applies the specified player material color
+     * \~ @brief Applies the specified player material color
      * @details The color is applied to TEV color register 1
      *
-     * @param idx Player index
+     * \~ @param idx Player index
      */
     void applyPlayerColor(u32 idx);
 
     /**
-     * @brief Applies the CPU player material color
+     * \~ @brief Applies the CPU player material color
      * @details The color is applied to TEV color register 1
      */
     void applyCpuColor();

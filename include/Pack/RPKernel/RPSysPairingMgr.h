@@ -6,24 +6,24 @@
 //! @{
 
 /**
- * @brief Controller pairing manager
+ * \~ @brief Controller pairing manager
  */
 class RPSysPairingMgr {
 public:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      */
     RPSysPairingMgr();
 
     /**
-     * @brief Updates the pairing state
+     * \~ @brief Updates the pairing state
      */
     void calc();
 
     /**
-     * @brief Sets whether pairing is enabled
+     * \~ @brief Sets whether pairing is enabled
      *
-     * @param enabled Whether to enable pairing
+     * \~ @param enabled Whether to enable pairing
      */
     void setEnabled(bool enabled) {
         mIsEnabled = enabled;
@@ -31,7 +31,7 @@ public:
 
 private:
     /**
-     * @brief Pairing state
+     * \~ @brief Pairing state
      */
     enum EPairingState {
         EPairingState_Start, //! Begin sync search
@@ -41,10 +41,10 @@ private:
 
 private:
     /**
-     * @brief WPAD simple sync callback
+     * \~ @brief WPAD simple sync callback
      *
-     * @param result WPAD sync result
-     * @param num Number of synced controllers
+     * \~ @param result WPAD sync result
+     * \~ @param num Number of synced controllers
      */
     static void simpleSyncCallback(s32 result, s32 num);
 

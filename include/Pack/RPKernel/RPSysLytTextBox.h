@@ -13,75 +13,75 @@
 class RPSysMessage;
 
 /**
- * @brief NW4R layout textbox extension
+ * \~ @brief NW4R layout textbox extension
  */
 class RPSysLytTextBox : public nw4r::lyt::TextBox {
 public:
     /**
-     * @brief Sets a formatted string to the textbox
+     * \~ @brief Sets a formatted string to the textbox
      *
-     * @param pFmt Format string
-     * @param argc Number of format arguments
-     * @param ... Format arguments
+     * \~ @param pFmt Format string
+     * \~ @param argc Number of format arguments
+     * \~ @param ... Format arguments
      */
     void setText(const wchar_t* pFmt, int argc, ...);
 
     /**
-     * @brief Sets a formatted string to the textbox
+     * \~ @brief Sets a formatted string to the textbox
      *
-     * @param pFmt Format string
-     * @param argc Number of format arguments
-     * @param argv Format arguments
+     * \~ @param pFmt Format string
+     * \~ @param argc Number of format arguments
+     * \~ @param argv Format arguments
      */
     void setText(const wchar_t* pFmt, int argc, va_list argv);
 
     /**
-     * @brief Sets a formatted message to the textbox
+     * \~ @brief Sets a formatted message to the textbox
      *
-     * @param pMessage Message holder
-     * @param group Group ID
-     * @param idx Message index
-     * @param argc Number of format arguments
-     * @param ... Format arguments
+     * \~ @param pMessage Message holder
+     * \~ @param group Group ID
+     * \~ @param idx Message index
+     * \~ @param argc Number of format arguments
+     * \~ @param ... Format arguments
      */
     void setMessage(RPSysMessage* pMessage, u32 group, u32 idx, int argc, ...);
 
     /**
-     * @brief Sets a formatted message to the textbox
+     * \~ @brief Sets a formatted message to the textbox
      *
-     * @param pMessage Message holder
-     * @param group Group ID
-     * @param idx Message index
-     * @param argc Number of format arguments
-     * @param argv Format arguments
+     * \~ @param pMessage Message holder
+     * \~ @param group Group ID
+     * \~ @param idx Message index
+     * \~ @param argc Number of format arguments
+     * \~ @param argv Format arguments
      */
     void setMessage(RPSysMessage* pMessage, u32 group, u32 idx, int argc,
                     va_list argv);
 
     /**
-     * @brief Sets the horizontal scale of the font
+     * \~ @brief Sets the horizontal scale of the font
      *
-     * @param scale New horizontal scale
+     * \~ @param scale New horizontal scale
      */
     void setScaleX(f32 scale);
 
     /**
-     * @brief Sets a string to the textbox
+     * \~ @brief Sets a string to the textbox
      * @details This function also applies the attributes from the specified
      * message.
      *
-     * @param pMessage Message holder
-     * @param group Group ID
-     * @param idx Message index
-     * @param pText New text
+     * \~ @param pMessage Message holder
+     * \~ @param group Group ID
+     * \~ @param idx Message index
+     * \~ @param pText New text
      */
     void setMessage(RPSysMessage* pMessage, u32 group, u32 idx,
                     const wchar_t* pText);
 
     /**
-     * @brief Copies the front color from the specified textbox
+     * \~ @brief Copies the front color from the specified textbox
      *
-     * @param rOther Textbox to copy from
+     * \~ @param rOther Textbox to copy from
      */
     void copyFontColor(const RPSysLytTextBox& rOther);
 

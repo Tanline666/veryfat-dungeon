@@ -13,7 +13,7 @@
 typedef u16 RPGrpHandle;
 
 /**
- * @brief Model resource manager
+ * \~ @brief Model resource manager
  */
 class RPGrpModelResManager {
     //! Only the model manager can change the current instance
@@ -21,7 +21,7 @@ class RPGrpModelResManager {
 
 public:
     /**
-     * @brief Resource file type
+     * \~ @brief Resource file type
      */
     enum Type {
         Type_None = 0,
@@ -58,108 +58,108 @@ private:
 
 public:
     /**
-     * @brief Gets the currently active manager instance
+     * \~ @brief Gets the currently active manager instance
      */
     static RPGrpModelResManager* GetCurrent() {
         return spCurrent;
     }
 
     /**
-     * @brief Initializes the manager state
+     * \~ @brief Initializes the manager state
      */
     void Configure();
 
     /**
-     * @brief Allocates memory to hold the specified amount of resources
+     * \~ @brief Allocates memory to hold the specified amount of resources
      *
-     * @param num Resource list capacity
+     * \~ @param num Resource list capacity
      */
     void CreateResourceList(u16 num);
 
     /**
-     * @brief Releases the specified resource
+     * \~ @brief Releases the specified resource
      *
-     * @param handle Resource handle
+     * \~ @param handle Resource handle
      */
     void Terminate(RPGrpHandle handle);
 
     /**
-     * @brief Releases all resources
+     * \~ @brief Releases all resources
      */
     void TerminateAll();
 
     /**
-     * @brief Searches the resource list for the specified data
+     * \~ @brief Searches the resource list for the specified data
      *
-     * @param pBinary Binary resource data
-     * @return Resource handle, or -1 if not found
+     * \~ @param pBinary Binary resource data
+     * \~ @return Resource handle, or -1 if not found
      */
     int SearchData(void* pBinary) const;
 
     /**
-     * @brief Attempts to create a new resource from the specified data
+     * \~ @brief Attempts to create a new resource from the specified data
      * @details If the resource already exists, this function returns the
      * existing handle.
      *
-     * @param type Resource type
-     * @param pBinary Binary resource data
-     * @param arg2
-     * @return New resource handle
+     * \~ @param type Resource type
+     * \~ @param pBinary Binary resource data
+     * \~ @param arg2
+     * \~ @return New resource handle
      */
     RPGrpHandle CreateData(Type type, void* pBinary, u32 arg2 = 0);
 
     /**
-     * @brief Gets the raw data of the specified resource subfile
+     * \~ @brief Gets the raw data of the specified resource subfile
      *
-     * @param type Subfile type
-     * @param handle File resource handle
-     * @param pName Subfile name
+     * \~ @param type Subfile type
+     * \~ @param handle File resource handle
+     * \~ @param pName Subfile name
      */
     void* GetPtr(Type type, RPGrpHandle handle, const char* pName) const;
 
     /**
-     * @brief Gets the raw data of the specified resource subfile
+     * \~ @brief Gets the raw data of the specified resource subfile
      *
-     * @param type Subfile type
-     * @param handle File resource handle
-     * @param index Subfile index
+     * \~ @param type Subfile type
+     * \~ @param handle File resource handle
+     * \~ @param index Subfile index
      */
     void* GetPtr(Type type, RPGrpHandle handle, int index) const;
 
     /**
-     * @brief Tests whether the specified resource subfile exists
+     * \~ @brief Tests whether the specified resource subfile exists
      *
-     * @param type Subfile type
-     * @param handle File resource handle
-     * @param pName Subfile name
+     * \~ @param type Subfile type
+     * \~ @param handle File resource handle
+     * \~ @param pName Subfile name
      */
     bool HasFile(Type type, RPGrpHandle handle, const char* pName) const;
 
     /**
-     * @brief Gets an animation's transform result at the specified frame
+     * \~ @brief Gets an animation's transform result at the specified frame
      *
-     * @param handle Animation resource handle
-     * @param idx Animation node index
-     * @param frame Animation frame
-     * @param[out] pRotTrans Transformation matrix
-     * @param[out] pTrans X/Y/Z translation
-     * @param[out] pRotate X/Y/Z rotation (in degrees)
-     * @param[out] pScale X/Y/Z scale
+     * \~ @param handle Animation resource handle
+     * \~ @param idx Animation node index
+     * \~ @param frame Animation frame
+     * \~ @param[out] pRotTrans Transformation matrix
+     * \~ @param[out] pTrans X/Y/Z translation
+     * \~ @param[out] pRotate X/Y/Z rotation (in degrees)
+     * \~ @param[out] pScale X/Y/Z scale
      */
     void GetResultTransform(RPGrpHandle handle, u16 idx, f32 frame,
                             EGG::Matrix34f* pRotTrans, EGG::Vector3f* pTrans,
                             EGG::Vector3f* pRotate, EGG::Vector3f* pScale);
 
     /**
-     * @brief Gets an animation's transform result at the specified frame
+     * \~ @brief Gets an animation's transform result at the specified frame
      *
-     * @param handle Animation resource handle
-     * @param pName Animation node name
-     * @param frame Animation frame
-     * @param[out] pRotTrans Transformation matrix
-     * @param[out] pTrans X/Y/Z translation
-     * @param[out] pRotate X/Y/Z rotation (in degrees)
-     * @param[out] pScale X/Y/Z scale
+     * \~ @param handle Animation resource handle
+     * \~ @param pName Animation node name
+     * \~ @param frame Animation frame
+     * \~ @param[out] pRotTrans Transformation matrix
+     * \~ @param[out] pTrans X/Y/Z translation
+     * \~ @param[out] pRotate X/Y/Z rotation (in degrees)
+     * \~ @param[out] pScale X/Y/Z scale
      */
     inline void GetResultTransform(RPGrpHandle handle, const char* pName,
                                    u16 idx, f32 frame,
@@ -169,55 +169,55 @@ public:
                                    EGG::Vector3f* pScale);
 
     /**
-     * @brief Gets the type of the resource acquired through the handle
+     * \~ @brief Gets the type of the resource acquired through the handle
      *
-     * @param handle Resource handle
+     * \~ @param handle Resource handle
      */
     Type GetType(RPGrpHandle handle) const {
         return mpResList[handle].type;
     }
 
     /**
-     * @brief Gets the specified NW4R resource using the file handle
+     * \~ @brief Gets the specified NW4R resource using the file handle
      * @details This function accesses the resource at index zero.
      *
      * @tparam E Resource type
-     * @param handle File resource handle
+     * \~ @param handle File resource handle
      */
     template <Type E>                              //
     inline typename ResType<E, Int2Type<E> >::TRes //
     GetData(RPGrpHandle handle) const;
 
     /**
-     * @brief Gets the specified NW4R resource using the file handle
+     * \~ @brief Gets the specified NW4R resource using the file handle
      * @details This function accesses the resource at the specified index.
      *
      * @tparam E Resource type
-     * @param handle File resource handle
-     * @param idx Resource index
+     * \~ @param handle File resource handle
+     * \~ @param idx Resource index
      */
     template <Type E>                              //
     inline typename ResType<E, Int2Type<E> >::TRes //
     GetData(RPGrpHandle handle, int idx) const;
 
     /**
-     * @brief Gets the specified NW4R resource using the file handle
+     * \~ @brief Gets the specified NW4R resource using the file handle
      * @details This function accesses the resource with the specified name.
      *
      * @tparam E Resource type
-     * @param handle File resource handle
-     * @param pName Resource name
+     * \~ @param handle File resource handle
+     * \~ @param pName Resource name
      */
     template <Type E>                              //
     inline typename ResType<E, Int2Type<E> >::TRes //
     GetData(RPGrpHandle handle, const char* pName) const;
 
     /**
-     * @brief Gets the specified NW4R resource using the file handle
+     * \~ @brief Gets the specified NW4R resource using the file handle
      * @details This function accesses the resource at index zero.
      *
      * @tparam E Resource type
-     * @param handle File resource handle
+     * \~ @param handle File resource handle
      */
     template <Type E> //
     inline bool HasFile(RPGrpHandle handle) const {
@@ -225,12 +225,12 @@ public:
     }
 
     /**
-     * @brief Gets the specified NW4R resource using the file handle
+     * \~ @brief Gets the specified NW4R resource using the file handle
      * @details This function accesses the resource at the specified index.
      *
      * @tparam E Resource type
-     * @param handle File resource handle
-     * @param idx Resource index
+     * \~ @param handle File resource handle
+     * \~ @param idx Resource index
      */
     template <Type E> //
     inline bool HasFile(RPGrpHandle handle, int idx) const {
@@ -238,12 +238,12 @@ public:
     }
 
     /**
-     * @brief Gets the specified NW4R resource using the file handle
+     * \~ @brief Gets the specified NW4R resource using the file handle
      * @details This function accesses the resource with the specified name.
      *
      * @tparam E Resource type
-     * @param handle File resource handle
-     * @param pName Resource name
+     * \~ @param handle File resource handle
+     * \~ @param pName Resource name
      */
     template <Type E> //
     inline bool HasFile(RPGrpHandle handle, const char* pName) const {
@@ -252,7 +252,7 @@ public:
 
 private:
     /**
-     * @brief Generic resource type
+     * \~ @brief Generic resource type
      */
     struct Resource {
         //! File type
@@ -279,7 +279,7 @@ private:
         u32 unkC;
 
         /**
-         * @brief Clears the data of this resource
+         * \~ @brief Clears the data of this resource
          */
         void Reset() {
             pBinary = NULL;
@@ -291,36 +291,36 @@ private:
 
 private:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      */
     RPGrpModelResManager();
 
     /**
-     * @brief Destructor
+     * \~ @brief Destructor
      */
     virtual ~RPGrpModelResManager() {} // at 0x8
 
     /**
-     * @brief Creates a new resource from the specified data
+     * \~ @brief Creates a new resource from the specified data
      *
-     * @param handle Handle for the new resource
-     * @param type Resource type
-     * @param pBinary Binary resource data
-     * @param arg3
+     * \~ @param handle Handle for the new resource
+     * \~ @param type Resource type
+     * \~ @param pBinary Binary resource data
+     * \~ @param arg3
      */
     void InternalCreateData(RPGrpHandle handle, Type type, void* pBinary,
                             u32 arg3 = 0);
 
     /**
-     * @brief Gets an animation's transform result at the specified frame
+     * \~ @brief Gets an animation's transform result at the specified frame
      *
-     * @param chr Animation resource
-     * @param idx Animation node index
-     * @param frame Animation frame
-     * @param[out] pRotTrans Transformation matrix
-     * @param[out] pTrans X/Y/Z translation
-     * @param[out] pRotate X/Y/Z rotation (in degrees)
-     * @param[out] pScale X/Y/Z scale
+     * \~ @param chr Animation resource
+     * \~ @param idx Animation node index
+     * \~ @param frame Animation frame
+     * \~ @param[out] pRotTrans Transformation matrix
+     * \~ @param[out] pTrans X/Y/Z translation
+     * \~ @param[out] pRotate X/Y/Z rotation (in degrees)
+     * \~ @param[out] pScale X/Y/Z scale
      */
     static void InternalGetResultTransform(const nw4r::g3d::ResAnmChr chr,
                                            u16 idx, f32 frame,
@@ -460,15 +460,15 @@ SUBFILE_NAME_LIST;
  ******************************************************************************/
 
 /**
- * @brief Gets an animation's transform result at the specified frame
+ * \~ @brief Gets an animation's transform result at the specified frame
  *
- * @param handle Animation resource handle
- * @param pName Animation node name
- * @param frame Animation frame
- * @param[out] pRotTrans Transformation matrix
- * @param[out] pTrans X/Y/Z translation
- * @param[out] pRotate X/Y/Z rotation (in degrees)
- * @param[out] pScale X/Y/Z scale
+ * \~ @param handle Animation resource handle
+ * \~ @param pName Animation node name
+ * \~ @param frame Animation frame
+ * \~ @param[out] pRotTrans Transformation matrix
+ * \~ @param[out] pTrans X/Y/Z translation
+ * \~ @param[out] pRotate X/Y/Z rotation (in degrees)
+ * \~ @param[out] pScale X/Y/Z scale
  */
 inline void RPGrpModelResManager::GetResultTransform(
     RPGrpHandle handle, const char* pName, u16 idx, f32 frame,

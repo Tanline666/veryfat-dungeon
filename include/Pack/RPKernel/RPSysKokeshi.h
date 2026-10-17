@@ -11,61 +11,61 @@
 //! @{
 
 /**
- * @brief Mii avatar model
+ * \~ @brief Mii avatar model
  */
 class RPSysKokeshi : public RPSysAvatar {
 public:
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      *
-     * @param pGenInfo Mii generation parameters
+     * \~ @param pGenInfo Mii generation parameters
      */
     explicit RPSysKokeshi(const RPSysKokeshiGenInfo* pGenInfo);
 
     /**
-     * @brief Destructor
+     * \~ @brief Destructor
      */
     virtual ~RPSysKokeshi() override; // at 0x8
 
     /**
-     * @brief Loads the assets necessary for this avatar
+     * \~ @brief Loads the assets necessary for this avatar
      *
-     * @param pOverloadInfo Overload parameters
+     * \~ @param pOverloadInfo Overload parameters
      */
     virtual void LoadResource(const RPSysKokeshiOverloadInfo* pOverloadInfo =
                                   NULL) override; // at 0xC
 
     /**
-     * @brief Applies all lightmap textures to this avatar
+     * \~ @brief Applies all lightmap textures to this avatar
      *
-     * @param drawScene Draw scene index
+     * \~ @param drawScene Draw scene index
      */
     virtual void ApplyLightTexture(u8 drawScene) override; // at 0x10
 
     /**
-     * @brief Gets the transformation matrix of the head joint/node
+     * \~ @brief Gets the transformation matrix of the head joint/node
      *
-     * @param[out] pMtx Transformation matrix
+     * \~ @param[out] pMtx Transformation matrix
      */
     void GetHeadJointMtx(EGG::Matrix34f* pMtx);
 
     /**
-     * @brief Gets the transformation matrix of the left hand joint/node
+     * \~ @brief Gets the transformation matrix of the left hand joint/node
      *
-     * @param[out] pMtx Transformation matrix
+     * \~ @param[out] pMtx Transformation matrix
      */
     void GetLeftHandJointMtx(EGG::Matrix34f* pMtx);
 
     /**
-     * @brief Gets the transformation matrix of the right hand joint/node
+     * \~ @brief Gets the transformation matrix of the right hand joint/node
      *
-     * @param[out] pMtx Transformation matrix
+     * \~ @param[out] pMtx Transformation matrix
      */
     void GetRightHandJointMtx(EGG::Matrix34f* pMtx);
 
 private:
     /**
-     * @brief Handles post-constructor initialization
+     * \~ @brief Handles post-constructor initialization
      */
     void Construct();
 

@@ -176,7 +176,7 @@ const char* RPSysSystem::getTimeStampString() {
 RPSysSystem::~RPSysSystem() {}
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  */
 
 RPSysSystem::RPSysSystem() {
@@ -236,8 +236,8 @@ void RPSysSystem::setCallBack() {
 }
 
 /**
- * @brief Controls whether the game restarts or returns to the Wii Menu upon a
- * soft reset.
+ * \~ @brief Controls whether the game restarts or returns to the Wii Menu upon
+ * a soft reset.
  */
 void RPSysSystem::softResetCallBack() {
     if (RP_GET_INSTANCE(RPSysSystem)->mPowerFlag) {

@@ -13,7 +13,7 @@ void RPUtlShadowDrawer::initMtx() const {
 }
 
 /**
- * @brief Draws basic shadows.
+ * \~ @brief Draws basic shadows.
  */
 void RPUtlShadowDrawer::drawShadow() {
     nw4r::math::MTX34 ab;

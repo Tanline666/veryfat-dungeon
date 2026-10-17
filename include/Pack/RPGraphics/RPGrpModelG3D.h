@@ -11,7 +11,7 @@
 //! @{
 
 /**
- * @brief Model implementation for nw4r::g3d
+ * \~ @brief Model implementation for nw4r::g3d
  */
 class RPGrpModelG3D : public RPGrpModel,
                       public nw4r::g3d::IScnObjCallback,

@@ -5,17 +5,17 @@
 #include <nw4r/g3d.h>
 
 /**
- * @brief Allocator used for model-related allocations
+ * \~ @brief Allocator used for model-related allocations
  */
 RPGrpModelResManager* RPGrpModelResManager::spCurrent = NULL;
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  */
 RPGrpModelResManager::RPGrpModelResManager() {}
 
 /**
- * @brief Initializes the manager state
+ * \~ @brief Initializes the manager state
  */
 void RPGrpModelResManager::Configure() {
     mResNum = 0;
@@ -23,9 +23,9 @@ void RPGrpModelResManager::Configure() {
 }
 
 /**
- * @brief Allocates memory to hold the specified amount of resources
+ * \~ @brief Allocates memory to hold the specified amount of resources
  *
- * @param num Resource list capacity
+ * \~ @param num Resource list capacity
  */
 void RPGrpModelResManager::CreateResourceList(u16 num) {
     if (mResNum > 0) {
@@ -46,9 +46,9 @@ void RPGrpModelResManager::CreateResourceList(u16 num) {
 }
 
 /**
- * @brief Releases the specified resource
+ * \~ @brief Releases the specified resource
  *
- * @param handle Resource handle
+ * \~ @param handle Resource handle
  */
 void RPGrpModelResManager::Terminate(RPGrpHandle handle) {
     switch (mpResList[handle].type) {
@@ -69,7 +69,7 @@ void RPGrpModelResManager::Terminate(RPGrpHandle handle) {
 }
 
 /**
- * @brief Releases all resources
+ * \~ @brief Releases all resources
  */
 void RPGrpModelResManager::TerminateAll() {
     for (RPGrpHandle handle = 0; handle < mResNum; handle++) {
@@ -78,10 +78,10 @@ void RPGrpModelResManager::TerminateAll() {
 }
 
 /**
- * @brief Searches the resource list for the specified data
+ * \~ @brief Searches the resource list for the specified data
  *
- * @param pBinary Binary resource data
- * @return Resource handle, or -1 if not found
+ * \~ @param pBinary Binary resource data
+ * \~ @return Resource handle, or -1 if not found
  */
 int RPGrpModelResManager::SearchData(void* pBinary) const {
     for (int i = 0; i < mResNum; i++) {
@@ -94,12 +94,12 @@ int RPGrpModelResManager::SearchData(void* pBinary) const {
 }
 
 /**
- * @brief Creates a new resource from the specified data
+ * \~ @brief Creates a new resource from the specified data
  *
- * @param type Resource type
- * @param pBinary Binary resource data
- * @param arg2
- * @return New resource handle
+ * \~ @param type Resource type
+ * \~ @param pBinary Binary resource data
+ * \~ @param arg2
+ * \~ @return New resource handle
  */
 RPGrpHandle RPGrpModelResManager::CreateData(Type type, void* pBinary,
                                              u32 arg2) {
@@ -121,11 +121,11 @@ RPGrpHandle RPGrpModelResManager::CreateData(Type type, void* pBinary,
 }
 
 /**
- * @brief Gets the raw data of the specified resource subfile
+ * \~ @brief Gets the raw data of the specified resource subfile
  *
- * @param type Subfile type
- * @param handle File resource handle
- * @param pName Subfile name
+ * \~ @param type Subfile type
+ * \~ @param handle File resource handle
+ * \~ @param pName Subfile name
  */
 void* RPGrpModelResManager::GetPtr(Type type, RPGrpHandle handle,
                                    const char* pName) const {
@@ -177,11 +177,11 @@ void* RPGrpModelResManager::GetPtr(Type type, RPGrpHandle handle,
 }
 
 /**
- * @brief Gets the raw data of the specified resource subfile
+ * \~ @brief Gets the raw data of the specified resource subfile
  *
- * @param type Subfile type
- * @param handle File resource handle
- * @param index Subfile index
+ * \~ @param type Subfile type
+ * \~ @param handle File resource handle
+ * \~ @param index Subfile index
  */
 void* RPGrpModelResManager::GetPtr(Type type, RPGrpHandle handle,
                                    int index) const {
@@ -352,11 +352,11 @@ void RPGrpModelResManager::InternalCreateData(RPGrpHandle handle, Type type,
 }
 
 /**
- * @brief Tests whether the specified resource subfile exists
+ * \~ @brief Tests whether the specified resource subfile exists
  *
- * @param type Subfile type
- * @param handle File resource handle
- * @param pName Subfile name
+ * \~ @param type Subfile type
+ * \~ @param handle File resource handle
+ * \~ @param pName Subfile name
  */
 bool RPGrpModelResManager::HasFile(Type type, RPGrpHandle handle,
                                    const char* pName) const {
@@ -414,15 +414,15 @@ bool RPGrpModelResManager::HasFile(Type type, RPGrpHandle handle,
 }
 
 /**
- * @brief Gets an animation's transform result at the specified frame
+ * \~ @brief Gets an animation's transform result at the specified frame
  *
- * @param handle Animation resource handle
- * @param idx Animation node index
- * @param frame Animation frame
- * @param[out] pRotTrans Transformation matrix
- * @param[out] pTrans X/Y/Z translation
- * @param[out] pRotate X/Y/Z rotation (in degrees)
- * @param[out] pScale X/Y/Z scale
+ * \~ @param handle Animation resource handle
+ * \~ @param idx Animation node index
+ * \~ @param frame Animation frame
+ * \~ @param[out] pRotTrans Transformation matrix
+ * \~ @param[out] pTrans X/Y/Z translation
+ * \~ @param[out] pRotate X/Y/Z rotation (in degrees)
+ * \~ @param[out] pScale X/Y/Z scale
  */
 void RPGrpModelResManager::GetResultTransform(
     RPGrpHandle handle, u16 idx, f32 frame, EGG::Matrix34f* pRotTrans,
@@ -442,15 +442,15 @@ void RPGrpModelResManager::GetResultTransform(
 }
 
 /**
- * @brief Gets an animation's transform result at the specified frame
+ * \~ @brief Gets an animation's transform result at the specified frame
  *
- * @param chr Animation resource
- * @param idx Animation node index
- * @param frame Animation frame
- * @param[out] pRotTrans Transformation matrix
- * @param[out] pTrans X/Y/Z translation
- * @param[out] pRotate X/Y/Z rotation (in degrees)
- * @param[out] pScale X/Y/Z scale
+ * \~ @param chr Animation resource
+ * \~ @param idx Animation node index
+ * \~ @param frame Animation frame
+ * \~ @param[out] pRotTrans Transformation matrix
+ * \~ @param[out] pTrans X/Y/Z translation
+ * \~ @param[out] pRotate X/Y/Z rotation (in degrees)
+ * \~ @param[out] pScale X/Y/Z scale
  */
 void RPGrpModelResManager::InternalGetResultTransform(
     const nw4r::g3d::ResAnmChr chr, u16 idx, f32 frame,

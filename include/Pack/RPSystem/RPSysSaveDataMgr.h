@@ -16,7 +16,7 @@
 class RPSysSaveData;
 
 /**
- * @brief Save data manager
+ * \~ @brief Save data manager
  */
 //! IRPSysHostIOSocket may have been removed in Wii Fit Plus
 //! TODO(texline): The below structure might be wrong as the game
@@ -26,7 +26,7 @@ class RPSysSaveDataMgr : public IRPSysHostIOSocket {
 
 public:
     /**
-     * @brief Banner file type
+     * \~ @brief Banner file type
      */
     enum EBannerType {
         EBannerType_Real, //!< Banner file in the home directory
@@ -48,71 +48,71 @@ public:
      */
     /**@{*/
     /**
-     * @brief Checks which save data files exist on the NAND
+     * \~ @brief Checks which save data files exist on the NAND
      *
-     * @return Success
+     * \~ @return Success
      */
     bool existPackFileSync();
     /**
-     * @brief Checks which save data files exist on the NAND (asynchronous)
+     * \~ @brief Checks which save data files exist on the NAND (asynchronous)
      *
-     * @return Success
+     * \~ @return Success
      */
     bool existPackFileAsync();
     /**
-     * @brief Tests whether the NAND has enough free space to store both the
+     * \~ @brief Tests whether the NAND has enough free space to store both the
      * banner and save files (asynchronous)
      *
-     * @return Success
+     * \~ @return Success
      */
     bool existNandMemoryAsync();
 
     /**
-     * @brief Attempts to create both the banner and save files on the NAND
+     * \~ @brief Attempts to create both the banner and save files on the NAND
      *
-     * @return Success
+     * \~ @return Success
      */
     bool createPackFileSync();
     /**
-     * @brief Attempts to create both the banner and save files on the NAND
+     * \~ @brief Attempts to create both the banner and save files on the NAND
      * (asynchonous)
      *
-     * @return Success
+     * \~ @return Success
      */
     bool createPackFileAsync();
     /**
-     * @brief Attempts to delete both the banner and save files from the NAND
+     * \~ @brief Attempts to delete both the banner and save files from the NAND
      *
-     * @return Success
+     * \~ @return Success
      */
     bool deletePackFileSync();
     /**
-     * @brief Attempts to save both the banner and save files to the NAND
+     * \~ @brief Attempts to save both the banner and save files to the NAND
      *
-     * @return Success
+     * \~ @return Success
      */
     bool savePackFileSync();
 
     /**
-     * @brief Attempts to load the save file from the NAND (asynchronous)
+     * \~ @brief Attempts to load the save file from the NAND (asynchronous)
      *
-     * @return Success
+     * \~ @return Success
      */
     bool loadAsync();
     /**
-     * @brief Attempts to save both the banner and save files to the NAND
+     * \~ @brief Attempts to save both the banner and save files to the NAND
      * (asynchronous)
      *
-     * @return Success
+     * \~ @return Success
      */
     bool saveAsync();
 
     /**
-     * @brief Loads the save file from the NAND
+     * \~ @brief Loads the save file from the NAND
      */
     void loadSync();
     /**
-     * @brief Saves both the banner and save files to the NAND
+     * \~ @brief Saves both the banner and save files to the NAND
      */
     void saveSync();
 
@@ -121,40 +121,41 @@ public:
      */
     /**@{*/
     /**
-     * @brief Tests whether async operations have completed
+     * \~ @brief Tests whether async operations have completed
      */
     bool isAsyncFinish() const;
     /**
-     * @brief Tests whether NAND operations have completed
+     * \~ @brief Tests whether NAND operations have completed
      */
     bool isNandAccessFinish() const;
 
     /**
-     * @brief Tests whether both the banner and save files exist on the NAND
+     * \~ @brief Tests whether both the banner and save files exist on the NAND
      */
     bool isPackFileExist() const;
     /**
-     * @brief Tests whether the NAND has enough free space to store both the
+     * \~ @brief Tests whether the NAND has enough free space to store both the
      * banner and save files
      */
     bool isNandMemoryExist() const;
 
     /**
-     * @brief Tests whether the save file is broken (bad magic, checksum, etc.)
+     * \~ @brief Tests whether the save file is broken (bad magic, checksum,
+     * etc.)
      */
     bool isSaveFileBroken() const;
     /**
-     * @brief Tests whether any unrecoverable error has occurred
+     * \~ @brief Tests whether any unrecoverable error has occurred
      * @typo
      */
     bool isErrorOccured() const;
     /**@}*/
 
     /**
-     * @brief Toggles the ability to save both the banner and save files to the
-     * NAND
+     * \~ @brief Toggles the ability to save both the banner and save files to
+     * the NAND
      *
-     * @param disable Whether to disable saving
+     * \~ @param disable Whether to disable saving
      */
     void setSaveDisable(bool disable);
 
@@ -163,46 +164,46 @@ public:
      */
     /**@{*/
     /**
-     * @brief Gets the result of the last NAND memory check
+     * \~ @brief Gets the result of the last NAND memory check
      */
     u32 getNandCheckAnswer() const;
     /**
-     * @brief Gets the result of the last NAND operation
+     * \~ @brief Gets the result of the last NAND operation
      */
     s32 getErrorCode() const;
 
     /**
-     * @brief Gets the number of free NAND blocks needed to store both the
+     * \~ @brief Gets the number of free NAND blocks needed to store both the
      * banner and save files
      */
     u32 getUserBlockSize() const;
     /**
-     * @brief Gets the number of free NAND inodes needed to store both the
+     * \~ @brief Gets the number of free NAND inodes needed to store both the
      * banner and save files
      */
     u32 getSaveFileNum() const;
 
     /**
-     * @brief Marks the current async NAND operations as completed
+     * \~ @brief Marks the current async NAND operations as completed
      */
     void finishNandAccess();
     /**@}*/
 
     /**
-     * @brief Updates the save manager state
+     * \~ @brief Updates the save manager state
      *
-     * @param display Whether the scene is fully displayed
+     * \~ @param display Whether the scene is fully displayed
      */
     void update(bool display);
 
     /**
-     * @brief Initializes the banner file binary
+     * \~ @brief Initializes the banner file binary
      */
     void initBanner();
 
 private:
     /**
-     * @brief Bitflag indices
+     * \~ @brief Bitflag indices
      */
     enum {
         EFlag_NandMemoryExist, //!< Enough NAND memory exists for all files
@@ -223,7 +224,7 @@ private:
     };
 
     /**
-     * @brief banner.tpl file indices
+     * \~ @brief banner.tpl file indices
      */
     enum ETplIndex {
         ETplIndex_BannerTexture, //!< Banner texture
@@ -244,44 +245,44 @@ private:
 
 private:
     /**
-     * @brief Prompts the user to continue without saving
+     * \~ @brief Prompts the user to continue without saving
      */
     void checkContinueReject();
 
     /**
-     * @brief Checks if the NAND has enough free space to store both the banner
-     * and save files
+     * \~ @brief Checks if the NAND has enough free space to store both the
+     * banner and save files
      */
     void existNandMemorySync() DECOMP_DONT_INLINE;
 
     /**
-     * @brief Checks whether the banner file exists on the NAND
+     * \~ @brief Checks whether the banner file exists on the NAND
      */
     void existBannerFile();
     /**
-     * @brief Creates the banner file on the NAND
+     * \~ @brief Creates the banner file on the NAND
      * @details For safety purposes, the banner file is first created in the
      * temporary directory, before being moved out.
      */
     void createBannerFile();
     /**
-     * @brief Deletes the banner file from the NAND
+     * \~ @brief Deletes the banner file from the NAND
      * @details This function only deletes the banner file in the home directory
      */
     void deleteBannerFile();
     /**
-     * @brief Saves the banner file to the NAND
+     * \~ @brief Saves the banner file to the NAND
      *
-     * @param type Which type of banner file to save
+     * \~ @param type Which type of banner file to save
      */
     void saveBannerFile(EBannerType type);
 
     /**
-     * @brief Checks whether the save file exists on the NAND
+     * \~ @brief Checks whether the save file exists on the NAND
      */
     void existSaveFile();
     /**
-     * @brief Deletes the save file from the NAND
+     * \~ @brief Deletes the save file from the NAND
      */
     void deleteSaveFile();
 
@@ -290,36 +291,36 @@ private:
      */
     /**@{*/
     /**
-     * @brief Checks which save data files exist on the NAND
+     * \~ @brief Checks which save data files exist on the NAND
      *
-     * @param pArg Thread function argument
+     * \~ @param pArg Thread function argument
      */
     static void existPackFileFunc(void* pArg);
     /**
-     * @brief Checks if the NAND has enough free space to store both the banner
-     * and save files
+     * \~ @brief Checks if the NAND has enough free space to store both the
+     * banner and save files
      *
-     * @param pArg Thread function argument
+     * \~ @param pArg Thread function argument
      */
     static void existNandMemoryFunc(void* pArg);
 
     /**
-     * @brief Creates both the banner and save files on the NAND
+     * \~ @brief Creates both the banner and save files on the NAND
      *
-     * @param pArg Thread function argument
+     * \~ @param pArg Thread function argument
      */
     static void createPackFileFunc(void* pArg);
 
     /**
-     * @brief Loads the save file from the NAND
+     * \~ @brief Loads the save file from the NAND
      *
-     * @param pArg Thread function argument
+     * \~ @param pArg Thread function argument
      */
     static void loadDataFunc(void* pArg);
     /**
-     * @brief Saves both the banner and save files to the NAND
+     * \~ @brief Saves both the banner and save files to the NAND
      *
-     * @param pArg Thread function argument
+     * \~ @param pArg Thread function argument
      */
     static void saveDataFunc(void* pArg);
     /**@}*/

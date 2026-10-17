@@ -1,12 +1,12 @@
 #include <Pack/RPKernel.h>
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  */
 RPSysKokeshiOverloadInfo::RPSysKokeshiOverloadInfo()
     : mClothesType(RPSysKokeshiManager::ClothesType_Random) {}
 
 /**
- * @brief Destructor
+ * \~ @brief Destructor
  */
 RPSysKokeshiOverloadInfo::~RPSysKokeshiOverloadInfo() {}

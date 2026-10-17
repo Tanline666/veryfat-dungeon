@@ -13,7 +13,7 @@ class RPGrpScreen;
 class RPGrpView;
 
 /**
- * @brief Rendering engine
+ * \~ @brief Rendering engine
  */
 class RPGrpRenderer {
 public:
@@ -22,14 +22,14 @@ public:
 
 public:
     /**
-     * @brief Gets the currently active manager instance
+     * \~ @brief Gets the currently active manager instance
      */
     static RPGrpRenderer* GetCurrent() {
         return spCurrent;
     }
 
     /**
-     * @brief Gets the view currently being rendered to
+     * \~ @brief Gets the view currently being rendered to
      */
     static RPGrpView* GetCurrentView() {
         return spCurrentView;
@@ -40,7 +40,7 @@ public:
     }
 
     /**
-     * @brief Gets the screen currently being rendered to
+     * \~ @brief Gets the screen currently being rendered to
      */
     static RPGrpScreen* GetCurrentScreen() {
         return spCurrentScreen;

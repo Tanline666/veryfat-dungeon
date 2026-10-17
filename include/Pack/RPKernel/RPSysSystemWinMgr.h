@@ -11,7 +11,7 @@
 class RPSysMessage;
 
 /**
- * @brief System window manager
+ * \~ @brief System window manager
  */
 class RPSysSystemWinMgr {
     RP_SINGLETON_DECL_EX(RPSysSystemWinMgr);

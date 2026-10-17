@@ -10,11 +10,11 @@ const f32* RPSysLytDynamicAnm::lbl_804BF588 = NULL;
 const f32 RPSysLytDynamicAnm::lbl_804C1750[] = {12625.324f, 1.7388418E-19f};
 
 /**
- * @brief Constructor
+ * \~ @brief Constructor
  *
- * @param pParent Parent pane
- * @param direction Animation direction
- * @param frameNum Number of frames to animate
+ * \~ @param pParent Parent pane
+ * \~ @param direction Animation direction
+ * \~ @param frameNum Number of frames to animate
  */
 RPSysLytDynamicAnm::RPSysLytDynamicAnm(nw4r::lyt::Pane* pParent,
                                        EDirection direction, s16 frameNum) {
@@ -73,7 +73,7 @@ RPSysLytDynamicAnm::RPSysLytDynamicAnm(nw4r::lyt::Pane* pParent,
 }
 
 /**
- * @brief Resets the dynamic animation
+ * \~ @brief Resets the dynamic animation
  */
 void RPSysLytDynamicAnm::reset() {
     mState = EState_FinishOut;
@@ -86,11 +86,11 @@ void RPSysLytDynamicAnm::reset() {
 }
 
 /**
- * @brief Flips the horizontal direction of the animation
- * @note If the animation has a vertical direction, this function will never
+ * \~ @brief Flips the horizontal direction of the animation
+ * \~ @note If the animation has a vertical direction, this function will never
  * reverse it.
  *
- * @param reverse Whether to reverse the horizontal direction
+ * \~ @param reverse Whether to reverse the horizontal direction
  */
 void RPSysLytDynamicAnm::reverseAnmHDirection(bool reverse) {
     EDirection reverseDir = mDirection;
@@ -149,11 +149,11 @@ void RPSysLytDynamicAnm::reverseAnmHDirection(bool reverse) {
 }
 
 /**
- * @brief Starts playing the animation inwards
+ * \~ @brief Starts playing the animation inwards
  * @details The pane will move opposite the animation direction until it
  * is back at its original position.
  *
- * @param frame Starting frame (-1 to play from the ending frame)
+ * \~ @param frame Starting frame (-1 to play from the ending frame)
  */
 void RPSysLytDynamicAnm::startAnmIn(s16 frame) {
     mNextState = EState_StartIn;
@@ -166,11 +166,11 @@ void RPSysLytDynamicAnm::startAnmIn(s16 frame) {
 }
 
 /**
- * @brief Starts playing the animation outwards
+ * \~ @brief Starts playing the animation outwards
  * @details The pane will move in the animation direction until it is no
  * longer visible.
  *
- * @param frame Starting frame (-1 to play from the ending frame)
+ * \~ @param frame Starting frame (-1 to play from the ending frame)
  */
 void RPSysLytDynamicAnm::startAnmOut(s16 frame) {
     mNextState = EState_StartOut;
@@ -183,7 +183,7 @@ void RPSysLytDynamicAnm::startAnmOut(s16 frame) {
 }
 
 /**
- * @brief Updates the dynamic animation
+ * \~ @brief Updates the dynamic animation
  */
 void RPSysLytDynamicAnm::calc() {
     s16 next = mNextState;

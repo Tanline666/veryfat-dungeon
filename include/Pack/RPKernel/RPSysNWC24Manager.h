@@ -11,7 +11,7 @@
 class RPSysAvatar;
 
 /**
- * @brief WiiConnect24 library manager
+ * \~ @brief WiiConnect24 library manager
  */
 class RPSysNWC24Manager {
 protected:
@@ -22,33 +22,34 @@ protected:
 
 public:
     /**
-     * @brief Suspends the WiiConnect24 scheduler so the library can be opened
+     * \~ @brief Suspends the WiiConnect24 scheduler so the library can be
+     * opened
      */
     static void initialize();
 
     /**
-     * @brief Constructor
+     * \~ @brief Constructor
      *
-     * @param pHeap Heap to use for allocations
+     * \~ @param pHeap Heap to use for allocations
      */
     explicit RPSysNWC24Manager(EGG::Heap* pHeap);
 
     /**
-     * @brief Destructor
+     * \~ @brief Destructor
      */
     virtual ~RPSysNWC24Manager(); // at 0x8
 
     /**
-     * @brief Attempts to commit a message to the Wii Message Board
+     * \~ @brief Attempts to commit a message to the Wii Message Board
      *
-     * @param pWork Library work buffer
-     * @param pAltName Mail letter alt name
-     * @param pMsg Mail letter message (can be a format string)
-     * @param date Mail letter send date
-     * @param pAvatar Mii avatar to include
-     * @param argc Number of message format arguments
-     * @param argv Message format arguments
-     * @return Success
+     * \~ @param pWork Library work buffer
+     * \~ @param pAltName Mail letter alt name
+     * \~ @param pMsg Mail letter message (can be a format string)
+     * \~ @param date Mail letter send date
+     * \~ @param pAvatar Mii avatar to include
+     * \~ @param argc Number of message format arguments
+     * \~ @param argv Message format arguments
+     * \~ @return Success
      */
     bool commitMail(const wchar_t* pAltName, const wchar_t* pMsg, RPTime16 date,
                     const RPSysAvatar* pAvatar, int argc, va_list argv);
@@ -59,14 +60,14 @@ private:
 
 private:
     /**
-     * @brief Attempts to open the WiiConnect24 library for use
+     * \~ @brief Attempts to open the WiiConnect24 library for use
      *
-     * @return Success
+     * \~ @return Success
      */
     bool openLib() DECOMP_DONT_INLINE;
 
     /**
-     * @brief Closes the WiiConnect24 library
+     * \~ @brief Closes the WiiConnect24 library
      */
     void closeLib();
 

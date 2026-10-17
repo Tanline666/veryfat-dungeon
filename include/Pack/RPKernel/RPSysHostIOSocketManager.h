@@ -11,23 +11,23 @@
 class IRPSysHostIOSocket;
 
 /**
- * @brief Host I/O socket manager
+ * \~ @brief Host I/O socket manager
  */
 class RPSysHostIOSocketManager {
     RP_SINGLETON_DECL(RPSysHostIOSocketManager);
 
 public:
     /**
-     * @brief Adds a new host I/O socket to the node tree
+     * \~ @brief Adds a new host I/O socket to the node tree
      *
-     * @param pChild New child socket
-     * @param pParent Parent socket
+     * \~ @param pChild New child socket
+     * \~ @param pParent Parent socket
      */
     static void AddHostIOSocket(IRPSysHostIOSocket* pChild,
                                 IRPSysHostIOSocket* pParent = NULL);
 
     /**
-     * @brief Updates the state of the host I/O sockets
+     * \~ @brief Updates the state of the host I/O sockets
      */
     void Update();
 };

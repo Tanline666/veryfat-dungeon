@@ -7,10 +7,10 @@
 #include <nw4r/math.h>
 
 /**
- * @brief Tests whether a point falls within this bounding pane
+ * \~ @brief Tests whether a point falls within this bounding pane
  *
- * @param rInfo Pane draw info
- * @param rPoint Point to test
+ * \~ @param rInfo Pane draw info
+ * \~ @param rPoint Point to test
  */
 bool RPSysLytBounding::isInsideBounding(const nw4r::lyt::DrawInfo& rInfo,
                                         const EGG::Vector2f& rPoint) {

@@ -323,6 +323,10 @@ nw4r/snd/snd_DvdSoundArchive.cpp:
 	.text       start:0x800747F0 end:0x80074F18
 	.data       start:0x8070A3C8 end:0x8070A450
 
+nw4r/snd/snd_EnvGenerator.cpp:
+	.text       start:0x80074F20 end:0x800752F0
+	.rodata     start:0x8068D710 end:0x8068DA10
+
 nw4r/snd/snd_MemorySoundArchive.cpp:
 	.text       start:0x80079690 end:0x80079B40
 	.data       start:0x8070A590 end:0x8070A610
@@ -331,6 +335,27 @@ nw4r/snd/snd_NandSoundArchive.cpp:
 	.text       start:0x8007AFD0 end:0x8007B8D8
 	.data       start:0x8070A868 end:0x8070A8E8
 	.sbss       start:0x808161A8 end:0x808161B0
+
+nw4r/snd/snd_RemoteSpeaker.cpp:
+	.text       start:0x8007BB00 end:0x8007C4D0
+
+nw4r/snd/snd_RemoteSpeakerManager.cpp:
+	.text       start:0x8007C4D0 end:0x8007C768
+	.bss        start:0x8078F630 end:0x8078F908
+	.sbss       start:0x808161B0 end:0x808161B8
+
+nw4r/snd/snd_SeqFile.cpp:
+	.text       start:0x8007C770 end:0x8007C8A8
+
+nw4r/snd/snd_SeqPlayer.cpp:
+	.text       start:0x8007C8B0 end:0x8007E078
+
+nw4r/snd/snd_SeqSoundHandle.cpp:
+	.text       start:0x8007E960 end:0x8007EA98
+
+nw4r/snd/snd_SeqTrack.cpp:
+	.text       start:0x8007EAA0 end:0x8007FF18
+	.data       start:0x8070A9D0 end:0x8070A9E0
 
 nw4r/snd/snd_SoundArchive.cpp:
 	.text       start:0x80081920 end:0x80082020
@@ -849,6 +874,11 @@ revolution/VI/VI.c:
 
 revolution/VI/i2c.c:
 	.text       start:0x80158460 end:0x80158D80
+
+revolution/WENC/wenc.c:
+	.text       start:0x8015A4CC end:0x8015A7A4
+	.rodata     start:0x80691FC0 end:0x80692000
+	.sdata2     start:0x808197C0 end:0x808197C8
 
 revolution/WPAD/WPAD.c:
 	.text       start:0x8015A7A4 end:0x80161F84

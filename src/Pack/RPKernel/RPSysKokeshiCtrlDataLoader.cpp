@@ -3,27 +3,27 @@
 #include <RVLFaceLib.h>
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  *
- * \~ @param chan Remote channel
+ * \~english @param chan Remote channel
  */
 RPSysKokeshiCtrlDataLoader::RPSysKokeshiCtrlDataLoader(s32 chan)
     : mChannel(chan), mLoadState(ELoadState_Start) {}
 
 /**
- * \~ @brief Destructor
+ * \~english @brief Destructor
  */
 RPSysKokeshiCtrlDataLoader::~RPSysKokeshiCtrlDataLoader() {}
 
 /**
- * \~ @brief Tests whether an error occurred during loading
+ * \~english @brief Tests whether an error occurred during loading
  */
 BOOL RPSysKokeshiCtrlDataLoader::isError() const {
     return mLoadState != ELoadState_Finish ? TRUE : FALSE;
 }
 
 /**
- * \~ @brief Begins loading Mii data from the controller
+ * \~english @brief Begins loading Mii data from the controller
  */
 void RPSysKokeshiCtrlDataLoader::load() {
     if (mLoadState == ELoadState_Wait) {
@@ -50,14 +50,14 @@ void RPSysKokeshiCtrlDataLoader::load() {
 }
 
 /**
- * \~ @brief Tests whether the loader is in an idle state
+ * \~english @brief Tests whether the loader is in an idle state
  */
 BOOL RPSysKokeshiCtrlDataLoader::isIdle() const {
     return mLoadState != ELoadState_Wait ? TRUE : FALSE;
 }
 
 /**
- * \~ @brief Updates the loader state
+ * \~english @brief Updates the loader state
  */
 void RPSysKokeshiCtrlDataLoader::calc() {
     switch (mLoadState) {

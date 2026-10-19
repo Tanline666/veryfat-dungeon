@@ -14,14 +14,14 @@
 class RPSysEffectCreator;
 
 /**
- * \~ @brief Effect manager
+ * \~english @brief Effect manager
  */
 class RPSysEffectMgr {
     RP_SINGLETON_DECL_EX(RPSysEffectMgr);
 
 public:
     /**
-     * \~ @brief Effect draw scene ID
+     * \~english @brief Effect draw scene ID
      */
     enum EDrawScene {
         EDrawScene_Scene,  //!< Scene effects
@@ -32,7 +32,7 @@ public:
     };
 
     /**
-     * \~ @brief Effect draw group ID
+     * \~english @brief Effect draw group ID
      */
     enum EDrawGroup {
         EDrawGroup_Layer0,
@@ -47,7 +47,7 @@ public:
     };
 
     /**
-     * \~ @brief Effect update type
+     * \~english @brief Effect update type
      */
     enum ECalcSetting {
         ECalcSetting_All,    //!< Update all effects
@@ -55,7 +55,7 @@ public:
     };
 
     /**
-     * \~ @brief Effect memory settings
+     * \~english @brief Effect memory settings
      */
     struct EffectArg {
         //! Heap to use for allocations
@@ -72,7 +72,7 @@ public:
     };
 
     /**
-     * \~ @brief Framebuffer texture information
+     * \~english @brief Framebuffer texture information
      */
     struct EfbTexData {
         //! Texture format (GXTexFmt)
@@ -85,69 +85,69 @@ public:
 
 public:
     /**
-     * \~ @brief Attaches a new effect creator to the specified scene
+     * \~english @brief Attaches a new effect creator to the specified scene
      *
-     * \~ @param pCreator Effect creator
-     * \~ @param drawScene Effect draw scene
+     * \~english @param pCreator Effect creator
+     * \~english @param drawScene Effect draw scene
      */
     void setCreator(RPSysEffectCreator* pCreator, u32 drawScene);
 
     /**
-     * \~ @brief Releases the specified effect creator from its scene
+     * \~english @brief Releases the specified effect creator from its scene
      *
-     * \~ @param pCreator Effect creator
+     * \~english @param pCreator Effect creator
      */
     void resetCreator(RPSysEffectCreator* pCreator);
 
     /**
-     * \~ @brief Kills all effects and particles
+     * \~english @brief Kills all effects and particles
      */
     void stopAllEffect();
 
     /**
-     * \~ @brief Updates the state of effects
+     * \~english @brief Updates the state of effects
      *
-     * \~ @param setting Effect update type
+     * \~english @param setting Effect update type
      */
     void update(ECalcSetting setting);
 
     /**
-     * \~ @brief Applies a framebuffer capture texture to all effects
+     * \~english @brief Applies a framebuffer capture texture to all effects
      *
-     * \~ @param pTexture Framebuffer texture
-     * \~ @param rData Framebuffer texture information
+     * \~english @param pTexture Framebuffer texture
+     * \~english @param rData Framebuffer texture information
      */
     void setCaptureEfb(void* pTexture, const EfbTexData& rData);
 
     /**
-     * \~ @brief Draws the specified set of effects
+     * \~english @brief Draws the specified set of effects
      *
-     * \~ @param rViewMtx View matrix
-     * \~ @param drawGroup Effect draw group
-     * \~ @param drawScene Effect draw scene
+     * \~english @param rViewMtx View matrix
+     * \~english @param drawGroup Effect draw group
+     * \~english @param drawScene Effect draw scene
      */
     void draw(const nw4r::math::MTX34& rViewMtx, u32 drawGroup, u32 drawScene);
 
     /**
-     * \~ @brief Creates an instance of the specified effect
+     * \~english @brief Creates an instance of the specified effect
      *
-     * \~ @param pName Effect name
-     * \~ @param drawGroup Effect draw group
-     * \~ @param drawScene Effect draw scene
+     * \~english @param pName Effect name
+     * \~english @param drawGroup Effect draw group
+     * \~english @param drawScene Effect draw scene
      */
     nw4r::ef::Effect* createEffect(const char* pName, u32 drawGroup,
                                    u32 drawScene);
 
     /**
-     * \~ @brief Creates a memory manager using the specified settings
+     * \~english @brief Creates a memory manager using the specified settings
      *
-     * \~ @param pArg Effect memory settings
-     * \~ @return Effect work memory size
+     * \~english @param pArg Effect memory settings
+     * \~english @return Effect work memory size
      */
     u32 createMemoryManager(EffectArg* pArg);
 
     /**
-     * \~ @brief Loads the assets required by system Effect draw scenes
+     * \~english @brief Loads the assets required by system Effect draw scenes
      */
     void LoadResource();
 

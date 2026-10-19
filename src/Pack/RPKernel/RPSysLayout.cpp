@@ -18,10 +18,11 @@ const int ID_LEN = 2;
 const int DYN_LEN = 3;
 
 /**
- * \~ @brief Finds the position of the ID suffix in the specified name string
+ * \~english @brief Finds the position of the ID suffix in the specified name
+ * string
  *
- * \~ @param pName Name string
- * \~ @return Index of the ID suffix
+ * \~english @param pName Name string
+ * \~english @return Index of the ID suffix
  */
 int FindID(const char* pName) {
     int len = NW4R_LYT_RES_NAME_LEN;
@@ -45,9 +46,9 @@ int FindID(const char* pName) {
 }
 
 /**
- * \~ @brief Reads the two character ID from the specified string
+ * \~english @brief Reads the two character ID from the specified string
  *
- * \~ @param pIdStr ID encoded as a string
+ * \~english @param pIdStr ID encoded as a string
  */
 u16 ReadID(const char* pIdStr) {
     return *reinterpret_cast<const u16*>(pIdStr);
@@ -56,7 +57,7 @@ u16 ReadID(const char* pIdStr) {
 } // namespace
 
 /**
- * \~ @brief Player slot TEV colors
+ * \~english @brief Player slot TEV colors
  */
 const GXColor RPSysLayout::PLAYER_COLORS[RP_MAX_CONTROLLERS] = {
     {0, 140, 255, 255},
@@ -66,12 +67,12 @@ const GXColor RPSysLayout::PLAYER_COLORS[RP_MAX_CONTROLLERS] = {
 };
 
 /**
- * \~ @brief CPU TEV color
+ * \~english @brief CPU TEV color
  */
 const GXColor RPSysLayout::CPU_COLOR = {175, 170, 152, 255};
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  */
 RPSysLayout::RPSysLayout()
     : mFlags(0),
@@ -88,7 +89,7 @@ RPSysLayout::RPSysLayout()
 }
 
 /**
- * \~ @brief Initializes the layout system
+ * \~english @brief Initializes the layout system
  * @details Initializes the NW4R layout library
  */
 void RPSysLayout::initialize() {
@@ -96,9 +97,9 @@ void RPSysLayout::initialize() {
 }
 
 /**
- * \~ @brief Parses the length portion of a dynamic animation string
+ * \~english @brief Parses the length portion of a dynamic animation string
  *
- * \~ @param pLenStr Length encoded in text form
+ * \~english @param pLenStr Length encoded in text form
  */
 s16 RPSysLayout::parseDynamicAnmLength(const char* pLenStr) {
     s16 length = 0;
@@ -118,14 +119,14 @@ s16 RPSysLayout::parseDynamicAnmLength(const char* pLenStr) {
 }
 
 /**
- * \~ @brief Attempts to parse a dynamic animation string from a pane
+ * \~english @brief Attempts to parse a dynamic animation string from a pane
  * @details The string must be stored in the pane's userdata field
  *
- * \~ @param pPane Pane to check
- * \~ @param[out] pDirection Dynamic animation direction
- * \~ @param[out] pLength Dynamic animation length
+ * \~english @param pPane Pane to check
+ * \~english @param[out] pDirection Dynamic animation direction
+ * \~english @param[out] pLength Dynamic animation length
  *
- * \~ @return Whether a dynamic animation was found
+ * \~english @return Whether a dynamic animation was found
  */
 bool RPSysLayout::checkDynamicAnmPane(
     nw4r::lyt::Pane* pPane, RPSysLytDynamicAnm::EDirection* pDirection,
@@ -192,11 +193,11 @@ bool RPSysLayout::checkDynamicAnmPane(
 }
 
 /**
- * \~ @brief Create dynamic animation objects for the specified pane
+ * \~english @brief Create dynamic animation objects for the specified pane
  * \~ @note If the pane contains no dynamic animations, nothing will happen.
  *
- * \~ @param pHeap Heap to use for allocations
- * \~ @param pPane Pane expected to contain a dynamic animation
+ * \~english @param pHeap Heap to use for allocations
+ * \~english @param pPane Pane expected to contain a dynamic animation
  */
 void RPSysLayout::createDynamicAnm(EGG::Heap* pHeap, nw4r::lyt::Pane* pPane) {
     // TODO(kiwi) Force specific inline depth during recursion
@@ -220,9 +221,10 @@ void RPSysLayout::createDynamicAnm(EGG::Heap* pHeap, nw4r::lyt::Pane* pPane) {
 }
 
 /**
- * \~ @brief Allocates a large textbox buffer for the pane and its children
+ * \~english @brief Allocates a large textbox buffer for the pane and its
+ * children
  *
- * \~ @param pPane Root pane
+ * \~english @param pPane Root pane
  */
 void RPSysLayout::allocStringBuffer(nw4r::lyt::Pane* pPane) {
     nw4r::lyt::TextBox* pTextBox =
@@ -243,11 +245,11 @@ void RPSysLayout::allocStringBuffer(nw4r::lyt::Pane* pPane) {
 }
 
 /**
- * \~ @brief Creates a layout from the specified binary file
+ * \~english @brief Creates a layout from the specified binary file
  *
- * \~ @param pHeap Heap to use for allocations
- * \~ @param pAccessor Layout resource accessor
- * \~ @param pName Binary layout file name
+ * \~english @param pHeap Heap to use for allocations
+ * \~english @param pAccessor Layout resource accessor
+ * \~english @param pName Binary layout file name
  */
 RPSysLayout* RPSysLayout::create(EGG::Heap* pHeap,
                                  RPSysLytResAccessor* pAccessor,
@@ -289,11 +291,11 @@ RPSysLayout* RPSysLayout::create(EGG::Heap* pHeap,
 }
 
 /**
- * \~ @brief Creates a animation object from the specified binary file
+ * \~english @brief Creates a animation object from the specified binary file
  *
- * \~ @param pHeap Heap to use for allocations
- * \~ @param pAccessor Layout resource accessor
- * \~ @param pName Binary animation file name
+ * \~english @param pHeap Heap to use for allocations
+ * \~english @param pAccessor Layout resource accessor
+ * \~english @param pName Binary animation file name
  */
 RPSysLytAnmObj* RPSysLayout::createAnmObj(EGG::Heap* pHeap,
                                           RPSysLytResAccessor* pAccessor,
@@ -336,37 +338,38 @@ RPSysLytAnmObj* RPSysLayout::createAnmObj(EGG::Heap* pHeap,
 }
 
 /**
- * \~ @brief Binds a new animation object to this layout
+ * \~english @brief Binds a new animation object to this layout
  *
- * \~ @param pAnmObj Animation object
+ * \~english @param pAnmObj Animation object
  */
 void RPSysLayout::bindAnmObj(RPSysLytAnmObj* pAnmObj) {
     mpLayout->BindAnimation(pAnmObj->mpAnimTrans);
 }
 
 /**
- * \~ @brief Unbinds an animation object from this layout
+ * \~english @brief Unbinds an animation object from this layout
  *
- * \~ @param pAnmObj Animation object
+ * \~english @param pAnmObj Animation object
  */
 void RPSysLayout::unbindAnmObj(RPSysLytAnmObj* pAnmObj) {
     mpLayout->UnbindAnimation(pAnmObj->mpAnimTrans);
 }
 
 /**
- * \~ @brief Unbinds all animation objects from this layout
+ * \~english @brief Unbinds all animation objects from this layout
  */
 void RPSysLayout::unbindAllAnmObj() {
     mpLayout->UnbindAllAnimation();
 }
 
 /**
- * \~ @brief Binds a new animation object to the specified pane
+ * \~english @brief Binds a new animation object to the specified pane
  * @details This function searches the pane tree of this layout
  *
- * \~ @param pAnmObj Animation object
- * \~ @param pName Pane name
- * \~ @param recursive Whether to recursively resolve the animation target
+ * \~english @param pAnmObj Animation object
+ * \~english @param pName Pane name
+ * \~english @param recursive Whether to recursively resolve the animation
+ * target
  */
 void RPSysLayout::bindAnmObjToPane(RPSysLytAnmObj* pAnmObj, const char* pName,
                                    bool recursive) {
@@ -378,11 +381,12 @@ void RPSysLayout::bindAnmObjToPane(RPSysLytAnmObj* pAnmObj, const char* pName,
 }
 
 /**
- * \~ @brief Binds a new animation object to the specified pane
+ * \~english @brief Binds a new animation object to the specified pane
  *
- * \~ @param pAnmObj Animation object
- * \~ @param pPane Target pane
- * \~ @param recursive Whether to recursively resolve the animation target
+ * \~english @param pAnmObj Animation object
+ * \~english @param pPane Target pane
+ * \~english @param recursive Whether to recursively resolve the animation
+ * target
  */
 void RPSysLayout::bindAnmObjToPane(RPSysLytAnmObj* pAnmObj,
                                    nw4r::lyt::Pane* pPane, bool recursive) {
@@ -390,7 +394,7 @@ void RPSysLayout::bindAnmObjToPane(RPSysLytAnmObj* pAnmObj,
 }
 
 /**
- * \~ @brief Forcibly binds a new animation object to the specified pane
+ * \~english @brief Forcibly binds a new animation object to the specified pane
  * @details This function allows binding an animation object that shares a name
  * prefix with the pane.
  *
@@ -401,9 +405,10 @@ void RPSysLayout::bindAnmObjToPane(RPSysLytAnmObj* pAnmObj,
  * `P_MyPane_00` to any pane of the format `P_MyPane_XX`. NW4R requires an exact
  * name match to bind, so this function reimplements `AnimTransformBasic::Bind`.
  *
- * \~ @param pAnmObj Animation object
- * \~ @param pPane Target pane
- * \~ @param recursive Whether to recursively resolve the animation target
+ * \~english @param pAnmObj Animation object
+ * \~english @param pPane Target pane
+ * \~english @param recursive Whether to recursively resolve the animation
+ * target
  */
 void RPSysLayout::forceBindAnmObjToPane(RPSysLytAnmObj* pAnmObj,
                                         nw4r::lyt::Pane* pPane,
@@ -455,11 +460,12 @@ void RPSysLayout::forceBindAnmObjToPane(RPSysLytAnmObj* pAnmObj,
 }
 
 /**
- * \~ @brief Unbinds an animation object from the specified pane
+ * \~english @brief Unbinds an animation object from the specified pane
  *
- * \~ @param pAnmObj Animation object
- * \~ @param pPane Target pane
- * \~ @param recursive Whether to also unbind the animation from all children
+ * \~english @param pAnmObj Animation object
+ * \~english @param pPane Target pane
+ * \~english @param recursive Whether to also unbind the animation from all
+ * children
  */
 void RPSysLayout::unbindAnmObjToPane(RPSysLytAnmObj* pAnmObj,
                                      nw4r::lyt::Pane* pPane, bool recursive) {
@@ -467,10 +473,11 @@ void RPSysLayout::unbindAnmObjToPane(RPSysLytAnmObj* pAnmObj,
 }
 
 /**
- * \~ @brief Attempts to dynamic-cast the specified pane to a textbox pane
+ * \~english @brief Attempts to dynamic-cast the specified pane to a textbox
+ * pane
  *
- * \~ @param pPane Target pane
- * \~ @return Textbox if the cast is valid, otherwise NULL
+ * \~english @param pPane Target pane
+ * \~english @return Textbox if the cast is valid, otherwise NULL
  */
 RPSysLytTextBox* RPSysLayout::castToTextBox(nw4r::lyt::Pane* pPane) {
     RPSysLytTextBox* pTextBox = NULL;
@@ -483,10 +490,11 @@ RPSysLytTextBox* RPSysLayout::castToTextBox(nw4r::lyt::Pane* pPane) {
 }
 
 /**
- * \~ @brief Attempts to dynamic-cast the specified pane to a picture pane
+ * \~english @brief Attempts to dynamic-cast the specified pane to a picture
+ * pane
  *
- * \~ @param pPane Target pane
- * \~ @return Picture if the cast is valid, otherwise NULL
+ * \~english @param pPane Target pane
+ * \~english @return Picture if the cast is valid, otherwise NULL
  */
 RPSysLytPicture* RPSysLayout::castToPicture(nw4r::lyt::Pane* pPane) {
     RPSysLytPicture* pPicture = NULL;
@@ -499,10 +507,10 @@ RPSysLytPicture* RPSysLayout::castToPicture(nw4r::lyt::Pane* pPane) {
 }
 
 /**
- * \~ @brief Attempts to dynamic-cast the specified pane to a window pane
+ * \~english @brief Attempts to dynamic-cast the specified pane to a window pane
  *
- * \~ @param pPane Target pane
- * \~ @return Window if the cast is valid, otherwise NULL
+ * \~english @param pPane Target pane
+ * \~english @return Window if the cast is valid, otherwise NULL
  */
 RPSysLytWindow* RPSysLayout::castToWindow(nw4r::lyt::Pane* pPane) {
     RPSysLytWindow* pWindow = NULL;
@@ -515,10 +523,11 @@ RPSysLytWindow* RPSysLayout::castToWindow(nw4r::lyt::Pane* pPane) {
 }
 
 /**
- * \~ @brief Attempts to dynamic-cast the specified pane to a bounding pane
+ * \~english @brief Attempts to dynamic-cast the specified pane to a bounding
+ * pane
  *
- * \~ @param pPane Target pane
- * \~ @return Picture if the cast is valid, otherwise NULL
+ * \~english @param pPane Target pane
+ * \~english @return Picture if the cast is valid, otherwise NULL
  */
 RPSysLytBounding* RPSysLayout::castToBounding(nw4r::lyt::Pane* pPane) {
     RPSysLytBounding* pBounding = NULL;
@@ -531,20 +540,20 @@ RPSysLytBounding* RPSysLayout::castToBounding(nw4r::lyt::Pane* pPane) {
 }
 
 /**
- * \~ @brief Searches recursively for a pane in this layout matching the
+ * \~english @brief Searches recursively for a pane in this layout matching the
  * specified name
  *
- * \~ @param pName Pane name
+ * \~english @param pName Pane name
  */
 nw4r::lyt::Pane* RPSysLayout::findPane(const char* pName) {
     return getRootPane()->FindPaneByName(pName, true);
 }
 
 /**
- * \~ @brief Searches recursively for a textbox pane in this layout matching
- * the specified name
+ * \~english @brief Searches recursively for a textbox pane in this layout
+ * matching the specified name
  *
- * \~ @param pName Textbox name
+ * \~english @param pName Textbox name
  */
 RPSysLytTextBox* RPSysLayout::findTextBox(const char* pName) {
     RPSysLytTextBox* pTextBox = NULL;
@@ -558,10 +567,10 @@ RPSysLytTextBox* RPSysLayout::findTextBox(const char* pName) {
 }
 
 /**
- * \~ @brief Searches recursively for a picture pane in this layout matching
- * the specified name
+ * \~english @brief Searches recursively for a picture pane in this layout
+ * matching the specified name
  *
- * \~ @param pName Picture name
+ * \~english @param pName Picture name
  */
 RPSysLytPicture* RPSysLayout::findPicture(const char* pName) {
     RPSysLytPicture* pPicture = NULL;
@@ -575,10 +584,10 @@ RPSysLytPicture* RPSysLayout::findPicture(const char* pName) {
 }
 
 /**
- * \~ @brief Searches recursively for a window pane in this layout matching
- * the specified name
+ * \~english @brief Searches recursively for a window pane in this layout
+ * matching the specified name
  *
- * \~ @param pName Window name
+ * \~english @param pName Window name
  */
 RPSysLytWindow* RPSysLayout::findWindow(const char* pName) {
     RPSysLytWindow* pWindow = NULL;
@@ -592,10 +601,10 @@ RPSysLytWindow* RPSysLayout::findWindow(const char* pName) {
 }
 
 /**
- * \~ @brief Searches recursively for a bounding pane in this layout matching
- * the specified name
+ * \~english @brief Searches recursively for a bounding pane in this layout
+ * matching the specified name
  *
- * \~ @param pName Bounding name
+ * \~english @param pName Bounding name
  */
 RPSysLytBounding* RPSysLayout::findBounding(const char* pName) {
     RPSysLytBounding* pBounding = NULL;
@@ -609,44 +618,44 @@ RPSysLytBounding* RPSysLayout::findBounding(const char* pName) {
 }
 
 /**
- * \~ @brief Searches recursively for a group in this layout matching the
+ * \~english @brief Searches recursively for a group in this layout matching the
  * specified name
  *
- * \~ @param pName Group name
+ * \~english @param pName Group name
  */
 nw4r::lyt::Group* RPSysLayout::findGroup(const char* pName) {
     return mpLayout->GetGroupContainer()->FindGroupByName(pName);
 }
 
 /**
- * \~ @brief Appends a new dynamic animation to this layout
+ * \~english @brief Appends a new dynamic animation to this layout
  *
- * \~ @param pDynamicAnm Dynamic animation
+ * \~english @param pDynamicAnm Dynamic animation
  */
 void RPSysLayout::appendDynamicAnm(RPSysLytDynamicAnm* pDynamicAnm) {
     nw4r::ut::List_Append(&mDynamicAnmList, pDynamicAnm);
 }
 
 /**
- * \~ @brief Appends a new animation object to this layout
+ * \~english @brief Appends a new animation object to this layout
  *
- * \~ @param pAnmObj Animation object
+ * \~english @param pAnmObj Animation object
  */
 void RPSysLayout::appendAnmObj(RPSysLytAnmObj* pAnmObj) {
     nw4r::ut::List_Append(&mAnmObjList, pAnmObj);
 }
 
 /**
- * \~ @brief Removes an animation object from this layout
+ * \~english @brief Removes an animation object from this layout
  *
- * \~ @param pAnmObj Animation object
+ * \~english @param pAnmObj Animation object
  */
 void RPSysLayout::removeAnmObj(RPSysLytAnmObj* pAnmObj) {
     nw4r::ut::List_Remove(&mAnmObjList, pAnmObj);
 }
 
 /**
- * \~ @brief Resets the state of this layout and any animations it owns
+ * \~english @brief Resets the state of this layout and any animations it owns
  */
 void RPSysLayout::reset() {
     mFlags = 0;
@@ -664,7 +673,7 @@ void RPSysLayout::reset() {
 }
 
 /**
- * \~ @brief Updates the state of this layout and any animations it owns
+ * \~english @brief Updates the state of this layout and any animations it owns
  */
 void RPSysLayout::calc() {
     NW4R_UT_LIST_FOREACH (RPSysLytAnmObj, it, mAnmObjList, {
@@ -696,7 +705,7 @@ void RPSysLayout::calc() {
 }
 
 /**
- * \~ @brief Configures the GX render state for layout drawing
+ * \~english @brief Configures the GX render state for layout drawing
  */
 void RPSysLayout::drawInit() {
     GXSetCullMode(GX_CULL_NONE);
@@ -705,7 +714,7 @@ void RPSysLayout::drawInit() {
 }
 
 /**
- * \~ @brief Draws the contents of this layout
+ * \~english @brief Draws the contents of this layout
  */
 void RPSysLayout::draw() {
     if (!(mFlags & EFlag_Visible)) {
@@ -716,14 +725,14 @@ void RPSysLayout::draw() {
 }
 
 /**
- * \~ @brief Attempts to change the font color of the specified textbox by
- * fetching an alternate version matching the ID
+ * \~english @brief Attempts to change the font color of the specified textbox
+ * by fetching an alternate version matching the ID
  * @details This function relies on the same `Name_XX` pattern as
  * `forceBindAnmObjToPane`.
  *
- * \~ @param pTextBox Textbox whose font color should be changed
- * \~ @param id ID suffix of the textbox to fetch
- * \~ @return Success
+ * \~english @param pTextBox Textbox whose font color should be changed
+ * \~english @param id ID suffix of the textbox to fetch
+ * \~english @return Success
  */
 bool RPSysLayout::changeFontColor(RPSysLytTextBox* pTextBox, u32 id) {
     bool success = false;
@@ -766,11 +775,12 @@ bool RPSysLayout::changeFontColor(RPSysLytTextBox* pTextBox, u32 id) {
 }
 
 /**
- * \~ @brief Tests whether a point falls within the specified bounding pane
+ * \~english @brief Tests whether a point falls within the specified bounding
+ * pane
  * \~ @note Hit test is always ignored when the layout is invisible
  *
- * \~ @param pBounding Bounding pane
- * \~ @param rPoint Point to test
+ * \~english @param pBounding Bounding pane
+ * \~english @param rPoint Point to test
  */
 bool RPSysLayout::isInsideBounding(RPSysLytBounding* pBounding,
                                    const EGG::Vector2f& rPoint) {
@@ -785,9 +795,10 @@ bool RPSysLayout::isInsideBounding(RPSysLytBounding* pBounding,
 }
 
 /**
- * \~ @brief Moves the specified pane to the front of its parent's children
+ * \~english @brief Moves the specified pane to the front of its parent's
+ * children
  *
- * \~ @param pChild Child pane
+ * \~english @param pChild Child pane
  */
 void RPSysLayout::becomeYoungestChild(nw4r::lyt::Pane* pChild) {
     nw4r::lyt::Pane* pParent = pChild->GetParent();
@@ -796,12 +807,12 @@ void RPSysLayout::becomeYoungestChild(nw4r::lyt::Pane* pChild) {
 }
 
 /**
- * \~ @brief Draws a Mii icon to the specified pane
+ * \~english @brief Draws a Mii icon to the specified pane
  * @details This function defaults to a white material color.
  *
- * \~ @param screen Screen to draw to
- * \~ @param pane Pane to draw on
- * \~ @param icon Mii icon
+ * \~english @param screen Screen to draw to
+ * \~english @param pane Pane to draw on
+ * \~english @param icon Mii icon
  */
 void RPSysLayout::drawKokeshiIcon(RPGrpScreen* pScreen, nw4r::lyt::Pane* pPane,
                                   RPSysKokeshiIcon* pIcon) {
@@ -811,13 +822,13 @@ void RPSysLayout::drawKokeshiIcon(RPGrpScreen* pScreen, nw4r::lyt::Pane* pPane,
 }
 
 /**
- * \~ @brief Draws a Mii icon to the specified pane
+ * \~english @brief Draws a Mii icon to the specified pane
  * @details Uses default white material color
  *
- * \~ @param screen Screen to draw to
- * \~ @param pane Pane to draw on
- * \~ @param icon Mii icon
- * \~ @param matColor Material color
+ * \~english @param screen Screen to draw to
+ * \~english @param pane Pane to draw on
+ * \~english @param icon Mii icon
+ * \~english @param matColor Material color
  */
 void RPSysLayout::drawKokeshiIcon(RPGrpScreen* pScreen, nw4r::lyt::Pane* pPane,
                                   RPSysKokeshiIcon* pIcon, GXColor matColor) {
@@ -840,9 +851,9 @@ void RPSysLayout::drawKokeshiIcon(RPGrpScreen* pScreen, nw4r::lyt::Pane* pPane,
 }
 
 /**
- * \~ @brief Starts playing all dynamic animations inwards
+ * \~english @brief Starts playing all dynamic animations inwards
  *
- * \~ @param frame Starting frame (-1 to play from the ending frame)
+ * \~english @param frame Starting frame (-1 to play from the ending frame)
  */
 void RPSysLayout::startDynAnmIn(s16 frame) {
     NW4R_UT_LIST_FOREACH (RPSysLytDynamicAnm, it, mDynamicAnmList, {
@@ -851,9 +862,9 @@ void RPSysLayout::startDynAnmIn(s16 frame) {
 }
 
 /**
- * \~ @brief Starts playing all dynamic animations outwards
+ * \~english @brief Starts playing all dynamic animations outwards
  *
- * \~ @param frame Starting frame (-1 to play from the ending frame)
+ * \~english @param frame Starting frame (-1 to play from the ending frame)
  */
 void RPSysLayout::startDynAnmOut(s16 frame) {
     NW4R_UT_LIST_FOREACH (RPSysLytDynamicAnm, it, mDynamicAnmList, {
@@ -862,9 +873,9 @@ void RPSysLayout::startDynAnmOut(s16 frame) {
 }
 
 /**
- * \~ @brief Flips the direction of all horizonal dynamic animations
+ * \~english @brief Flips the direction of all horizonal dynamic animations
  *
- * \~ @param reverse Whether to reverse the horizontal direction
+ * \~english @param reverse Whether to reverse the horizontal direction
  */
 void RPSysLayout::reverseAnmHDirection(bool reverse) {
     NW4R_UT_LIST_FOREACH (RPSysLytDynamicAnm, it, mDynamicAnmList, {
@@ -873,7 +884,7 @@ void RPSysLayout::reverseAnmHDirection(bool reverse) {
 }
 
 /**
- * \~ @brief Tests whether all dynamic animations have finished animating
+ * \~english @brief Tests whether all dynamic animations have finished animating
  * inwards
  */
 bool RPSysLayout::isFinishedDynAnmIn() {
@@ -890,7 +901,7 @@ bool RPSysLayout::isFinishedDynAnmIn() {
 }
 
 /**
- * \~ @brief Tests whether all dynamic animations have finished animating
+ * \~english @brief Tests whether all dynamic animations have finished animating
  * outwards
  */
 bool RPSysLayout::isFinishedDynAnmOut() {
@@ -907,16 +918,17 @@ bool RPSysLayout::isFinishedDynAnmOut() {
 }
 
 /**
- * \~ @brief Gets the TEV color used to represent the specified player slot
+ * \~english @brief Gets the TEV color used to represent the specified player
+ * slot
  *
- * \~ @param idx Player index
+ * \~english @param idx Player index
  */
 const GXColor& RPSysLayout::getPlayerColor(u32 idx) {
     return PLAYER_COLORS[idx];
 }
 
 /**
- * \~ @brief Gets the TEV color used to represent CPU players
+ * \~english @brief Gets the TEV color used to represent CPU players
  */
 const GXColor& RPSysLayout::getCpuColor() {
     return CPU_COLOR;

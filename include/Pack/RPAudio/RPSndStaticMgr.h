@@ -12,44 +12,44 @@
 //! @{
 
 /**
- * \~ @brief Static-lifetime sound archive manager
+ * \~english @brief Static-lifetime sound archive manager
  */
 class RPSndStaticMgr : public EGG::ArcPlayer {
 public:
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      */
     RPSndStaticMgr();
 
     /**
-     * \~ @brief Destructor
+     * \~english @brief Destructor
      */
     virtual ~RPSndStaticMgr(); // at 0x8
 
     /**
-     * \~ @brief Updates the state of the sound player
+     * \~english @brief Updates the state of the sound player
      */
     virtual void calc(); // at 0x34
 
     /**
-     * \~ @brief Mounts the static sound archive
+     * \~english @brief Mounts the static sound archive
      *
-     * \~ @return Success
+     * \~english @return Success
      */
     bool setupArchive();
 
     /**
-     * \~ @brief Starts a sound effect through the main output and the specified
-     * player's remote output
+     * \~english @brief Starts a sound effect through the main output and the
+     * specified player's remote output
      *
-     * \~ @param id Sound effect ID
-     * \~ @param player Player index
+     * \~english @param id Sound effect ID
+     * \~english @param player Player index
      */
     void startSe(u32 id, s32 player);
 
 private:
     /**
-     * \~ @brief Sound start task
+     * \~english @brief Sound start task
      */
     struct StartTask {
         //! Whether this task structure is in use
@@ -69,10 +69,10 @@ private:
 
 private:
     /**
-     * \~ @brief Configures the main and remote output volumes for the specified
-     * sound
+     * \~english @brief Configures the main and remote output volumes for the
+     * specified sound
      *
-     * \~ @param playerFlag Player output line flags
+     * \~english @param playerFlag Player output line flags
      */
     void setRemoteSend(u32 playerFlag);
 

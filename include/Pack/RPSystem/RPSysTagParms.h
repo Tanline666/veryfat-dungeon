@@ -17,48 +17,48 @@ typedef char* TagType;
 #endif
 
 /**
- * \~ @brief Base class for tag parameters
+ * \~english @brief Base class for tag parameters
  */
 class RPSysTagParm {
 public:
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      *
-     * \~ @param pParent Parent container
-     * \~ @param pTag Parameter tag
+     * \~english @param pParent Parent container
+     * \~english @param pTag Parameter tag
      */
     RPSysTagParm(RPSysTagParameters* pParent, TagType pTag);
 
     /**
-     * \~ @brief Reads the parameter's value
+     * \~english @brief Reads the parameter's value
      *
-     * \~ @param rStream Input stream
+     * \~english @param rStream Input stream
      */
     virtual void read(EGG::Stream& /* rStream */) {} // at 0x8
     /**
-     * \~ @brief Writes the parameter's value
+     * \~english @brief Writes the parameter's value
      *
-     * \~ @param rStream Output stream
+     * \~english @param rStream Output stream
      */
     virtual void write(EGG::Stream& /* rStream */) {} // at 0xC
     /**
-     * \~ @brief Prints the parameter's value
+     * \~english @brief Prints the parameter's value
      */
     virtual void dump() {} // at 0x10
 
     /**
-     * \~ @brief Gets the parameter's tag name
+     * \~english @brief Gets the parameter's tag name
      */
     TagType getTag();
 
     /**
-     * \~ @brief Accesses the next parameter
+     * \~english @brief Accesses the next parameter
      */
     RPSysTagParm* getNext();
     /**
-     * \~ @brief Sets the next parameter
+     * \~english @brief Sets the next parameter
      *
-     * \~ @param pNext Next parameter
+     * \~english @param pNext Next parameter
      */
     void setNext(RPSysTagParm* pNext);
 
@@ -70,49 +70,49 @@ private:
 };
 
 /**
- * \~ @brief Primitive-typed tag parameter
+ * \~english @brief Primitive-typed tag parameter
  *
  * @tparam Parameter primitive type
  */
 template <typename T> class RPSysPrimTagParm : public RPSysTagParm {
 public:
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      *
-     * \~ @param pParent Parent container
-     * \~ @param pTag Parameter tag
+     * \~english @param pParent Parent container
+     * \~english @param pTag Parameter tag
      */
     RPSysPrimTagParm(RPSysTagParameters* pParent, TagType pTag)
         : RPSysTagParm(pParent, pTag) {}
 
     /**
-     * \~ @brief Reads the parameter's value
+     * \~english @brief Reads the parameter's value
      *
-     * \~ @param rStream Input stream
+     * \~english @param rStream Input stream
      */
     virtual void read(EGG::Stream& rStream) override; // at 0x8
     /**
-     * \~ @brief Writes the parameter's value
+     * \~english @brief Writes the parameter's value
      *
-     * \~ @param rStream Output stream
+     * \~english @param rStream Output stream
      */
     virtual void write(EGG::Stream& rStream) override; // at 0xC
     /**
-     * \~ @brief Prints the parameter's value
+     * \~english @brief Prints the parameter's value
      */
     virtual void dump() override; // at 0x10
 
     /**
-     * \~ @brief Sets the parameter's value
+     * \~english @brief Sets the parameter's value
      *
-     * \~ @param value New value
+     * \~english @param value New value
      */
     void set(T value) {
         mValue = value;
     }
 
     /**
-     * \~ @brief Accesses the parameter's value
+     * \~english @brief Accesses the parameter's value
      */
     T& operator()() {
         return mValue;
@@ -124,46 +124,46 @@ private:
 };
 
 /**
- * \~ @brief String-typed tag parameter
+ * \~english @brief String-typed tag parameter
  */
 class RPSysStringTagParm : public RPSysTagParm {
 public:
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      *
-     * \~ @param pParent Parent container
-     * \~ @param pTag Parameter tag
+     * \~english @param pParent Parent container
+     * \~english @param pTag Parameter tag
      */
     RPSysStringTagParm(RPSysTagParameters* pParent, TagType pTag);
 
     /**
-     * \~ @brief Reads the parameter's value
+     * \~english @brief Reads the parameter's value
      *
-     * \~ @param rStream Input stream
+     * \~english @param rStream Input stream
      */
     virtual void read(EGG::Stream& rStream) override; // at 0x8
     /**
-     * \~ @brief Writes the parameter's value
+     * \~english @brief Writes the parameter's value
      *
-     * \~ @param rStream Output stream
+     * \~english @param rStream Output stream
      */
     virtual void write(EGG::Stream& rStream) override; // at 0xC
     /**
-     * \~ @brief Prints the parameter's value
+     * \~english @brief Prints the parameter's value
      */
     virtual void dump() override; // at 0x10
 
     /**
-     * \~ @brief Sets the parameter's value
+     * \~english @brief Sets the parameter's value
      *
-     * \~ @param value New value
+     * \~english @param value New value
      */
     void set(TagType pValue) {
         mpValue = pValue;
     }
 
     /**
-     * \~ @brief Accesses the parameter's value
+     * \~english @brief Accesses the parameter's value
      */
     TagType& operator()() {
         return mpValue;
@@ -175,21 +175,21 @@ private:
 };
 
 /**
- * \~ @brief Group of tag parameters
+ * \~english @brief Group of tag parameters
  */
 class RPSysTagParameters {
 public:
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      *
-     * \~ @param pName Parameter group name
+     * \~english @param pName Parameter group name
      */
     explicit RPSysTagParameters(TagType pName);
 
     /**
-     * \~ @brief Appends a new child parameter to this group
+     * \~english @brief Appends a new child parameter to this group
      *
-     * \~ @param pChild Child parameter
+     * \~english @param pChild Child parameter
      */
     void add(RPSysTagParm* pChild);
 

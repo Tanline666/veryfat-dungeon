@@ -5,11 +5,11 @@ namespace nw4r {
 namespace snd {
 namespace detail {
 
-ExternalSoundPlayer::ExternalSoundPlayer() : mPlayableCount(1), mVolume(1.0f) {}
+ExternalSoundPlayer::ExternalSoundPlayer() : mPlayableCount(1) {}
 
 ExternalSoundPlayer::~ExternalSoundPlayer() {
     NW4R_UT_LINKLIST_FOREACH_SAFE (it, mSoundList,
-                                   { it->SetExternalSoundPlayer(NULL); })
+                                   { it->DetachExternalSoundPlayer(NULL); })
 }
 
 void ExternalSoundPlayer::SetPlayableSoundCount(int count) {
@@ -18,16 +18,6 @@ void ExternalSoundPlayer::SetPlayableSoundCount(int count) {
     while (GetPlayingSoundCount() > GetPlayableSoundCount()) {
         GetLowestPrioritySound()->Shutdown();
     }
-}
-
-void ExternalSoundPlayer::InsertSoundList(BasicSound* pSound) {
-    mSoundList.PushBack(pSound);
-    pSound->SetExternalSoundPlayer(this);
-}
-
-void ExternalSoundPlayer::RemoveSoundList(BasicSound* pSound) {
-    mSoundList.Erase(pSound);
-    pSound->SetExternalSoundPlayer(NULL);
 }
 
 BasicSound* ExternalSoundPlayer::GetLowestPrioritySound() {

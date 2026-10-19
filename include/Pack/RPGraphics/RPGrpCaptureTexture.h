@@ -11,12 +11,12 @@
 class RPGrpScreen;
 
 /**
- * \~ @brief Screen capture texture wrapper
+ * \~english @brief Screen capture texture wrapper
  */
 class RPGrpCaptureTexture {
 public:
     /**
-     * \~ @brief Flags for use with the constructor
+     * \~english @brief Flags for use with the constructor
      */
     enum {
         //! Whether to enable the mipmap filter
@@ -36,35 +36,35 @@ private:
 
 public:
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      *
-     * \~ @param pScreen Capture source
-     * \~ @param format Texture format
-     * \~ @param flags Creation flags
+     * \~english @param pScreen Capture source
+     * \~english @param format Texture format
+     * \~english @param flags Creation flags
      */
     RPGrpCaptureTexture(RPGrpScreen* pScreen, GXTexFmt format, u32 flags = 0);
 
     /**
-     * \~ @brief Destructor
+     * \~english @brief Destructor
      */
     virtual ~RPGrpCaptureTexture() {} // at 0x8
 
     /**
-     * \~ @brief Captures the EFB contents as a texture
+     * \~english @brief Captures the EFB contents as a texture
      *
-     * \~ @param format Texture format override (optional)
+     * \~english @param format Texture format override (optional)
      */
     void Capture(int format = -1);
 
     /**
-     * \~ @brief Accesses the underlying capture texture
+     * \~english @brief Accesses the underlying capture texture
      */
     EGG::CapTexture* GetCapTexture() const {
         return mpCapTexture;
     }
 
     /**
-     * \~ @brief Tests whether the mipmap filter is enabled
+     * \~english @brief Tests whether the mipmap filter is enabled
      */
     bool IsMipMapEnable() const {
         return (mTexFlags & ETexFlag_MipMap) != 0;
@@ -72,7 +72,7 @@ public:
 
 private:
     /**
-     * \~ @brief EFB setting flag
+     * \~english @brief EFB setting flag
      */
     enum EEfbFlag {
         //! Whether to clear the EFB color channel when copying the texture
@@ -84,7 +84,7 @@ private:
     };
 
     /**
-     * \~ @brief Texture settting flag
+     * \~english @brief Texture settting flag
      */
     enum ETexFlag {
         //! Whether to enable the mipmap filter

@@ -1,24 +1,24 @@
 #include <Pack/RPKernel.h>
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  *
- * \~ @param pName Socket name
- * \~ @param ... Format string arguments
+ * \~english @param pName Socket name
+ * \~english @param ... Format string arguments
  */
 IRPSysHostIOSocket::IRPSysHostIOSocket(const char* /* pName */, ...) {
     // Stubbed for release
 }
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  */
 IRPSysHostIOSocket::IRPSysHostIOSocket() {
     // Stubbed for release
 }
 
 /**
- * \~ @brief Destructor
+ * \~english @brief Destructor
  */
 IRPSysHostIOSocket::~IRPSysHostIOSocket() {
     // Stubbed for release

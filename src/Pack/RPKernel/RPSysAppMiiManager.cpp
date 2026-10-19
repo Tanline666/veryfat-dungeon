@@ -6,10 +6,10 @@
 #include <egg/core.h>
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  *
- * \~ @param num Mii buffer capacity
- * \~ @param pHeap Heap to use for allocations
+ * \~english @param num Mii buffer capacity
+ * \~english @param pHeap Heap to use for allocations
  */
 RPSysAppMiiManager::RPSysAppMiiManager(u16 num, EGG::Heap* pHeap)
     : mNumData(num) {
@@ -29,7 +29,7 @@ RPSysAppMiiManager::RPSysAppMiiManager(u16 num, EGG::Heap* pHeap)
 }
 
 /**
- * \~ @brief Destructor
+ * \~english @brief Destructor
  */
 //! Should be defined here: wrong order otherwise
 RPSysAppMiiManager::~RPSysAppMiiManager() {}

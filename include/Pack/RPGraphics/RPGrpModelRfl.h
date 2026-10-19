@@ -14,7 +14,7 @@
 //! @{
 
 /**
- * \~ @brief Model implementation for RFL
+ * \~english @brief Model implementation for RFL
  */
 class RPGrpModelRfl : public RPGrpModel, public nw4r::g3d::IScnObjCallback {
 public:

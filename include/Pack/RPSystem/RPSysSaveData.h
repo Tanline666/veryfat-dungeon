@@ -14,7 +14,7 @@ class RPSportsPlayerData;
 class RPSportsSystemData;
 
 /**
- * \~ @brief Pack Project save data
+ * \~english @brief Pack Project save data
  */
 class RPSysSaveData {
 public:
@@ -23,92 +23,93 @@ public:
 
 public:
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      */
     RPSysSaveData();
 
     /**
-     * \~ @brief Resets the save data state
+     * \~english @brief Resets the save data state
      */
     void reset();
 
     /**
-     * \~ @brief Tests whether an error occurred while reading the save file
+     * \~english @brief Tests whether an error occurred while reading the save
+     * file
      * @typo
      */
     bool isErrorOccured() const;
 
     /**
-     * \~ @brief Gets the Sports Pack player data at the specified player list
-     * index
+     * \~english @brief Gets the Sports Pack player data at the specified player
+     * list index
      *
-     * \~ @param idx Player list index
+     * \~english @param idx Player list index
      */
     RPSportsPlayerData* getSportsPlayerData(u32 idx) const;
     /**
-     * \~ @brief Sets the Sports Pack player data at the specified player list
-     * index
+     * \~english @brief Sets the Sports Pack player data at the specified player
+     * list index
      *
-     * \~ @param pPlayerData Player data
-     * \~ @param idx Player list index
+     * \~english @param pPlayerData Player data
+     * \~english @param idx Player list index
      */
     void setSportsPlayerData(const RPSportsPlayerData* pPlayerData, u32 idx);
 
     /**
-     * \~ @brief Gets the Sports Pack system data
+     * \~english @brief Gets the Sports Pack system data
      */
     RPSportsSystemData* getSportsSystemData() const;
     /**
-     * \~ @brief Sets the Sports Pack system data
+     * \~english @brief Sets the Sports Pack system data
      *
-     * \~ @param pSystemData System data
+     * \~english @param pSystemData System data
      */
     void setSportsSystemData(const RPSportsSystemData* pSystemData);
 
     /**
-     * \~ @brief Gets the Party Pack player data at the specified player list
-     * index
+     * \~english @brief Gets the Party Pack player data at the specified player
+     * list index
      *
-     * \~ @param idx Player list index
+     * \~english @param idx Player list index
      */
     RPPartyPlayerData* getPartyPlayerData(u32 idx) const;
     /**
-     * \~ @brief Sets the Party Pack player data at the specified player list
-     * index
+     * \~english @brief Sets the Party Pack player data at the specified player
+     * list index
      *
-     * \~ @param pPlayerData Player data
-     * \~ @param idx Player list index
+     * \~english @param pPlayerData Player data
+     * \~english @param idx Player list index
      */
     void setPartyPlayerData(const RPPartyPlayerData* pPlayerData, u32 idx);
 
     /**
-     * \~ @brief Gets the Party Pack system data
+     * \~english @brief Gets the Party Pack system data
      */
     RPPartySystemData* getPartySystemData() const;
     /**
-     * \~ @brief Sets the Party Pack system data
+     * \~english @brief Sets the Party Pack system data
      *
-     * \~ @param pSystemData System data
+     * \~english @param pSystemData System data
      */
     void setPartySystemData(const RPPartySystemData* pSystemData);
 
     /**
-     * \~ @brief Deserializes this object from the specified stream
+     * \~english @brief Deserializes this object from the specified stream
      *
-     * \~ @param rStrm Memory stream
-     * \~ @param pRawSave Raw save data
+     * \~english @param rStrm Memory stream
+     * \~english @param pRawSave Raw save data
      */
     void read(EGG::RamStream& rStrm, const void* pRawSave);
     /**
-     * \~ @brief Serializes this object to the specified stream
+     * \~english @brief Serializes this object to the specified stream
      *
-     * \~ @param rStrm Memory stream
-     * \~ @param pRawSave Raw save data
+     * \~english @param rStrm Memory stream
+     * \~english @param pRawSave Raw save data
      */
     void write(EGG::RamStream& rStrm, const void* pRawSave) const;
 
     /**
-     * \~ @brief Gets the size of the current pack's save file, in bytes
+     * \~english @brief Gets the size of the current pack's save file, in bytes
      */
     static u32 getSaveFileSize();
 
@@ -131,11 +132,11 @@ private:
 
 private:
     /**
-     * \~ @brief Calculates a checksum of the specified data
+     * \~english @brief Calculates a checksum of the specified data
      *
-     * \~ @param pData Data buffer
-     * \~ @param size Buffer size
-     * \~ @return 32-bit checksum
+     * \~english @param pData Data buffer
+     * \~english @param size Buffer size
+     * \~english @return 32-bit checksum
      */
     static u32 calcCrc(const void* pData, u32 size);
 

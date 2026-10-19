@@ -11,7 +11,7 @@
 class RPSysMiddleDBGenInfo;
 
 /**
- * \~ @brief In-memory Mii database
+ * \~english @brief In-memory Mii database
  */
 class RPSysMiddleDB {
 private:
@@ -29,43 +29,44 @@ private:
 
 public:
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      *
-     * \~ @param pGenInfo Middle DB generation parameters
+     * \~english @param pGenInfo Middle DB generation parameters
      */
     RPSysMiddleDB(const RPSysMiddleDBGenInfo* pGenInfo);
 
     /**
-     * \~ @brief Destructor
+     * \~english @brief Destructor
      */
     virtual ~RPSysMiddleDB(); // at 0x8
 
     /**
-     * \~ @brief Increments the current database index
+     * \~english @brief Increments the current database index
      * @details The current index wraps around when it becomes invalid
      */
     void IncrementCurrentIndex();
 
     /**
-     * \~ @brief Gets the RFL parameters necessary to access the specified Mii
+     * \~english @brief Gets the RFL parameters necessary to access the
+     * specified Mii
      * @details If the index is invalid for the middle database, the parameters
      * returned will instead fetch a Mii from the random database.
      *
-     * \~ @param index Database index
-     * \~ @param ppMiddleDB Middle DB to use with RFL
-     * \~ @param pIndex Database index to use with RFL
+     * \~english @param index Database index
+     * \~english @param ppMiddleDB Middle DB to use with RFL
+     * \~english @param pIndex Database index to use with RFL
      */
     void GetRFLMiddleDB(u16 index, RFLMiddleDB** ppMiddleDB, u16* pIndex);
 
     /**
-     * \~ @brief Gets the number of Miis stored in the middle database
+     * \~english @brief Gets the number of Miis stored in the middle database
      */
     u16 GetStoredNum() const {
         return mStoredNum;
     }
 
     /**
-     * \~ @brief Gets the current database index
+     * \~english @brief Gets the current database index
      */
     u16 GetCurrentIndex() const {
         return mCurrentIndex;

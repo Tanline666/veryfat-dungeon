@@ -12,44 +12,44 @@
 //! @{
 
 /**
- * \~ @brief Base class for Mii avatars
+ * \~english @brief Base class for Mii avatars
  */
 class RPSysAvatar : public RP_DEBUG_STUB_1 {
 public:
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      *
-     * \~ @param pGenInfo Mii generation parameters
+     * \~english @param pGenInfo Mii generation parameters
      */
     explicit RPSysAvatar(const RPSysKokeshiGenInfo* pGenInfo);
 
     /**
-     * \~ @brief Destructor
+     * \~english @brief Destructor
      */
     virtual ~RPSysAvatar() override; // at 0x8
 
     /**
-     * \~ @brief Loads the assets necessary for this avatar
+     * \~english @brief Loads the assets necessary for this avatar
      *
-     * \~ @param pOverloadInfo Overload parameters
+     * \~english @param pOverloadInfo Overload parameters
      */
     virtual void LoadResource(
         const RPSysKokeshiOverloadInfo* pOverloadInfo = NULL); // at 0xC
 
     /**
-     * \~ @brief Applies all lightmap textures to this avatar
+     * \~english @brief Applies all lightmap textures to this avatar
      *
-     * \~ @param drawScene Draw scene index
+     * \~english @param drawScene Draw scene index
      */
     virtual void ApplyLightTexture(u8 drawScene) = 0; // at 0x10
 
     /**
-     * \~ @brief Gets the RFL favorite color of this avatar
+     * \~english @brief Gets the RFL favorite color of this avatar
      */
     GXColor GetFavoriteColor() const;
 
     /**
-     * \~ @brief Accesses the Mii generation parameters
+     * \~english @brief Accesses the Mii generation parameters
      */
     const RPSysKokeshiGenInfo& GetGenInfo() const {
         return mGenInfo;
@@ -57,12 +57,12 @@ public:
 
 protected:
     /**
-     * \~ @brief Handles post-constructor initialization
+     * \~english @brief Handles post-constructor initialization
      */
     void Construct();
 
     /**
-     * \~ @brief Registers this avatar with the kokeshi manager
+     * \~english @brief Registers this avatar with the kokeshi manager
      */
     void Setup();
 

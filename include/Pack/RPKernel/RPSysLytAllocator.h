@@ -10,20 +10,20 @@
 //! @{
 
 /**
- * \~ @brief Layout memory allocator
+ * \~english @brief Layout memory allocator
  */
 class RPSysLytAllocator : public EGG::Allocator {
 public:
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      *
-     * \~ @param pHeap Heap to use for allocations
-     * \~ @param align Required byte alignment for allocations
+     * \~english @param pHeap Heap to use for allocations
+     * \~english @param align Required byte alignment for allocations
      */
     RPSysLytAllocator(EGG::Heap* pHeap, s32 align = 4);
 
     /**
-     * \~ @brief Destructor
+     * \~english @brief Destructor
      */
     virtual ~RPSysLytAllocator() override; // at 0x8
 

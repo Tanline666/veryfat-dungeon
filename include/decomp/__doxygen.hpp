@@ -199,6 +199,10 @@
 //! @brief NintendoWare for Revolution (NW4R)
 
 //! @ingroup nw4r
+//! @defgroup nw4r_db debug
+//! @brief Debug
+
+//! @ingroup nw4r
 //! @defgroup nw4r_ut ut
 //! @brief Utilities
 
@@ -293,7 +297,7 @@
 //! @brief Utilities
 
 //! @ingroup rp
-//! @defgroup rp_sports RPHealth
+//! @defgroup rp_health RPHealth
 //! @brief Wii Fit, Wii Fit Plus
 
 // END RP
@@ -316,6 +320,14 @@
 
 //! @brief NintendoWare for Revolution
 namespace nw4r {
+
+//! @addtogroup nw4r_db
+//! @{
+
+//! @brief NW4R debug module
+namespace db {}
+
+//! @}
 
 //! @addtogroup nw4r_ut
 //! @{

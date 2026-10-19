@@ -3,7 +3,6 @@
 #include <nw4r/types_nw4r.h>
 
 #include <nw4r/snd/snd_Types.h>
-
 #include <nw4r/ut.h>
 
 namespace nw4r {
@@ -20,16 +19,16 @@ class FxBase : private ut::NonCopyable {
 public:
     virtual ~FxBase() {} // at 0x8
 
-    virtual bool StartUp() {
-        return true;
-    } // at 0xC
+    virtual bool StartUp(); // at 0xC
 
-    virtual void Shutdown() {} // at 0x10
+    virtual void Shutdown(); // at 0x10
 
     virtual void UpdateBuffer(int /* channels */, void** /* ppBuffer */,
                               u32 /* size */, SampleFormat /* format */,
-                              f32 /* sampleRate */, OutputMode /* mode */) {
-    } // at 0x14
+                              f32 /* sampleRate */,
+                              OutputMode /* mode */) = 0; // at 0x14
+
+    virtual void OnChangeOutputMode(); // at 0x18
 
 public:
     NW4R_UT_LINKLIST_NODE_DECL(); // at 0x4

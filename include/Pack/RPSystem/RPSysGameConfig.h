@@ -9,7 +9,7 @@
 //! @{
 
 /**
- * \~ @brief Pack Project Game Config File (`gameConfig.ini`)
+ * \~english @brief Pack Project Game Config File (`gameConfig.ini`)
  */
 class RPSysGameConfig : public RPSysTagParameters {
     RP_SINGLETON_DECL_EX(RPSysGameConfig);

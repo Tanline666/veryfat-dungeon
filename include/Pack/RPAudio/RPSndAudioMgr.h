@@ -18,179 +18,182 @@
 //! @{
 
 /**
- * \~ @brief Audio manager
+ * \~english @brief Audio manager
  */
 class RPSndAudioMgr : public EGG::ExpAudioMgr {
     RP_SINGLETON_DECL_EX(RPSndAudioMgr);
 
 public:
     /**
-     * \~ @brief Callback for configuring audio effects
+     * \~english @brief Callback for configuring audio effects
      */
     typedef void (*SetFxCallback)();
 
 public:
     /**
-     * \~ @brief Initializes the audio manager state
+     * \~english @brief Initializes the audio manager state
      *
-     * \~ @param pArg Audio system configuration
+     * \~english @param pArg Audio system configuration
      */
     virtual void initialize(Arg* pArg); // at 0x8
 
     /**
-     * \~ @brief Attempts to open the specified sound archive, using storage
-     * settings from the project locale
+     * \~english @brief Attempts to open the specified sound archive, using
+     * storage settings from the project locale
      *
-     * \~ @param pPath Sound archive path
-     * \~ @param pHeap Sound heap
-     * \~ @param pMultiHandle Multi handle for special storage types
-     * \~ @return Archive player
+     * \~english @param pPath Sound archive path
+     * \~english @param pHeap Sound heap
+     * \~english @param pMultiHandle Multi handle for special storage types
+     * \~english @return Archive player
      */
     virtual nw4r::snd::SoundArchivePlayer*
     openArchiveRP(const char* pPath, nw4r::snd::SoundHeap* pHeap,
                   void* pMultiHandle); // at 0xB0
 
     /**
-     * \~ @brief Updates the state of the audio manager
+     * \~english @brief Updates the state of the audio manager
      */
     virtual void calc(); // at 0xC
 
     /**
-     * \~ @brief Attempts to restore the specified sound heap state
+     * \~english @brief Attempts to restore the specified sound heap state
      *
-     * \~ @param id State ID
-     * \~ @return Success
+     * \~english @param id State ID
+     * \~english @return Success
      */
     virtual bool loadState(s32 id); // at 0x18
 
     /**
-     * \~ @brief Attempts to load the specified sound group
+     * \~english @brief Attempts to load the specified sound group
      *
-     * \~ @param id Group ID
-     * \~ @param pHeap Sound heap to use for allocations
-     * \~ @param blockSize Read block size (zero tries to read it all at once)
-     * \~ @return Success
+     * \~english @param id Group ID
+     * \~english @param pHeap Sound heap to use for allocations
+     * \~english @param blockSize Read block size (zero tries to read it all at
+     * once)
+     * \~english @return Success
      */
     virtual bool loadGroup(unsigned int id, nw4r::snd::SoundHeap* pHeap = NULL,
                            u32 blockSize = 0); // at 0x28
 
     /**
-     * \~ @brief Attempts to load the specified sound group
+     * \~english @brief Attempts to load the specified sound group
      *
-     * \~ @param id Group ID
-     * \~ @param pHeap Sound heap to use for allocations
-     * \~ @param blockSize Read block size (zero tries to read it all at once)
-     * \~ @return Success
+     * \~english @param id Group ID
+     * \~english @param pHeap Sound heap to use for allocations
+     * \~english @param blockSize Read block size (zero tries to read it all at
+     * once)
+     * \~english @return Success
      */
     virtual bool loadGroup(int id, nw4r::snd::SoundHeap* pHeap = NULL,
                            u32 blockSize = 0); // at 0x2C
 
     /**
-     * \~ @brief Attempts to load the specified sound group
+     * \~english @brief Attempts to load the specified sound group
      *
-     * \~ @param pName Group name
-     * \~ @param pHeap Sound heap to use for allocations
-     * \~ @param blockSize Read block size (zero tries to read it all at once)
-     * \~ @return Success
+     * \~english @param pName Group name
+     * \~english @param pHeap Sound heap to use for allocations
+     * \~english @param blockSize Read block size (zero tries to read it all at
+     * once)
+     * \~english @return Success
      */
     virtual bool loadGroup(const char* pName,
                            nw4r::snd::SoundHeap* pHeap = NULL,
                            u32 blockSize = 0); // at 0x30
 
     /**
-     * \~ @brief Attempts to start the specified sound
+     * \~english @brief Attempts to start the specified sound
      *
-     * \~ @param pHandle Sound handle
-     * \~ @param id Sound ID
-     * \~ @return Success
+     * \~english @param pHandle Sound handle
+     * \~english @param id Sound ID
+     * \~english @return Success
      */
     virtual bool startSound(nw4r::snd::SoundHandle* pHandle, u32 id); // at 0x38
 
     /**
-     * \~ @brief Attempts to start the specified sound
+     * \~english @brief Attempts to start the specified sound
      *
-     * \~ @param pHandle Sound handle
-     * \~ @param id Sound ID
-     * \~ @return Success
+     * \~english @param pHandle Sound handle
+     * \~english @param id Sound ID
+     * \~english @return Success
      */
     virtual bool startSound(nw4r::snd::SoundHandle* pHandle,
                             unsigned int id); // at 0x3C
 
     /**
-     * \~ @brief Attempts to start the specified sound
+     * \~english @brief Attempts to start the specified sound
      *
-     * \~ @param pHandle Sound handle
-     * \~ @param pName Sound name
-     * \~ @return Success
+     * \~english @param pHandle Sound handle
+     * \~english @param pName Sound name
+     * \~english @return Success
      */
     virtual bool startSound(nw4r::snd::SoundHandle* pHandle,
                             const char* pName); // at 0x40
 
     /**
-     * \~ @brief Attempts to open and prepare the specified sound archive
+     * \~english @brief Attempts to open and prepare the specified sound archive
      *
-     * \~ @param pPath Sound archive path
-     * \~ @param staticPath Whether the archive path is relative to the static
-     * resource directory
-     * \~ @param pHeap Sound heap
-     * \~ @return Archive player
+     * \~english @param pPath Sound archive path
+     * \~english @param staticPath Whether the archive path is relative to the
+     * static resource directory
+     * \~english @param pHeap Sound heap
+     * \~english @return Archive player
      */
     nw4r::snd::SoundArchivePlayer* attachArchive(const char* pPath,
                                                  bool staticPath,
                                                  nw4r::snd::SoundHeap* pHeap);
 
     /**
-     * \~ @brief Attempts to start the specified BGM ("BGM_") sound
+     * \~english @brief Attempts to start the specified BGM ("BGM_") sound
      *
-     * \~ @param id Sound ID
-     * \~ @return Success
+     * \~english @param id Sound ID
+     * \~english @return Success
      */
     bool startBgm(u32 id) {
         return startSound(&mHandleBgm, id);
     }
     /**
-     * \~ @brief Attempts to start the specified BGM ("BGM_") sound
+     * \~english @brief Attempts to start the specified BGM ("BGM_") sound
      *
-     * \~ @param pName Sound name
-     * \~ @return Success
+     * \~english @param pName Sound name
+     * \~english @return Success
      */
     bool startBgm(const char* pName) {
         return startBgm(changeNameToIdRP(pName));
     }
 
     /**
-     * \~ @brief Attempts to start the specified stream ("STRM_") sound
+     * \~english @brief Attempts to start the specified stream ("STRM_") sound
      *
-     * \~ @param id Sound ID
-     * \~ @return Success
+     * \~english @param id Sound ID
+     * \~english @return Success
      */
     bool startStream(u32 id) {
         return startSound(&mHandleStream, id);
     }
     /**
-     * \~ @brief Attempts to start the specified stream ("STRM_") sound
+     * \~english @brief Attempts to start the specified stream ("STRM_") sound
      *
-     * \~ @param pName Sound name
-     * \~ @return Success
+     * \~english @param pName Sound name
+     * \~english @return Success
      */
     bool startStream(const char* pName) {
         return startStream(changeNameToIdRP(pName));
     }
 
     /**
-     * \~ @brief Attempts to start the specified system sound effect
+     * \~english @brief Attempts to start the specified system sound effect
      *
-     * \~ @param id Sound ID
-     * \~ @return Success
+     * \~english @param id Sound ID
+     * \~english @return Success
      */
     bool startSystemSe(u32 id) {
         return startSystemSe(getSoundArchive().GetSoundLabelString(id));
     }
     /**
-     * \~ @brief Attempts to start the specified system sound effect
+     * \~english @brief Attempts to start the specified system sound effect
      *
-     * \~ @param pName Sound name
-     * \~ @return Success
+     * \~english @param pName Sound name
+     * \~english @return Success
      */
     bool startSystemSe(const char* pName) {
         if (mIsDisableFanfare) {
@@ -203,12 +206,12 @@ public:
     }
 
     /**
-     * \~ @brief Attempts to start the specified system sound effect through the
-     * remote speaker(s)
+     * \~english @brief Attempts to start the specified system sound effect
+     * through the remote speaker(s)
      *
-     * \~ @param id Sound ID
-     * \~ @param playerFlag Player output line flags
-     * \~ @return Success
+     * \~english @param id Sound ID
+     * \~english @param playerFlag Player output line flags
+     * \~english @return Success
      */
     bool startSystemSeWithRemote(u32 id, u32 playerFlag) {
         bool success = startSound(&mHandleSystemSe, id);
@@ -219,31 +222,31 @@ public:
         return success;
     }
     /**
-     * \~ @brief Attempts to start the specified system sound effect through the
-     * remote speaker(s)
+     * \~english @brief Attempts to start the specified system sound effect
+     * through the remote speaker(s)
      *
-     * \~ @param pName Sound name
-     * \~ @param playerFlag Player output line flags
-     * \~ @return Success
+     * \~english @param pName Sound name
+     * \~english @param playerFlag Player output line flags
+     * \~english @return Success
      */
     bool startSystemSeWithRemote(const char* pName, u32 playerFlag) {
         return startSystemSeWithRemote(changeNameToIdRP(pName), playerFlag);
     }
 
     /**
-     * \~ @brief Attempts to start the specified wave sound
+     * \~english @brief Attempts to start the specified wave sound
      *
-     * \~ @param id Sound ID
-     * \~ @return Success
+     * \~english @param id Sound ID
+     * \~english @return Success
      */
     bool startWaveSound(u32 id) {
         return startWaveSound(getSoundArchive().GetSoundLabelString(id));
     }
     /**
-     * \~ @brief Attempts to start the specified wave sound
+     * \~english @brief Attempts to start the specified wave sound
      *
-     * \~ @param pName Sound name
-     * \~ @return Success
+     * \~english @param pName Sound name
+     * \~english @return Success
      */
     bool startWaveSound(const char* pName) {
         if (pName[0] == 'B' && pName[1] == 'g' && pName[2] == 'm') {
@@ -254,10 +257,10 @@ public:
     }
 
     /**
-     * \~ @brief Converts a sound effect name to its corresponding ID
+     * \~english @brief Converts a sound effect name to its corresponding ID
      *
-     * \~ @param pName Sound effect name
-     * \~ @return Sound effect ID
+     * \~english @param pName Sound effect name
+     * \~english @return Sound effect ID
      */
     u32 changeNameToIdRP(const char* pName) {
         u32 id = mArchive->ConvertLabelStringToSoundId(pName);
@@ -268,200 +271,204 @@ public:
     }
 
     /**
-     * \~ @brief Configures the audio system for title scenes
+     * \~english @brief Configures the audio system for title scenes
      */
     void configureTitle();
 
     /**
-     * \~ @brief Configures the audio system for scenes without BGM
+     * \~english @brief Configures the audio system for scenes without BGM
      */
     void configureNoBgm();
 
     /**
-     * \~ @brief Configures the audio system for game scenes
+     * \~english @brief Configures the audio system for game scenes
      *
-     * \~ @param cameraNum 3D audio camera count
+     * \~english @param cameraNum 3D audio camera count
      */
     void configureMiniGame(s32 cameraNum);
 
     /**
-     * \~ @brief Fades out all audio in the specified number of frames
+     * \~english @brief Fades out all audio in the specified number of frames
      *
-     * \~ @param frames Fade out length
+     * \~english @param frames Fade out length
      */
     void fadeOutAllSound(u16 frames);
 
     /**
-     * \~ @brief Applies the fade out for game Retry buttons
+     * \~english @brief Applies the fade out for game Retry buttons
      */
     void setAutoFadeOnRetry();
 
     /**
-     * \~ @brief Prepares the audio system for a scene change
+     * \~english @brief Prepares the audio system for a scene change
      */
     void changeScene();
 
     /**
-     * \~ @brief Resets the audio system configuration
+     * \~english @brief Resets the audio system configuration
      */
     void exitAudio();
 
     /**
-     * \~ @brief Sets the volume of all sound players
+     * \~english @brief Sets the volume of all sound players
      *
-     * \~ @param volume New volume
-     * \~ @param frames Interpolation time
+     * \~english @param volume New volume
+     * \~english @param frames Interpolation time
      */
     void setArcVolume(f32 volume, u32 frames);
 
     /**
-     * \~ @brief Resets the volume of all sound players
+     * \~english @brief Resets the volume of all sound players
      */
     void resetArcVolume();
 
     /**
-     * \~ @brief Sets the volume of the current BGM
+     * \~english @brief Sets the volume of the current BGM
      *
-     * \~ @param volume New volume
-     * \~ @param frames Interpolation time
+     * \~english @param volume New volume
+     * \~english @param frames Interpolation time
      */
     void setBgmVolume(f32 volume, int frames);
 
     /**
-     * \~ @brief Sets the volume of the current stream
+     * \~english @brief Sets the volume of the current stream
      *
-     * \~ @param volume New volume
-     * \~ @param frames Interpolation time
+     * \~english @param volume New volume
+     * \~english @param frames Interpolation time
      */
     void setStreamVolume(f32 volume, int frames);
 
     /**
-     * \~ @brief Gets the position of the current stream, in seconds
+     * \~english @brief Gets the position of the current stream, in seconds
      */
     u32 getStreamPlaySecond();
 
     /**
-     * \~ @brief Attempts to start a cursor sound effect
+     * \~english @brief Attempts to start a cursor sound effect
      *
-     * \~ @param pName Sound name
-     * \~ @param rDpdPos Cursor DPD/IR position
-     * \~ @param pan Sound pan
-     * \~ @param playerFlag Player output line flag
-     * \~ @return Success
+     * \~english @param pName Sound name
+     * \~english @param rDpdPos Cursor DPD/IR position
+     * \~english @param pan Sound pan
+     * \~english @param playerFlag Player output line flag
+     * \~english @return Success
      */
     bool startPointCursorSe(const char* pName, const nw4r::math::VEC2& rDpdPos,
                             f32 pan, u32 playerFlag);
 
     /**
-     * \~ @brief Attempts to start a pause sound effect
+     * \~english @brief Attempts to start a pause sound effect
      *
-     * \~ @param pNameRemote Remote speaker sound name
-     * \~ @param pNameTV TV speaker sound name
-     * \~ @param waitForDpd Whether to wait until the controller reconnects
-     * \~ @param player Player whose remote speaker should be used
+     * \~english @param pNameRemote Remote speaker sound name
+     * \~english @param pNameTV TV speaker sound name
+     * \~english @param waitForDpd Whether to wait until the controller
+     * reconnects
+     * \~english @param player Player whose remote speaker should be used
      */
     void startPauseSe(const char* pNameRemote, const char* pNameTV,
                       bool waitForDpd, s32 player);
 
     /**
-     * \~ @brief Applies the default audio effect configuration
+     * \~english @brief Applies the default audio effect configuration
      */
     void setDefaultFx();
 
     /**
-     * \~ @brief Configures the specified remote speaker(s) for the current
-     * system sound effect
+     * \~english @brief Configures the specified remote speaker(s) for the
+     * current system sound effect
      *
-     * \~ @param playerFlag Player output line flags
+     * \~english @param playerFlag Player output line flags
      */
     void setRemote(u32 playerFlag);
 
     /**
-     * \~ @brief Prepares the audio system for entering the home button menu
+     * \~english @brief Prepares the audio system for entering the home button
+     * menu
      */
     void enterMenu();
     /**
-     * \~ @brief Prepares the audio system for returning from the home button
-     * menu
+     * \~english @brief Prepares the audio system for returning from the home
+     * button menu
      */
     void exitMenu();
 
     /**
-     * \~ @brief Prepares the audio system for entering the pause menu
+     * \~english @brief Prepares the audio system for entering the pause menu
      */
     void enterPause();
     /**
-     * \~ @brief Prepares the audio system for returning from the pause menu
+     * \~english @brief Prepares the audio system for returning from the pause
+     * menu
      */
     void exitPause();
 
     /**
-     * \~ @brief Pauses the audio system when a DVD error occurs
+     * \~english @brief Pauses the audio system when a DVD error occurs
      */
     void onDvdError();
     /**
-     * \~ @brief Resumes the audio system after a DVD error
+     * \~english @brief Resumes the audio system after a DVD error
      */
     void exitDvdError();
 
     /**
-     * \~ @brief Stops all sounds when exiting the scene from the pause menu
+     * \~english @brief Stops all sounds when exiting the scene from the pause
+     * menu
      */
     void stopAllSoundOnPauseOff();
 
     /**
-     * \~ @brief Requests the audio system to shutdown
+     * \~english @brief Requests the audio system to shutdown
      *
-     * \~ @param frames Time to fade out the master volume
+     * \~english @param frames Time to fade out the master volume
      */
     void shutdownSystem(int frames);
 
     /**
-     * \~ @brief Requests the audio system to reset
+     * \~english @brief Requests the audio system to reset
      *
-     * \~ @param frames Time to fade out the archive volume
+     * \~english @param frames Time to fade out the archive volume
      */
     void resetSystem(int frames);
 
     /**
-     * \~ @brief Attempts to start the specified fanfare sound effect
+     * \~english @brief Attempts to start the specified fanfare sound effect
      *
-     * \~ @param id Sound ID
-     * \~ @return Success
+     * \~english @param id Sound ID
+     * \~english @return Success
      */
     bool startFanfare(u32 id);
     /**
-     * \~ @brief Attempts to start the specified fanfare sound effect
+     * \~english @brief Attempts to start the specified fanfare sound effect
      *
-     * \~ @param pName Sound name
-     * \~ @return Success
+     * \~english @param pName Sound name
+     * \~english @return Success
      */
     bool startFanfare(const char* pName);
 
     /**
-     * \~ @brief Gets the user parameters attached to the specified sound
+     * \~english @brief Gets the user parameters attached to the specified sound
      *
-     * \~ @param rArchive Sound archive
-     * \~ @param id Sound ID
+     * \~english @param rArchive Sound archive
+     * \~english @param id Sound ID
      */
     u32 getUserParam(const nw4r::snd::SoundArchive& rArchive, u32 id);
 
     /**
-     * \~ @brief Sets the output mode of the audio system
+     * \~english @brief Sets the output mode of the audio system
      *
-     * \~ @param confMode Sound mode from the SYSCONF
+     * \~english @param confMode Sound mode from the SYSCONF
      */
     void setOutputMode(u8 confMode);
 
     /**
-     * \~ @brief Gets the number of game players
+     * \~english @brief Gets the number of game players
      */
     u32 getPlayerNum() const {
         return mPlayerNum;
     }
 
     /**
-     * \~ @brief Accesses the static sound archive manager
+     * \~english @brief Accesses the static sound archive manager
      */
     RPSndStaticMgr& getStaticMgr() {
         return mStaticMgr;
@@ -469,7 +476,7 @@ public:
 
 private:
     /**
-     * \~ @brief Audio manager flags
+     * \~english @brief Audio manager flags
      */
     enum {
         EFlag_IsPause = 1 << 0,    //!< Pause state was entered
@@ -478,7 +485,7 @@ private:
     };
 
     /**
-     * \~ @brief Audio manager state
+     * \~english @brief Audio manager state
      */
     enum EState {
         EState_Exited,   //!< Needs configuration for the current scene
@@ -503,35 +510,35 @@ private:
 
 private:
     /**
-     * \~ @brief Sets the specified bitflags
+     * \~english @brief Sets the specified bitflags
      *
-     * \~ @param flag Bitflags
+     * \~english @param flag Bitflags
      */
     void setFlag(u8 flag) {
         mFlags |= flag;
     }
     /**
-     * \~ @brief Clears the specified bitflags
+     * \~english @brief Clears the specified bitflags
      *
-     * \~ @param flag Bitflags
+     * \~english @param flag Bitflags
      */
     void clearFlag(u8 flag) {
         mFlags &= static_cast<u8>(~flag);
     }
     /**
-     * \~ @brief Tests whether the specified bitflags are set
+     * \~english @brief Tests whether the specified bitflags are set
      *
-     * \~ @param flag Bitflags
+     * \~english @param flag Bitflags
      */
     bool testFlag(u8 flag) {
         return mFlags & flag;
     }
 
     /**
-     * \~ @brief Gets the playtime of the specified fanfare sound effect, in
-     * milliseconds
+     * \~english @brief Gets the playtime of the specified fanfare sound effect,
+     * in milliseconds
      *
-     * \~ @param pName Fanfare sound effect name
+     * \~english @param pName Fanfare sound effect name
      */
     u32 getFanfareLength(const char* pName) {
         if (std::strcmp("RP_COM_BGM_GET_COPPER", pName) == 0) {

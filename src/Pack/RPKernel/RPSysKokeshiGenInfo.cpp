@@ -3,7 +3,7 @@
 #include <RVLFaceLib.h>
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  */
 RPSysKokeshiGenInfo::RPSysKokeshiGenInfo() {
     mGenType = RPSysKokeshiManager::GenType_None;
@@ -34,6 +34,6 @@ RPSysKokeshiGenInfo::RPSysKokeshiGenInfo() {
 }
 
 /**
- * \~ @brief Destructor
+ * \~english @brief Destructor
  */
 RPSysKokeshiGenInfo::~RPSysKokeshiGenInfo() {}

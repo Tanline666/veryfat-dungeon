@@ -1,13 +1,8 @@
-#include "eggShadowTextureManager.h"
-
-#include "eggAssert.h"
-#include "eggDrawGX.h"
-#include "eggPostEffectBase.h"
-#include "eggShadowTexture.h"
-#include "eggStateGX.h"
-#include "eggTextureBuffer.h"
+#include <egg/gfxe.h>
+#include <egg/prim.h>
 
 #include <revolution/GX.h>
+
 
 namespace EGG {
 ShadowTextureManager::ShadowTextureManager()

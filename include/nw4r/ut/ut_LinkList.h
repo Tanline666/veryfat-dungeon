@@ -455,9 +455,9 @@ public:
 /**
  * Linked-list for-each macro.
  *
- * \~ @param NAME Element name
- * \~ @param LIST Reference to list
- * \~ @param ... Statement(s) to execute
+ * \~english @param NAME Element name
+ * \~english @param LIST Reference to list
+ * \~english @param ... Statement(s) to execute
  */
 #define NW4R_UT_LINKLIST_FOREACH(NAME, LIST, ...)                              \
     {                                                                          \
@@ -473,9 +473,9 @@ public:
 /**
  * List for-each macro, with robust iteration.
  *
- * \~ @param NAME Element name
- * \~ @param LIST Reference to list
- * \~ @param ... Statement(s) to execute
+ * \~english @param NAME Element name
+ * \~english @param LIST Reference to list
+ * \~english @param ... Statement(s) to execute
  */
 #define NW4R_UT_LINKLIST_FOREACH_SAFE(NAME, LIST, ...)                         \
     {                                                                          \

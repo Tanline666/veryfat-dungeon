@@ -8,7 +8,7 @@ const u32 RPUtlRandom::RANDF_SHIFT = 16;
 const u32 RPUtlRandom::MULT = 0x10DCD;
 
 /**
- * \~ @brief Creates a seed based off of the system time.
+ * \~english @brief Creates a seed based off of the system time.
  */
 void RPUtlRandom::initialize() {
     s64 ticks = OSGetTime();

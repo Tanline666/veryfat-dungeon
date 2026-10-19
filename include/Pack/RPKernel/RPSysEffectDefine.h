@@ -11,7 +11,7 @@
 namespace RPSysEffectDefine {
 
 /**
- * \~ @brief Effect userdata flags
+ * \~english @brief Effect userdata flags
  */
 enum EUserFlag {
     EUserFlag_0 = 1 << 0,
@@ -23,12 +23,12 @@ enum EUserFlag {
 };
 
 /**
- * \~ @brief Number of effect systems (standard + slow)
+ * \~english @brief Number of effect systems (standard + slow)
  */
 static const u32 MAX_SYSTEM = 2;
 
 /**
- * \~ @brief Maximum effect system group ID
+ * \~english @brief Maximum effect system group ID
  */
 static const u32 MAX_GROUP_ID = RPSysEffectMgr::EDrawGroup_Max * MAX_SYSTEM *
                                 RPSysEffectMgr::EDrawScene_Max;

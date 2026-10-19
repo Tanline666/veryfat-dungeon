@@ -8,18 +8,19 @@
 #include <revolution/MEM.h>
 
 /**
- * \~ @brief Disables freeing layout memory in favor of garbage collection
+ * \~english @brief Disables freeing layout memory in favor of garbage
+ * collection
  *
- * \~ @param pAllocator Memory allocator
- * \~ @param pBlock Memory block
+ * \~english @param pAllocator Memory allocator
+ * \~english @param pBlock Memory block
  */
 static void FreeMemory(MEMAllocator* /* pAllocator */, void* /* pBlock */) {}
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  *
- * \~ @param pHeap Heap to use for allocations
- * \~ @param align Required byte alignment for allocations
+ * \~english @param pHeap Heap to use for allocations
+ * \~english @param align Required byte alignment for allocations
  */
 RPSysLytAllocator::RPSysLytAllocator(EGG::Heap* pHeap, s32 align)
     : EGG::Allocator(pHeap, align) {
@@ -32,6 +33,6 @@ RPSysLytAllocator::RPSysLytAllocator(EGG::Heap* pHeap, s32 align)
 }
 
 /**
- * \~ @brief Destructor
+ * \~english @brief Destructor
  */
 RPSysLytAllocator::~RPSysLytAllocator() {}

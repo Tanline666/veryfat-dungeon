@@ -2,7 +2,7 @@
 #include <Pack/RPSystem.h>
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  */
 RPSysLytAnmObj::RPSysLytAnmObj() {
     mFrameCtrl.init(1);
@@ -12,7 +12,7 @@ RPSysLytAnmObj::RPSysLytAnmObj() {
 }
 
 /**
- * \~ @brief Updates the animation playback
+ * \~english @brief Updates the animation playback
  */
 
 //! TODO: Update for Wii Fit Plus (texline)
@@ -37,16 +37,16 @@ void RPSysLytAnmObj::calc() {
 }
 
 /**
- * \~ @brief Resets the animation playback
+ * \~english @brief Resets the animation playback
  */
 void RPSysLytAnmObj::reset() {
     mFrameCtrl.reset();
 }
 
 /**
- * \~ @brief Starts playing the animation from the specified frame
+ * \~english @brief Starts playing the animation from the specified frame
  *
- * \~ @param frame Starting frame
+ * \~english @param frame Starting frame
  */
 void RPSysLytAnmObj::play(s16 frame) {
     if (frame < 0) {
@@ -58,11 +58,11 @@ void RPSysLytAnmObj::play(s16 frame) {
 }
 
 /**
- * \~ @brief Initializes the layout animation
+ * \~english @brief Initializes the layout animation
  *
- * \~ @param frame Starting frame
- * \~ @param frameNum Number of frames to animate
- * \~ @param playMode Animation policy
+ * \~english @param frame Starting frame
+ * \~english @param frameNum Number of frames to animate
+ * \~english @param playMode Animation policy
  */
 void RPSysLytAnmObj::init(s16 frame, s16 frameNum,
                           RPSysFrameCtrl::EPlayMode playMode) {
@@ -73,7 +73,7 @@ void RPSysLytAnmObj::init(s16 frame, s16 frameNum,
 }
 
 /**
- * \~ @brief Gets the number of frames in this animation
+ * \~english @brief Gets the number of frames in this animation
  */
 f32 RPSysLytAnmObj::getFrameMax() {
     return mpAnimTrans->GetFrameMax();

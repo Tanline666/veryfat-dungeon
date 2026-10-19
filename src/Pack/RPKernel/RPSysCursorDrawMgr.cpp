@@ -8,14 +8,14 @@
 #define SHADOW_OFFSET 3.0f
 
 /**
- * \~ @brief Position way outside of the screen boundaries
+ * \~english @brief Position way outside of the screen boundaries
  */
 const EGG::Vector2f RPSysCursorDrawMgr::OUT_OF_SCREEN_POS(0.0f, 12800.0f);
 
 RP_SINGLETON_IMPL_EX(RPSysCursorDrawMgr);
 
 /**
- * \~ @brief Pushes the current controller parameter set to the stack
+ * \~english @brief Pushes the current controller parameter set to the stack
  */
 void RPSysCursorDrawMgr::stackControllerSetting() {
     RPSysCoreController::pushDpdCtrlStackAll(true);
@@ -23,7 +23,7 @@ void RPSysCursorDrawMgr::stackControllerSetting() {
 }
 
 /**
- * \~ @brief Pops the top controller parameter set from the stack
+ * \~english @brief Pops the top controller parameter set from the stack
  */
 void RPSysCursorDrawMgr::popControllerSetting() {
     RPSysCoreController::popDpdCtrlStackAll();
@@ -31,7 +31,7 @@ void RPSysCursorDrawMgr::popControllerSetting() {
 }
 
 /**
- * \~ @brief Pushes a new DPD cursor configuration to the stack
+ * \~english @brief Pushes a new DPD cursor configuration to the stack
  */
 void RPSysCursorDrawMgr::startDpdCheck() {
     mActiveCursorIndex = -1;
@@ -67,7 +67,7 @@ void RPSysCursorDrawMgr::startDpdCheck() {
 }
 
 /**
- * \~ @brief Pops the top DPD cursor configuration from the stack
+ * \~english @brief Pops the top DPD cursor configuration from the stack
  */
 void RPSysCursorDrawMgr::finishDpdCheck() {
     // May need to create cursors from previous configuration
@@ -106,7 +106,7 @@ void RPSysCursorDrawMgr::finishDpdCheck() {
 }
 
 /**
- * \~ @brief Creates the active (main player) cursor
+ * \~english @brief Creates the active (main player) cursor
  */
 void RPSysCursorDrawMgr::createActiveCursor() {
     if (checkActiveCursorEnable()) {
@@ -131,7 +131,7 @@ void RPSysCursorDrawMgr::createActiveCursor() {
 }
 
 /**
- * \~ @brief Fades away the active (main player) cursor
+ * \~english @brief Fades away the active (main player) cursor
  */
 void RPSysCursorDrawMgr::fadeActiveCursor() {
     if (checkActiveCursorEnable()) {
@@ -145,7 +145,7 @@ void RPSysCursorDrawMgr::fadeActiveCursor() {
 }
 
 /**
- * \~ @brief Gets the screen position of the active (main player) cursor
+ * \~english @brief Gets the screen position of the active (main player) cursor
  */
 const EGG::Vector2f& RPSysCursorDrawMgr::getActiveCursorPos() const {
     if (checkActiveCursorEnable() && getActiveCursorValid() &&
@@ -158,7 +158,7 @@ const EGG::Vector2f& RPSysCursorDrawMgr::getActiveCursorPos() const {
 }
 
 /**
- * \~ @brief Gets the DPD cursor type of the active (main player) cursor
+ * \~english @brief Gets the DPD cursor type of the active (main player) cursor
  */
 RPSysCursorDrawMgr::ECursorType
 RPSysCursorDrawMgr::getActiveCursorType() const {
@@ -172,9 +172,9 @@ RPSysCursorDrawMgr::getActiveCursorType() const {
 }
 
 /**
- * \~ @brief Gets the player index of the active (main player) cursor
+ * \~english @brief Gets the player index of the active (main player) cursor
  *
- * \~ @return Player slot index, or -1 if no such cursor exists
+ * \~english @return Player slot index, or -1 if no such cursor exists
  */
 s32 RPSysCursorDrawMgr::getActiveCursorPlayer() const {
     if (checkActiveCursorEnable() && getActiveCursorValid()) {
@@ -185,9 +185,9 @@ s32 RPSysCursorDrawMgr::getActiveCursorPlayer() const {
 }
 
 /**
- * \~ @brief Creates the cursor for the specified player
+ * \~english @brief Creates the cursor for the specified player
  *
- * \~ @param player Player slot index
+ * \~english @param player Player slot index
  */
 void RPSysCursorDrawMgr::createPlayerCursor(EPlayer player) {
     if (checkActiveCursorEnable()) {
@@ -210,9 +210,9 @@ void RPSysCursorDrawMgr::createPlayerCursor(EPlayer player) {
 }
 
 /**
- * \~ @brief Moves the specified player cursor outside the screen
+ * \~english @brief Moves the specified player cursor outside the screen
  *
- * \~ @param player Player slot index
+ * \~english @param player Player slot index
  */
 void RPSysCursorDrawMgr::setPlayerCursorOutOfScreen(EPlayer player) {
     if (checkActiveCursorEnable()) {
@@ -224,9 +224,9 @@ void RPSysCursorDrawMgr::setPlayerCursorOutOfScreen(EPlayer player) {
 }
 
 /**
- * \~ @brief Gets the position of the specified player cursor
+ * \~english @brief Gets the position of the specified player cursor
  *
- * \~ @param player Player slot index
+ * \~english @param player Player slot index
  */
 const EGG::Vector2f&
 RPSysCursorDrawMgr::getPlayerCursorPos(EPlayer player) const {
@@ -240,10 +240,11 @@ RPSysCursorDrawMgr::getPlayerCursorPos(EPlayer player) const {
 }
 
 /**
- * \~ @brief Gets the controller channel used by the specified player cursor
+ * \~english @brief Gets the controller channel used by the specified player
+ * cursor
  *
- * \~ @param player Player slot index
- * \~ @return Controller channel, or -1 if no such cursor exists
+ * \~english @param player Player slot index
+ * \~english @return Controller channel, or -1 if no such cursor exists
  */
 s32 RPSysCursorDrawMgr::getPlayerCursorChannel(EPlayer player) const {
     if (checkActiveCursorEnable() && getPlayerCursorValid(player)) {
@@ -254,11 +255,11 @@ s32 RPSysCursorDrawMgr::getPlayerCursorChannel(EPlayer player) const {
 }
 
 /**
- * \~ @brief Forces a player cursor to the specified screen position
+ * \~english @brief Forces a player cursor to the specified screen position
  *
- * \~ @param rPos New cursor position
- * \~ @param player Player slot index
- * \~ @param clearHorizon Whether to reset the cursor horizon to zero
+ * \~english @param rPos New cursor position
+ * \~english @param player Player slot index
+ * \~english @param clearHorizon Whether to reset the cursor horizon to zero
  */
 void RPSysCursorDrawMgr::setPlayerCursorPos(const EGG::Vector2f& rPos,
                                             EPlayer player, bool clearHorizon) {
@@ -274,7 +275,7 @@ void RPSysCursorDrawMgr::setPlayerCursorPos(const EGG::Vector2f& rPos,
 }
 
 /**
- * \~ @brief Clears this manager's state
+ * \~english @brief Clears this manager's state
  */
 void RPSysCursorDrawMgr::init() {
     for (int i = 0; i < FLAG_STACK_SIZE; i++) {
@@ -300,7 +301,8 @@ void RPSysCursorDrawMgr::init() {
 }
 
 /**
- * \~ @brief Performs pre-update logic for the active (main player) cursor
+ * \~english @brief Performs pre-update logic for the active (main player)
+ * cursor
  */
 void RPSysCursorDrawMgr::preUpdateActive() {
     // Hide active DPD cursor when buttons are pressed
@@ -315,7 +317,7 @@ void RPSysCursorDrawMgr::preUpdateActive() {
 }
 
 /**
- * \~ @brief Performs pre-update logic for player cursors
+ * \~english @brief Performs pre-update logic for player cursors
  */
 void RPSysCursorDrawMgr::preUpdatePlayer() {
     // Hide player DPD cursor(s) when buttons are pressed
@@ -340,7 +342,7 @@ void RPSysCursorDrawMgr::preUpdatePlayer() {
 }
 
 /**
- * \~ @brief Performs logic that must occur before the scene is updated
+ * \~english @brief Performs logic that must occur before the scene is updated
  */
 void RPSysCursorDrawMgr::preUpdate() {
     if (!checkActiveCursorEnable()) {
@@ -432,7 +434,7 @@ void RPSysCursorDrawMgr::preUpdate() {
 }
 
 /**
- * \~ @brief Performs logic that must occur after the scene is updated
+ * \~english @brief Performs logic that must occur after the scene is updated
  */
 void RPSysCursorDrawMgr::postUpdate() {
     if (checkActiveCursorEnable()) {
@@ -442,7 +444,8 @@ void RPSysCursorDrawMgr::postUpdate() {
 }
 
 /**
- * \~ @brief Performs post-update logic for the active (main player) cursor
+ * \~english @brief Performs post-update logic for the active (main player)
+ * cursor
  */
 void RPSysCursorDrawMgr::postUpdateActive() {
     if (mCursorFlagStack[0] & 1 << EFlag_ActiveCursorValid) {
@@ -460,7 +463,7 @@ void RPSysCursorDrawMgr::postUpdateActive() {
 }
 
 /**
- * \~ @brief Performs post-update logic for player cursors
+ * \~english @brief Performs post-update logic for player cursors
  */
 void RPSysCursorDrawMgr::postUpdatePlayer() {
     if (!checkPlayerCursorEnable()) {
@@ -512,11 +515,11 @@ void RPSysCursorDrawMgr::postUpdatePlayer() {
 }
 
 /**
- * \~ @brief Configures the effect draw settings of the specified cursor
+ * \~english @brief Configures the effect draw settings of the specified cursor
  *
- * \~ @param cursor Cursor index
- * \~ @param visible Whether the cursor should be visible
- * \~ @param enabled Whether the cursor should be enabled (not faded)
+ * \~english @param cursor Cursor index
+ * \~english @param visible Whether the cursor should be visible
+ * \~english @param enabled Whether the cursor should be enabled (not faded)
  */
 void RPSysCursorDrawMgr::drawCursor(s32 cursor, bool visible, bool enabled) {
     if (visible) {
@@ -540,10 +543,10 @@ void RPSysCursorDrawMgr::drawCursor(s32 cursor, bool visible, bool enabled) {
 }
 
 /**
- * \~ @brief Updates the specified cursor to match the latest DPD data
+ * \~english @brief Updates the specified cursor to match the latest DPD data
  *
- * \~ @param cursor Cursor index
- * \~ @param player Player index
+ * \~english @param cursor Cursor index
+ * \~english @param player Player index
  */
 void RPSysCursorDrawMgr::updateCursor(s32 cursor, s32 player) {
     EGG::Vector3f cursorPos(  //
@@ -578,9 +581,9 @@ void RPSysCursorDrawMgr::updateCursor(s32 cursor, s32 player) {
 }
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  *
- * \~ @param pHeap Parent heap
+ * \~english @param pHeap Parent heap
  */
 RPSysCursorDrawMgr::RPSysCursorDrawMgr(EGG::Heap* pHeap)
     : IRPSysHostIOSocket("Cursor Manager"), mpParentHeap(pHeap) {
@@ -654,6 +657,6 @@ RPSysCursorDrawMgr::RPSysCursorDrawMgr(EGG::Heap* pHeap)
 }
 
 /**
- * \~ @brief Destructor
+ * \~english @brief Destructor
  */
 RPSysCursorDrawMgr::~RPSysCursorDrawMgr() {}

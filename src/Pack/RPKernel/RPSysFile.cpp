@@ -4,11 +4,11 @@
 #include <cstring>
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  *
- * \~ @param pPath File path (absolute)
- * \~ @param size File data size
- * \~ @param pData File data pointer
+ * \~english @param pPath File path (absolute)
+ * \~english @param size File data size
+ * \~english @param pData File data pointer
  */
 RPSysFile::RPSysFile(const char* pPath, s32 size, const void* pData)
     : mSize(size) {
@@ -24,7 +24,7 @@ RPSysFile::RPSysFile(const char* pPath, s32 size, const void* pData)
 }
 
 /**
- * \~ @brief Destructor
+ * \~english @brief Destructor
  * @details The file is automatically removed from the resource cache.
  */
 RPSysFile::~RPSysFile() {

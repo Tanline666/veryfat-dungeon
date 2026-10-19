@@ -11,7 +11,7 @@ void RPSysPauseMgr::draw() {
 }
 
 /**
- * \~ @brief Destructor
+ * \~english @brief Destructor
  */
 RPSysPauseMgr::~RPSysPauseMgr() {
     // TODO(texline): delete mPauseMenu (it does not have a singleton)

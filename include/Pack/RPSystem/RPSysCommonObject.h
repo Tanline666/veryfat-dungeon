@@ -8,7 +8,7 @@
 //! @{
 
 /**
- * \~ @brief Encapsulates common object behavior/rendering
+ * \~english @brief Encapsulates common object behavior/rendering
  */
 class RPSysCommonObject : public IRPGrpDrawObject {
 public:
@@ -19,27 +19,29 @@ public:
 
 public:
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      */
     RPSysCommonObject();
 
     /**
-     * \~ @brief Renders common objects' state
+     * \~english @brief Renders common objects' state
      */
     virtual void UserDraw() override; // at 0xC
 
     /**
-     * \~ @brief Initializes common objects' state
+     * \~english @brief Initializes common objects' state
      */
     void init();
 
     /**
-     * \~ @brief Updates common objects' state before the scene gets to update
+     * \~english @brief Updates common objects' state before the scene gets to
+     * update
      */
     void preUpdate();
 
     /**
-     * \~ @brief Updates common objects' state after the scene gets to update
+     * \~english @brief Updates common objects' state after the scene gets to
+     * update
      */
     void postUpdate();
 };

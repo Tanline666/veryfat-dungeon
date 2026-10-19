@@ -22,7 +22,7 @@ public:
     virtual bool eof() = 0;                     // at 0x14
 
 /**
- * \~ @brief Helper for declaring stream functions for primitive types
+ * \~english @brief Helper for declaring stream functions for primitive types
  * \~japanese @brief プリミティブタイプのストリーム関数を宣言するヘルパー
  */
 #define TYPE_FUNC_DECL(T)                                                      \

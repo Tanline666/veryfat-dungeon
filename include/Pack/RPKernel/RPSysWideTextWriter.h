@@ -10,14 +10,14 @@
 //! @{
 
 /**
- * \~ @brief Wide-char screen text writer
+ * \~english @brief Wide-char screen text writer
  */
 class RPSysWideTextWriter : public nw4r::ut::WideTextWriter {
     RP_SINGLETON_DECL(RPSysWideTextWriter);
 
 public:
     /**
-     * \~ @brief Creates the text buffer
+     * \~english @brief Creates the text buffer
      */
     static void Initialize();
 

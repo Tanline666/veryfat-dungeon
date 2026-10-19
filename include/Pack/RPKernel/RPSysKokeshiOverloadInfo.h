@@ -8,7 +8,7 @@
 //! @{
 
 /**
- * \~ @brief Mii generation overload parameters
+ * \~english @brief Mii generation overload parameters
  */
 class RPSysKokeshiOverloadInfo {
 private:
@@ -17,26 +17,26 @@ private:
 
 public:
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      */
     RPSysKokeshiOverloadInfo();
 
     /**
-     * \~ @brief Destructor
+     * \~english @brief Destructor
      */
     virtual ~RPSysKokeshiOverloadInfo(); // at 0x8
 
     /**
-     * \~ @brief Gets the type of clothes to wear
+     * \~english @brief Gets the type of clothes to wear
      */
     u16 GetClothesType() const {
         return mClothesType;
     }
 
     /**
-     * \~ @brief Sets the type of clothes to wear
+     * \~english @brief Sets the type of clothes to wear
      *
-     * \~ @param type Clothes type
+     * \~english @param type Clothes type
      */
     void SetClothesType(u16 clothesType) {
         mClothesType = clothesType;

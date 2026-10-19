@@ -1,9 +1,9 @@
 #include <Pack/RPKernel.h>
 
 /**
- * \~ @brief Initializes the animation state
+ * \~english @brief Initializes the animation state
  *
- * \~ @param frameNum Number of frames to animate
+ * \~english @param frameNum Number of frames to animate
  */
 void RPSysFrameCtrl::init(s16 frameNum) {
     mPlayMode = EPlayMode_OneTime;
@@ -18,7 +18,7 @@ void RPSysFrameCtrl::init(s16 frameNum) {
 }
 
 /**
- * \~ @brief Updates the animation state
+ * \~english @brief Updates the animation state
  */
 void RPSysFrameCtrl::update() {
     mFlags = 0;

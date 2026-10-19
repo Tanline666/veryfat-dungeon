@@ -10,9 +10,9 @@
 #define MY_EPSILON 0.0001f
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  *
- * \~ @param drawScene Effect draw scene
+ * \~english @param drawScene Effect draw scene
  */
 RPSysEffectCreator::RPSysEffectCreator(u32 drawScene) {
     // 6 bits needed to represent [0, MAX_GROUP_ID]
@@ -37,17 +37,17 @@ RPSysEffectCreator::RPSysEffectCreator(u32 drawScene) {
 }
 
 /**
- * \~ @brief Destructor
+ * \~english @brief Destructor
  */
 RPSysEffectCreator::~RPSysEffectCreator() {
     resetEffectResource();
 }
 
 /**
- * \~ @brief Attaches new effect resource files
+ * \~english @brief Attaches new effect resource files
  *
- * \~ @param pEffectProject Binary effect data project (.BREFF)
- * \~ @param pTextureProject Binary effect texture project (.BREFT)
+ * \~english @param pEffectProject Binary effect data project (.BREFF)
+ * \~english @param pTextureProject Binary effect texture project (.BREFT)
  */
 void RPSysEffectCreator::setEffectResource(void* pEffectProject,
                                            void* pTextureProject) {
@@ -64,7 +64,7 @@ void RPSysEffectCreator::setEffectResource(void* pEffectProject,
 }
 
 /**
- * \~ @brief Releases the attached effect resource files
+ * \~english @brief Releases the attached effect resource files
  */
 void RPSysEffectCreator::resetEffectResource() {
     stopAllEffect();
@@ -90,7 +90,7 @@ void RPSysEffectCreator::resetEffectResource() {
 }
 
 /**
- * \~ @brief Creates the effect system for slow-motion effects
+ * \~english @brief Creates the effect system for slow-motion effects
  */
 void RPSysEffectCreator::createSlowSystem() {
     u32 workSize = RPSysEffectMemoryManager::CalcMemorySize( //
@@ -124,9 +124,9 @@ void RPSysEffectCreator::createSlowSystem() {
 }
 
 /**
- * \~ @brief Sets the frame rate of the slow-motion system
+ * \~english @brief Sets the frame rate of the slow-motion system
  *
- * \~ @param frameRate Frame rate (0, 1)
+ * \~english @param frameRate Frame rate (0, 1)
  */
 void RPSysEffectCreator::setFrameRate(f32 frameRate) {
     if (frameRate >= 1.0f - MY_EPSILON) {
@@ -141,21 +141,21 @@ void RPSysEffectCreator::setFrameRate(f32 frameRate) {
 }
 
 /**
- * \~ @brief Tests whether the slow-motion effect system exists
+ * \~english @brief Tests whether the slow-motion effect system exists
  */
 bool RPSysEffectCreator::isSlowSystem() const {
     return mpSlowSystem != NULL;
 }
 
 /**
- * \~ @brief Tests whether effects are currently updating in slow motion
+ * \~english @brief Tests whether effects are currently updating in slow motion
  */
 bool RPSysEffectCreator::isSlowEffect() const {
     return mIsSlowEffect;
 }
 
 /**
- * \~ @brief Kills all effects owned by this creator
+ * \~english @brief Kills all effects owned by this creator
  */
 void RPSysEffectCreator::stopAllEffect() {
     nw4r::ef::EffectSystem* pSystem = nw4r::ef::EffectSystem::GetInstance();
@@ -176,10 +176,10 @@ void RPSysEffectCreator::stopAllEffect() {
 }
 
 /**
- * \~ @brief Creates an instance of the specified effect
+ * \~english @brief Creates an instance of the specified effect
  *
- * \~ @param pName Effect name
- * \~ @param drawGroup Effect draw group
+ * \~english @param pName Effect name
+ * \~english @param drawGroup Effect draw group
  */
 nw4r::ef::Effect* RPSysEffectCreator::createEffect(const char* pName,
                                                    u32 drawGroup) {
@@ -213,7 +213,7 @@ nw4r::ef::Effect* RPSysEffectCreator::createEffect(const char* pName,
 }
 
 /**
- * \~ @brief Updates all effects owned by this creator
+ * \~english @brief Updates all effects owned by this creator
  */
 void RPSysEffectCreator::update() {
     nw4r::ef::EffectSystem* pSystem = nw4r::ef::EffectSystem::GetInstance();
@@ -359,11 +359,11 @@ void RPSysEffectCreator::update() {
 }
 
 /**
- * \~ @brief Draws the specified set of effects
+ * \~english @brief Draws the specified set of effects
  *
- * \~ @param rDrawInfo Graphics configuration
- * \~ @param drawGroup Effect draw group
- * \~ @param drawScene Effect draw scene
+ * \~english @param rDrawInfo Graphics configuration
+ * \~english @param drawGroup Effect draw group
+ * \~english @param drawScene Effect draw scene
  */
 void RPSysEffectCreator::draw(const nw4r::ef::DrawInfo& rDrawInfo,
                               u32 drawGroup, u32 drawScene) {

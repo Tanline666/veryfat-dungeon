@@ -5,12 +5,12 @@
 #include <nw4r/math.h>
 
 /**
- * \~ @brief Dohta's math utilities
+ * \~english @brief Dohta's math utilities
  */
 class RPUtlDohMath {
 public:
     /**
-     * \~ @brief Axis priority order during orthonormalization
+     * \~english @brief Axis priority order during orthonormalization
      */
     enum AxisOrder {
         AxisOrder_XY, //! X-axis is preserved, Y-axis is the reference
@@ -24,7 +24,7 @@ public:
     };
 
     /**
-     * \~ @brief Matrix axis index
+     * \~english @brief Matrix axis index
      */
     enum AxisType {
         AxisType_X, //! X-axis
@@ -34,36 +34,36 @@ public:
 
 public:
     /**
-     * \~ @brief Sets the specified local axis of the input matrix
+     * \~english @brief Sets the specified local axis of the input matrix
      *
-     * \~ @param pMtx Matrix
-     * \~ @param axis Axis index
-     * \~ @param pBase Base vector
+     * \~english @param pMtx Matrix
+     * \~english @param axis Axis index
+     * \~english @param pBase Base vector
      */
     static void MTX34SetBase(nw4r::math::MTX34* pMtx, AxisType axis,
                              const nw4r::math::VEC3* pBase);
 
     /**
-     * \~ @brief Constructs a right-handed orthonormal basis from the local axes
-     * of the specified matrix
+     * \~english @brief Constructs a right-handed orthonormal basis from the
+     * local axes of the specified matrix
      *
-     * \~ @param[out] pOut Output matrix
-     * \~ @param pIn Input matrix
-     * \~ @param order Axis priority order
+     * \~english @param[out] pOut Output matrix
+     * \~english @param pIn Input matrix
+     * \~english @param order Axis priority order
      */
     static void MTX34Normalize(nw4r::math::MTX34* pOut,
                                const nw4r::math::MTX34* pIn, AxisOrder order);
 
     /**
-     * \~ @brief Calculates a bend point between two endpoints
+     * \~english @brief Calculates a bend point between two endpoints
      *
-     * \~ @param[out] pMidPoint Bend point
-     * \~ @param[out] pDistance Distance between the endpoints
-     * \~ @param rBendDir Bend direction vector
-     * \~ @param rPointA Endpoint A
-     * \~ @param rPointB Endpoint B
-     * \~ @param lengthA Length of the segment from A to the bend joint
-     * \~ @param lengthB Length of the segment from the bend joint to B
+     * \~english @param[out] pMidPoint Bend point
+     * \~english @param[out] pDistance Distance between the endpoints
+     * \~english @param rBendDir Bend direction vector
+     * \~english @param rPointA Endpoint A
+     * \~english @param rPointB Endpoint B
+     * \~english @param lengthA Length of the segment from A to the bend joint
+     * \~english @param lengthB Length of the segment from the bend joint to B
      */
     static void GetMidPoint(nw4r::math::VEC3* pMidPoint, f32* pDistance,
                             const nw4r::math::VEC3& rBendDir,

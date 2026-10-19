@@ -3,15 +3,15 @@
 #include <revolution/WPAD.h>
 
 /**
- * \~ @brief Whether pairing is ongoing
+ * \~english @brief Whether pairing is ongoing
  */
 bool RPSysPairingMgr::sIsBusy = false;
 
 /**
- * \~ @brief WPAD simple sync callback
+ * \~english @brief WPAD simple sync callback
  *
- * \~ @param result WPAD sync result
- * \~ @param num Number of synced controllers
+ * \~english @param result WPAD sync result
+ * \~english @param num Number of synced controllers
  */
 void RPSysPairingMgr::simpleSyncCallback(s32 result, s32 /* num*/) {
     switch (result) {
@@ -36,7 +36,7 @@ void RPSysPairingMgr::simpleSyncCallback(s32 result, s32 /* num*/) {
 }
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  */
 RPSysPairingMgr::RPSysPairingMgr()
     : mPairingState(EPairingState_Start), mIsEnabled(false) {
@@ -45,7 +45,7 @@ RPSysPairingMgr::RPSysPairingMgr()
 }
 
 /**
- * \~ @brief Updates the pairing state
+ * \~english @brief Updates the pairing state
  */
 void RPSysPairingMgr::calc() {
     switch (mPairingState) {

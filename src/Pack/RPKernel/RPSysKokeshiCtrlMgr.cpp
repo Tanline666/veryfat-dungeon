@@ -4,11 +4,12 @@
 #include <egg/core.h>
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  *
- * \~ @param pCallback Controller data callback
- * \~ @param pParentHeap Heap to use as the parent of the controller data heap
- * \~ @param heapSize Size of the controller data heap
+ * \~english @param pCallback Controller data callback
+ * \~english @param pParentHeap Heap to use as the parent of the controller data
+ * heap
+ * \~english @param heapSize Size of the controller data heap
  */
 RPSysKokeshiCtrlMgr::RPSysKokeshiCtrlMgr(
     IRPSysKokeshiCtrlDataCallback* pCallback, EGG::Heap* pParentHeap,
@@ -25,48 +26,48 @@ RPSysKokeshiCtrlMgr::RPSysKokeshiCtrlMgr(
 }
 
 /**
- * \~ @brief Destructor
+ * \~english @brief Destructor
  */
 RPSysKokeshiCtrlMgr::~RPSysKokeshiCtrlMgr() {}
 
 /**
- * \~ @brief Notifies the user that all resources will be destroyed
+ * \~english @brief Notifies the user that all resources will be destroyed
  *
- * \~ @param chan WPAD channel of the data manager
+ * \~english @param chan WPAD channel of the data manager
  */
 void RPSysKokeshiCtrlMgr::notifyReleaseResource(s32 chan) {
     mpDataMgrs[chan]->notifyReleaseResource();
 }
 
 /**
- * \~ @brief Resets the internal state for creating resources
+ * \~english @brief Resets the internal state for creating resources
  *
- * \~ @param chan WPAD channel of the data manager
+ * \~english @param chan WPAD channel of the data manager
  */
 void RPSysKokeshiCtrlMgr::resetResource(s32 chan) {
     mpDataMgrs[chan]->resetResource();
 }
 
 /**
- * \~ @brief Tests whether the specified data manager is in an idle state
+ * \~english @brief Tests whether the specified data manager is in an idle state
  *
- * \~ @param chan WPAD channel of the data manager
+ * \~english @param chan WPAD channel of the data manager
  */
 BOOL RPSysKokeshiCtrlMgr::isIdle(s32 chan) const {
     return mpDataMgrs[chan]->isIdle();
 }
 
 /**
- * \~ @brief Tests whether an error occured while loading data
+ * \~english @brief Tests whether an error occured while loading data
  *
- * \~ @param chan WPAD channel of the data manager
+ * \~english @param chan WPAD channel of the data manager
  */
 BOOL RPSysKokeshiCtrlMgr::isLoadError(s32 chan) const {
     return mpDataMgrs[chan]->isLoadError();
 }
 
 /**
- * \~ @brief Creates resources for the next Mii in each database
+ * \~english @brief Creates resources for the next Mii in each database
  */
 void RPSysKokeshiCtrlMgr::createResource() {
     for (u8 i = 0; i < ARRAY_SIZE(mpDataMgrs); i++) {
@@ -75,37 +76,37 @@ void RPSysKokeshiCtrlMgr::createResource() {
 }
 
 /**
- * \~ @brief Gets the heap used for resource allocation by the specified data
- * manager
+ * \~english @brief Gets the heap used for resource allocation by the specified
+ * data manager
  *
- * \~ @param chan WPAD channel of the data manager
+ * \~english @param chan WPAD channel of the data manager
  */
 EGG::Heap* RPSysKokeshiCtrlMgr::getResourceHeap(s32 chan) {
     return mpDataMgrs[chan]->getHeap();
 }
 
 /**
- * \~ @brief Appends a new file to the file resource list
+ * \~english @brief Appends a new file to the file resource list
  *
- * \~ @param chan WPAD channel of the data manager
- * \~ @param handle Resource handle
+ * \~english @param chan WPAD channel of the data manager
+ * \~english @param handle Resource handle
  */
 void RPSysKokeshiCtrlMgr::appendFile(s32 chan, RPGrpHandle handle) {
     mpDataMgrs[chan]->appendFile(handle);
 }
 
 /**
- * \~ @brief Appends a new model to the model resource list
+ * \~english @brief Appends a new model to the model resource list
  *
- * \~ @param chan WPAD channel of the data manager
- * \~ @param pModel New model
+ * \~english @param chan WPAD channel of the data manager
+ * \~english @param pModel New model
  */
 void RPSysKokeshiCtrlMgr::appendModel(s32 chan, RPGrpModel* pModel) {
     mpDataMgrs[chan]->appendModel(pModel);
 }
 
 /**
- * \~ @brief Updates each data manager's state
+ * \~english @brief Updates each data manager's state
  */
 void RPSysKokeshiCtrlMgr::calc() {
     for (u8 i = 0; i < ARRAY_SIZE(mpDataMgrs); i++) {

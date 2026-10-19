@@ -8,7 +8,7 @@
 //! @{
 
 /**
- * \~ @brief Pack Project player select scene
+ * \~english @brief Pack Project player select scene
  */
 class RPSysPlayerSelectScene : public RPSysScene {
 private:

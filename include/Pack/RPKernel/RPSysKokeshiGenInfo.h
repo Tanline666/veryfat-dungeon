@@ -11,7 +11,7 @@
 //! @{
 
 /**
- * \~ @brief Mii generation parameters
+ * \~english @brief Mii generation parameters
  */
 class RPSysKokeshiGenInfo {
 private:
@@ -63,12 +63,12 @@ private:
 
 public:
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      */
     RPSysKokeshiGenInfo();
 
     /**
-     * \~ @brief Destructor
+     * \~english @brief Destructor
      */
     virtual ~RPSysKokeshiGenInfo(); // at 0x8
 

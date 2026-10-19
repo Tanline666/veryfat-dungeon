@@ -15,7 +15,7 @@
 class RPGrpModel;
 
 /**
- * \~ @brief Base class for model animation implementations
+ * \~english @brief Base class for model animation implementations
  */
 class RPGrpModelAnm {
 public:
@@ -191,7 +191,7 @@ public:
 
 protected:
     /**
-     * \~ @brief Bitflags
+     * \~english @brief Bitflags
      */
     enum {
         Flag_EnableQuaternionBlend = 1 << 0,

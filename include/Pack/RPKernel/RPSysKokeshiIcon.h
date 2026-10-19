@@ -19,12 +19,12 @@
 //! @{
 
 /**
- * \~ @brief Mii face icon
+ * \~english @brief Mii face icon
  */
 class RPSysKokeshiIcon : public RPSysAvatar {
 public:
     /**
-     * \~ @brief Light map texture index
+     * \~english @brief Light map texture index
      */
     enum ELightMap {
         ELightMap_lm_0, //!< "lm_0.bti" texture
@@ -35,39 +35,39 @@ public:
 
 public:
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      *
-     * \~ @param pGenInfo Mii generation parameters
+     * \~english @param pGenInfo Mii generation parameters
      */
     explicit RPSysKokeshiIcon(const RPSysKokeshiGenInfo* pGenInfo);
 
     /**
-     * \~ @brief Destructor
+     * \~english @brief Destructor
      */
     virtual ~RPSysKokeshiIcon() override; // at 0x8
 
     /**
-     * \~ @brief Loads the assets necessary for this avatar
+     * \~english @brief Loads the assets necessary for this avatar
      *
-     * \~ @param pOverloadInfo Overload parameters
+     * \~english @param pOverloadInfo Overload parameters
      */
     virtual void LoadResource(const RPSysKokeshiOverloadInfo* pOverloadInfo =
                                   NULL) override; // at 0xC
 
     /**
-     * \~ @brief Applies all lightmap textures to this avatar
+     * \~english @brief Applies all lightmap textures to this avatar
      *
-     * \~ @param drawScene Draw scene index
+     * \~english @param drawScene Draw scene index
      */
     virtual void ApplyLightTexture(u8 drawScene) override; // at 0x10
 
     /**
-     * \~ @brief Gets the texture created for this icon
+     * \~english @brief Gets the texture created for this icon
      */
     EGG::ResTIMG* GetResTIMG();
 
     /**
-     * \~ @brief Gets the Mii capture texture
+     * \~english @brief Gets the Mii capture texture
      */
     EGG::CapTexture* GetCapTexture() const {
         return mpCapTexture;
@@ -75,49 +75,50 @@ public:
 
 private:
     /**
-     * \~ @brief Configures a model for use with icon rendering
+     * \~english @brief Configures a model for use with icon rendering
      *
-     * \~ @param pModel Mii model
+     * \~english @param pModel Mii model
      */
     static void SetupModel(RPGrpModel* pModel);
 
     /**
-     * \~ @brief Creates a cap texture for icon rendering
+     * \~english @brief Creates a cap texture for icon rendering
      *
-     * \~ @param width Texture width
-     * \~ @param height Texture height
-     * \~ @param format Texture format
+     * \~english @param width Texture width
+     * \~english @param height Texture height
+     * \~english @param format Texture format
      */
     void InitCapTexture(u16 width, u16 height, GXTexFmt format);
 
     /**
-     * \~ @brief Configures a NW4R camera to capture view this icon's model
+     * \~english @brief Configures a NW4R camera to capture view this icon's
+     * model
      *
-     * \~ @param cam G3D camera
-     * \~ @param width Texture width
-     * \~ @param height Texture heigth
-     * \~ @param view Icon viewpoint
+     * \~english @param cam G3D camera
+     * \~english @param width Texture width
+     * \~english @param height Texture heigth
+     * \~english @param view Icon viewpoint
      */
     void SetupCamera(nw4r::g3d::Camera cam, u16 width, u16 height,
                      RPSysKokeshiManager::IconView view);
 
     /**
-     * \~ @brief Prepares the GP rendering state
+     * \~english @brief Prepares the GP rendering state
      */
     void BeginMakeTexture() const;
 
     /**
-     * \~ @brief Renders this icon and captures it to a texture
+     * \~english @brief Renders this icon and captures it to a texture
      *
-     * \~ @param pModel Mii model
-     * \~ @param rLocation Mii storage location
-     * \~ @param pAllocator Memory allocator
-     * \~ @param width Texture width
-     * \~ @param height Texture height
-     * \~ @param format Texture format
-     * \~ @param bgType Background color type
-     * \~ @param bgColor Background color (for RFLIconBG_Direct)
-     * \~ @param view Icon viewpoint
+     * \~english @param pModel Mii model
+     * \~english @param rLocation Mii storage location
+     * \~english @param pAllocator Memory allocator
+     * \~english @param width Texture width
+     * \~english @param height Texture height
+     * \~english @param format Texture format
+     * \~english @param bgType Background color type
+     * \~english @param bgColor Background color (for RFLIconBG_Direct)
+     * \~english @param view Icon viewpoint
      */
     void MakeTexture(RPGrpModel* pModel, const RPSysKokeshiLocation& rLocation,
                      EGG::Allocator* pAllocator, u16 width, u16 height,
@@ -125,31 +126,31 @@ private:
                      RPSysKokeshiManager::IconView view);
 
     /**
-     * \~ @brief Finalizes the GP rendering state
+     * \~english @brief Finalizes the GP rendering state
      */
     void EndMakeTexture() const;
 
     /**
-     * \~ @brief Renders an outline in the icon around the Mii's face
+     * \~english @brief Renders an outline in the icon around the Mii's face
      */
     void MakeEdge();
 
     /**
-     * \~ @brief Applies the background color to the icon texture
+     * \~english @brief Applies the background color to the icon texture
      *
-     * \~ @param rLocation Mii storage location
-     * \~ @param width Texture width
-     * \~ @param height Texture height
-     * \~ @param format Texture format
-     * \~ @param bgType Background color type
-     * \~ @param bgColor Background color (for RFLIconBG_Direct)
+     * \~english @param rLocation Mii storage location
+     * \~english @param width Texture width
+     * \~english @param height Texture height
+     * \~english @param format Texture format
+     * \~english @param bgType Background color type
+     * \~english @param bgColor Background color (for RFLIconBG_Direct)
      */
     void ModifyBgColor(const RPSysKokeshiLocation& rLocation, u16 width,
                        u16 height, GXTexFmt format, RFLIconBGType bgType,
                        GXColor bgColor);
 
     /**
-     * \~ @brief Handles post-constructor initialization
+     * \~english @brief Handles post-constructor initialization
      */
     void Construct();
 

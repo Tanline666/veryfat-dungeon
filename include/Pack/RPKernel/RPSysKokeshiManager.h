@@ -23,14 +23,14 @@ class RPSysMiddleDB;
 class RPSysOfficialDB;
 
 /**
- * \~ @brief Mii manager
+ * \~english @brief Mii manager
  */
 class RPSysKokeshiManager : public IRPSysHostIOSocket {
     RP_SINGLETON_DECL(RPSysKokeshiManager);
 
 public:
     /**
-     * \~ @brief Mii clothes type
+     * \~english @brief Mii clothes type
      */
     enum ClothesType {
         ClothesType_Random = 0xFFFF, //!< Use a random color
@@ -42,7 +42,7 @@ public:
     };
 
     /**
-     * \~ @brief Clothing texture index
+     * \~english @brief Clothing texture index
      */
     enum ClothingTexture {
         ClothingTexture_A, //!< "dummy_tex_a" texture
@@ -52,7 +52,7 @@ public:
     };
 
     /**
-     * \~ @brief Generation parameter type
+     * \~english @brief Generation parameter type
      */
     enum GenType {
         GenType_Player, //!< Use the Mii associated with the info's player
@@ -62,7 +62,7 @@ public:
     };
 
     /**
-     * \~ @brief Mii icon camera view
+     * \~english @brief Mii icon camera view
      */
     enum IconView {
         IconView_Front,   //!< Camera sees the front of the Mii
@@ -71,7 +71,7 @@ public:
     };
 
     /**
-     * \~ @brief Light map texture index
+     * \~english @brief Light map texture index
      */
     enum LightMap {
         LightMap_lm_0, //!< "lm_0" texture
@@ -81,7 +81,7 @@ public:
     };
 
     /**
-     * \~ @brief Official DB Mii state
+     * \~english @brief Official DB Mii state
      */
     enum OfficialDBState {
         OfficialDBState_Unused,     //!< Database index is unused
@@ -90,7 +90,7 @@ public:
     };
 
     /**
-     * \~ @brief Hand model type
+     * \~english @brief Hand model type
      */
     enum HandType {
         HandType_Human,  //!< Model with fingers
@@ -101,260 +101,263 @@ public:
 
 public:
     /**
-     * \~ @brief Creates all lightmap textures
+     * \~english @brief Creates all lightmap textures
      *
-     * \~ @param drawScene Draw scene index
+     * \~english @param drawScene Draw scene index
      */
     static void CreateLightTexture(u8 drawScene);
 
     /**
-     * \~ @brief Applies the specified expression to the Mii model
+     * \~english @brief Applies the specified expression to the Mii model
      *
-     * \~ @param pModel Mii model
-     * \~ @param expr New expression
+     * \~english @param pModel Mii model
+     * \~english @param expr New expression
      */
     static void ChangeExpression(RPGrpModel* pModel, RFLExpression expr);
 
     /**
-     * \~ @brief Gets the current expression of the Mii model
+     * \~english @brief Gets the current expression of the Mii model
      *
-     * \~ @param pModel Mii model
+     * \~english @param pModel Mii model
      */
     static RFLExpression GetExpression(RPGrpModel* pModel);
 
     /**
-     * \~ @brief Gets the number of valid Miis in the official database
+     * \~english @brief Gets the number of valid Miis in the official database
      */
     static u16 GetOfficialDBValidNum();
 
     /**
-     * \~ @brief Finds the official database index holding the Mii with the
-     * specified create ID
+     * \~english @brief Finds the official database index holding the Mii with
+     * the specified create ID
      *
-     * \~ @param pCreateID Mii create ID
-     * \~ @return Official database index, or -1 if not found
+     * \~english @param pCreateID Mii create ID
+     * \~english @return Official database index, or -1 if not found
      */
     static s16 GetOfficialDBIndexFromCreateID(const RFLCreateID* pCreateID);
 
     /**
-     * \~ @brief Resets the manager state
+     * \~english @brief Resets the manager state
      */
     void Reset();
 
     /**
-     * \~ @brief Sets the material type of the Mii model
+     * \~english @brief Sets the material type of the Mii model
      *
-     * \~ @param pModel Mii model
-     * \~ @param type New material type
+     * \~english @param pModel Mii model
+     * \~english @param type New material type
      */
     void SetMaterialType(RPGrpModel* pModel, RPGrpModelRfl::MaterialType type);
 
     /**
-     * \~ @brief Sets the brightness color of the Mii model
+     * \~english @brief Sets the brightness color of the Mii model
      *
-     * \~ @param pModel Mii model
-     * \~ @param color New brightness color
+     * \~english @param pModel Mii model
+     * \~english @param color New brightness color
      */
     void SetBrightnessColor(RPGrpModel* pModel, GXColor color);
 
     /**
-     * \~ @brief Loads all static lifetime resources required by this manager
+     * \~english @brief Loads all static lifetime resources required by this
+     * manager
      */
     void LoadStaticResource();
 
     /**
-     * \~ @brief Creates a Kokeshi-related model
+     * \~english @brief Creates a Kokeshi-related model
      *
-     * \~ @param pFile Resource file
-     * \~ @param index Model index
-     * \~ @param viewNo Renderer view ID
-     * \~ @param typeOption Model type option
-     * \~ @param bufferOption nw4r::g3d replacement buffer option
+     * \~english @param pFile Resource file
+     * \~english @param index Model index
+     * \~english @param viewNo Renderer view ID
+     * \~english @param typeOption Model type option
+     * \~english @param bufferOption nw4r::g3d replacement buffer option
      */
     RPGrpModel* CreateModel(void* pFile, u16 index, u8 viewNo, u32 typeOption,
                             u32 bufferOption);
 
     /**
-     * \~ @brief Creates a Kokeshi face model
+     * \~english @brief Creates a Kokeshi face model
      *
-     * \~ @param rLocation Mii location
-     * \~ @param resolution Texture resolution
-     * \~ @param exprFlag Facial expression flags
-     * \~ @param viewNo Renderer view ID
+     * \~english @param rLocation Mii location
+     * \~english @param resolution Texture resolution
+     * \~english @param exprFlag Facial expression flags
+     * \~english @param viewNo Renderer view ID
      */
     RPGrpModel* CreateNigaoeModel(const RPSysKokeshiLocation& rLocation,
                                   RFLResolution resolution, u32 exprFlag,
                                   u8 viewNo);
 
     /**
-     * \~ @brief Creates a Kokeshi-related texture
+     * \~english @brief Creates a Kokeshi-related texture
      *
-     * \~ @param pFile Resource file
-     * \~ @param pName Texture name
+     * \~english @param pFile Resource file
+     * \~english @param pName Texture name
      */
     RPGrpTexture* CreateTexture(void* pFile, const char* pName);
 
     /**
-     * \~ @brief Creates a Kokeshi-related texture
+     * \~english @brief Creates a Kokeshi-related texture
      *
-     * \~ @param pTexData Texture data
+     * \~english @param pTexData Texture data
      */
     RPGrpTexture* CreateTexture(void* pTexData);
 
     /**
-     * \~ @brief Changes the clothing textures of the specified Mii model
+     * \~english @brief Changes the clothing textures of the specified Mii model
      *
-     * \~ @param pModel Mii model
-     * \~ @param pTextureA Clothing texture A
-     * \~ @param pTextureB Clothing texture B
+     * \~english @param pModel Mii model
+     * \~english @param pTextureA Clothing texture A
+     * \~english @param pTextureB Clothing texture B
      */
     void ChangeTexture(RPGrpModel* pModel, RPGrpTexture* pTextureA,
                        RPGrpTexture* pTextureB);
 
     /**
-     * \~ @brief Sets the material colors of the specified Mii model
+     * \~english @brief Sets the material colors of the specified Mii model
      *
-     * \~ @param pModel Mii model
-     * \~ @param body Body color
-     * \~ @param skin Skin color
+     * \~english @param pModel Mii model
+     * \~english @param body Body color
+     * \~english @param skin Skin color
      */
     void SetMatColor(RPGrpModel* pModel, GXColor body, GXColor skin);
 
     /**
-     * \~ @brief Configures the TEV color effect of the specified Mii model
+     * \~english @brief Configures the TEV color effect of the specified Mii
+     * model
      *
-     * \~ @param pModel Mii model
-     * \~ @param alpha Effect alpha
-     * \~ @param r Red component
-     * \~ @param g Green component
-     * \~ @param b Blue component
+     * \~english @param pModel Mii model
+     * \~english @param alpha Effect alpha
+     * \~english @param r Red component
+     * \~english @param g Green component
+     * \~english @param b Blue component
      */
     void SetMatTevColorEffect(RPGrpModel* pModel, u8 alpha, u8 r, u8 g, u8 b);
 
     /**
-     * \~ @brief Gets the additional info about the specified Mii
+     * \~english @brief Gets the additional info about the specified Mii
      *
-     * \~ @param rLocation Mii location
-     * \~ @param[out] pInfo Additional info
+     * \~english @param rLocation Mii location
+     * \~english @param[out] pInfo Additional info
      */
     void GetAdditionalInfo(const RPSysKokeshiLocation& rLocation,
                            RFLAdditionalInfo* pInfo);
 
     /**
-     * \~ @brief Removes the model's scaling from the transformation matrix
+     * \~english @brief Removes the model's scaling from the transformation
+     * matrix
      *
-     * \~ @param[out] pOut Transformation matrix with scaling removed
-     * \~ @param pModel Model whose scale should be used
-     * \~ @param pIn Initial transformation matrix
+     * \~english @param[out] pOut Transformation matrix with scaling removed
+     * \~english @param pModel Model whose scale should be used
+     * \~english @param pIn Initial transformation matrix
      */
     void GetModelBaseScaleInvalidatedMtx(nw4r::math::MTX34* pOut,
                                          RPGrpModel* pModel,
                                          const nw4r::math::MTX34* pIn);
 
     /**
-     * \~ @brief Gets the archive filename for the specified hand type
+     * \~english @brief Gets the archive filename for the specified hand type
      *
-     * \~ @param type Hand model type
+     * \~english @param type Hand model type
      */
     const char* GetHandFileName(u32 type);
 
     /**
-     * \~ @brief Gets the Mii location for the specified player slot
+     * \~english @brief Gets the Mii location for the specified player slot
      * @details If the specified index is invalid, this function provides a
      * random guest Mii location.
      *
-     * \~ @param idx Player index
-     * \~ @param[out] pLocation Mii location
+     * \~english @param idx Player index
+     * \~english @param[out] pLocation Mii location
      */
     void GetLocationPlayer(u8 idx, RPSysKokeshiLocation* pLocation)
         DECOMP_DONT_INLINE;
 
     /**
-     * \~ @brief Gets the Mii location of a "friend" Mii
+     * \~english @brief Gets the Mii location of a "friend" Mii
      *
-     * \~ @param src Mii data source
-     * \~ @param pMiddleDB Middle database (for RFLDataSource_Middle)
-     * \~ @param[out] pLocation Mii location
+     * \~english @param src Mii data source
+     * \~english @param pMiddleDB Middle database (for RFLDataSource_Middle)
+     * \~english @param[out] pLocation Mii location
      */
     void GetLocationFriend(RFLDataSource src, RPSysMiddleDB* pMiddleDB,
                            RPSysKokeshiLocation* pLocation);
 
     /**
-     * \~ @brief Registers the specified Mii location with the in-memory
+     * \~english @brief Registers the specified Mii location with the in-memory
      * official database
      *
-     * \~ @param rLocation Mii location
+     * \~english @param rLocation Mii location
      */
     void RegistLocation(const RPSysKokeshiLocation& rLocation);
 
     /**
-     * \~ @brief Sets the active controller manager
+     * \~english @brief Sets the active controller manager
      *
-     * \~ @param pCtrlMgr Controller manager
+     * \~english @param pCtrlMgr Controller manager
      */
     void SetCtrlMgr(RPSysKokeshiCtrlMgr* pCtrlMgr);
 
     /**
-     * \~ @brief Clears the active controller manager
+     * \~english @brief Clears the active controller manager
      */
     void ClearCtrlMgr();
 
     /**
-     * \~ @brief Updates the active controller manager's state
+     * \~english @brief Updates the active controller manager's state
      */
     void UpdateCtrlMgr();
 
     /**
-     * \~ @brief Accesses the specified guest Mii's name
+     * \~english @brief Accesses the specified guest Mii's name
      *
-     * \~ @param index Default database index
+     * \~english @param index Default database index
      */
     const wchar_t* GetGuestName(u16 index) const {
         return mpGuestNames[index];
     }
 
     /**
-     * \~ @brief Gets the base scale of Mii models
+     * \~english @brief Gets the base scale of Mii models
      */
     f32 GetBaseScale() const {
         return mBaseScale;
     }
 
     /**
-     * \~ @brief Gets the output alpha of Mii models
+     * \~english @brief Gets the output alpha of Mii models
      */
     u8 GetOutputAlpha() const {
         return mOutputAlpha;
     }
 
     /**
-     * \~ @brief Accesses the specified controller data loader
+     * \~english @brief Accesses the specified controller data loader
      *
-     * \~ @param chan WPAD channel
+     * \~english @param chan WPAD channel
      */
     RPSysKokeshiCtrlDataLoader* GetCtrlDataLoader(s32 chan) const {
         return mppCtrlDataLoaders[chan];
     }
 
     /**
-     * \~ @brief Gets the body manager used for model assets
+     * \~english @brief Gets the body manager used for model assets
      */
     IRPSysKokeshiBodyManager* GetBodyManager() const {
         return mpBodyManager;
     }
     /**
-     * \~ @brief Sets the body manager used for model assets
+     * \~english @brief Sets the body manager used for model assets
      *
-     * \~ @param pBodyManager New body manager
+     * \~english @param pBodyManager New body manager
      */
     void SetBodyManager(IRPSysKokeshiBodyManager* pBodyManager) {
         mpBodyManager = pBodyManager;
     }
 
     /**
-     * \~ @brief Gets the name of the specified lightmap texture
+     * \~english @brief Gets the name of the specified lightmap texture
      *
-     * \~ @param i Lightmap texture index
+     * \~english @param i Lightmap texture index
      */
     static const char* GetLightTextureName(u32 i) {
         return LIGHT_TEXTURE_NAMES[i];
@@ -362,7 +365,7 @@ public:
 
 private:
     /**
-     * \~ @brief Resource loading error
+     * \~english @brief Resource loading error
      */
     enum LoadError {
         LoadError_Success, //!< Load successful
@@ -372,10 +375,10 @@ private:
 
 private:
     /**
-     * \~ @brief Gets the index of the controller resource heap that is the
-     * current global heap
+     * \~english @brief Gets the index of the controller resource heap that is
+     * the current global heap
      *
-     * \~ @return Controller channel, or -1 if not applicable
+     * \~english @return Controller channel, or -1 if not applicable
      */
     s32 GetCurrentCtrlHeap() const;
 

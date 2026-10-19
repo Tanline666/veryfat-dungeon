@@ -15,7 +15,7 @@
 class RPGrpCaptureTexture;
 
 /**
- * \~ @brief GPU texture wrapper
+ * \~english @brief GPU texture wrapper
  */
 class RPGrpTexture {
 private:
@@ -24,41 +24,41 @@ private:
 
 public:
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      *
-     * \~ @param pCpuTexture CPU texture
+     * \~english @param pCpuTexture CPU texture
      */
     explicit RPGrpTexture(const EGG::CpuTexture* pCpuTexture);
 
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      *
-     * \~ @param pResTIMG Texture image resource
+     * \~english @param pResTIMG Texture image resource
      */
     explicit RPGrpTexture(const EGG::ResTIMG* pResTIMG);
 
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      *
-     * \~ @param pCapTexture Capture texture
+     * \~english @param pCapTexture Capture texture
      */
     explicit RPGrpTexture(const RPGrpCaptureTexture* pCapTexture);
 
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      *
-     * \~ @param handle Resource file handle
-     * \~ @param pName Texture name
+     * \~english @param handle Resource file handle
+     * \~english @param pName Texture name
      */
     RPGrpTexture(RPGrpHandle handle, const char* pName);
 
     /**
-     * \~ @brief Destructor
+     * \~english @brief Destructor
      */
     virtual ~RPGrpTexture() {} // at 0x8
 
     /**
-     * \~ @brief Accesses the underlying GX texture object
+     * \~english @brief Accesses the underlying GX texture object
      */
     const GXTexObj& GetTexObj() const {
         return mTexObj;

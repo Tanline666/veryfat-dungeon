@@ -6,23 +6,23 @@
 //! @{
 
 /**
- * \~ @brief Controller Mii data callback
+ * \~english @brief Controller Mii data callback
  */
 class IRPSysKokeshiCtrlDataCallback {
 public:
     /**
-     * \~ @brief Called when new controller Mii data is available
+     * \~english @brief Called when new controller Mii data is available
      *
-     * \~ @param chan WPAD channel of the owner remote
-     * \~ @param index Controller database index
+     * \~english @param chan WPAD channel of the owner remote
+     * \~english @param index Controller database index
      */
     virtual void onCreateResource(s32 chan, u8 index) = 0; // at 0x8
 
     /**
-     * \~ @brief Called when controller Mii resources are being released
+     * \~english @brief Called when controller Mii resources are being released
      *
-     * \~ @param chan WPAD channel of the owner remote
-     * \~ @param index Controller database index
+     * \~english @param chan WPAD channel of the owner remote
+     * \~english @param index Controller database index
      */
     virtual void onReleaseResource(s32 chan, u8 index) = 0; // at 0xC
 };

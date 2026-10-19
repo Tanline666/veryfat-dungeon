@@ -9,7 +9,7 @@
 //! @{
 
 /**
- * \~ @brief Pause menu manager
+ * \~english @brief Pause menu manager
  */
 class RPSysPauseMgr {
     RP_SINGLETON_DECL_EX(RPSysPauseMgr);

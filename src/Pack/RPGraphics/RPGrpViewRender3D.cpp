@@ -1,9 +1,9 @@
 #include <Pack/RPGraphics.h>
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  *
- * \~ @param no View ID
+ * \~english @param no View ID
  */
 RPGrpViewRender3D::RPGrpViewRender3D(u8 no)
     : RPGrpView(no), mpCamera(NULL), unk24(0) {
@@ -12,7 +12,7 @@ RPGrpViewRender3D::RPGrpViewRender3D(u8 no)
 }
 
 /**
- * \~ @brief Updates this view's state
+ * \~english @brief Updates this view's state
  */
 void RPGrpViewRender3D::Calc() {
     RPGrpView::Calc();
@@ -29,7 +29,7 @@ void RPGrpViewRender3D::Calc() {
 }
 
 /**
- * \~ @brief Prepares this view for a new frame
+ * \~english @brief Prepares this view for a new frame
  */
 void RPGrpViewRender3D::PrepareDraw() {
     RPGrpView::PrepareDraw();
@@ -57,7 +57,7 @@ void RPGrpViewRender3D::PrepareDraw() {
 }
 
 /**
- * \~ @brief Renders the contents of this view
+ * \~english @brief Renders the contents of this view
  */
 void RPGrpViewRender3D::Draw() {
     if (!IsSysCalc()) {
@@ -75,7 +75,7 @@ void RPGrpViewRender3D::Draw() {
 }
 
 /**
- * \~ @brief Prepares this view for a new render pass
+ * \~english @brief Prepares this view for a new render pass
  */
 void RPGrpViewRender3D::PrepareDrawGX() {
     if (IsSysDraw()) {
@@ -89,10 +89,10 @@ void RPGrpViewRender3D::PrepareDrawGX() {
 }
 
 /**
- * \~ @brief Attaches a new camera to this view
+ * \~english @brief Attaches a new camera to this view
  *
- * \~ @param pCamera New camera
- * \~ @return Previously attached camera
+ * \~english @param pCamera New camera
+ * \~english @return Previously attached camera
  */
 RPGrpCamera* RPGrpViewRender3D::AttachCamera(RPGrpCamera* pCamera) {
     RPGrpCamera* pOldCamera = mpCamera;

@@ -5,13 +5,13 @@
 //! TODO: Would this still apply for Wii Fit Plus?
 
 /**
- * \~ @brief Holds year, month, month day
+ * \~english @brief Holds year, month, month day
  * \~ @note Only years after (and including) 2000 can be represented.
  */
 typedef u16 RPTime16;
 
 /**
- * \~ @brief Holds year, month, month day, week day, hour
+ * \~english @brief Holds year, month, month day, week day, hour
  * \~ @note Only years after (and including) 2000 can be represented.
  */
 typedef u32 RPTime32;
@@ -34,9 +34,9 @@ typedef u32 RPTime32;
 /**
  * List for-each macro.
  *
- * \~ @param TYPE Element type
- * \~ @param NAME Element name
- * \~ @param LIST Reference to list
+ * \~english @param TYPE Element type
+ * \~english @param NAME Element name
+ * \~english @param LIST Reference to list
  */
 #define RP_NW4R_LIST_FOREACH(TYPE, NAME, LIST)                                 \
     for (TYPE* NAME = static_cast<TYPE*>(nw4r::ut::List_GetFirst(&LIST));      \
@@ -44,7 +44,7 @@ typedef u32 RPTime32;
          NAME = static_cast<TYPE*>(nw4r::ut::List_GetNext(&LIST, NAME)))
 
 /**
- * \~ @brief Generic BMG message holder
+ * \~english @brief Generic BMG message holder
  */
 struct bmg_message {
     u32 group;

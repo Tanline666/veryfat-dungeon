@@ -13,48 +13,48 @@
 class RPGrpShadowTexture;
 
 /**
- * \~ @brief Shadow texture draw path
+ * \~english @brief Shadow texture draw path
  */
 class RPGrpDrawPathShadowTexture : public RPGrpDrawPath {
 public:
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      *
-     * \~ @param pRenderer Scene renderer
+     * \~english @param pRenderer Scene renderer
      */
     RPGrpDrawPathShadowTexture(EGG::ScnRenderer* pRenderer);
 
     /**
-     * \~ @brief Inserts a new shadow texture
+     * \~english @brief Inserts a new shadow texture
      *
-     * \~ @param idx Texture index
-     * \~ @param pTexture Shadow texture
+     * \~english @param idx Texture index
+     * \~english @param pTexture Shadow texture
      */
     void SetTexture(u16 idx, RPGrpShadowTexture* pTexture);
 
     /**
-     * \~ @brief Appends a new shadow texture
+     * \~english @brief Appends a new shadow texture
      *
-     * \~ @param pTexture Shadow texture
+     * \~english @param pTexture Shadow texture
      */
     void SetTexture(RPGrpShadowTexture* pTexture);
 
     /**
-     * \~ @brief Enables this draw path
+     * \~english @brief Enables this draw path
      */
     virtual void On() override { // at 0xC
         mpShadowTextureManager->SetEnable(true);
     }
 
     /**
-     * \~ @brief Disables this draw path
+     * \~english @brief Disables this draw path
      */
     virtual void Off() override { // at 0x10
         mpShadowTextureManager->SetEnable(false);
     }
 
     /**
-     * \~ @brief Tests whether this draw path is enabled
+     * \~english @brief Tests whether this draw path is enabled
      */
     virtual bool IsEnable() const override { // at 0x10
         return mpShadowTextureManager->IsEnable();

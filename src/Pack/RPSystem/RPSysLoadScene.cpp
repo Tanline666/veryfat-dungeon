@@ -12,9 +12,9 @@
 #endif
 
 /**
- * \~ @brief Displays the game's build date timestamp
+ * \~english @brief Displays the game's build date timestamp
  *
- * \~ @param color Text color
+ * \~english @param color Text color
  */
 void RPSysScene::drawTimeStamp(nw4r::ut::Color color) {
     enum {
@@ -74,7 +74,7 @@ void RPSysScene::drawTimeStamp(nw4r::ut::Color color) {
 void RPSysScene::loadUpdate() {}
 
 /**
- * \~ @brief Marks that this scene requires an asynchronous task.
+ * \~english @brief Marks that this scene requires an asynchronous task.
  * \~japanese @brief シーンを非同期タスクが必要なプロパティと設定する。
  */
 void RPSysScene::setTaskAsync() {
@@ -83,7 +83,7 @@ void RPSysScene::setTaskAsync() {
 }
 
 /**
- * \~ @brief Tests whether this scene's asynchronous task has finished.
+ * \~english @brief Tests whether this scene's asynchronous task has finished.
  * \~japanese @brief シーンの非同期タスクの完了判定を行います。
  */
 bool RPSysScene::isTaskAsyncFinish() const {
@@ -92,7 +92,7 @@ bool RPSysScene::isTaskAsyncFinish() const {
 }
 
 /**
- * \~ @brief Loads this scene's resources asynchronously.
+ * \~english @brief Loads this scene's resources asynchronously.
  * \~japanese @brief シーンのリソースを非同期にロードする。
  */
 void RPSysScene::load() {
@@ -182,7 +182,8 @@ void RPSysScene::loadMessage() {
 }
 
 /**
- * \~ @brief Creates the asynchronous task thread if requested by the scene
+ * \~english @brief Creates the asynchronous task thread if requested by the
+ * scene
  */
 void RPSysScene::initTaskAsync() {
     if (mFlags.onBit(EFlag_TaskAsyncSet) &&
@@ -197,7 +198,7 @@ void RPSysScene::initTaskAsync() {
 }
 
 /**
- * \~ @brief Polls the status of the DVD task thread
+ * \~english @brief Polls the status of the DVD task thread
  */
 void RPSysScene::updateDvdEndMessage() {
     if (mFlags.onBit(EFlag_TaskAsyncSet) &&
@@ -220,7 +221,7 @@ void RPSysScene::updateDvdEndMessage() {
 }
 
 /**
- * \~ @brief Polls the status of the NAND task thread
+ * \~english @brief Polls the status of the NAND task thread
  */
 void RPSysScene::updateNandEndMessage() {
     if (!RP_GET_INSTANCE(RPSysSaveDataMgr)->isNandAccessFinish()) {
@@ -247,9 +248,9 @@ void RPSysScene::updateNandEndMessage() {
 }
 
 /**
- * \~ @brief Thread function for the LoadResource phase
+ * \~english @brief Thread function for the LoadResource phase
  *
- * \~ @param pArg Thread function argument
+ * \~english @param pArg Thread function argument
  */
 void RPSysScene::loadResourceFunc(void* pArg) {
     RPSysScene* p = static_cast<RPSysScene*>(pArg);
@@ -269,9 +270,9 @@ void RPSysScene::loadResourceFunc(void* pArg) {
 }
 
 /**
- * \~ @brief Thread function for the scene's task
+ * \~english @brief Thread function for the scene's task
  *
- * \~ @param pArg Thread function argument
+ * \~english @param pArg Thread function argument
  */
 void RPSysScene::taskAsyncFunc(void* pArg) {
     RPSysScene* p = static_cast<RPSysScene*>(pArg);

@@ -10,7 +10,7 @@
 #include <revolution/VF.h>
 
 /**
- * \~ @brief Pack-specific message file name
+ * \~english @brief Pack-specific message file name
  */
 #if defined(PACK_SPORTS)
 #define PACK_MSG_FILE_NAME "sports_message.bmg"
@@ -19,12 +19,12 @@
 #endif
 
 /**
- * \~ @brief Banner icon TPL file name
+ * \~english @brief Banner icon TPL file name
  */
 #define BANNER_ICON_FILE_NAME "banner.tpl"
 
 /**
- * \~ @brief Banner file names
+ * \~english @brief Banner file names
  */
 const char* RPSysSaveDataMgr::BANNER_FILE_NAMES[EBannerType_Max] = {
     "banner.bin",     // EBannerType_Real
@@ -32,7 +32,7 @@ const char* RPSysSaveDataMgr::BANNER_FILE_NAMES[EBannerType_Max] = {
 };
 
 /**
- * \~ @brief Save file name
+ * \~english @brief Save file name
  */
 #if defined(PACK_SPORTS)
 static const char* SAVE_FILE_NAME = "RPSports.dat";
@@ -43,21 +43,21 @@ static const char* SAVE_FILE_NAME = "RPParty.dat";
 RP_SINGLETON_IMPL_EX(RPSysSaveDataMgr);
 
 /**
- * \~ @brief Gets the Sports Pack player data at the specified player list
- * index
+ * \~english @brief Gets the Sports Pack player data at the specified player
+ * list index
  *
- * \~ @param idx Player list index
+ * \~english @param idx Player list index
  */
 RPSportsPlayerData RPSysSaveDataMgr::getSportsPlayerData(s32 idx) const {
     return *mpSaveData->getSportsPlayerData(idx);
 }
 
 /**
- * \~ @brief Sets the Sports Pack player data at the specified player list
- * index
+ * \~english @brief Sets the Sports Pack player data at the specified player
+ * list index
  *
- * \~ @param rPlayerData Player data
- * \~ @param idx Player list index
+ * \~english @param rPlayerData Player data
+ * \~english @param idx Player list index
  */
 void RPSysSaveDataMgr::setSportsPlayerData(
     const RPSportsPlayerData& rPlayerData, s32 idx) {
@@ -67,16 +67,16 @@ void RPSysSaveDataMgr::setSportsPlayerData(
 }
 
 /**
- * \~ @brief Gets the Sports Pack system data
+ * \~english @brief Gets the Sports Pack system data
  */
 RPSportsSystemData RPSysSaveDataMgr::getSportsSystemData() const {
     return *mpSaveData->getSportsSystemData();
 }
 
 /**
- * \~ @brief Sets the Sports Pack system data
+ * \~english @brief Sets the Sports Pack system data
  *
- * \~ @param rSystemData System data
+ * \~english @param rSystemData System data
  */
 void RPSysSaveDataMgr::setSportsSystemData(
     const RPSportsSystemData& rSystemData) {
@@ -86,21 +86,21 @@ void RPSysSaveDataMgr::setSportsSystemData(
 }
 
 /**
- * \~ @brief Gets the Party Pack player data at the specified player list
+ * \~english @brief Gets the Party Pack player data at the specified player list
  * index
  *
- * \~ @param idx Player list index
+ * \~english @param idx Player list index
  */
 RPPartyPlayerData RPSysSaveDataMgr::getPartyPlayerData(s32 idx) const {
     return *mpSaveData->getPartyPlayerData(idx);
 }
 
 /**
- * \~ @brief Sets the Party Pack player data at the specified player list
+ * \~english @brief Sets the Party Pack player data at the specified player list
  * index
  *
- * \~ @param rPlayerData Player data
- * \~ @param idx Player list index
+ * \~english @param rPlayerData Player data
+ * \~english @param idx Player list index
  */
 void RPSysSaveDataMgr::setPartyPlayerData(const RPPartyPlayerData& rPlayerData,
                                           s32 idx) {
@@ -110,16 +110,16 @@ void RPSysSaveDataMgr::setPartyPlayerData(const RPPartyPlayerData& rPlayerData,
 }
 
 /**
- * \~ @brief Gets the Party Pack system data
+ * \~english @brief Gets the Party Pack system data
  */
 RPPartySystemData RPSysSaveDataMgr::getPartySystemData() const {
     return *mpSaveData->getPartySystemData();
 }
 
 /**
- * \~ @brief Sets the Party Pack system data
+ * \~english @brief Sets the Party Pack system data
  *
- * \~ @param rSystemData System data
+ * \~english @param rSystemData System data
  */
 void RPSysSaveDataMgr::setPartySystemData(
     const RPPartySystemData& rSystemData) {
@@ -129,9 +129,9 @@ void RPSysSaveDataMgr::setPartySystemData(
 }
 
 /**
- * \~ @brief Checks which save data files exist on the NAND
+ * \~english @brief Checks which save data files exist on the NAND
  *
- * \~ @return Success
+ * \~english @return Success
  */
 bool RPSysSaveDataMgr::existPackFileSync() {
     bool enable = false;
@@ -159,9 +159,10 @@ bool RPSysSaveDataMgr::existPackFileSync() {
 }
 
 /**
- * \~ @brief Checks which save data files exist on the NAND (asynchronous)
+ * \~english @brief Checks which save data files exist on the NAND
+ * (asynchronous)
  *
- * \~ @return Success
+ * \~english @return Success
  */
 bool RPSysSaveDataMgr::existPackFileAsync() {
     bool enable = false;
@@ -192,10 +193,10 @@ bool RPSysSaveDataMgr::existPackFileAsync() {
 }
 
 /**
- * \~ @brief Tests whether the NAND has enough free space to store both the
- * banner and save files (asynchronous)
+ * \~english @brief Tests whether the NAND has enough free space to store both
+ * the banner and save files (asynchronous)
  *
- * \~ @return Success
+ * \~english @return Success
  */
 bool RPSysSaveDataMgr::existNandMemoryAsync() {
     bool enable = false;
@@ -226,9 +227,10 @@ bool RPSysSaveDataMgr::existNandMemoryAsync() {
 }
 
 /**
- * \~ @brief Attempts to create both the banner and save files on the NAND
+ * \~english @brief Attempts to create both the banner and save files on the
+ * NAND
  *
- * \~ @return Success
+ * \~english @return Success
  */
 bool RPSysSaveDataMgr::createPackFileSync() {
     if (mFlags.offBit(EFlag_NandError) && mFlags.offBit(EFlag_13)) {
@@ -252,10 +254,10 @@ bool RPSysSaveDataMgr::createPackFileSync() {
 }
 
 /**
- * \~ @brief Attempts to create both the banner and save files on the NAND
- * (asynchonous)
+ * \~english @brief Attempts to create both the banner and save files on the
+ * NAND (asynchonous)
  *
- * \~ @return Success
+ * \~english @return Success
  */
 bool RPSysSaveDataMgr::createPackFileAsync() {
     bool enable = false;
@@ -286,9 +288,10 @@ bool RPSysSaveDataMgr::createPackFileAsync() {
 }
 
 /**
- * \~ @brief Attempts to delete both the banner and save files from the NAND
+ * \~english @brief Attempts to delete both the banner and save files from the
+ * NAND
  *
- * \~ @return Success
+ * \~english @return Success
  */
 bool RPSysSaveDataMgr::deletePackFileSync() {
     bool enable = false;
@@ -316,9 +319,9 @@ bool RPSysSaveDataMgr::deletePackFileSync() {
 }
 
 /**
- * \~ @brief Attempts to save both the banner and save files to the NAND
+ * \~english @brief Attempts to save both the banner and save files to the NAND
  *
- * \~ @return Success
+ * \~english @return Success
  */
 bool RPSysSaveDataMgr::savePackFileSync() {
     bool enable = false;
@@ -346,9 +349,9 @@ bool RPSysSaveDataMgr::savePackFileSync() {
 }
 
 /**
- * \~ @brief Attempts to load the save file from the NAND (asynchronous)
+ * \~english @brief Attempts to load the save file from the NAND (asynchronous)
  *
- * \~ @return Success
+ * \~english @return Success
  */
 bool RPSysSaveDataMgr::loadAsync() {
     bool enable = false;
@@ -379,10 +382,10 @@ bool RPSysSaveDataMgr::loadAsync() {
 }
 
 /**
- * \~ @brief Attempts to save both the banner and save files to the NAND
+ * \~english @brief Attempts to save both the banner and save files to the NAND
  * (asynchronous)
  *
- * \~ @return Success
+ * \~english @return Success
  */
 bool RPSysSaveDataMgr::saveAsync() {
     if (mFlags.offBit(EFlag_AsyncSave)) {
@@ -426,21 +429,22 @@ bool RPSysSaveDataMgr::saveAsync() {
 }
 
 /**
- * \~ @brief Tests whether async operations have completed
+ * \~english @brief Tests whether async operations have completed
  */
 bool RPSysSaveDataMgr::isAsyncFinish() const {
     return mFlags.offBit(EFlag_NandAccess) && mFlags.offBit(EFlag_AsyncSave);
 }
 
 /**
- * \~ @brief Tests whether NAND operations have completed
+ * \~english @brief Tests whether NAND operations have completed
  */
 bool RPSysSaveDataMgr::isNandAccessFinish() const {
     return mFlags.offBit(EFlag_NandAccess);
 }
 
 /**
- * \~ @brief Tests whether both the banner and save files exist on the NAND
+ * \~english @brief Tests whether both the banner and save files exist on the
+ * NAND
  */
 bool RPSysSaveDataMgr::isPackFileExist() const {
     return mFlags.onBit(EFlag_BannerFileExist) &&
@@ -448,22 +452,23 @@ bool RPSysSaveDataMgr::isPackFileExist() const {
 }
 
 /**
- * \~ @brief Tests whether the NAND has enough free space to store both the
- * banner and save files
+ * \~english @brief Tests whether the NAND has enough free space to store both
+ * the banner and save files
  */
 bool RPSysSaveDataMgr::isNandMemoryExist() const {
     return mFlags.onBit(EFlag_NandMemoryExist);
 }
 
 /**
- * \~ @brief Tests whether the save file is broken (bad magic, checksum, etc.)
+ * \~english @brief Tests whether the save file is broken (bad magic, checksum,
+ * etc.)
  */
 bool RPSysSaveDataMgr::isSaveFileBroken() const {
     return mpSaveData->isErrorOccured();
 }
 
 /**
- * \~ @brief Tests whether any unrecoverable error has occurred
+ * \~english @brief Tests whether any unrecoverable error has occurred
  * @typo
  */
 bool RPSysSaveDataMgr::isErrorOccured() const {
@@ -472,31 +477,31 @@ bool RPSysSaveDataMgr::isErrorOccured() const {
 }
 
 /**
- * \~ @brief Toggles the ability to save both the banner and save files to the
- * NAND
+ * \~english @brief Toggles the ability to save both the banner and save files
+ * to the NAND
  *
- * \~ @param disable Whether to disable saving
+ * \~english @param disable Whether to disable saving
  */
 void RPSysSaveDataMgr::setSaveDisable(bool disable) {
     mFlags.changeBit(EFlag_DisableSave, disable);
 }
 
 /**
- * \~ @brief Gets the result of the last NAND memory check
+ * \~english @brief Gets the result of the last NAND memory check
  */
 u32 RPSysSaveDataMgr::getNandCheckAnswer() const {
     return mNandCheckAnswer;
 }
 
 /**
- * \~ @brief Gets the result of the last NAND operation
+ * \~english @brief Gets the result of the last NAND operation
  */
 s32 RPSysSaveDataMgr::getErrorCode() const {
     return mNandErrorCode;
 }
 
 /**
- * \~ @brief Gets the number of free NAND blocks needed to store both the
+ * \~english @brief Gets the number of free NAND blocks needed to store both the
  * banner and save files
  */
 u32 RPSysSaveDataMgr::getUserBlockSize() const {
@@ -505,7 +510,7 @@ u32 RPSysSaveDataMgr::getUserBlockSize() const {
 }
 
 /**
- * \~ @brief Gets the number of free NAND inodes needed to store both the
+ * \~english @brief Gets the number of free NAND inodes needed to store both the
  * banner and save files
  */
 u32 RPSysSaveDataMgr::getSaveFileNum() const {
@@ -513,16 +518,16 @@ u32 RPSysSaveDataMgr::getSaveFileNum() const {
 }
 
 /**
- * \~ @brief Marks the current async NAND operations as completed
+ * \~english @brief Marks the current async NAND operations as completed
  */
 void RPSysSaveDataMgr::finishNandAccess() {
     mFlags.resetBit(EFlag_NandAccess);
 }
 
 /**
- * \~ @brief Updates the save manager state
+ * \~english @brief Updates the save manager state
  *
- * \~ @param display Whether the scene is fully displayed
+ * \~english @param display Whether the scene is fully displayed
  */
 void RPSysSaveDataMgr::update(bool display) {
     if (mFlags.offBit(EFlag_AsyncSave)) {
@@ -562,7 +567,7 @@ void RPSysSaveDataMgr::update(bool display) {
 }
 
 /**
- * \~ @brief Initializes the banner file binary
+ * \~english @brief Initializes the banner file binary
  */
 void RPSysSaveDataMgr::initBanner() {
     EGG::Heap* pHeap =
@@ -612,7 +617,7 @@ void RPSysSaveDataMgr::initBanner() {
 }
 
 /**
- * \~ @brief Prompts the user to continue without saving
+ * \~english @brief Prompts the user to continue without saving
  */
 void RPSysSaveDataMgr::checkContinueReject() {
     RPSysSystemWinMgr* pWinMgr = RP_GET_INSTANCE(RPSysSystemWinMgr);
@@ -642,8 +647,8 @@ void RPSysSaveDataMgr::checkContinueReject() {
 }
 
 /**
- * \~ @brief Checks if the NAND has enough free space to store both the banner
- * and save files
+ * \~english @brief Checks if the NAND has enough free space to store both the
+ * banner and save files
  */
 void RPSysSaveDataMgr::existNandMemorySync() {
     if (mFlags.offBit(EFlag_NandError) && mFlags.offBit(EFlag_13)) {
@@ -664,7 +669,7 @@ void RPSysSaveDataMgr::existNandMemorySync() {
 }
 
 /**
- * \~ @brief Checks whether the banner file exists on the NAND
+ * \~english @brief Checks whether the banner file exists on the NAND
  */
 void RPSysSaveDataMgr::existBannerFile() {
     if (mFlags.offBit(EFlag_NandError) && mFlags.offBit(EFlag_13)) {
@@ -682,7 +687,7 @@ void RPSysSaveDataMgr::existBannerFile() {
 }
 
 /**
- * \~ @brief Creates the banner file on the NAND
+ * \~english @brief Creates the banner file on the NAND
  * @details For safety purposes, the banner file is first created in the
  * temporary directory, before being moved out.
  */
@@ -731,7 +736,7 @@ void RPSysSaveDataMgr::createBannerFile() {
 }
 
 /**
- * \~ @brief Deletes the banner file from the NAND
+ * \~english @brief Deletes the banner file from the NAND
  * @details This function only deletes the banner file in the home directory
  */
 void RPSysSaveDataMgr::deleteBannerFile() {
@@ -747,7 +752,7 @@ void RPSysSaveDataMgr::deleteBannerFile() {
 }
 
 /**
- * \~ @brief Saves both the banner and save files to the NAND
+ * \~english @brief Saves both the banner and save files to the NAND
  */
 void RPSysSaveDataMgr::saveSync() {
     if (mFlags.offBit(EFlag_DisableSave) && mFlags.offBit(EFlag_NandError) &&
@@ -783,7 +788,7 @@ void RPSysSaveDataMgr::saveSync() {
 }
 
 /**
- * \~ @brief Loads the save file from the NAND
+ * \~english @brief Loads the save file from the NAND
  */
 void RPSysSaveDataMgr::loadSync() {
     if (mFlags.offBit(EFlag_NandError) && mFlags.offBit(EFlag_13)) {
@@ -816,9 +821,9 @@ void RPSysSaveDataMgr::loadSync() {
 }
 
 /**
- * \~ @brief Saves the banner file to the NAND
+ * \~english @brief Saves the banner file to the NAND
  *
- * \~ @param type Which type of banner file to save
+ * \~english @param type Which type of banner file to save
  */
 void RPSysSaveDataMgr::saveBannerFile(EBannerType type) {
     if (mFlags.offBit(EFlag_DisableSave) && mFlags.offBit(EFlag_NandError) &&
@@ -850,7 +855,7 @@ void RPSysSaveDataMgr::saveBannerFile(EBannerType type) {
 }
 
 /**
- * \~ @brief Checks whether the save file exists on the NAND
+ * \~english @brief Checks whether the save file exists on the NAND
  */
 void RPSysSaveDataMgr::existSaveFile() {
     if (mFlags.offBit(EFlag_NandError) && mFlags.offBit(EFlag_13)) {
@@ -869,7 +874,7 @@ void RPSysSaveDataMgr::existSaveFile() {
 }
 
 /**
- * \~ @brief Deletes the save file from the NAND
+ * \~english @brief Deletes the save file from the NAND
  */
 void RPSysSaveDataMgr::deleteSaveFile() {
     mNandErrorCode = NANDDelete(SAVE_FILE_NAME);
@@ -884,9 +889,9 @@ void RPSysSaveDataMgr::deleteSaveFile() {
 }
 
 /**
- * \~ @brief Checks which save data files exist on the NAND
+ * \~english @brief Checks which save data files exist on the NAND
  *
- * \~ @param pArg Thread function argument
+ * \~english @param pArg Thread function argument
  */
 void RPSysSaveDataMgr::existPackFileFunc(void* /* pArg */) {
     RP_GET_INSTANCE(RPSysSaveDataMgr)->existSaveFile();
@@ -894,19 +899,19 @@ void RPSysSaveDataMgr::existPackFileFunc(void* /* pArg */) {
 }
 
 /**
- * \~ @brief Checks if the NAND has enough free space to store both the banner
- * and save files
+ * \~english @brief Checks if the NAND has enough free space to store both the
+ * banner and save files
  *
- * \~ @param pArg Thread function argument
+ * \~english @param pArg Thread function argument
  */
 void RPSysSaveDataMgr::existNandMemoryFunc(void* /* pArg */) {
     RP_GET_INSTANCE(RPSysSaveDataMgr)->existNandMemorySync();
 }
 
 /**
- * \~ @brief Creates both the banner and save files on the NAND
+ * \~english @brief Creates both the banner and save files on the NAND
  *
- * \~ @param pArg Thread function argument
+ * \~english @param pArg Thread function argument
  */
 void RPSysSaveDataMgr::createPackFileFunc(void* /* pArg */) {
     RP_GET_INSTANCE(RPSysSaveDataMgr)->createPackFileSync();
@@ -914,18 +919,18 @@ void RPSysSaveDataMgr::createPackFileFunc(void* /* pArg */) {
 }
 
 /**
- * \~ @brief Loads the save file from the NAND
+ * \~english @brief Loads the save file from the NAND
  *
- * \~ @param pArg Thread function argument
+ * \~english @param pArg Thread function argument
  */
 void RPSysSaveDataMgr::loadDataFunc(void* /* pArg */) {
     RP_GET_INSTANCE(RPSysSaveDataMgr)->loadSync();
 }
 
 /**
- * \~ @brief Saves both the banner and save files to the NAND
+ * \~english @brief Saves both the banner and save files to the NAND
  *
- * \~ @param pArg Thread function argument
+ * \~english @param pArg Thread function argument
  */
 void RPSysSaveDataMgr::saveDataFunc(void* /* pArg */) {
     RP_GET_INSTANCE(RPSysSaveDataMgr)->saveSync();
@@ -933,9 +938,9 @@ void RPSysSaveDataMgr::saveDataFunc(void* /* pArg */) {
 }
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  *
- * \~ @param pHeap Parent heap
+ * \~english @param pHeap Parent heap
  */
 RPSysSaveDataMgr::RPSysSaveDataMgr(EGG::Heap* pHeap)
     : IRPSysHostIOSocket("Save File"), mpParentHeap(pHeap) {
@@ -968,6 +973,6 @@ RPSysSaveDataMgr::RPSysSaveDataMgr(EGG::Heap* pHeap)
 }
 
 /**
- * \~ @brief Destructor
+ * \~english @brief Destructor
  */
 RPSysSaveDataMgr::~RPSysSaveDataMgr() {}

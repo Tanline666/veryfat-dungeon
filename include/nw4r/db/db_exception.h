@@ -32,11 +32,11 @@ struct ExceptionCallbackParam {
 };
 
 /**
- * \~ @brief Function to be executed upon an exception occurring.
+ * \~english @brief Function to be executed upon an exception occurring.
  *
- * \~ @param pConsole Console handle.
- * \~ @param pArg The specified callback argument.
- * \~ @return bool: Always returns true.
+ * \~english @param pConsole Console handle.
+ * \~english @param pArg The specified callback argument.
+ * \~english @return bool: Always returns true.
  */
 typedef bool (*ExceptionUserCallback)(ConsoleHandle pConsole, void* pArg);
 
@@ -56,43 +56,46 @@ struct ExceptionHead {
 };
 
 /**
- * \~ @brief Creates a thread with the highest priority to handle exceptions.
+ * \~english @brief Creates a thread with the highest priority to handle
+ * exceptions.
  * \~japanese @brief 例外を処理するために一番高い優先順位のスレッドを作成する。
  */
 void Exception_Init();
 
 /**
- * \~ @brief Sets the console for displaying exception info.
+ * \~english @brief Sets the console for displaying exception info.
  * \~japanese @brief 例外情報を表示するコンソールを設定する。
  *
- * \~ @param console The specified console handle.
- * \~ @param renderMode Render mode pointer, stored as a GXRenderModeObj.
- * \~ @return ConsoleHandle: The console prior to executing the function.
+ * \~english @param console The specified console handle.
+ * \~english @param renderMode Render mode pointer, stored as a GXRenderModeObj.
+ * \~english @return ConsoleHandle: The console prior to executing the function.
  */
 ConsoleHandle Exception_SetConsole(ConsoleHandle console,
                                    const GXRenderModeObj* pRenderMode);
 
 /**
- * \~ @brief Returns the currently set console for displaying exception info.
+ * \~english @brief Returns the currently set console for displaying exception
+ * info.
  *
- * \~ @return ConsoleHandle: Ditto.
+ * \~english @return ConsoleHandle: Ditto.
  */
 ConsoleHandle Exception_GetConsole();
 
 /**
- * \~ @brief Sets the function to be executed upon an exception occurring.
+ * \~english @brief Sets the function to be executed upon an exception
+ * occurring.
  *
- * \~ @param callback Callback function itself.
- * \~ @param arg Argument to be passed to callback.
+ * \~english @param callback Callback function itself.
+ * \~english @param arg Argument to be passed to callback.
  */
 void Exception_SetUserCallback(ExceptionUserCallback callback, void* pArg);
 
 /**
- * \~ @brief Sets which info is to be displayed/reported on screen or by serial.
- * Defaults to Main and Trace.
+ * \~english @brief Sets which info is to be displayed/reported on screen or by
+ * serial. Defaults to Main and Trace.
  *
- * \~ @param info The new display info setting.
- * \~ @return ExceptionDisplayInfo: The prior display info setting.
+ * \~english @param info The new display info setting.
+ * \~english @return ExceptionDisplayInfo: The prior display info setting.
  */
 u16 Exception_SetDisplayInfo(u16 pInfo);
 } // namespace db

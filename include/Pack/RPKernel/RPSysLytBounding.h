@@ -10,15 +10,15 @@
 //! @{
 
 /**
- * \~ @brief NW4R layout bounding extension
+ * \~english @brief NW4R layout bounding extension
  */
 class RPSysLytBounding : public nw4r::lyt::Bounding {
 public:
     /**
-     * \~ @brief Tests whether a point falls within this bounding pane
+     * \~english @brief Tests whether a point falls within this bounding pane
      *
-     * \~ @param rInfo Pane draw info
-     * \~ @param rPoint Point to test
+     * \~english @param rInfo Pane draw info
+     * \~english @param rPoint Point to test
      */
     bool isInsideBounding(const nw4r::lyt::DrawInfo& rInfo,
                           const EGG::Vector2f& rPoint);

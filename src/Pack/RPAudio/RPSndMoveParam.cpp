@@ -10,7 +10,7 @@
  ******************************************************************************/
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  */
 RPSndMoveValueF32::RPSndMoveValueF32()
     : mFrame(0), mTarget(1.0f), mValue(1.0f), mDelta(1.0f) {
@@ -19,10 +19,10 @@ RPSndMoveValueF32::RPSndMoveValueF32()
 }
 
 /**
- * \~ @brief Begins interpolation of this value
+ * \~english @brief Begins interpolation of this value
  *
- * \~ @param target Interpolation target
- * \~ @param frame Interpolation duration
+ * \~english @param target Interpolation target
+ * \~english @param frame Interpolation duration
  */
 void RPSndMoveValueF32::moveValue(f32 target, u32 frame) {
     mTarget = target;
@@ -36,9 +36,9 @@ void RPSndMoveValueF32::moveValue(f32 target, u32 frame) {
 }
 
 /**
- * \~ @brief Updates the interpolation state
+ * \~english @brief Updates the interpolation state
  *
- * \~ @return Whether interpolation is ongoing
+ * \~english @return Whether interpolation is ongoing
  */
 bool RPSndMoveValueF32::update() {
     if (mFrame > 0) {
@@ -65,19 +65,19 @@ bool RPSndMoveValueF32::update() {
  ******************************************************************************/
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  *
- * \~ @param category Sound parameter category
- * \~ @param rHandle Sound handle
+ * \~english @param category Sound parameter category
+ * \~english @param rHandle Sound handle
  */
 RPSndMoveParam::RPSndMoveParam(ParamCategory category,
                                nw4r::snd::SoundHandle& rHandle)
     : mCategory(category), mrHandle(rHandle) {}
 
 /**
- * \~ @brief Updates the interpolation state
+ * \~english @brief Updates the interpolation state
  *
- * \~ @return Whether interpolation is ongoing
+ * \~english @return Whether interpolation is ongoing
  */
 bool RPSndMoveParam::update() {
     if (mrHandle.IsAttachedSound()) {
@@ -123,12 +123,12 @@ bool RPSndMoveParam::update() {
  ******************************************************************************/
 
 /**
- * \~ @brief List of all active move parameters
+ * \~english @brief List of all active move parameters
  */
 nw4r::ut::List RPSndMoveParamMgr::sMoveParamList;
 
 /**
- * \~ @brief Updates the state of all move parameters
+ * \~english @brief Updates the state of all move parameters
  */
 void RPSndMoveParamMgr::update() {
     RPSndMoveParamLink* pIt = static_cast<RPSndMoveParamLink*>(

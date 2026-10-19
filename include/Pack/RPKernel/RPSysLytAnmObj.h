@@ -11,91 +11,91 @@
 //! @{
 
 /**
- * \~ @brief Layout animation object
+ * \~english @brief Layout animation object
  */
 class RPSysLytAnmObj {
     friend class RPSysLayout;
 
 public:
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      */
     RPSysLytAnmObj();
 
     /**
-     * \~ @brief Updates the layout animation
+     * \~english @brief Updates the layout animation
      */
     void calc();
 
     /**
-     * \~ @brief Resets the layout animation
+     * \~english @brief Resets the layout animation
      */
     void reset();
 
     /**
-     * \~ @brief Starts playing the animation from the specified frame
+     * \~english @brief Starts playing the animation from the specified frame
      *
-     * \~ @param frame Starting frame (-1 to play from the current frame)
+     * \~english @param frame Starting frame (-1 to play from the current frame)
      */
     void play(s16 frame);
 
     /**
-     * \~ @brief Initializes the layout animation
+     * \~english @brief Initializes the layout animation
      *
-     * \~ @param frame Starting frame
-     * \~ @param frameNum Number of frames to animate
-     * \~ @param playMode Animation policy
+     * \~english @param frame Starting frame
+     * \~english @param frameNum Number of frames to animate
+     * \~english @param playMode Animation policy
      */
     void init(s16 frame, s16 frameNum, RPSysFrameCtrl::EPlayMode playMode);
 
     /**
-     * \~ @brief Stops playing the animation
+     * \~english @brief Stops playing the animation
      */
     void stop() {
         mFrameCtrl.stop();
     }
 
     /**
-     * \~ @brief Gets the number of frames in this animation
+     * \~english @brief Gets the number of frames in this animation
      */
     f32 getFrameMax();
 
     /**
-     * \~ @brief Tests whether this animation has finished
+     * \~english @brief Tests whether this animation has finished
      */
     bool isFinished() const {
         return mFrameCtrl.isFinished();
     }
 
     /**
-     * \~ @brief Tests whether this animation has looped at least once
+     * \~english @brief Tests whether this animation has looped at least once
      */
     bool isLooped() const {
         return mFrameCtrl.isLooped();
     }
 
     /**
-     * \~ @brief Sets the animation play policy
+     * \~english @brief Sets the animation play policy
      *
-     * \~ @param playMode New play policy
+     * \~english @param playMode New play policy
      */
     void setPlayMode(RPSysFrameCtrl::EPlayMode playMode) {
         mFrameCtrl.setPlayMode(playMode);
     }
 
     /**
-     * \~ @brief Sets the current animation position
+     * \~english @brief Sets the current animation position
      *
-     * \~ @param frame New frame
+     * \~english @param frame New frame
      */
     void setFrame(f32 frame) {
         mFrameCtrl.setFrame(frame);
     }
 
     /**
-     * \~ @brief Sets the animation update rate
+     * \~english @brief Sets the animation update rate
      *
-     * \~ @param rate New update rate
+     * \~english @param rate New update rate
      */
     void setRate(f32 rate) {
         mFrameCtrl.setRate(rate);
@@ -103,7 +103,7 @@ public:
 
 private:
     /**
-     * \~ @brief Animation result flags
+     * \~english @brief Animation result flags
      */
     enum {
         EFlag_Finished = 1 << 0, //!< Non-looping animation has finished

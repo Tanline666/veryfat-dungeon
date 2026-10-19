@@ -13,7 +13,7 @@
 class RPGrpModel;
 
 /**
- * \~ @brief Model material setting
+ * \~english @brief Model material setting
  */
 class RPGrpModelMaterial {
 public:

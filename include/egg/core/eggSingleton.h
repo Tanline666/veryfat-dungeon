@@ -6,7 +6,7 @@
 #include <egg/prim.h>
 
 /**
- * \~ @brief Declares functions and data for a disposable singleton class
+ * \~english @brief Declares functions and data for a disposable singleton class
  * \~japanese @brief 破棄可能なSingletonクラスの関数とデータを宣言する
  */
 #define EGG_SINGLETON_DECL(T)                                                  \
@@ -30,7 +30,7 @@ protected:                                                                     \
     static T* sInstance;
 
 /**
- * \~ @brief Defines functions and data for a disposable singleton class
+ * \~english @brief Defines functions and data for a disposable singleton class
  * \~japanese @brief 破棄可能なSingletonクラスの関数とデータを定義する
  */
 #define EGG_SINGLETON_IMPL(T)                                                  \
@@ -56,7 +56,7 @@ protected:                                                                     \
     T* T::sInstance = NULL;
 
 /**
- * \~ @brief Accesses a singleton instance by typename
+ * \~english @brief Accesses a singleton instance by typename
  * \~japanese @brief タイプ名でSingletonインスタンスをアクセスする
  */
 #ifndef EGG_GET_INSTANCE

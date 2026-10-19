@@ -19,7 +19,7 @@
 #define KPAD_PULSE_FREQ 12.0f
 
 /**
- * \~ @brief Default threshold parameters for each extended status
+ * \~english @brief Default threshold parameters for each extended status
  */
 const f32 RPSysCoreController::DEFAULT_EX_THRESHOLD[EExStatus_Max] = {
     0.01f, // EExStatus_0
@@ -29,7 +29,7 @@ const f32 RPSysCoreController::DEFAULT_EX_THRESHOLD[EExStatus_Max] = {
 };
 
 /**
- * \~ @brief Default rate parameters for each extended status
+ * \~english @brief Default rate parameters for each extended status
  */
 const f32 RPSysCoreController::DEFAULT_EX_RATE[EExStatus_Max] = {
     0.1f,   // EExStatus_0
@@ -39,27 +39,27 @@ const f32 RPSysCoreController::DEFAULT_EX_RATE[EExStatus_Max] = {
 };
 
 /**
- * \~ @brief Next player index
+ * \~english @brief Next player index
  */
 s16 RPSysCoreController::sNextPlayerNo = 0;
 
 /**
- * \~ @brief Active (main player) controller
+ * \~english @brief Active (main player) controller
  */
 RPSysCoreController* RPSysCoreController::spActiveController = NULL;
 
 /**
- * \~ @brief Active (main player) controller address
+ * \~english @brief Active (main player) controller address
  */
 RPSysCoreAddress RPSysCoreController::sActiveAddress;
 
 /**
- * \~ @brief Whether a controller has disconnected in this scene
+ * \~english @brief Whether a controller has disconnected in this scene
  */
 bool RPSysCoreController::sDisconnectOccurred = false;
 
 /**
- * \~ @brief Sensor bar height level
+ * \~english @brief Sensor bar height level
  */
 f32 RPSysCoreController::sSensorHeight = SENSOR_HEIGHT_TOP;
 
@@ -70,7 +70,7 @@ f32 RPSysCoreController::sSensorHeight = SENSOR_HEIGHT_TOP;
  ******************************************************************************/
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  */
 RPSysCoreController::ParamStack::ParamStack()
     : mSize(0), mInitialPlayRadius(0.0f), mInitialSensitivity(0.0f) {
@@ -82,7 +82,7 @@ RPSysCoreController::ParamStack::ParamStack()
 }
 
 /**
- * \~ @brief Clears the parameter stack
+ * \~english @brief Clears the parameter stack
  */
 void RPSysCoreController::ParamStack::reset() {
     mSize = 0;
@@ -97,10 +97,10 @@ void RPSysCoreController::ParamStack::reset() {
 }
 
 /**
- * \~ @brief Sets the initial parameters
+ * \~english @brief Sets the initial parameters
  *
- * \~ @param playRadius DPD play radius
- * \~ @param sensitivity DPD sensitivity
+ * \~english @param playRadius DPD play radius
+ * \~english @param sensitivity DPD sensitivity
  */
 void RPSysCoreController::ParamStack::configure(f32 playRadius,
                                                 f32 sensitivity) {
@@ -109,10 +109,10 @@ void RPSysCoreController::ParamStack::configure(f32 playRadius,
 }
 
 /**
- * \~ @brief Sets the current parameters
+ * \~english @brief Sets the current parameters
  *
- * \~ @param playRadius DPD play radius
- * \~ @param sensitivity DPD sensitivity
+ * \~english @param playRadius DPD play radius
+ * \~english @param sensitivity DPD sensitivity
  */
 void RPSysCoreController::ParamStack::set(f32 playRadius, f32 sensitivity) {
     mPlayRadiusStack[mSize] = playRadius;
@@ -120,7 +120,7 @@ void RPSysCoreController::ParamStack::set(f32 playRadius, f32 sensitivity) {
 }
 
 /**
- * \~ @brief Pushes the current parameter set onto the stack
+ * \~english @brief Pushes the current parameter set onto the stack
  */
 void RPSysCoreController::ParamStack::push() {
     ++mSize;
@@ -132,7 +132,7 @@ void RPSysCoreController::ParamStack::push() {
 }
 
 /**
- * \~ @brief Pops the top parameter set from the stack
+ * \~english @brief Pops the top parameter set from the stack
  */
 void RPSysCoreController::ParamStack::pop() {
     if (mSize > 0) {
@@ -147,12 +147,12 @@ void RPSysCoreController::ParamStack::pop() {
  ******************************************************************************/
 
 /**
- * \~ @brief Performs smoothing on an acceleration component
+ * \~english @brief Performs smoothing on an acceleration component
  *
- * \~ @param pValue Value to modify
- * \~ @param target Smoothing target
- * \~ @param threshold Smoothing threshold
- * \~ @param rate Smoothing rate
+ * \~english @param pValue Value to modify
+ * \~english @param target Smoothing target
+ * \~english @param threshold Smoothing threshold
+ * \~english @param rate Smoothing rate
  */
 static void CalcAcc(f32* pValue, f32 target, f32 threshold, f32 rate) {
     f32 t;
@@ -177,7 +177,7 @@ static void CalcAcc(f32* pValue, f32 target, f32 threshold, f32 rate) {
 }
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  */
 RPSysCoreController::ExStatus::ExStatus()
     : mPassThreshold(0.0f), mPassRate(1.0f) {
@@ -186,10 +186,10 @@ RPSysCoreController::ExStatus::ExStatus()
 }
 
 /**
- * \~ @brief Sets the current parameters
+ * \~english @brief Sets the current parameters
  *
- * \~ @param threshold Acceleration smoothing threshold
- * \~ @param rate Acceleration smoothing rate
+ * \~english @param threshold Acceleration smoothing threshold
+ * \~english @param rate Acceleration smoothing rate
  */
 void RPSysCoreController::ExStatus::set(f32 threshold, f32 rate) {
     mPassThreshold = threshold;
@@ -197,10 +197,10 @@ void RPSysCoreController::ExStatus::set(f32 threshold, f32 rate) {
 }
 
 /**
- * \~ @brief Updates the controller input state
+ * \~english @brief Updates the controller input state
  *
- * \~ @param pStatusArray Controller sample set
- * \~ @param count Number of controler samples
+ * \~english @param pStatusArray Controller sample set
+ * \~english @param count Number of controler samples
  */
 void RPSysCoreController::ExStatus::calc(EGG::CoreStatus* pStatusArray,
                                          s32 count) {
@@ -236,19 +236,19 @@ void RPSysCoreController::ExStatus::calc(EGG::CoreStatus* pStatusArray,
  ******************************************************************************/
 
 /**
- * \~ @brief Controller address work buffer
+ * \~english @brief Controller address work buffer
  */
 u8 RPSysCoreAddress::sAddrWork[WPAD_ADDR_LEN] = {};
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  */
 RPSysCoreAddress::RPSysCoreAddress() {
     reset();
 }
 
 /**
- * \~ @brief Clears the controller address
+ * \~english @brief Clears the controller address
  */
 void RPSysCoreAddress::reset() {
     for (int i = 0; i < WPAD_ADDR_LEN; i++) {
@@ -257,10 +257,10 @@ void RPSysCoreAddress::reset() {
 }
 
 /**
- * \~ @brief Attempts to read the address of the specified controller
+ * \~english @brief Attempts to read the address of the specified controller
  *
- * \~ @param chan Controller remote channel
- * \~ @return Success
+ * \~english @param chan Controller remote channel
+ * \~english @return Success
  */
 bool RPSysCoreAddress::read(s32 chan) {
     int attempts = 0;
@@ -287,25 +287,25 @@ bool RPSysCoreAddress::read(s32 chan) {
 }
 
 /**
- * \~ @brief Sets the value of this controller address
+ * \~english @brief Sets the value of this controller address
  *
- * \~ @param pData New controller address
+ * \~english @param pData New controller address
  */
 void RPSysCoreAddress::set(const u8* pData) {
     std::memcpy(mData, pData, sizeof(mData));
 }
 
 /**
- * \~ @brief Gets the specified digit of this address
+ * \~english @brief Gets the specified digit of this address
  *
- * \~ @param idx Digit index
+ * \~english @param idx Digit index
  */
 u8 RPSysCoreAddress::get(int idx) const {
     return mData[idx];
 }
 
 /**
- * \~ @brief Tests whether this controller address is valid
+ * \~english @brief Tests whether this controller address is valid
  */
 bool RPSysCoreAddress::isValid() const {
     bool valid = false;
@@ -321,9 +321,9 @@ bool RPSysCoreAddress::isValid() const {
 }
 
 /**
- * \~ @brief Tests whether two controller addresses are equivalent
+ * \~english @brief Tests whether two controller addresses are equivalent
  *
- * \~ @param rOther Other controller address
+ * \~english @param rOther Other controller address
  */
 bool RPSysCoreAddress::isEqual(const RPSysCoreAddress& rOther) const {
     bool same = true;
@@ -345,14 +345,14 @@ bool RPSysCoreAddress::isEqual(const RPSysCoreAddress& rOther) const {
  ******************************************************************************/
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  */
 RPSysCoreInfo::RPSysCoreInfo() {
     reset();
 }
 
 /**
- * \~ @brief Clears the controller information
+ * \~english @brief Clears the controller information
  */
 void RPSysCoreInfo::reset() {
     std::memset(this, 0, sizeof(*this));
@@ -360,7 +360,7 @@ void RPSysCoreInfo::reset() {
 }
 
 /**
- * \~ @brief Tests whether the controller battery level is low
+ * \~english @brief Tests whether the controller battery level is low
  */
 bool RPSysCoreInfo::isLowBattery() const {
     bool isLow = false;
@@ -389,7 +389,7 @@ bool RPSysCoreInfo::isLowBattery() const {
  ******************************************************************************/
 
 /**
- * \~ @brief Creates a new controller object
+ * \~english @brief Creates a new controller object
  */
 EGG::CoreController* RPSysCoreController::createCoreController() {
     RPSysCoreController* pController = new RPSysCoreController(sNextPlayerNo++);
@@ -402,7 +402,7 @@ EGG::CoreController* RPSysCoreController::createCoreController() {
 }
 
 /**
- * \~ @brief Initializes the controller system
+ * \~english @brief Initializes the controller system
  */
 void RPSysCoreController::initialize() {
     RPSysCoreControllerMgr::setCoreControllerFactory(createCoreController);
@@ -424,14 +424,14 @@ void RPSysCoreController::initialize() {
 }
 
 /**
- * \~ @brief Tests whether the sensor bar is positioned above the TV
+ * \~english @brief Tests whether the sensor bar is positioned above the TV
  */
 bool RPSysCoreController::isSensorBarTop() {
     return WPADGetSensorBarPosition() == WPAD_SENSOR_BAR_TOP;
 }
 
 /**
- * \~ @brief Applies global controller settings
+ * \~english @brief Applies global controller settings
  */
 void RPSysCoreController::applySetting() {
     if (isSensorBarTop()) {
@@ -446,21 +446,21 @@ void RPSysCoreController::applySetting() {
 }
 
 /**
- * \~ @brief Prepares the controller system for a scene reset
+ * \~english @brief Prepares the controller system for a scene reset
  */
 void RPSysCoreController::sceneReset() {
     RP_GET_INSTANCE(RPSysCoreControllerMgr)->sceneReset();
 }
 
 /**
- * \~ @brief Forcibly turns on the sensor bar
+ * \~english @brief Forcibly turns on the sensor bar
  */
 void RPSysCoreController::forceSensorBarPowerOn() {
     WPADSetSensorBarPower(TRUE);
 }
 
 /**
- * \~ @brief Prepares the controller system for a new scene
+ * \~english @brief Prepares the controller system for a new scene
  */
 void RPSysCoreController::initScene() {
     for (int i = 0; i < RP_MAX_CONTROLLERS; i++) {
@@ -476,9 +476,9 @@ void RPSysCoreController::initScene() {
 }
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  *
- * \~ @param playerNo Player ID
+ * \~english @param playerNo Player ID
  */
 RPSysCoreController::RPSysCoreController(s32 playerNo) {
     mWPADProbeResult = WPAD_ERR_NO_CONTROLLER;
@@ -510,35 +510,35 @@ RPSysCoreController::RPSysCoreController(s32 playerNo) {
 }
 
 /**
- * \~ @brief Destructor
+ * \~english @brief Destructor
  */
 RPSysCoreController::~RPSysCoreController() {}
 
 /**
- * \~ @brief Sets the parameters for the specified extended status
+ * \~english @brief Sets the parameters for the specified extended status
  *
- * \~ @param idx Extended status index
- * \~ @param threshold Smoothing threshold
- * \~ @param rate Smoothing rate
+ * \~english @param idx Extended status index
+ * \~english @param threshold Smoothing threshold
+ * \~english @param rate Smoothing rate
  */
 void RPSysCoreController::setExAccParam(int idx, f32 threshold, f32 rate) {
     mExStatus[idx].set(threshold, rate);
 }
 
 /**
- * \~ @brief Accesses the specified core status
+ * \~english @brief Accesses the specified core status
  *
- * \~ @param idx Extended status index
- * \~ @param sample Core status sample index
+ * \~english @param idx Extended status index
+ * \~english @param sample Core status sample index
  */
 EGG::CoreStatus* RPSysCoreController::getExCoreStatus(int idx, int sample) {
     return mExStatus[idx].getCoreStatus(sample);
 }
 
 /**
- * \~ @brief Performs processing at the beginning of the frame
+ * \~english @brief Performs processing at the beginning of the frame
  *
- * \~ @param pStatus GameCube controller status (for debugging?)
+ * \~english @param pStatus GameCube controller status (for debugging?)
  */
 void RPSysCoreController::beginFrame(PADStatus* pStatus) {
     s32 devType;
@@ -608,7 +608,7 @@ void RPSysCoreController::beginFrame(PADStatus* pStatus) {
 }
 
 /**
- * \~ @brief Becomes the active (main player) controller
+ * \~english @brief Becomes the active (main player) controller
  */
 void RPSysCoreController::becomeActiveController() {
     spActiveController = this;
@@ -616,14 +616,14 @@ void RPSysCoreController::becomeActiveController() {
 }
 
 /**
- * \~ @brief Shuts down the controller system
+ * \~english @brief Shuts down the controller system
  *
- * \~ @param forIpl Whether the program is exiting to the IPL
+ * \~english @param forIpl Whether the program is exiting to the IPL
  */
 void RPSysCoreController::shutdownSystem(bool /* forIpl */) {}
 
 /**
- * \~ @brief Turns off the rumble motor in all controllers
+ * \~english @brief Turns off the rumble motor in all controllers
  */
 void RPSysCoreController::stopMotorAll() {
     for (int i = 0; i < RP_MAX_CONTROLLERS; i++) {
@@ -632,9 +632,9 @@ void RPSysCoreController::stopMotorAll() {
 }
 
 /**
- * \~ @brief Starts the specified rumble pattern
+ * \~english @brief Starts the specified rumble pattern
  *
- * \~ @param pattern Rumble pattern
+ * \~english @param pattern Rumble pattern
  */
 void RPSysCoreController::rumble(ERumblePattern pattern) {
     switch (pattern) {
@@ -657,8 +657,8 @@ void RPSysCoreController::rumble(ERumblePattern pattern) {
 }
 
 /**
- * \~ @brief Tests whether this controller's base device (no extension) is a
- * Wii Remote controller
+ * \~english @brief Tests whether this controller's base device (no extension)
+ * is a Wii Remote controller
  */
 bool RPSysCoreController::isCoreBaseDevice() const {
     bool isCore = false;
@@ -687,24 +687,24 @@ bool RPSysCoreController::isCoreBaseDevice() const {
 }
 
 /**
- * \~ @brief Enables pairing of controllers
+ * \~english @brief Enables pairing of controllers
  */
 void RPSysCoreController::enableConnection() {
     RP_GET_INSTANCE(RPSysCoreControllerMgr)->enableConnection();
 }
 
 /**
- * \~ @brief Disables pairing of controllers
+ * \~english @brief Disables pairing of controllers
  */
 void RPSysCoreController::disableConnection() {
     RP_GET_INSTANCE(RPSysCoreControllerMgr)->disableConnection();
 }
 
 /**
- * \~ @brief Assigns a new WPAD channel and address to this controller
+ * \~english @brief Assigns a new WPAD channel and address to this controller
  *
- * \~ @param chan New WPAD channel
- * \~ @param rAddress New controller address
+ * \~english @param chan New WPAD channel
+ * \~english @param rAddress New controller address
  */
 void RPSysCoreController::set(s32 chan, const RPSysCoreAddress& rAddress) {
     mChannelID = chan;
@@ -712,9 +712,9 @@ void RPSysCoreController::set(s32 chan, const RPSysCoreAddress& rAddress) {
 }
 
 /**
- * \~ @brief Toggles whether DPD control is enabled
+ * \~english @brief Toggles whether DPD control is enabled
  *
- * \~ @param enable Whether to enable DPD control
+ * \~english @param enable Whether to enable DPD control
  */
 void RPSysCoreController::enableDpdCtrl(bool enable) {
     if (mDpdCtrlStackSize >= 0 && mDpdCtrlStackSize < DPD_STACK_CAPACITY) {
@@ -723,7 +723,7 @@ void RPSysCoreController::enableDpdCtrl(bool enable) {
 }
 
 /**
- * \~ @brief Disables DPD control for all controllers
+ * \~english @brief Disables DPD control for all controllers
  */
 void RPSysCoreController::disableDpdCtrlAll() {
     for (int i = 0; i < RP_MAX_CONTROLLERS; i++) {
@@ -732,7 +732,7 @@ void RPSysCoreController::disableDpdCtrlAll() {
 }
 
 /**
- * \~ @brief Resets the state of the DPD control stack
+ * \~english @brief Resets the state of the DPD control stack
  */
 void RPSysCoreController::resetDpdCtrlStack() {
     mDpdCtrlStackSize = 0;
@@ -743,9 +743,9 @@ void RPSysCoreController::resetDpdCtrlStack() {
 }
 
 /**
- * \~ @brief Pushes a new value to the DPD control stack
+ * \~english @brief Pushes a new value to the DPD control stack
  *
- * \~ @param enable Whether to enable DPD control
+ * \~english @param enable Whether to enable DPD control
  */
 void RPSysCoreController::pushDpdCtrlStack(bool enable) {
     ++mDpdCtrlStackSize;
@@ -756,9 +756,10 @@ void RPSysCoreController::pushDpdCtrlStack(bool enable) {
 }
 
 /**
- * \~ @brief Pushes a new value to the DPD control stack for all controllers
+ * \~english @brief Pushes a new value to the DPD control stack for all
+ * controllers
  *
- * \~ @param enable Whether to enable DPD control
+ * \~english @param enable Whether to enable DPD control
  */
 void RPSysCoreController::pushDpdCtrlStackAll(bool enable) {
     for (int i = 0; i < RP_MAX_CONTROLLERS; i++) {
@@ -767,7 +768,7 @@ void RPSysCoreController::pushDpdCtrlStackAll(bool enable) {
 }
 
 /**
- * \~ @brief Pops the top value from the DPD control stack
+ * \~english @brief Pops the top value from the DPD control stack
  */
 void RPSysCoreController::popDpdCtrlStack() {
     if (mDpdCtrlStackSize > 0) {
@@ -776,7 +777,8 @@ void RPSysCoreController::popDpdCtrlStack() {
 }
 
 /**
- * \~ @brief Pops the top value from the DPD control stack for all controllers
+ * \~english @brief Pops the top value from the DPD control stack for all
+ * controllers
  */
 void RPSysCoreController::popDpdCtrlStackAll() {
     for (int i = 0; i < RP_MAX_CONTROLLERS; i++) {
@@ -785,7 +787,8 @@ void RPSysCoreController::popDpdCtrlStackAll() {
 }
 
 /**
- * \~ @brief Tests whether DPD control was enabled at the previous stack level
+ * \~english @brief Tests whether DPD control was enabled at the previous stack
+ * level
  */
 bool RPSysCoreController::isPrevDpdCtrlEnable() {
     s16 prev = mDpdCtrlStackSize - 1;
@@ -798,47 +801,47 @@ bool RPSysCoreController::isPrevDpdCtrlEnable() {
 }
 
 /**
- * \~ @brief Sets the KPAD position parameters
+ * \~english @brief Sets the KPAD position parameters
  *
- * \~ @param playRadius Play radius parameter
- * \~ @param sensitivity Sensitivity parameter
+ * \~english @param playRadius Play radius parameter
+ * \~english @param sensitivity Sensitivity parameter
  */
 void RPSysCoreController::setPosParam(f32 playRadius, f32 sensitivity) {
     mPosParamStack.set(playRadius, sensitivity);
 }
 
 /**
- * \~ @brief Sets the KPAD horizon parameters
+ * \~english @brief Sets the KPAD horizon parameters
  *
- * \~ @param playRadius Play radius parameter
- * \~ @param sensitivity Sensitivity parameter
+ * \~english @param playRadius Play radius parameter
+ * \~english @param sensitivity Sensitivity parameter
  */
 void RPSysCoreController::setHoriParam(f32 playRadius, f32 sensitivity) {
     mHoriParamStack.set(playRadius, sensitivity);
 }
 
 /**
- * \~ @brief Sets the KPAD distance parameters
+ * \~english @brief Sets the KPAD distance parameters
  *
- * \~ @param playRadius Play radius parameter
- * \~ @param sensitivity Sensitivity parameter
+ * \~english @param playRadius Play radius parameter
+ * \~english @param sensitivity Sensitivity parameter
  */
 void RPSysCoreController::setDistParam(f32 playRadius, f32 sensitivity) {
     mDistParamStack.set(playRadius, sensitivity);
 }
 
 /**
- * \~ @brief Sets the KPAD acceleration parameters
+ * \~english @brief Sets the KPAD acceleration parameters
  *
- * \~ @param playRadius Play radius parameter
- * \~ @param sensitivity Sensitivity parameter
+ * \~english @param playRadius Play radius parameter
+ * \~english @param sensitivity Sensitivity parameter
  */
 void RPSysCoreController::setAccParam(f32 playRadius, f32 sensitivity) {
     mAccParamStack.set(playRadius, sensitivity);
 }
 
 /**
- * \~ @brief Pushes the current KPAD parameter set onto the stack for all
+ * \~english @brief Pushes the current KPAD parameter set onto the stack for all
  * controllers
  */
 void RPSysCoreController::pushKPADParamStackAll() {
@@ -851,7 +854,8 @@ void RPSysCoreController::pushKPADParamStackAll() {
 }
 
 /**
- * \~ @brief Pops the top KPAD parameter set from the stack for all controllers
+ * \~english @brief Pops the top KPAD parameter set from the stack for all
+ * controllers
  */
 void RPSysCoreController::popKPADParamStackAll() {
     for (int i = 0; i < RP_MAX_CONTROLLERS; i++) {
@@ -863,7 +867,7 @@ void RPSysCoreController::popKPADParamStackAll() {
 }
 
 /**
- * \~ @brief Updates the vertical Y acceleration statistics
+ * \~english @brief Updates the vertical Y acceleration statistics
  */
 void RPSysCoreController::updateAccVYMinMax() {
     // TODO(kiwi) What is this flag value?
@@ -901,10 +905,10 @@ void RPSysCoreController::updateAccVYMinMax() {
 }
 
 /**
- * \~ @brief WPADGetInfoAsync callback
+ * \~english @brief WPADGetInfoAsync callback
  *
- * \~ @param chan Remote channel
- * \~ @param result WPAD library result
+ * \~english @param chan Remote channel
+ * \~english @param result WPAD library result
  */
 void RPSysCoreController::getInfoCallback(s32 chan, s32 result) {
     RPSysCoreController* p =
@@ -922,9 +926,9 @@ void RPSysCoreController::getInfoCallback(s32 chan, s32 result) {
 }
 
 /**
- * \~ @brief Attempts to read the controller information
+ * \~english @brief Attempts to read the controller information
  *
- * \~ @return Success
+ * \~english @return Success
  */
 bool RPSysCoreController::requestCoreInfoAsync() {
     bool success = false;

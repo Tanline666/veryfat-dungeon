@@ -10,7 +10,7 @@
 //! @{
 
 /**
- * \~ @brief Cached resource file
+ * \~english @brief Cached resource file
  */
 class RPSysFile : public EGG::Disposer {
 public:
@@ -19,36 +19,36 @@ public:
 
 public:
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      *
-     * \~ @param pPath File path (absolute)
-     * \~ @param size File data size
-     * \~ @param pData File data pointer
+     * \~english @param pPath File path (absolute)
+     * \~english @param size File data size
+     * \~english @param pData File data pointer
      */
     RPSysFile(const char* pPath, s32 size, const void* pData);
 
     /**
-     * \~ @brief Destructor
+     * \~english @brief Destructor
      * @details The file is automatically removed from the resource cache.
      */
     virtual ~RPSysFile() override; // at 0x8
 
     /**
-     * \~ @brief Gets the path to this file
+     * \~english @brief Gets the path to this file
      */
     const char* GetPath() const {
         return mPath;
     }
 
     /**
-     * \~ @brief Gets the size of this file
+     * \~english @brief Gets the size of this file
      */
     s32 GetSize() const {
         return mSize;
     }
 
     /**
-     * \~ @brief Gets the data of this file
+     * \~english @brief Gets the data of this file
      */
     const u8* GetData() const {
         return mpData;

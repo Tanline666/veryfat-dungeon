@@ -8,12 +8,13 @@
 #include <nw4r/ut.h>
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  *
- * \~ @param pCallback Controller data callback
- * \~ @param pParentHeap Heap to use as the parent of the controller data heap
- * \~ @param heapSize Size of the controller data heap
- * \~ @param chan Remote channel
+ * \~english @param pCallback Controller data callback
+ * \~english @param pParentHeap Heap to use as the parent of the controller data
+ * heap
+ * \~english @param heapSize Size of the controller data heap
+ * \~english @param chan Remote channel
  */
 RPSysKokeshiCtrlDataMgr::RPSysKokeshiCtrlDataMgr(
     IRPSysKokeshiCtrlDataCallback* pCallback, EGG::Heap* pParentHeap,
@@ -38,12 +39,12 @@ RPSysKokeshiCtrlDataMgr::RPSysKokeshiCtrlDataMgr(
 }
 
 /**
- * \~ @brief Destructor
+ * \~english @brief Destructor
  */
 RPSysKokeshiCtrlDataMgr::~RPSysKokeshiCtrlDataMgr() {}
 
 /**
- * \~ @brief Notifies the user that all resources will be destroyed
+ * \~english @brief Notifies the user that all resources will be destroyed
  */
 void RPSysKokeshiCtrlDataMgr::notifyReleaseResource() {
     if (mState != EState_Idle) {
@@ -58,7 +59,7 @@ void RPSysKokeshiCtrlDataMgr::notifyReleaseResource() {
 }
 
 /**
- * \~ @brief Resets the internal state for creating resources
+ * \~english @brief Resets the internal state for creating resources
  */
 void RPSysKokeshiCtrlDataMgr::resetResource() {
     if (mState != EState_Idle) {
@@ -74,21 +75,21 @@ void RPSysKokeshiCtrlDataMgr::resetResource() {
 }
 
 /**
- * \~ @brief Tests whether the manager is in an idle state
+ * \~english @brief Tests whether the manager is in an idle state
  */
 BOOL RPSysKokeshiCtrlDataMgr::isIdle() const {
     return mState == EState_Idle ? TRUE : FALSE;
 }
 
 /**
- * \~ @brief Tests whether an error occured while loading data
+ * \~english @brief Tests whether an error occured while loading data
  */
 BOOL RPSysKokeshiCtrlDataMgr::isLoadError() const {
     return mpLoader->isError();
 }
 
 /**
- * \~ @brief Creates resources for the next Mii in the database
+ * \~english @brief Creates resources for the next Mii in the database
  */
 void RPSysKokeshiCtrlDataMgr::createResource() {
     if (mState != EState_Create) {
@@ -115,9 +116,9 @@ void RPSysKokeshiCtrlDataMgr::createResource() {
 }
 
 /**
- * \~ @brief Appends a new file to the file resource list
+ * \~english @brief Appends a new file to the file resource list
  *
- * \~ @param handle Resource handle
+ * \~english @param handle Resource handle
  */
 void RPSysKokeshiCtrlDataMgr::appendFile(RPGrpHandle handle) {
     FileResource* pResFile = new (mpHeap) FileResource();
@@ -126,9 +127,9 @@ void RPSysKokeshiCtrlDataMgr::appendFile(RPGrpHandle handle) {
 }
 
 /**
- * \~ @brief Appends a new model to the model resource list
+ * \~english @brief Appends a new model to the model resource list
  *
- * \~ @param pModel New model
+ * \~english @param pModel New model
  */
 void RPSysKokeshiCtrlDataMgr::appendModel(RPGrpModel* pModel) {
     ModelResource* pResModel = new (mpHeap) ModelResource();
@@ -137,7 +138,7 @@ void RPSysKokeshiCtrlDataMgr::appendModel(RPGrpModel* pModel) {
 }
 
 /**
- * \~ @brief Updates the manager state
+ * \~english @brief Updates the manager state
  */
 void RPSysKokeshiCtrlDataMgr::calc() {
     mpLoader->calc();
@@ -179,7 +180,8 @@ void RPSysKokeshiCtrlDataMgr::calc() {
 }
 
 /**
- * \~ @brief Releases resources and attempts to reload controller Mii data
+ * \~english @brief Releases resources and attempts to reload controller Mii
+ * data
  */
 void RPSysKokeshiCtrlDataMgr::resetData() {
     RPGrpModelResManager* pResManager = RPGrpModelResManager::GetCurrent();

@@ -21,7 +21,7 @@
  ******************************************************************************/
 
 /**
- * \~ @brief Base class for managed audio actors
+ * \~english @brief Base class for managed audio actors
  */
 class RPSndAudioActorBase : public EGG::Disposer {
     friend class RPSndObjMgr;
@@ -208,19 +208,20 @@ typedef TRPSndObject<RP_MAX_CONTROLLERS> RPSndObject;
  ******************************************************************************/
 
 /**
- * \~ @brief Sound object/actor manager
+ * \~english @brief Sound object/actor manager
  */
 class RPSndObjMgr {
 public:
     /**
-     * \~ @brief Fades out all active sounds in the specified number of frames
+     * \~english @brief Fades out all active sounds in the specified number of
+     * frames
      *
-     * \~ @param frames Fade out time
+     * \~english @param frames Fade out time
      */
     static void stopAllActorSound(int frames);
 
     /**
-     * \~ @brief Updates the state of all active sounds
+     * \~english @brief Updates the state of all active sounds
      */
     static void update() {
         RP_NW4R_LIST_FOREACH (RPSndAudioActorBase, it,

@@ -17,7 +17,7 @@
  ******************************************************************************/
 
 /**
- * \~ @brief Model animation implementation
+ * \~english @brief Model animation implementation
  */
 template <RPGrpModel::Kind K> class RPGrpModelAnmImplement {};
 
@@ -31,7 +31,7 @@ template <RPGrpModel::Kind K> class RPGrpModelAnmImplement {};
 typedef RPGrpModelAnmImplement<RPGrpModel::Kind_G3D> RPGrpModelAnmG3D;
 
 /**
- * \~ @brief Model animation implementation for nw4r::g3d
+ * \~english @brief Model animation implementation for nw4r::g3d
  */
 template <>
 class RPGrpModelAnmImplement<RPGrpModel::Kind_G3D> : public RPGrpModelAnm {

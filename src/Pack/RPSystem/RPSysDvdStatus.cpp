@@ -10,13 +10,13 @@
 RP_SINGLETON_IMPL(RPSysDvdStatus);
 
 /**
- * \~ @brief Game disc name
+ * \~english @brief Game disc name
  */
 
 const char* RPSysDvdStatus::GAME_DISK_NAME = "Wii Fit Plus";
 
 /**
- * \~ @brief English error message language
+ * \~english @brief English error message language
  */
 // clang-format off
 const char* RPSysDvdStatus::LANGUAGE_ENG[ERROR_MESSAGE_STRING_NUM]
@@ -34,7 +34,7 @@ const char* RPSysDvdStatus::LANGUAGE_ENG[ERROR_MESSAGE_STRING_NUM]
 // clang-format on
 
 /**
- * \~ @brief French error message language
+ * \~english @brief French error message language
  */
 // clang-format off
 const char* RPSysDvdStatus::LANGUAGE_FRA[ERROR_MESSAGE_STRING_NUM]
@@ -53,7 +53,7 @@ const char* RPSysDvdStatus::LANGUAGE_FRA[ERROR_MESSAGE_STRING_NUM]
 // clang-format on
 
 /**
- * \~ @brief German error message language
+ * \~english @brief German error message language
  */
 // clang-format off
 const char* RPSysDvdStatus::LANGUAGE_GER[ERROR_MESSAGE_STRING_NUM]
@@ -71,7 +71,7 @@ const char* RPSysDvdStatus::LANGUAGE_GER[ERROR_MESSAGE_STRING_NUM]
 // clang-format on
 
 /**
- * \~ @brief Italian error message language
+ * \~english @brief Italian error message language
  */
 // clang-format off
 const char* RPSysDvdStatus::LANGUAGE_ITA[ERROR_MESSAGE_STRING_NUM]
@@ -89,7 +89,7 @@ const char* RPSysDvdStatus::LANGUAGE_ITA[ERROR_MESSAGE_STRING_NUM]
 // clang-format on
 
 /**
- * \~ @brief Spanish error message language
+ * \~english @brief Spanish error message language
  */
 // clang-format off
 const char* RPSysDvdStatus::LANGUAGE_SPA[ERROR_MESSAGE_STRING_NUM]
@@ -108,7 +108,7 @@ const char* RPSysDvdStatus::LANGUAGE_SPA[ERROR_MESSAGE_STRING_NUM]
 // clang-format on
 
 /**
- * \~ @brief Japanese error message language
+ * \~english @brief Japanese error message language
  */
 // clang-format off
 const char* RPSysDvdStatus::LANGUAGE_JPN[ERROR_MESSAGE_STRING_NUM]
@@ -126,7 +126,7 @@ const char* RPSysDvdStatus::LANGUAGE_JPN[ERROR_MESSAGE_STRING_NUM]
 // clang-format on
 
 /**
- * \~ @brief Tests whether a disc drive error has occurred
+ * \~english @brief Tests whether a disc drive error has occurred
  * @typo
  */
 bool RPSysDvdStatus::isErrorOccured() const {
@@ -134,8 +134,8 @@ bool RPSysDvdStatus::isErrorOccured() const {
 }
 
 /**
- * \~ @brief Updates the status of the disc drive
- * \~ @return Whether the disc drive status is OK
+ * \~english @brief Updates the status of the disc drive
+ * \~english @return Whether the disc drive status is OK
  */
 bool RPSysDvdStatus::update() {
     s32 status = DVDGetDriveStatus();
@@ -170,7 +170,7 @@ bool RPSysDvdStatus::update() {
 }
 
 /**
- * \~ @brief Displays the disc drive error message
+ * \~english @brief Displays the disc drive error message
  */
 void RPSysDvdStatus::draw() {
     if (!isErrorOccured()) {
@@ -258,15 +258,15 @@ void RPSysDvdStatus::draw() {
 }
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  *
- * \~ @param pHeap Parent heap
+ * \~english @param pHeap Parent heap
  */
 RPSysDvdStatus::RPSysDvdStatus() : mErrorStatus(EErrorStatus_Success) {
     mpErrorFader->setStatus(EGG::ColorFader::STATUS_PREPARE_IN);
 }
 
 /**
- * \~ @brief Destructor
+ * \~english @brief Destructor
  */
 RPSysDvdStatus::~RPSysDvdStatus() {}

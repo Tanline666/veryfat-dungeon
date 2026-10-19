@@ -5,7 +5,6 @@
 
 #include <nw4r/lyt.h>
 
-
 //! @addtogroup rp_kernel
 //! @{
 
@@ -16,7 +15,7 @@ class RPSysLytAnmObj;
 class RPSysLytTextBox;
 
 /**
- * \~ @brief Library that handles pause menu layout.
+ * \~english @brief Library that handles pause menu layout.
  */
 
 class RPSysPauseMenu {

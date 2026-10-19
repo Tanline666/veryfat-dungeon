@@ -12,105 +12,106 @@
 //! @{
 
 /**
- * \~ @brief Remote speaker manager
+ * \~english @brief Remote speaker manager
  */
 class RPSndSpeakerMgr : public EGG::Disposer {
     RP_SINGLETON_DECL_EX(RPSndSpeakerMgr);
 
 public:
     /**
-     * \~ @brief Resets the state of each remote speaker
+     * \~english @brief Resets the state of each remote speaker
      */
     void reset();
 
     /**
-     * \~ @brief Updates the state of each remote speaker
+     * \~english @brief Updates the state of each remote speaker
      */
     void calc();
 
     /**
-     * \~ @brief Finalizes the state of each remote speaker
+     * \~english @brief Finalizes the state of each remote speaker
      */
     void exit();
 
     /**
-     * \~ @brief Fetches the latest WPAD master volume
+     * \~english @brief Fetches the latest WPAD master volume
      */
     void updateMasterVolume();
 
     /**
-     * \~ @brief Toggles enabling output of the specified remote speaker
+     * \~english @brief Toggles enabling output of the specified remote speaker
      *
-     * \~ @param chan Remote speaker channel
-     * \~ @param enable Whether to enable the speaker output
-     * \~ @return Previous enable status
+     * \~english @param chan Remote speaker channel
+     * \~english @param enable Whether to enable the speaker output
+     * \~english @return Previous enable status
      */
     bool setEnableSw(s32 chan, bool enable);
 
     /**
-     * \~ @brief Configures the main and remote output volumes of the specified
-     * sound handle
+     * \~english @brief Configures the main and remote output volumes of the
+     * specified sound handle
      *
-     * \~ @param pHandle Sound handle
-     * \~ @param playerFlag Player output line flags
-     * \~ @param mainOut Main output volume
-     * \~ @param remoteOut Remote output volume
-     * \~ @param muteOut Main output volume when the remote speaker is muted
+     * \~english @param pHandle Sound handle
+     * \~english @param playerFlag Player output line flags
+     * \~english @param mainOut Main output volume
+     * \~english @param remoteOut Remote output volume
+     * \~english @param muteOut Main output volume when the remote speaker is
+     * muted
      */
     void setRemoteSend(nw4r::snd::SoundHandle* pHandle, u32 playerFlag,
                        f32 mainOut, f32 remoteOut, f32 muteOut);
 
     /**
-     * \~ @brief Callback for new remote connections
+     * \~english @brief Callback for new remote connections
      *
-     * \~ @param chan Remote channel
-     * \~ @param result WPAD library result
+     * \~english @param chan Remote channel
+     * \~english @param result WPAD library result
      */
     static void setSpeakerOnCallback(s32 chan, s32 result);
 
     /**
-     * \~ @brief Callback for remote disconnections
+     * \~english @brief Callback for remote disconnections
      *
-     * \~ @param chan Remote channel
-     * \~ @param result WPAD library result
+     * \~english @param chan Remote channel
+     * \~english @param result WPAD library result
      */
     static void setSpeakerOffCallback(s32 chan, s32 result);
 
     /**
-     * \~ @brief Callback for initializing remote speaker connections
+     * \~english @brief Callback for initializing remote speaker connections
      *
-     * \~ @param chan Remote channel
-     * \~ @param result WPAD library result
+     * \~english @param chan Remote channel
+     * \~english @param result WPAD library result
      */
     static void setSpeakerSetupCallback(s32 chan, s32 result);
 
     /**
-     * \~ @brief Callback for finalizing remote speaker connections
+     * \~english @brief Callback for finalizing remote speaker connections
      *
-     * \~ @param chan Remote channel
-     * \~ @param result WPAD library result
+     * \~english @param chan Remote channel
+     * \~english @param result WPAD library result
      */
     static void setSpeakerShutdownCallback(s32 chan, s32 result);
 
     /**
-     * \~ @brief Attempts to connect to all remote speakers
+     * \~english @brief Attempts to connect to all remote speakers
      */
     void connectAll();
 
     /**
-     * \~ @brief Attempts to disconnect from all remote speakers
+     * \~english @brief Attempts to disconnect from all remote speakers
      */
     void disconnectAll();
 
     /**
-     * \~ @brief Tests whether the manager has no connections and is in an idle
-     * state
+     * \~english @brief Tests whether the manager has no connections and is in
+     * an idle state
      */
     bool isDisconnectAllFinished();
 
 private:
     /**
-     * \~ @brief Speaker connection task
+     * \~english @brief Speaker connection task
      */
     struct ConnectTask {
         //! Whether to turn the speakers on
@@ -130,33 +131,36 @@ private:
 
 private:
     /**
-     * \~ @brief Converts player-indexed bitflags to remote channel output flags
+     * \~english @brief Converts player-indexed bitflags to remote channel
+     * output flags
      *
-     * \~ @param playerFlag Player flags
-     * \~ @return Remote channel output line flags
+     * \~english @param playerFlag Player flags
+     * \~english @return Remote channel output line flags
      */
     u32 changeBitPlayerToChannel(u32 playerFlag);
 
     /**
-     * \~ @brief Requests a change in the specified remote speaker's state
+     * \~english @brief Requests a change in the specified remote speaker's
+     * state
      *
-     * \~ @param chan Remote speaker channel
-     * \~ @param on Whether to turn the speaker on
+     * \~english @param chan Remote speaker channel
+     * \~english @param on Whether to turn the speaker on
      */
     static void setSpeakerSw(s32 chan, bool on);
 
     /**
-     * \~ @brief Processes the specified remote speaker connection
+     * \~english @brief Processes the specified remote speaker connection
      *
-     * \~ @param chan Remote speaker channel
-     * \~ @param on Whether to turn the speaker on
+     * \~english @param chan Remote speaker channel
+     * \~english @param on Whether to turn the speaker on
      */
     void taskSpeakerSw(s32 chan, bool on);
 
     /**
-     * \~ @brief Tests whether the specified connection task has completed
+     * \~english @brief Tests whether the specified connection task has
+     * completed
      *
-     * \~ @param chan Remote speaker channel
+     * \~english @param chan Remote speaker channel
      */
     static bool isTaskFinished(s32 chan);
 

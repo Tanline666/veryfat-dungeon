@@ -3,7 +3,7 @@
 #include <Pack/types_pack.h>
 
 /**
- * \~ @brief common_message.bmg message IDs
+ * \~english @brief common_message.bmg message IDs
  */
 enum common_message {
     // clang-format off

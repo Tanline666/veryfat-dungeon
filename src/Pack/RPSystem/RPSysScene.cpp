@@ -10,28 +10,28 @@
 RPSysScene::UnkStruct RPSysScene::sUnkStruct;
 
 /**
- * \~ @brief Tests whether the scene is fully visible
+ * \~english @brief Tests whether the scene is fully visible
  */
 bool RPSysScene::isSceneDisplay() const {
     return RP_GET_INSTANCE(RPSysSceneMgr)->isDisplay();
 }
 
 /**
- * \~ @brief Tests whether the scene is visibly obscured
+ * \~english @brief Tests whether the scene is visibly obscured
  */
 bool RPSysScene::isSceneBlank() const {
     return RP_GET_INSTANCE(RPSysSceneMgr)->isBlank();
 }
 
 /**
- * \~ @brief Tests whether a scene change would be allowed
+ * \~english @brief Tests whether a scene change would be allowed
  */
 bool RPSysScene::isSceneChangeEnable() const {
     return RP_GET_INSTANCE(RPSysSceneMgr)->isSceneChangeEnable();
 }
 
 /**
- * \~ @brief Tests whether NAND access would be safe
+ * \~english @brief Tests whether NAND access would be safe
  */
 bool RPSysScene::isNandAccessEnable() const {
     return !RP_GET_INSTANCE(RPSysSceneMgr)->isFadeOut() &&
@@ -39,69 +39,69 @@ bool RPSysScene::isNandAccessEnable() const {
 }
 
 /**
- * \~ @brief Sets the duration of all faders
+ * \~english @brief Sets the duration of all faders
  *
- * \~ @param frame Fade duration, in frames
+ * \~english @param frame Fade duration, in frames
  */
 void RPSysScene::setFadeFrame(u16 frame) {
     RP_GET_INSTANCE(RPSysSceneMgr)->setFadeFrame(frame);
 }
 
 /**
- * \~ @brief Gets the color of the manager fader
+ * \~english @brief Gets the color of the manager fader
  */
 nw4r::ut::Color RPSysScene::getFadeColor() const {
     return RP_GET_INSTANCE(RPSysSceneMgr)->getFadeColor();
 }
 
 /**
- * \~ @brief Sets the color of all faders
+ * \~english @brief Sets the color of all faders
  *
- * \~ @param color Fade color
+ * \~english @param color Fade color
  */
 void RPSysScene::setFadeColor(nw4r::ut::Color color) {
     RP_GET_INSTANCE(RPSysSceneMgr)->setFadeColor(color);
 }
 
 /**
- * \~ @brief Sets the color of the scene fader
+ * \~english @brief Sets the color of the scene fader
  *
- * \~ @param color Fade color
+ * \~english @param color Fade color
  */
 void RPSysScene::setSceneFadeColor(nw4r::ut::Color color) {
     RP_GET_INSTANCE(RPSysSceneMgr)->setSceneFadeColor(color);
 }
 
 /**
- * \~ @brief Begins fading in the scene fader
+ * \~english @brief Begins fading in the scene fader
  *
- * \~ @return Success
+ * \~english @return Success
  */
 bool RPSysScene::startFadeIn() {
     return RP_GET_INSTANCE(RPSysSceneMgr)->startSceneFadeIn();
 }
 
 /**
- * \~ @brief Begins fading out the scene fader
+ * \~english @brief Begins fading out the scene fader
  *
- * \~ @return Success
+ * \~english @return Success
  */
 bool RPSysScene::startFadeOut() {
     return RP_GET_INSTANCE(RPSysSceneMgr)->startSceneFadeOut();
 }
 
 /**
- * \~ @brief Toggles screen dimming
+ * \~english @brief Toggles screen dimming
  * \~ @note If "Screen Saver Mode" is disabled, dimming is always OFF.
  *
- * \~ @param enable Whether to dim the screen
+ * \~english @param enable Whether to dim the screen
  */
 void RPSysScene::setDimming(bool enable) {
     RP_GET_INSTANCE(RPSysSystem)->setDimming(enable);
 }
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  */
 RPSysScene::RPSysScene()
     : mpRenderer(NULL),
@@ -112,7 +112,7 @@ RPSysScene::RPSysScene()
       mCreatorSceneID(-1) {}
 
 /**
- * \~ @brief Prepares this scene to be entered
+ * \~english @brief Prepares this scene to be entered
  */
 void RPSysScene::incomingScene() {
     RPSysCoreController::initScene();
@@ -145,7 +145,7 @@ void RPSysScene::incomingScene() {
 }
 
 /**
- * \~ @brief Enters the scene
+ * \~english @brief Enters the scene
  */
 void RPSysScene::enter() {
     init();
@@ -164,7 +164,7 @@ void RPSysScene::enter() {
 }
 
 /**
- * \~ @brief Prepares this scene to be exited
+ * \~english @brief Prepares this scene to be exited
  */
 void RPSysScene::outgoingScene() {
     RPSysCoreController::stopMotorAll();
@@ -174,7 +174,7 @@ void RPSysScene::outgoingScene() {
 }
 
 /**
- * \~ @brief Re-initializes the scene
+ * \~english @brief Re-initializes the scene
  */
 void RPSysScene::reinit() {
     outgoingScene();
@@ -182,14 +182,15 @@ void RPSysScene::reinit() {
 }
 
 /**
- * \~ @brief Prepares for destruction of (and transition from) a child scene
+ * \~english @brief Prepares for destruction of (and transition from) a child
+ * scene
  */
 void RPSysScene::incoming_childDestroy() {
     incomingScene();
 }
 
 /**
- * \~ @brief Updates the scene state
+ * \~english @brief Updates the scene state
  */
 void RPSysScene::calc() {
     if (!RP_GET_INSTANCE(RPSysDvdStatus)->isErrorOccured()) {
@@ -219,7 +220,7 @@ void RPSysScene::calc() {
 }
 
 /**
- * \~ @brief Renders the scene state
+ * \~english @brief Renders the scene state
  */
 void RPSysScene::draw() {
     RP_GET_INSTANCE(RPSysKokeshiManager)->UpdateCtrlMgr();
@@ -235,14 +236,14 @@ void RPSysScene::draw() {
 }
 
 /**
- * \~ @brief Prepares for creation of (and transition to) a child scene
+ * \~english @brief Prepares for creation of (and transition to) a child scene
  */
 void RPSysScene::outgoing_childCreate() {
     outgoingScene();
 }
 
 /**
- * \~ @brief Finalizes this scene after being exited
+ * \~english @brief Finalizes this scene after being exited
  */
 void RPSysScene::exitScenePost() {
     GXDrawDone();
@@ -254,7 +255,7 @@ void RPSysScene::exitScenePost() {
 }
 
 /**
- * \~ @brief Exits the scene
+ * \~english @brief Exits the scene
  */
 void RPSysScene::exit() {
     outgoingScene();
@@ -263,7 +264,7 @@ void RPSysScene::exit() {
 }
 
 /**
- * \~ @brief Initializes this scene's members
+ * \~english @brief Initializes this scene's members
  */
 void RPSysScene::init() {
     EGG::Allocator* pAllocator = new EGG::Allocator(getHeap());
@@ -299,23 +300,23 @@ void RPSysScene::init() {
 }
 
 /**
- * \~ @brief Sets this scene's parent/creator ID
+ * \~english @brief Sets this scene's parent/creator ID
  *
- * \~ @param id ID of this scene's parent/creator
+ * \~english @param id ID of this scene's parent/creator
  */
 void RPSysScene::setCreatorSceneID(s32 id) {
     mCreatorSceneID = id;
 }
 
 /**
- * \~ @brief Gets this scene's parent/creator ID
+ * \~english @brief Gets this scene's parent/creator ID
  */
 s32 RPSysScene::getCreatorSceneID() const {
     return mCreatorSceneID;
 }
 
 /**
- * \~ @brief Marks this scene as a child of the previous scene
+ * \~english @brief Marks this scene as a child of the previous scene
  */
 void RPSysScene::setChildScene() {
     mFlags.setBit(EFlag_IsChild);

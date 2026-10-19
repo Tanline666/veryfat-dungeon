@@ -4,9 +4,9 @@
 #include <RVLFaceLib/RVLFaceLibInternal.h>
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  *
- * \~ @param pGenInfo Middle DB generation parameters
+ * \~english @param pGenInfo Middle DB generation parameters
  */
 RPSysMiddleDB::RPSysMiddleDB(const RPSysMiddleDBGenInfo* pGenInfo)
     : mSize(pGenInfo->GetSize()), mStoredNum(0), mCurrentIndex(0) {
@@ -119,12 +119,12 @@ RPSysMiddleDB::RPSysMiddleDB(const RPSysMiddleDBGenInfo* pGenInfo)
 }
 
 /**
- * \~ @brief Destructor
+ * \~english @brief Destructor
  */
 RPSysMiddleDB::~RPSysMiddleDB() {}
 
 /**
- * \~ @brief Increments the current database index
+ * \~english @brief Increments the current database index
  * @details The current index wraps around when it becomes invalid
  */
 void RPSysMiddleDB::IncrementCurrentIndex() {
@@ -136,13 +136,14 @@ void RPSysMiddleDB::IncrementCurrentIndex() {
 }
 
 /**
- * \~ @brief Gets the RFL parameters necessary to access the specified Mii
+ * \~english @brief Gets the RFL parameters necessary to access the specified
+ * Mii
  * @details If the index is invalid for the middle database, the parameters
  * returned will instead fetch a Mii from the random database.
  *
- * \~ @param index Database index
- * \~ @param ppMiddleDB Middle DB to use with RFL
- * \~ @param pIndex Database index to use with RFL
+ * \~english @param index Database index
+ * \~english @param ppMiddleDB Middle DB to use with RFL
+ * \~english @param pIndex Database index to use with RFL
  */
 void RPSysMiddleDB::GetRFLMiddleDB(u16 index, RFLMiddleDB** ppMiddleDB,
                                    u16* pIndex) {

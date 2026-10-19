@@ -5,10 +5,10 @@
 namespace {
 
 /**
- * \~ @brief Tests whether two given RFL create IDs are equivalent
+ * \~english @brief Tests whether two given RFL create IDs are equivalent
  *
- * \~ @param rLhs Left-hand side ID
- * \~ @param rRhs Right-hand side ID
+ * \~english @param rLhs Left-hand side ID
+ * \~english @param rRhs Right-hand side ID
  */
 bool IsSameCreateID(const RFLCreateID& rLhs, const RFLCreateID& rRhs) {
     for (u32 i = 0; i < RFL_CREATEID_LEN; i++) {
@@ -23,12 +23,12 @@ bool IsSameCreateID(const RFLCreateID& rLhs, const RFLCreateID& rRhs) {
 } // namespace
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  */
 RPSysPlayer::RPSysPlayer() {}
 
 /**
- * \~ @brief Resets the data to a default state
+ * \~english @brief Resets the data to a default state
  */
 void RPSysPlayer::reset() {
     mChannel = WPAD_CHAN0;
@@ -44,11 +44,11 @@ void RPSysPlayer::reset() {
 }
 
 /**
- * \~ @brief Sets the Mii avatar associated with this player
+ * \~english @brief Sets the Mii avatar associated with this player
  *
- * \~ @param dataSrc Mii data source
- * \~ @param index Mii database index
- * \~ @param rCreateID Mii create ID
+ * \~english @param dataSrc Mii data source
+ * \~english @param index Mii database index
+ * \~english @param rCreateID Mii create ID
  */
 void RPSysPlayer::setAvatar(s8 dataSrc, u16 index,
                             const RFLCreateID& rCreateID) {
@@ -58,9 +58,9 @@ void RPSysPlayer::setAvatar(s8 dataSrc, u16 index,
 }
 
 /**
- * \~ @brief Loads this player's data
+ * \~english @brief Loads this player's data
  *
- * \~ @param rArg Parameter set
+ * \~english @param rArg Parameter set
  */
 void RPSysPlayer::loadData(const RPSysPlayerArg& rArg) {
     mPlayerDataIndex = mIndex;
@@ -118,9 +118,9 @@ void RPSysPlayer::loadData(const RPSysPlayerArg& rArg) {
 }
 
 /**
- * \~ @brief Saves this player's data
+ * \~english @brief Saves this player's data
  *
- * \~ @param rArg Parameter set
+ * \~english @param rArg Parameter set
  */
 void RPSysPlayer::saveData(const RPSysPlayerArg& rArg) {
     if (mPlayerDataIndex < 0) {

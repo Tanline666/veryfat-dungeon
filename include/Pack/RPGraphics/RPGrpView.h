@@ -14,12 +14,12 @@ class RPGrpCamera;
 class RPGrpScreen;
 
 /**
- * \~ @brief Base class for renderer views
+ * \~english @brief Base class for renderer views
  */
 class RPGrpView {
 public:
     /**
-     * \~ @brief View class type
+     * \~english @brief View class type
      */
     enum EType {
         EType_Render3D, //!< RPGrpViewRender3D
@@ -27,7 +27,7 @@ public:
     };
 
     /**
-     * \~ @brief Projection type
+     * \~english @brief Projection type
      */
     enum EProjType {
         EProjType_Persp, //!< Perspective
@@ -36,7 +36,7 @@ public:
     };
 
     /**
-     * \~ @brief View clipper
+     * \~english @brief View clipper
      */
     class Clipper {
     private:
@@ -53,31 +53,31 @@ public:
 
     public:
         /**
-         * \~ @brief Destructor
+         * \~english @brief Destructor
          */
         virtual ~Clipper() {} // at 0x8
 
         /**
-         * \~ @brief Re-calculates this clipper's clipping planes
+         * \~english @brief Re-calculates this clipper's clipping planes
          *
-         * \~ @param pScreen Screen rendering surface
+         * \~english @param pScreen Screen rendering surface
          */
         void Calc(const RPGrpScreen* pScreen) DECOMP_DONT_INLINE;
 
         /**
-         * \~ @brief Tests whether the specified bounding sphere falls within
-         * the view frustum
+         * \~english @brief Tests whether the specified bounding sphere falls
+         * within the view frustum
          *
-         * \~ @param pScreen Screen rendering surface
-         * \~ @param rPos Bounding sphere position
-         * \~ @param radius Bounding sphere radius
+         * \~english @param pScreen Screen rendering surface
+         * \~english @param rPos Bounding sphere position
+         * \~english @param radius Bounding sphere radius
          */
         bool Clip(const RPGrpScreen* pScreen, const nw4r::math::VEC3& rPos,
                   f32 radius);
     };
 
     /**
-     * \~ @brief Screen post-effect
+     * \~english @brief Screen post-effect
      */
     class ScreenEffect {
     private:
@@ -95,62 +95,63 @@ public:
 
     public:
         /**
-         * \~ @brief Constructor
+         * \~english @brief Constructor
          */
         ScreenEffect();
 
         /**
-         * \~ @brief Destructor
+         * \~english @brief Destructor
          */
         virtual ~ScreenEffect() {} // at 0x8
 
         /**
-         * \~ @brief Draws this effect to the specified screen
+         * \~english @brief Draws this effect to the specified screen
          *
-         * \~ @param pScreen Screen rendering surface
+         * \~english @param pScreen Screen rendering surface
          */
         void Draw(const RPGrpScreen* pScreen);
 
         /**
-         * \~ @brief Sets the color applied through multiply blending
+         * \~english @brief Sets the color applied through multiply blending
          *
-         * \~ @param rColor Multiply color
+         * \~english @param rColor Multiply color
          */
         void SetColorMultiply(const GXColor& rColor) {
             mColorMultiply = rColor;
         }
 
         /**
-         * \~ @brief Sets the color applied through addition blending
+         * \~english @brief Sets the color applied through addition blending
          *
-         * \~ @param rColor Addition color
+         * \~english @param rColor Addition color
          */
         void SetColorAdd(const GXColor& rColor) {
             mColorAdd = rColor;
         }
 
         /**
-         * \~ @brief Sets the color applied through normal blending
+         * \~english @brief Sets the color applied through normal blending
          *
-         * \~ @param rColor Normal blend color
+         * \~english @param rColor Normal blend color
          */
         void SetColorBlend(const GXColor& rColor) {
             mColorBlend = rColor;
         }
 
         /**
-         * \~ @brief Sets the horizontal offset of the blur effect's copies
+         * \~english @brief Sets the horizontal offset of the blur effect's
+         * copies
          *
-         * \~ @param offset Horizontal offset
+         * \~english @param offset Horizontal offset
          */
         void SetBlurOffset(f32 offset) {
             mBlurOffset = offset;
         }
 
         /**
-         * \~ @brief Sets the transparency of the blur effect
+         * \~english @brief Sets the transparency of the blur effect
          *
-         * \~ @param alpha Blur effect transparency
+         * \~english @param alpha Blur effect transparency
          */
         void SetBlurAlpha(u8 alpha) {
             mBlurAlpha = alpha;
@@ -159,7 +160,7 @@ public:
 
 protected:
     /**
-     * \~ @brief Renderer view flags
+     * \~english @brief Renderer view flags
      */
     enum {
         //! Update this view
@@ -206,178 +207,178 @@ private:
 
 public:
     /**
-     * \~ @brief Constructor
+     * \~english @brief Constructor
      *
-     * \~ @param no View ID
+     * \~english @param no View ID
      */
     explicit RPGrpView(u8 no);
 
     /**
-     * \~ @brief Destructor
+     * \~english @brief Destructor
      */
     virtual ~RPGrpView() {} // at 0x8
 
     /**
-     * \~ @brief Gets the type of this view
+     * \~english @brief Gets the type of this view
      */
     virtual EType GetType() const = 0; // at 0xC
 
     /**
-     * \~ @brief Attaches a new camera to this view
+     * \~english @brief Attaches a new camera to this view
      *
-     * \~ @param pCamera New camera
-     * \~ @return Previously attached camera
+     * \~english @param pCamera New camera
+     * \~english @return Previously attached camera
      */
     virtual RPGrpCamera* AttachCamera(RPGrpCamera* /* pCamera */) { // at 0x10
         return NULL;
     }
 
     /**
-     * \~ @brief Gets the camera currently attached to this view
+     * \~english @brief Gets the camera currently attached to this view
      */
     virtual RPGrpCamera* GetCamera() const { // at 0x14
         return NULL;
     }
 
     /**
-     * \~ @brief Initializes this view's state
+     * \~english @brief Initializes this view's state
      */
     virtual void Configure(); // at 0x18
 
     /**
-     * \~ @brief Updates this view's state
+     * \~english @brief Updates this view's state
      */
     virtual void Calc(); // at 0x1C
 
     /**
-     * \~ @brief Prepares this view for a new frame
+     * \~english @brief Prepares this view for a new frame
      */
     virtual void PrepareDraw(); // at 0x20
 
     /**
-     * \~ @brief Renders the contents of this view
+     * \~english @brief Renders the contents of this view
      */
     virtual void Draw() = 0; // at 0x24
 
     /**
-     * \~ @brief Prepares this view for a new render pass
+     * \~english @brief Prepares this view for a new render pass
      */
     virtual void PrepareDrawGX() {
         SetProjectionGX();
     } // at 0x28
 
     /**
-     * \~ @brief Attaches a screen effect to this view
+     * \~english @brief Attaches a screen effect to this view
      */
     void CreateScreenEffect();
 
     /**
-     * \~ @brief Clears the framebuffer of the attached screen
+     * \~english @brief Clears the framebuffer of the attached screen
      */
     void ClearBuffer();
 
     /**
-     * \~ @brief Attaches a new screen to this view
+     * \~english @brief Attaches a new screen to this view
      *
-     * \~ @param pScreen Screen rendering surface
-     * \~ @return Previously attached screen
+     * \~english @param pScreen Screen rendering surface
+     * \~english @return Previously attached screen
      */
     RPGrpScreen* AttachScreen(RPGrpScreen* pScreen);
 
     /**
-     * \~ @brief Configures the GX projection matrix
+     * \~english @brief Configures the GX projection matrix
      */
     void SetProjectionGX() const;
 
     /**
-     * \~ @brief Converts a position from world-space to screen-space
+     * \~english @brief Converts a position from world-space to screen-space
      *
-     * \~ @param[out] pScreenPos Position in screen-space
-     * \~ @param rWorldPos Position in world-space
+     * \~english @param[out] pScreenPos Position in screen-space
+     * \~english @param rWorldPos Position in world-space
      */
     void GetWorldToScreen(nw4r::math::VEC3* pScreenPos,
                           const nw4r::math::VEC3& rWorldPos) const;
 
     /**
-     * \~ @brief Converts a position from screen-space to world-space
+     * \~english @brief Converts a position from screen-space to world-space
      *
-     * \~ @param[out] pWorldPos Position in world-space
-     * \~ @param rScreenPos Position in screen-space
+     * \~english @param[out] pWorldPos Position in world-space
+     * \~english @param rScreenPos Position in screen-space
      */
     void GetScreenToWorld(nw4r::math::VEC3* pWorldPos,
                           const nw4r::math::VEC2& rScreenPos) const;
 
     /**
-     * \~ @brief Gets the screen used by this view.
+     * \~english @brief Gets the screen used by this view.
      * @details If no screen is attached, this function returns the root screen.
      */
     RPGrpScreen* GetEnableScreen() const;
 
     /**
-     * \~ @brief Gets the camera used by this view.
+     * \~english @brief Gets the camera used by this view.
      * @details If no camera is attached, this function returns the default
      * camera.
      */
     RPGrpCamera* GetEnableCamera() const;
 
     /**
-     * \~ @brief Tests whether the specified bounding sphere falls within the
-     * view frustum
+     * \~english @brief Tests whether the specified bounding sphere falls within
+     * the view frustum
      *
-     * \~ @param pScreen Screen rendering surface
-     * \~ @param rPos Bounding sphere position
-     * \~ @param radius Bounding sphere radius
+     * \~english @param pScreen Screen rendering surface
+     * \~english @param rPos Bounding sphere position
+     * \~english @param radius Bounding sphere radius
      */
     bool Clip(const nw4r::math::VEC3& rPos, f32 radius) const;
 
     /**
-     * \~ @brief Sets this view's model scene
+     * \~english @brief Sets this view's model scene
      *
-     * \~ @param scene Model scene ID
+     * \~english @param scene Model scene ID
      */
     void SetDrawScene(u8 scene) {
         mDrawScene = scene;
     }
 
     /**
-     * \~ @brief Tests whether this view should be updated
+     * \~english @brief Tests whether this view should be updated
      */
     bool IsSysCalc() const {
         return mFlags & EFlag_SysCalc;
     }
 
     /**
-     * \~ @brief Tests whether this view should be rendered
+     * \~english @brief Tests whether this view should be rendered
      */
     bool IsSysDraw() const {
         return mFlags & EFlag_SysDraw;
     }
 
     /**
-     * \~ @brief Gets this view's projection type
+     * \~english @brief Gets this view's projection type
      *
-     * \~ @return EProjType
+     * \~english @return EProjType
      */
     EProjType GetProjType() const {
         return mProjType;
     }
 
     /**
-     * \~ @brief Get this view's framebuffer clear color
+     * \~english @brief Get this view's framebuffer clear color
      */
     GXColor GetClearColor() const {
         return mClearColor;
     }
 
     /**
-     * \~ @brief Gets the screen attached to this view
+     * \~english @brief Gets the screen attached to this view
      */
     RPGrpScreen* GetScreen() const {
         return mpScreen;
     }
 
     /**
-     * \~ @brief Gets this view's screen post-effect
+     * \~english @brief Gets this view's screen post-effect
      */
     ScreenEffect* GetScreenEffect() const {
         return mpScreenEffect;

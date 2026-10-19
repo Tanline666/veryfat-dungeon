@@ -327,6 +327,15 @@ nw4r/snd/snd_EnvGenerator.cpp:
 	.text       start:0x80074F20 end:0x800752F0
 	.rodata     start:0x8068D710 end:0x8068DA10
 
+nw4r/snd/snd_ExternalSoundPlayer.cpp:
+	.text       start:0x800752F0 end:0x80075798
+
+nw4r/snd/snd_FrameHeap.cpp:
+	.text       start:0x800757A0 end:0x80075F60
+
+nw4r/snd/snd_FxChorus.cpp:
+	.text       start:0x80075F70 end:0x8007640C
+
 nw4r/snd/snd_MemorySoundArchive.cpp:
 	.text       start:0x80079690 end:0x80079B40
 	.data       start:0x8070A590 end:0x8070A610

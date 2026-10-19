@@ -5,37 +5,37 @@
 #include <nw4r/g3d.h>
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  *
- * \~ @param pCpuTexture CPU texture
+ * \~english @param pCpuTexture CPU texture
  */
 RPGrpTexture::RPGrpTexture(const EGG::CpuTexture* pCpuTexture) {
     pCpuTexture->getTexObj(&mTexObj);
 }
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  *
- * \~ @param pResTIMG Texture image resource
+ * \~english @param pResTIMG Texture image resource
  */
 RPGrpTexture::RPGrpTexture(const EGG::ResTIMG* pResTIMG) {
     EGG::GXUtility::getTexObj(&mTexObj, *pResTIMG);
 }
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  *
- * \~ @param pCapTexture Capture texture
+ * \~english @param pCapTexture Capture texture
  */
 RPGrpTexture::RPGrpTexture(const RPGrpCaptureTexture* pCapTexture) {
     pCapTexture->GetCapTexture()->getTexObj(&mTexObj);
 }
 
 /**
- * \~ @brief Constructor
+ * \~english @brief Constructor
  *
- * \~ @param handle Resource file handle
- * \~ @param pName Texture name
+ * \~english @param handle Resource file handle
+ * \~english @param pName Texture name
  */
 RPGrpTexture::RPGrpTexture(RPGrpHandle handle, const char* pName) {
     const nw4r::g3d::ResTex tex =

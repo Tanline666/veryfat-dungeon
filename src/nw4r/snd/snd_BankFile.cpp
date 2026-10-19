@@ -39,12 +39,14 @@ BankFileReader::BankFileReader(const void* pBankBin)
     }
 
     mHeader = static_cast<const BankFile::Header*>(pBankBin);
-
-    mDataBlock = static_cast<const BankFile::DataBlock*>(
-        ut::AddOffsetToPtr(mHeader, mHeader->dataBlockOffset));
-
-    mWaveBlock = static_cast<const BankFile::WaveBlock*>(
-        ut::AddOffsetToPtr(mHeader, mHeader->waveBlockOffset));
+    if (mHeader->dataBlockOffset) {
+        mDataBlock = static_cast<const BankFile::DataBlock*>(
+            ut::AddOffsetToPtr(mHeader, mHeader->dataBlockOffset));
+    }
+    if (mHeader->waveBlockOffset) {
+        mWaveBlock = static_cast<const BankFile::WaveBlock*>(
+            ut::AddOffsetToPtr(mHeader, mHeader->waveBlockOffset));
+    }
 }
 
 bool BankFileReader::ReadInstInfo(InstInfo* pInfo, int prgNo, int key,
@@ -95,7 +97,6 @@ bool BankFileReader::ReadInstInfo(InstInfo* pInfo, int prgNo, int key,
         return false;
     }
 
-    pInfo->waveIndex = pParam->waveIndex;
     pInfo->attack = pParam->attack;
     pInfo->decay = pParam->decay;
     pInfo->sustain = pParam->sustain;
@@ -173,34 +174,6 @@ BankFileReader::GetReferenceToSubRegion(const BankFile::DataRegion* pRef,
     }
 
     return pSub;
-}
-
-bool BankFileReader::ReadWaveParam(WaveData* pData, int waveIndex,
-                                   const void* pWaveAddr) const {
-    if (mHeader == NULL) {
-        return false;
-    }
-
-    if (mWaveBlock == NULL) {
-        return false;
-    }
-
-    if (waveIndex >= mWaveBlock->waveInfoTable.count) {
-        return false;
-    }
-
-    const BankFile::WaveRegion* pRef =
-        &mWaveBlock->waveInfoTable.items[waveIndex];
-
-    const WaveFile::WaveInfo* pInfo =
-        Util::GetDataRefAddress0(*pRef, &mWaveBlock->waveInfoTable);
-
-    if (pInfo == NULL) {
-        return false;
-    }
-
-    WaveFileReader wfr(pInfo);
-    return wfr.ReadWaveParam(pData, pWaveAddr);
 }
 
 } // namespace detail

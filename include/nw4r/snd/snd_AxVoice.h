@@ -2,8 +2,8 @@
 #define NW4R_SND_AX_VOICE_H
 #include <nw4r/types_nw4r.h>
 
+#include <nw4r/snd/snd_FxBase.h>
 #include <nw4r/snd/snd_Types.h>
-
 #include <nw4r/ut.h>
 
 #include <revolution/AX.h>
@@ -15,6 +15,10 @@ namespace snd {
 namespace detail {
 
 inline int CalcAxvpbDelta(u16 init, u16 target) {
+    if (init == target) {
+        return 0;
+    }
+
     return (target - init) / AX_SAMPLES_PER_FRAME;
 }
 
@@ -121,6 +125,8 @@ public:
     void SetVoiceAdpcmLoop(const AXPBADPCMLOOP& rLoop);
     void SetVoiceLpf(const AXPBLPF& rLpf);
     void SetVoiceLpfCoefs(u16 a0, u16 b0);
+    void SetVoiceBiquad(const AXPBBIQUAD& rBiq);
+    void SetVoiceBiquadCoefs(u16 b0, u16 b1, u16 b2, u16 a1, u16 a2);
     void SetVoiceRmtOn(u16 on);
     void SetVoiceRmtMix(const AXPBRMTMIX& rMix);
     void SetVoiceRmtIIR(const AXPBRMTIIR& rIir);
@@ -154,12 +160,6 @@ public:
 
     typedef void (*AxVoiceCallback)(AxVoice* pDropVoice,
                                     AxVoiceCallbackStatus status, void* pArg);
-
-    enum Format {
-        FORMAT_ADPCM = 0,
-        FORMAT_PCM16 = 10,
-        FORMAT_PCM8 = 25,
-    };
 
     enum VoiceType {
         VOICE_TYPE_NORMAL,
@@ -218,7 +218,7 @@ public:
         mVpb.Sync();
     }
 
-    Format GetFormat() const {
+    SampleFormat GetFormat() const {
         return mFormat;
     }
 
@@ -230,7 +230,7 @@ public:
         return (ratio * mSampleRate) / AX_SAMPLE_RATE;
     }
 
-    void Setup(const void* pWave, Format fmt, int rate);
+    void Setup(const void* pWave, SampleFormat fmt, int rate);
 
     bool IsPlayFinished() const;
     void SetLoopStart(const void* pBase, u32 samples);
@@ -241,7 +241,6 @@ public:
     bool IsDataAddressCoverd(const void* pBegin, const void* pEnd) const;
     u32 GetCurrentPlayingSample() const;
     u32 GetCurrentPlayingDspAddress() const;
-    u32 GetLoopEndDspAddress() const;
 
     void SetPriority(u32 priority);
     void SetVoiceType(VoiceType type);
@@ -257,24 +256,30 @@ public:
     void SetSrc(f32 ratio, bool initial);
     void SetVe(f32 volume, f32 initVolume);
     void SetLpf(u16 freq);
+    void SetBiquad(u8 filter, f32 val);
     void SetRemoteFilter(u8 filter);
 
-    static u32 GetDspAddressBySample(const void* pBase, u32 samples,
-                                     Format fmt);
-    static u32 GetSampleByDspAddress(const void* pBase, u32 addr, Format fmt);
-    static u32 GetSampleByByte(u32 addr, Format fmt);
+    static u32 GetSampleByDspAddress(const void* pBase, u32 addr,
+                                     SampleFormat fmt);
+    static u32 GetSampleByByte(u32 addr, SampleFormat fmt);
 
     static void CalcOffsetAdpcmParam(u16* pPredScale, u16* pYN1, u16* pYN2,
                                      u32 offset, const void* pData,
                                      const AdpcmParam& rParam);
 
 private:
+    u32 GetLoopEndDspAddress() const;
+    bool IsNeedNextUpdate(const MixParam& rParam) const;
+
+    static u32 GetDspAddressBySample(const void* pBase, u32 samples,
+                                     SampleFormat fmt);
     static void VoiceCallback(void* pArg);
+    static u16 GetAxFormatFromSampleFormat(SampleFormat fmt);
 
 private:
     AxVoiceParamBlock mVpb;    // at 0x0
     const void* mWaveData;     // at 0x10
-    Format mFormat;            // at 0x14
+    SampleFormat mFormat;      // at 0x14
     int mSampleRate;           // at 0x18
     bool mFirstMixUpdateFlag;  // at 0x1C
     bool mReserveForFreeFlag;  // at 0x1D

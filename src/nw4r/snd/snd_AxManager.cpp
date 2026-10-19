@@ -14,14 +14,21 @@ NW4R_UT_LINKLIST_TYPEDEF_FORCE(FxBase);
 
 u8 AxManager::sZeroBuffer[AxManager::ZERO_BUFFER_SIZE];
 
+const BiquadFilterCallback* AxManager::sBiquadFilterCallbackTable[128];
+
+const BiquadFilterLpf AxManager::sBiquadFilterLpf;
+const BiquadFilterHpf AxManager::sBiquadFilterHpf;
+const BiquadFilterBpf512 AxManager::sBiquadFilterBpf512;
+const BiquadFilterBpf1024 AxManager::sBiquadFilterBpf1024;
+const BiquadFilterBpf2048 AxManager::sBiquadFilterBpf2048;
+
 AxManager::AxManager()
-    : mOutputMode(OUTPUT_MODE_STEREO),
+    : mInitialized(FALSE),
+      mUpdateVoicePrioFlag(TRUE),
       mZeroBufferAddress(NULL),
-      mInitialized(false),
-      mUpdateVoicePrioFlag(true),
       mOldAidCallback(NULL),
       mResetReadyCounter(-1),
-      mDiskError(false) {
+      mOutputMode(OUTPUT_MODE_STEREO) {
 
     mMainOutVolume.InitValue(1.0f);
     mMasterVolume.InitValue(1.0f);
@@ -32,6 +39,7 @@ AxManager::AxManager()
         mAuxUserVolume[i].InitValue(1.0f);
         mAuxCallback[i] = NULL;
         mAuxCallbackContext[i] = 0;
+        mEffectProcessTick[i] = 0;
     }
 }
 
@@ -61,7 +69,15 @@ void AxManager::Init() {
 
     mNextAxRegisterCallback = AXRegisterCallback(AxCallbackFunc);
 
-    mInitialized = true;
+    std::memset(sBiquadFilterCallbackTable, 0,
+                sizeof(sBiquadFilterCallbackTable));
+    SetBiquadFilterCallback(BIQUAD_FILTER_TYPE_LPF, &sBiquadFilterLpf);
+    SetBiquadFilterCallback(BIQUAD_FILTER_TYPE_HPF, &sBiquadFilterHpf);
+    SetBiquadFilterCallback(BIQUAD_FILTER_TYPE_BPF512, &sBiquadFilterBpf512);
+    SetBiquadFilterCallback(BIQUAD_FILTER_TYPE_BPF1024, &sBiquadFilterBpf1024);
+    SetBiquadFilterCallback(BIQUAD_FILTER_TYPE_BPF2048, &sBiquadFilterBpf2048);
+
+    mInitialized = TRUE;
 }
 
 void AxManager::Shutdown() {
@@ -86,7 +102,7 @@ void AxManager::Shutdown() {
 
     mZeroBufferAddress = NULL;
 
-    mInitialized = false;
+    mInitialized = FALSE;
 }
 
 f32 AxManager::GetOutputVolume() const {
@@ -96,26 +112,12 @@ f32 AxManager::GetOutputVolume() const {
 void AxManager::Update() {
     s32 status = DVDGetDriveStatus();
 
-    if (status == DVD_STATE_IDLE || status == DVD_STATE_BUSY) {
-        if (mDiskError) {
-            mDiskError = false;
-            VoiceManager::GetInstance().UpdateAllVoicesSync(
-                Voice::SYNC_AX_VOICE);
-        }
-    } else {
-        if (!mDiskError) {
-            mDiskError = true;
-            VoiceManager::GetInstance().UpdateAllVoicesSync(
-                Voice::SYNC_AX_VOICE);
-        }
-    }
-
     for (int i = 0; i < AUX_BUS_NUM; i++) {
-        bool update = false;
+        bool update = FALSE;
 
         if (!mAuxUserVolume[i].IsFinished()) {
             mAuxUserVolume[i].Update();
-            update = true;
+            update = TRUE;
         }
 
         if (!mAuxFadeVolume[i].IsFinished()) {
@@ -125,7 +127,7 @@ void AxManager::Update() {
                 ShutdownEffect(static_cast<AuxBus>(i));
             }
 
-            update = true;
+            update = TRUE;
         }
 
         if (update) {
@@ -389,6 +391,15 @@ void AxManager::AuxCallbackFunc(void* pChans, void* pContext) {
                              FX_SAMPLE_RATE, GetInstance().GetOutputMode());
         }
     }
+}
+
+void AxManager::SetBiquadFilterCallback(int type,
+                                        const BiquadFilterCallback* pCallback) {
+    if (type == 0) {
+        return;
+    }
+
+    sBiquadFilterCallbackTable[type] = pCallback;
 }
 
 void AxManager::PrepareReset() {

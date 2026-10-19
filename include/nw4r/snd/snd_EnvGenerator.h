@@ -26,6 +26,7 @@ public:
     }
 
     void SetAttack(int attack);
+    void SetHold(int hold);
     void SetDecay(int decay);
     void SetSustain(int sustain);
     void SetRelease(int release);
@@ -44,12 +45,14 @@ private:
     int CalcDecibelSquare(int scale);
 
 private:
-    Status mStatus; // at 0x0
-    f32 mValue;     // at 0x4
-    f32 mDecay;     // at 0x8
-    f32 mRelease;   // at 0xC
-    f32 mAttack;    // at 0x10
-    u8 mSustain;    // at 0x14
+    Status mStatus;   // at 0x0
+    f32 mValue;       // at 0x4
+    f32 mDecay;       // at 0x8
+    f32 mRelease;     // at 0xC
+    f32 mAttack;      // at 0x10
+    u8 mSustain;      // at 0x14
+    u16 mHold;        // at 0x16
+    u16 mHoldCounter; // at 0x18
 
     static const s16 DecibelSquareTable[DECIBEL_SQUARE_TABLE_SIZE];
 };

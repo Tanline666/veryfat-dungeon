@@ -23,14 +23,21 @@ nw4r/db/db_directPrint.cpp:
 nw4r/db/db_console.cpp:
 	.text       start:0x80007D40 end:0x80008820
 	.bss        start:0x80760528 end:0x80760940
+	.sdata      start:0x80813AA4 end:0x80813AA8
 
 nw4r/db/db_exception.cpp:
 	.text       start:0x80008820 end:0x800098D4
+	.data       start:0x80707D58 end:0x80708328
 	.bss        start:0x80760940 end:0x80764CA0
+	.sdata      start:0x80813AA8 end:0x80813AE0
 	.sbss       start:0x80816070 end:0x80816074
+	.sdata2     start:0x80817980 end:0x80817984
 
 nw4r/db/db_mapFile.cpp:
 	.text       start:0x800098E0 end:0x80009FA4
+
+nw4r/db/db_DbgPrintBase.cpp:
+	.text       start:0x80009FB0 end:0x8000BB0C
 
 nw4r/db/db_assert.cpp:
 	.text       start:0x8000BB10 end:0x8000C048
@@ -73,6 +80,8 @@ nw4r/ef/ef_particlemanager.cpp:
 	.text       start:0x80018DE0 end:0x8001B0E4
 	.ctors      start:0x80688CC8 end:0x80688CCC
 	.bss        start:0x80771028 end:0x80771058
+	.sbss       start:0x808160B8 end:0x808160BC
+	.sdata2     start:0x80817AA8 end:0x80817AF0
 
 nw4r/ef/ef_resource.cpp:
 	.text       start:0x8001B0F0 end:0x8001BDF0
@@ -309,8 +318,30 @@ nw4r/snd/snd_AxManager.cpp:
 	.bss        start:0x8078F1A0 end:0x8078F5B0
 	.sbss       start:0x80816160 end:0x80816178
 
+nw4r/snd/snd_AxVoice.cpp:
+	.text       start:0x8006D1E0 end:0x8006FF54
+	.sdata2     start:0x80818290 end:0x808182B8
+
+nw4r/snd/snd_AxVoiceManager.cpp:
+	.text       start:0x8006FF60 end:0x80070988
+	.bss        start:0x8078F5B0 end:0x8078F5E8
+	.sbss       start:0x80816178 end:0x80816180
+
+nw4r/snd/snd_AxfxImpl.cpp:
+	.text       start:0x80070990 end:0x80070B88
+	.sbss       start:0x80816180 end:0x80816188
+
 nw4r/snd/snd_Bank.cpp:
-	.text       start:0x80070B90 end:0x80070E10
+	.text       start:0x80070B90 end:0x80070E08
+	.sdata2     start:0x808182B8 end:0x808182D8
+
+nw4r/snd/snd_BankFile.cpp:
+	.text       start:0x80070E10 end:0x800714CC
+
+nw4r/snd/snd_BasicPlayer.cpp:
+	.text       start:0x800714D0 end:0x80071710
+	.data       start:0x8070A318 end:0x8070A33C
+	.sdata2     start:0x808182E0 end:0x808182E8
 
 nw4r/snd/snd_BasicSound.cpp:
 	.text       start:0x80071710 end:0x80072E80
@@ -377,7 +408,7 @@ nw4r/snd/snd_SoundHandle.cpp:
 	.text       start:0x80086450 end:0x800864F0
 
 nw4r/snd/snd_SoundHeap.cpp:
-	.text       start:0x800864F0 end:0x80086800
+	.text       start:0x800864F0 end:0x800867F8
 	.data       start:0x8070AAF8 end:0x8070AB08
 
 nw4r/ut/ut_list.cpp:

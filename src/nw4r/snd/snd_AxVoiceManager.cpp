@@ -13,8 +13,8 @@ AxVoiceManager& AxVoiceManager::GetInstance() {
 
 AxVoiceManager::AxVoiceManager() : mInitialized(false) {}
 
-u32 AxVoiceManager::GetRequiredMemSize() {
-    return (AXGetMaxVoices() + VOICE_MARGIN) * sizeof(AxVoice);
+u32 AxVoiceManager::GetRequiredMemSize(int axVoiceCount) {
+    return (axVoiceCount + VOICE_MARGIN) * sizeof(AxVoice);
 }
 
 void AxVoiceManager::Setup(void* pBuffer, u32 size) {
@@ -26,7 +26,7 @@ void AxVoiceManager::Setup(void* pBuffer, u32 size) {
     u8* pPtr = static_cast<u8*>(pBuffer);
 
     for (u32 i = 0; i < mVoiceCount; i++) {
-        mFreeVoiceList.PushBack(reinterpret_cast<AxVoice*>(pPtr));
+        mFreeVoiceList.PushBack(new (pPtr) AxVoice());
         pPtr += sizeof(AxVoice);
     }
 

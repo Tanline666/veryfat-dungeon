@@ -38,18 +38,11 @@ bool FxDelay::StartUp() {
     mImpl.RestoreAlloc(allocHook, freeHook);
 
     (void)AXFXDelayGetMemSize(&mAxfxParam); // debug leftover
-    mImpl.mIsActive = true;
 
     return success;
 }
 
 void FxDelay::Shutdown() {
-    if (!mImpl.mIsActive) {
-        return;
-    }
-
-    mImpl.mIsActive = false;
-
     AXFXAllocHook allocHook;
     AXFXFreeHook freeHook;
     mImpl.HookAlloc(&allocHook, &freeHook);
@@ -70,10 +63,6 @@ bool FxDelay::SetParam(const DelayParam& rParam) {
 
     mAxfxParam.output[0] = mAxfxParam.output[1] = mAxfxParam.output[2] =
         ut::Clamp<u32>(100.0f * rParam.outGain, 0, 100);
-
-    if (!mImpl.mIsActive) {
-        return true;
-    }
 
     u32 memSize = GetRequiredMemSize();
     if (memSize > mImpl.GetHeapTotalSize()) {

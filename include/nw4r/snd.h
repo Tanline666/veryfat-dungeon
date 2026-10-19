@@ -9,6 +9,8 @@
 #include <nw4r/snd/snd_BankFile.h>
 #include <nw4r/snd/snd_BasicPlayer.h>
 #include <nw4r/snd/snd_BasicSound.h>
+#include <nw4r/snd/snd_BiquadFilterCallback.h>
+#include <nw4r/snd/snd_BiquadFilterPreset.h>
 #include <nw4r/snd/snd_Channel.h>
 #include <nw4r/snd/snd_ChannelManager.h>
 #include <nw4r/snd/snd_DisposeCallback.h>

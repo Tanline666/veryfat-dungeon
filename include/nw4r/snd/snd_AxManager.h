@@ -2,6 +2,7 @@
 #define NW4R_SND_AX_MANAGER_H
 #include <nw4r/types_nw4r.h>
 
+#include <nw4r/snd/snd_BiquadFilterPreset.h>
 #include <nw4r/snd/snd_FxBase.h>
 #include <nw4r/snd/snd_MoveValue.h>
 #include <nw4r/snd/snd_Types.h>
@@ -9,7 +10,6 @@
 
 #include <revolution/AI.h>
 #include <revolution/AX.h>
-
 
 namespace nw4r {
 namespace snd {
@@ -36,12 +36,14 @@ public:
         return mInitialized;
     }
 
-    bool IsDiskError() const {
-        return mDiskError;
-    }
-
     bool IsResetReady() const {
         return mResetReadyCounter == 0;
+    }
+
+    void SetBiquadFilterCallback(int type,
+                                 const BiquadFilterCallback* pCallback);
+    const BiquadFilterCallback* GetBiquadFilterCallback(int type) {
+        return sBiquadFilterCallbackTable[type];
     }
 
     f32 GetOutputVolume() const;
@@ -89,7 +91,6 @@ private:
     AXOutCallback mNextAxRegisterCallback;           // at 0x14
     bool mInitialized;                               // at 0x18
     bool mUpdateVoicePrioFlag;                       // at 0x19
-    bool mDiskError;                                 // at 0x1A
     MoveValue<f32, int> mMasterVolume;               // at 0x1C
     MoveValue<f32, int> mMainOutVolume;              // at 0x2C
     MoveValue<f32, int> mVolumeForReset;             // at 0x3C
@@ -101,8 +102,15 @@ private:
     AXAuxCallback mAuxCallback[AUX_BUS_NUM];         // at 0xD8
     void* mAuxCallbackContext[AUX_BUS_NUM];          // at 0xE4
     u8 mAuxCallbackWaitCounter[AUX_BUS_NUM];         // at 0xF0
+    u32 mEffectProcessTick[AUX_BUS_NUM];
 
     static u8 sZeroBuffer[ZERO_BUFFER_SIZE];
+    static const BiquadFilterCallback* sBiquadFilterCallbackTable[128];
+    static const BiquadFilterLpf sBiquadFilterLpf;
+    static const BiquadFilterHpf sBiquadFilterHpf;
+    static const BiquadFilterBpf512 sBiquadFilterBpf512;
+    static const BiquadFilterBpf1024 sBiquadFilterBpf1024;
+    static const BiquadFilterBpf2048 sBiquadFilterBpf2048;
 };
 
 } // namespace detail

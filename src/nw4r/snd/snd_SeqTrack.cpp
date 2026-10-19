@@ -309,8 +309,6 @@ void SeqTrack::UpdateChannelParam() {
 
         for (int i = 0; i < WPAD_MAX_CONTROLLERS; i++) {
             pIt->SetRemoteOutVolume(i, mPlayer->GetRemoteOutVolume(i));
-            pIt->SetRemoteSend(i, remoteSend[i]);
-            pIt->SetRemoteFxSend(i, remoteFxSend[i]);
         }
 
         pIt->SetLfoParam(mParserTrackParam.lfoParam);

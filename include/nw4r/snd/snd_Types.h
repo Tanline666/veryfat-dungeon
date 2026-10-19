@@ -23,6 +23,13 @@ enum OutputLineFlag {
 
 enum AuxBus { AUX_A, AUX_B, AUX_C, AUX_BUS_NUM };
 
+enum SampleFormat {
+    SAMPLE_FORMAT_PCM_S32,
+    SAMPLE_FORMAT_PCM_S16,
+    SAMPLE_FORMAT_PCM_S8,
+    SAMPLE_FORMAT_DSP_ADPCM
+};
+
 enum OutputMode {
     OUTPUT_MODE_STEREO,
     OUTPUT_MODE_SURROUND,
@@ -105,6 +112,12 @@ struct SoundActorParam {
 
     SoundActorParam() : volume(1.0f), pitch(1.0f), pan(0.0f) {}
 };
+
+struct AdpcmLoopParam {
+    u16 loop_pred_scale; // at 0x0
+    u16 loop_yn1;        // at 0x2
+    u16 loop_yn2;        // at 0x4
+};
 } // namespace detail
 
 enum PanMode {
@@ -141,17 +154,33 @@ struct AdpcmParam {
     u16 yn2;        // at 0x26
 };
 
-struct AdpcmLoopParam {
-    u16 loop_pred_scale; // at 0x0
-    u16 loop_yn1;        // at 0x2
-    u16 loop_yn2;        // at 0x4
+struct AdpcmInfo {
+    AdpcmParam param;                 // at 0x0
+    detail::AdpcmLoopParam loopParam; // at 0x28
+    u16 PADDING_0x2E;                 // at 0x2E
 };
 
-struct AdpcmInfo {
-    AdpcmParam param;         // at 0x0
-    AdpcmLoopParam loopParam; // at 0x28
-    u16 PADDING_0x2E;         // at 0x2E
+namespace detail {
+
+enum NoteOffType { NOTE_OFF_TYPE_RELEASE = 0, NOTE_OFF_TYPE_IGNORE = 1 };
+
+struct WaveInfo {
+
+    struct ChannelParam {
+        const void* pDataAddr;         // at 0x0
+        AdpcmParam adpcmParam;         // at 0x4
+        AdpcmLoopParam adpcmLoopParam; // at 0x2C
+    };
+
+    SampleFormat sampleFormat;    // at 0x0
+    bool loopFlag;                // at 0x4
+    int numChannels;              // at 0x8
+    int sampleRate;               // at 0xC
+    u32 loopStart;                // at 0x10
+    u32 loopEnd;                  // at 0x14
+    ChannelParam channelParam[2]; // at 0x18
 };
+} // namespace detail
 
 } // namespace snd
 } // namespace nw4r

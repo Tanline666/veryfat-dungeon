@@ -5,10 +5,10 @@
 #include <nw4r/snd/snd_AxVoice.h>
 #include <nw4r/snd/snd_DisposeCallback.h>
 #include <nw4r/snd/snd_Types.h>
-
 #include <nw4r/ut.h>
 
 #include <revolution/WPAD.h>
+
 
 namespace nw4r {
 namespace snd {
@@ -85,7 +85,7 @@ public:
     void Stop();
     void Pause(bool flag);
 
-    AxVoice::Format GetFormat() const;
+    SampleFormat GetFormat() const;
 
     void SetVolume(f32 volume);
     void SetVeVolume(f32 target, f32 init);

@@ -134,9 +134,7 @@ public:
     int GetRemoteFilter() const {
         return mPlayerParamSet.remoteFilter;
     }
-    void SetRemoteFilter(int filter) {
-        mPlayerParamSet.remoteFilter = filter;
-    }
+    void SetRemoteFilter(int filter);
 
     PanMode GetPanMode() const {
         return mPlayerParamSet.panMode;

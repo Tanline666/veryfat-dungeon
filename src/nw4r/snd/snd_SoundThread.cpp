@@ -102,13 +102,6 @@ void SoundThread::SoundThreadProc() {
                 AxVoiceManager::GetInstance().FreeAllReservedAxVoice();
                 AxManager::GetInstance().Update();
 
-                if (!AxManager::GetInstance().IsDiskError()) {
-                    NW4R_UT_LINKLIST_FOREACH_SAFE (it, mPlayerCallbackList,
-                                                   { it->OnUpdateFrameSoundThread(); })
-
-                    ChannelManager::GetInstance().UpdateAllChannel();
-                }
-
                 (void)Util::CalcRandom();
                 VoiceManager::GetInstance().UpdateAllVoices();
             }

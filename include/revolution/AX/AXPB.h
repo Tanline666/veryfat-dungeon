@@ -33,10 +33,14 @@ typedef enum {
     AX_SAMPLE_FORMAT_PCM_S8 = 25,
 } AXSAMPLETYPE;
 
-// For rmtIIR union I think? From NW4R asserts, but fits well in __AXSyncPBs
-typedef enum {
-    AX_PB_LPF_ON = 1,
-    AX_PB_BIQUAD_ON,
+enum {
+    AX_PB_LPF_OFF,
+    AX_PB_LPF_ON,
+};
+
+enum {
+    AX_PB_BIQUAD_OFF,
+    AX_PB_BIQUAD_ON = 2,
 };
 
 typedef enum {

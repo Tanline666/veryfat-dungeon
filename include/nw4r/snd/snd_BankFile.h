@@ -2,9 +2,9 @@
 #define NW4R_SND_BANK_FILE_H
 #include <nw4r/types_nw4r.h>
 
+#include <nw4r/snd/snd_Channel.h>
 #include <nw4r/snd/snd_Util.h>
 #include <nw4r/snd/snd_WaveFile.h>
-
 #include <nw4r/ut.h>
 
 namespace nw4r {
@@ -20,55 +20,54 @@ inline u8 ReadByte(const void* pAddr) {
  * RBNK binary format
  *
  ******************************************************************************/
-namespace BankFile {
+struct BankFile {
 
-struct InstParam {
-    s32 waveIndex; // at 0x0
-    u8 attack;     // at 0x4
-    u8 decay;      // at 0x5
-    u8 sustain;    // at 0x6
-    u8 release;    // at 0x7
-    char UNK_0x8[0x4];
-    u8 originalKey; // at 0xC
-    u8 volume;      // at 0xD
-    u8 pan;         // at 0xE
-    f32 tune;       // at 0x10
+    struct InstParam {
+        s32 waveIndex; // at 0x0
+        u8 attack;     // at 0x4
+        u8 decay;      // at 0x5
+        u8 sustain;    // at 0x6
+        u8 release;    // at 0x7
+        char UNK_0x8[0x4];
+        u8 originalKey; // at 0xC
+        u8 volume;      // at 0xD
+        u8 pan;         // at 0xE
+        f32 tune;       // at 0x10
+    };
+
+    struct RangeTable {
+        u8 tableSize; // at 0x0
+        u8 key[];     // at 0x1
+    };
+
+    struct IndexTable {
+        u8 min;       // at 0x0
+        u8 max;       // at 0x1
+        u16 reserved; // at 0x2
+        u8 ref[];     // at 0x4
+    };
+
+    typedef Util::DataRef<void, InstParam, RangeTable, IndexTable> DataRegion;
+    typedef Util::DataRef<WaveFile::WaveInfo> WaveRegion;
+
+    struct Header {
+        ut::BinaryFileHeader fileHeader; // at 0x0
+        u32 dataBlockOffset;             // at 0x10
+        u32 dataBlockSize;               // at 0x14
+        u32 waveBlockOffset;             // at 0x18
+        u32 waveBlockSize;               // at 0x1C
+    };
+
+    struct DataBlock {
+        ut::BinaryBlockHeader blockHeader; // at 0x0
+        Util::Table<DataRegion> instTable; // at 0x8
+    };
+
+    struct WaveBlock {
+        ut::BinaryBlockHeader blockHeader;     // at 0x0
+        Util::Table<WaveRegion> waveInfoTable; // at 0x8
+    };
 };
-
-struct RangeTable {
-    u8 tableSize; // at 0x0
-    u8 key[];     // at 0x1
-};
-
-struct IndexTable {
-    u8 min;       // at 0x0
-    u8 max;       // at 0x1
-    u16 reserved; // at 0x2
-    u8 ref[];     // at 0x4
-};
-
-typedef Util::DataRef<void, InstParam, RangeTable, IndexTable> DataRegion;
-typedef Util::DataRef<WaveFile::WaveInfo> WaveRegion;
-
-struct Header {
-    ut::BinaryFileHeader fileHeader; // at 0x0
-    u32 dataBlockOffset;             // at 0x10
-    u32 dataBlockSize;               // at 0x14
-    u32 waveBlockOffset;             // at 0x18
-    u32 waveBlockSize;               // at 0x1C
-};
-
-struct DataBlock {
-    ut::BinaryBlockHeader blockHeader; // at 0x0
-    Util::Table<DataRegion> instTable; // at 0x8
-};
-
-struct WaveBlock {
-    ut::BinaryBlockHeader blockHeader;     // at 0x0
-    Util::Table<WaveRegion> waveInfoTable; // at 0x8
-};
-
-} // namespace BankFile
 
 /******************************************************************************
  *
@@ -76,15 +75,33 @@ struct WaveBlock {
  *
  ******************************************************************************/
 struct InstInfo {
-    s32 waveIndex;  // at 0x0
-    u8 attack;      // at 0x4
-    u8 decay;       // at 0x5
-    u8 sustain;     // at 0x6
-    u8 release;     // at 0x7
-    u8 originalKey; // at 0x8
-    u8 pan;         // at 0x9
-    u8 volume;      // at 0xA
-    f32 tune;       // at 0xC
+    enum WaveDataLocationType {
+        WAVE_DATA_LOCATION_INDEX,
+        WAVE_DATA_LOCATION_ADDRESS,
+        WAVE_DATA_LOCATION_CALLBACK
+    };
+
+    struct WaveDataLocation {
+        WaveDataLocationType type; // at 0x0
+        union {
+            s32 index;
+            const WaveInfo* pAddr;
+            WaveDataLocationCallback* pCallback;
+        };
+    };
+
+    WaveDataLocation location; // at 0x0
+    u8 attack;                 // at 0x8
+    u8 hold;                   // at 0x9
+    u8 decay;                  // at 0xA
+    u8 sustain;                // at 0xB
+    u8 release;                // at 0xC
+    NoteOffType offType;       // at 0x10
+    u8 alternateAssign;        // at 0x14
+    u8 originalKey;            // at 0x15
+    u8 pan;                    // at 0x16
+    u8 volume;                 // at 0x17
+    f32 tune;                  // at 0x18
 };
 
 class BankFileReader {
@@ -98,6 +115,10 @@ public:
     bool IsValidFileHeader(const void* pBankBin);
 
     bool ReadInstInfo(InstInfo* pInfo, int prgNo, int key, int velocity) const;
+    bool ReadWaveInfo(WaveInfo* pParam,
+                      const InstInfo::WaveDataLocation& rLocation,
+                      const void* pWaveDataAddr,
+                      const WaveInfo** ppWaveInfoAddr) const;
     bool ReadWaveParam(WaveData* pData, int waveIndex,
                        const void* pWaveAddr) const;
 

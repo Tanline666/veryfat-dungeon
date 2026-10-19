@@ -38,17 +38,11 @@ bool FxChorus::StartUp() {
     mImpl.RestoreAlloc(allocHook, freeHook);
 
     (void)AXFXChorusGetMemSize(&mAxfxParam); // debug leftover
-    mImpl.mIsActive = true;
 
     return success;
 }
 
 void FxChorus::Shutdown() {
-    if (!mImpl.mIsActive) {
-        return;
-    }
-
-    mImpl.mIsActive = false;
 
     AXFXAllocHook allocHook;
     AXFXFreeHook freeHook;
@@ -69,10 +63,6 @@ bool FxChorus::SetParam(const ChorusParam& rParam) {
     mAxfxParam.baseDelay = ut::Clamp<u32>(baseDelay, 1, 50);
     mAxfxParam.variation = ut::Clamp<u32>(variation, 0, 50);
     mAxfxParam.period = ut::Clamp<u32>(period, 500, 10000);
-
-    if (!mImpl.mIsActive) {
-        return true;
-    }
 
     u32 memSize = GetRequiredMemSize();
     if (memSize > mImpl.GetHeapTotalSize()) {

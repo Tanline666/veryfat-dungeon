@@ -242,13 +242,13 @@ void Exception_Printf_(const char* fmt, ...) {
 }
 
 void PrintContext_(u16 error, const OSContext* pContext, u32 dsisr, u32 dar) {
-    if (error > OS_ERR_MAX) {
-        Exception_Printf_("******** USER HALT ********\nFrameMemory:%XH\n",
-                          sException.frameMemory);
-    } else {
+    if (error < OS_ERR_MAX) {
         Exception_Printf_(
             "******** EXCEPTION OCCURRED! ********\nFrameMemory:%XH\n",
             sException.frameMemory);
+    } else {
+        Exception_Printf_("******** USER HALT ********\nFrameMemory:%XH\n",
+                          sException.frameMemory);
     }
     {
         if (sException.dispInfo & EXCEPTION_INFO_MAIN) {

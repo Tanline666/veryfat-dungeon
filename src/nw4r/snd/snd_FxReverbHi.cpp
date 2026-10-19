@@ -38,18 +38,11 @@ bool FxReverbHi::StartUp() {
     mImpl.RestoreAlloc(allocHook, freeHook);
 
     (void)AXFXReverbHiGetMemSize(&mAxfxParam); // debug leftover
-    mImpl.mIsActive = true;
 
     return success;
 }
 
 void FxReverbHi::Shutdown() {
-    if (!mImpl.mIsActive) {
-        return;
-    }
-
-    mImpl.mIsActive = false;
-
     AXFXAllocHook allocHook;
     AXFXFreeHook freeHook;
     mImpl.HookAlloc(&allocHook, &freeHook);
@@ -68,10 +61,6 @@ bool FxReverbHi::SetParam(const ReverbHiParam& rParam) {
     mAxfxParam.damping = ut::Clamp(rParam.damping, 0.0f, 1.0f);
     mAxfxParam.crosstalk = ut::Clamp(rParam.crossTalk, 0.0f, 1.0f);
     mAxfxParam.mix = ut::Clamp(rParam.outGain, 0.0f, 1.0f);
-
-    if (!mImpl.mIsActive) {
-        return true;
-    }
 
     u32 memSize = GetRequiredMemSize();
     if (memSize > mImpl.GetHeapTotalSize()) {

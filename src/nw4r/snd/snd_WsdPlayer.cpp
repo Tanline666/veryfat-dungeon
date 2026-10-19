@@ -294,8 +294,6 @@ void WsdPlayer::UpdateChannel() {
 
     for (int i = 0; i < WPAD_MAX_CONTROLLERS; i++) {
         mChannel->SetRemoteOutVolume(i, GetRemoteOutVolume(i));
-        mChannel->SetRemoteSend(i, remoteSend[i]);
-        mChannel->SetRemoteFxSend(i, remoteFxSend[i]);
     }
 
     mChannel->SetLfoParam(mLfoParam);

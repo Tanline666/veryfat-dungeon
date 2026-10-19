@@ -16,7 +16,7 @@ AxVoice::AxVoice()
 
 AxVoice::~AxVoice() {}
 
-void AxVoice::Setup(const void* pWave, Format fmt, int rate) {
+void AxVoice::Setup(const void* pWave, SampleFormat fmt, int rate) {
     ut::AutoInterruptLock lock;
 
     mWaveData = pWave;
@@ -41,20 +41,23 @@ bool AxVoice::IsPlayFinished() const {
     u32 addr = samples;
 
     switch (mFormat) {
-    case FORMAT_ADPCM: {
+    case SAMPLE_FORMAT_DSP_ADPCM: {
         addr += 0x200;
         break;
     }
 
-    case FORMAT_PCM8: {
+    case SAMPLE_FORMAT_PCM_S8: {
         addr += 0x100;
         break;
     }
 
-    case FORMAT_PCM16: {
+    case SAMPLE_FORMAT_PCM_S16: {
         addr += 0x80;
         break;
     }
+
+    default:
+        return FALSE;
     }
 
     if (samples <= dspAddr && dspAddr < addr) {
@@ -162,7 +165,8 @@ void AxVoice::VoiceCallback(void* pArg) {
     AxVoiceManager::GetInstance().ReserveForFreeAxVoice(p);
 }
 
-u32 AxVoice::GetDspAddressBySample(const void* pBase, u32 samples, Format fmt) {
+u32 AxVoice::GetDspAddressBySample(const void* pBase, u32 samples,
+                                   SampleFormat fmt) {
     if (pBase != NULL) {
         pBase = OSCachedToPhysical(pBase);
     }
@@ -170,7 +174,7 @@ u32 AxVoice::GetDspAddressBySample(const void* pBase, u32 samples, Format fmt) {
     u32 addr = 0;
 
     switch (fmt) {
-    case FORMAT_ADPCM: {
+    case SAMPLE_FORMAT_DSP_ADPCM: {
         // clang-format off
         addr = (samples / AX_ADPCM_SAMPLES_PER_FRAME * AX_ADPCM_NIBBLES_PER_FRAME) +
                (samples % AX_ADPCM_SAMPLES_PER_FRAME) +
@@ -179,22 +183,24 @@ u32 AxVoice::GetDspAddressBySample(const void* pBase, u32 samples, Format fmt) {
         // clang-format on
         break;
     }
-
-    case FORMAT_PCM8: {
+    case SAMPLE_FORMAT_PCM_S8: {
         addr = reinterpret_cast<u32>(pBase) + samples;
 
         break;
     }
-    case FORMAT_PCM16: {
+    case SAMPLE_FORMAT_PCM_S16: {
         addr = reinterpret_cast<u32>(pBase) / sizeof(u16) + samples;
         break;
     }
+    default:
+        break;
     }
 
     return addr;
 }
 
-u32 AxVoice::GetSampleByDspAddress(const void* pBase, u32 addr, Format fmt) {
+u32 AxVoice::GetSampleByDspAddress(const void* pBase, u32 addr,
+                                   SampleFormat fmt) {
     if (pBase != NULL) {
         pBase = OSCachedToPhysical(pBase);
     }
@@ -202,7 +208,7 @@ u32 AxVoice::GetSampleByDspAddress(const void* pBase, u32 addr, Format fmt) {
     u32 samples = 0;
 
     switch (fmt) {
-    case FORMAT_ADPCM: {
+    case SAMPLE_FORMAT_DSP_ADPCM: {
         samples = addr - reinterpret_cast<u32>(pBase) * sizeof(u16);
         // clang-format off
         samples = (samples % AX_ADPCM_NIBBLES_PER_FRAME) +
@@ -212,13 +218,16 @@ u32 AxVoice::GetSampleByDspAddress(const void* pBase, u32 addr, Format fmt) {
         break;
     }
 
-    case FORMAT_PCM8: {
+    case SAMPLE_FORMAT_PCM_S8: {
         samples = addr - reinterpret_cast<u32>(pBase);
         break;
     }
 
-    case FORMAT_PCM16: {
+    case SAMPLE_FORMAT_PCM_S16: {
         samples = addr - reinterpret_cast<u32>(pBase) / sizeof(u16);
+        break;
+    }
+    default: {
         break;
     }
     }
@@ -226,12 +235,12 @@ u32 AxVoice::GetSampleByDspAddress(const void* pBase, u32 addr, Format fmt) {
     return samples;
 }
 
-u32 AxVoice::GetSampleByByte(u32 addr, Format fmt) {
+u32 AxVoice::GetSampleByByte(u32 addr, SampleFormat fmt) {
     u32 samples = 0;
     u32 frac;
 
     switch (fmt) {
-    case FORMAT_ADPCM: {
+    case SAMPLE_FORMAT_DSP_ADPCM: {
         samples = addr / AX_ADPCM_FRAME_SIZE * AX_ADPCM_SAMPLES_PER_FRAME;
         frac = addr % AX_ADPCM_FRAME_SIZE;
         if (frac != 0) {
@@ -240,13 +249,17 @@ u32 AxVoice::GetSampleByByte(u32 addr, Format fmt) {
         break;
     }
 
-    case FORMAT_PCM8: {
+    case SAMPLE_FORMAT_PCM_S8: {
         samples = addr;
         break;
     }
 
-    case FORMAT_PCM16: {
+    case SAMPLE_FORMAT_PCM_S16: {
         samples = addr / sizeof(u16);
+        break;
+    }
+
+    default: {
         break;
     }
     }
@@ -351,7 +364,7 @@ void AxVoice::SetAddr(bool loop, const void* pWave, u32 offset, u32 loopStart,
     AXPBADDR addr;
 
     addr.loopFlag = loop;
-    addr.format = mFormat;
+    addr.format = GetAxFormatFromSampleFormat(mFormat);
 
     addr.loopAddressHi = loopAddr >> 16 & 0xFFFF;
     addr.loopAddressLo = loopAddr & 0xFFFF;
@@ -363,6 +376,19 @@ void AxVoice::SetAddr(bool loop, const void* pWave, u32 offset, u32 loopStart,
     addr.currentAddressLo = startAddr & 0xFFFF;
 
     mVpb.SetVoiceAddr(addr);
+}
+
+u16 AxVoice::GetAxFormatFromSampleFormat(SampleFormat fmt) {
+    switch (fmt) {
+    case SAMPLE_FORMAT_DSP_ADPCM:
+        return AX_SAMPLE_FORMAT_DSP_ADPCM;
+    case SAMPLE_FORMAT_PCM_S8:
+        return AX_SAMPLE_FORMAT_PCM_S8;
+    case SAMPLE_FORMAT_PCM_S16:
+        return AX_SAMPLE_FORMAT_PCM_S16;
+    default:
+        return AX_SAMPLE_FORMAT_DSP_ADPCM;
+    }
 }
 
 void AxVoice::SetSrcType(SrcType type, f32 pitch) {
@@ -396,7 +422,7 @@ void AxVoice::SetAdpcm(const AdpcmParam* pParam) {
     }
 
     switch (mFormat) {
-    case FORMAT_ADPCM: {
+    case SAMPLE_FORMAT_DSP_ADPCM: {
         std::memcpy(adpcm.a, pParam->coef, sizeof(adpcm.a));
         adpcm.gain = pParam->gain;
         adpcm.pred_scale = pParam->pred_scale;
@@ -405,7 +431,7 @@ void AxVoice::SetAdpcm(const AdpcmParam* pParam) {
         break;
     }
 
-    case FORMAT_PCM16: {
+    case SAMPLE_FORMAT_PCM_S16: {
         std::memset(adpcm.a, 0, sizeof(adpcm.a));
         adpcm.gain = 0x800;
         adpcm.pred_scale = 0;
@@ -414,7 +440,7 @@ void AxVoice::SetAdpcm(const AdpcmParam* pParam) {
         break;
     }
 
-    case FORMAT_PCM8: {
+    case SAMPLE_FORMAT_PCM_S8: {
         std::memset(adpcm.a, 0, sizeof(adpcm.a));
         adpcm.gain = 0x100;
         adpcm.pred_scale = 0;
@@ -422,9 +448,54 @@ void AxVoice::SetAdpcm(const AdpcmParam* pParam) {
         adpcm.yn2 = 0;
         break;
     }
+
+    default: {
+        break;
+    }
     }
 
     mVpb.SetVoiceAdpcm(adpcm);
+}
+
+bool AxVoice::IsNeedNextUpdate(const MixParam& rParam) const {
+    if (mMixPrev.vL != rParam.vL) {
+        return TRUE;
+    }
+    if (mMixPrev.vR != rParam.vR) {
+        return TRUE;
+    }
+    if (mMixPrev.vS != rParam.vS) {
+        return TRUE;
+    }
+    if (mMixPrev.vAuxAL != rParam.vAuxAL) {
+        return TRUE;
+    }
+    if (mMixPrev.vAuxAR != rParam.vAuxAR) {
+        return TRUE;
+    }
+    if (mMixPrev.vAuxAS != rParam.vAuxAS) {
+        return TRUE;
+    }
+    if (mMixPrev.vAuxBL != rParam.vAuxBL) {
+        return TRUE;
+    }
+    if (mMixPrev.vAuxBR != rParam.vAuxBR) {
+        return TRUE;
+    }
+    if (mMixPrev.vAuxBS != rParam.vAuxBS) {
+        return TRUE;
+    }
+    if (mMixPrev.vAuxCL != rParam.vAuxCL) {
+        return TRUE;
+    }
+    if (mMixPrev.vAuxCR != rParam.vAuxCR) {
+        return TRUE;
+    }
+    if (mMixPrev.vAuxCS != rParam.vAuxCS) {
+        return TRUE;
+    }
+
+    return FALSE;
 }
 
 void AxVoice::SetAdpcmLoop(const AdpcmLoopParam* pParam) {
@@ -435,7 +506,7 @@ void AxVoice::SetAdpcmLoop(const AdpcmLoopParam* pParam) {
         return;
     }
 
-    if (mFormat == FORMAT_ADPCM) {
+    if (mFormat == SAMPLE_FORMAT_DSP_ADPCM) {
         loop.loop_pred_scale = pParam->loop_pred_scale;
         loop.loop_yn1 = pParam->loop_yn1;
         loop.loop_yn2 = pParam->loop_yn2;
@@ -452,63 +523,15 @@ bool AxVoice::SetMix(const MixParam& rParam) {
     ut::AutoInterruptLock lock;
 
     if (!mVpb.IsAvailable()) {
-        return false;
+        return FALSE;
     }
 
     if (mFirstMixUpdateFlag || !IsRun()) {
         mMixPrev = rParam;
-        mFirstMixUpdateFlag = false;
+        mFirstMixUpdateFlag = FALSE;
     }
 
-    bool needUpdate = false;
-
-    if (mMixPrev.vL != rParam.vL) {
-        needUpdate = true;
-    }
-
-    if (mMixPrev.vR != rParam.vR) {
-        needUpdate = true;
-    }
-
-    if (mMixPrev.vS != rParam.vS) {
-        needUpdate = true;
-    }
-
-    if (mMixPrev.vAuxAL != rParam.vAuxAL) {
-        needUpdate = true;
-    }
-
-    if (mMixPrev.vAuxAR != rParam.vAuxAR) {
-        needUpdate = true;
-    }
-
-    if (mMixPrev.vAuxAS != rParam.vAuxAS) {
-        needUpdate = true;
-    }
-
-    if (mMixPrev.vAuxBL != rParam.vAuxBL) {
-        needUpdate = true;
-    }
-
-    if (mMixPrev.vAuxBR != rParam.vAuxBR) {
-        needUpdate = true;
-    }
-
-    if (mMixPrev.vAuxBS != rParam.vAuxBS) {
-        needUpdate = true;
-    }
-
-    if (mMixPrev.vAuxCL != rParam.vAuxCL) {
-        needUpdate = true;
-    }
-
-    if (mMixPrev.vAuxCR != rParam.vAuxCR) {
-        needUpdate = true;
-    }
-
-    if (mMixPrev.vAuxCS != rParam.vAuxCS) {
-        needUpdate = true;
-    }
+    bool needUpdate = IsNeedNextUpdate(rParam);
 
     AXPBMIX mix;
 
@@ -676,11 +699,12 @@ void AxVoice::SetSrc(f32 ratio, bool initial) {
 
     if (initial) {
         ratio = GetDspRatio(ratio);
+        ratio = ut::Clamp(ratio, 0.0f, 65535.0f);
         u32 ratioBits = 65536 * ratio;
 
         AXPBSRC src;
 
-        src.ratioHi = ratioBits >> 16 & 0xFFFF;
+        src.ratioHi = ratioBits >> 16;
         src.ratioLo = ratioBits & 0xFFFF;
 
         src.currentAddressFrac = 0;
@@ -704,7 +728,12 @@ void AxVoice::SetVe(f32 volume, f32 initVolume) {
         return;
     }
 
-    mVpb.SetVoiceVe(32767 * volume, 32767 * initVolume);
+    int vol = 32767 * volume;
+    int initVol = 32767 * initVolume;
+    vol = ut::Clamp(vol, 0, 65535);
+    initVol = ut::Clamp(initVol, 0, 65535);
+
+    mVpb.SetVoiceVe(vol, initVol);
 }
 
 void AxVoice::SetLpf(u16 freq) {
@@ -729,6 +758,57 @@ void AxVoice::SetLpf(u16 freq) {
         lpf.yn1 = 0;
         AXGetLpfCoefs(freq, &lpf.a0, &lpf.b0);
         mVpb.SetVoiceLpf(lpf);
+    }
+}
+
+void AxVoice::SetBiquad(u8 filter, f32 val) {
+    ut::AutoInterruptLock lock;
+    if (!mVpb.IsAvailable()) {
+        return;
+    }
+
+    const BiquadFilterCallback* pBiqFil =
+        AxManager::GetInstance().GetBiquadFilterCallback(filter);
+
+    bool enable = TRUE;
+    if (filter == BIQUAD_FILTER_TYPE_NONE) {
+        enable = FALSE;
+    }
+    if (!pBiqFil) {
+        enable = FALSE;
+    }
+
+    if (!enable) {
+        AXPBBIQUAD biquad;
+        biquad.on = AX_PB_BIQUAD_OFF;
+        biquad.xn1 = 0;
+        biquad.xn2 = 0;
+        biquad.yn1 = 0;
+        biquad.yn2 = 0;
+
+        mVpb.SetVoiceBiquad(biquad);
+    } else {
+        BiquadFilterCallback::BiquadCoef coef;
+        pBiqFil->GetCoef(filter, val, &coef);
+
+        if (mVpb.IsBiquadEnable()) {
+            mVpb.SetVoiceBiquadCoefs(coef.b0, coef.b1, coef.b2, coef.a1,
+                                     coef.a2);
+        } else {
+            AXPBBIQUAD biquad;
+            biquad.on = AX_PB_BIQUAD_ON;
+            biquad.xn1 = 0;
+            biquad.xn2 = 0;
+            biquad.yn1 = 0;
+            biquad.yn2 = 0;
+            biquad.b0 = coef.b0;
+            biquad.b1 = coef.b1;
+            biquad.b2 = coef.b2;
+            biquad.a1 = coef.a1;
+            biquad.a2 = coef.a2;
+
+            mVpb.SetVoiceBiquad(biquad);
+        }
     }
 }
 
@@ -774,8 +854,8 @@ void AxVoice::CalcOffsetAdpcmParam(u16* pPredScale, u16* pYN1, u16* pYN2,
     adpcm.yn1 = rParam.yn1;
     adpcm.yn2 = rParam.yn2;
 
-    u32 addr = GetDspAddressBySample(pData, 0, FORMAT_ADPCM);
-    u32 end = GetDspAddressBySample(pData, offset, FORMAT_ADPCM);
+    u32 addr = GetDspAddressBySample(pData, 0, SAMPLE_FORMAT_DSP_ADPCM);
+    u32 end = GetDspAddressBySample(pData, offset, SAMPLE_FORMAT_DSP_ADPCM);
 
     while (addr < end) {
         if (addr % AX_ADPCM_NIBBLES_PER_FRAME == 0) {
@@ -827,19 +907,19 @@ void AxVoiceParamBlock::Sync() {
         mVpb->pb.ve.currentDelta = deltaOut;
     }
 
-    if (mVpb->pb.ve.currentDelta == 0 && mPrevVeSetting.currentDelta == 0) {
-        mVpb->pb.ve.currentVolume = mVolume;
-    }
-
     int nextVolume = mPrevVeSetting.currentVolume +
                      (mVpb->pb.ve.currentDelta * AX_SAMPLES_PER_FRAME);
 
     if (nextVolume < 0) {
         mVpb->pb.ve.currentDelta =
             -mPrevVeSetting.currentVolume / AX_SAMPLES_PER_FRAME;
-    } else if (nextVolume > 32767) {
+    } else if (nextVolume > 65535) {
         mVpb->pb.ve.currentDelta =
-            (32767 - mPrevVeSetting.currentVolume) / AX_SAMPLES_PER_FRAME;
+            (65535 - mPrevVeSetting.currentVolume) / AX_SAMPLES_PER_FRAME;
+    }
+
+    if (mVpb->pb.ve.currentDelta == 0 && mPrevVeSetting.currentDelta == 0) {
+        mVpb->pb.ve.currentVolume = mVolume;
     }
 
     mSync &= ~AX_PBSYNC_VE_DELTA;
@@ -1186,6 +1266,31 @@ void AxVoiceParamBlock::SetVoiceLpfCoefs(u16 a0, u16 b0) {
     mVpb->pb.lpf.a0 = a0;
     mVpb->pb.lpf.b0 = b0;
     mSync |= AX_PBSYNC_LPF_COEFS;
+}
+
+void AxVoiceParamBlock::SetVoiceBiquad(const AXPBBIQUAD& rBiq) {
+    ut::AutoInterruptLock lock;
+    if (!IsAvailable()) {
+        return;
+    }
+
+    memcpy(&mVpb->pb.biquad, &rBiq, sizeof(rBiq));
+    mSync |= AX_PBSYNC_BIQUAD;
+}
+
+void AxVoiceParamBlock::SetVoiceBiquadCoefs(u16 b0, u16 b1, u16 b2, u16 a1,
+                                            u16 a2) {
+    ut::AutoInterruptLock lock;
+    if (!IsAvailable()) {
+        return;
+    }
+
+    mVpb->pb.biquad.b0 = b0;
+    mVpb->pb.biquad.b1 = b1;
+    mVpb->pb.biquad.b2 = b2;
+    mVpb->pb.biquad.a1 = a1;
+    mVpb->pb.biquad.a2 = a2;
+    mSync |= AX_PBSYNC_BIQUAD_COEFS;
 }
 
 void AxVoiceParamBlock::SetVoiceRmtOn(u16 on) {

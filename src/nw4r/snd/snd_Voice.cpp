@@ -131,7 +131,7 @@ void Voice::Update() {
 
     if (mIsStarted) {
         if ((mSyncFlag & SYNC_AX_VOICE) && mIsStarting) {
-            if (mIsPause || AxManager::GetInstance().IsDiskError()) {
+            if (mIsPause) {
                 StopAllAxVoice();
                 mIsPausing = true;
             } else {

@@ -240,34 +240,6 @@
 // BEGIN EGG
 //! @defgroup egg EGG
 //! @brief Nintendo EAD Middleware
-
-//! @ingroup egg
-//! @defgroup egg_gfx gfx
-//! @brief Graphics
-
-//! @ingroup egg
-//! @defgroup egg_gfxe gfxe
-//! @brief Graphics extensions
-
-//! @ingroup egg
-//! @defgroup egg_prim prim
-//! @brief Primitives
-
-//! @ingroup egg
-//! @defgroup egg_math math
-//! @brief Math
-
-//! @ingroup egg
-//! @defgroup egg_core core
-//! @brief System
-
-//! @ingroup egg
-//! @defgroup egg_audio audio
-//! @brief Audio
-
-//! @ingroup egg
-//! @defgroup egg_util util
-//! @brief Utilities
 // END EGG
 //
 

@@ -131,8 +131,8 @@ public:
     NW4R_UT_LIST_LINK_DECL(); // at 0x30
 
 private:
-    static const f32* lbl_804BF588;
-    static const f32 lbl_804C1750[];
+    static const f32* lbl_80816D68;
+    static const f32 lbl_80819D50[];
 };
 
 //! @}

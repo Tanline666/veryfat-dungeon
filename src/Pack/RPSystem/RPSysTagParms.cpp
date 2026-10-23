@@ -135,3 +135,13 @@ void RPSysTagParameters::add(RPSysTagParm* pChild) {
         mpParameters = pChild;
     }
 }
+
+void RPSysTagParm::read(EGG::Stream& rStream) {
+#pragma unused(rStream)
+}
+
+void RPSysTagParm::write(EGG::Stream& rStream) {
+#pragma unused(rStream)
+}
+
+void RPSysTagParm::dump() {}

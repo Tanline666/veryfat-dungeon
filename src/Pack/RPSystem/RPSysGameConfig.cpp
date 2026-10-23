@@ -1,15 +1,14 @@
 #include <Pack/RPSystem.h>
 
-RP_SINGLETON_IMPL_EX(RPSysGameConfig);
+RP_SINGLETON_IMPL(RPSysGameConfig);
 
 /**
  * \~english @brief Constructor
  *
  * \~english @param pHeap Parent heap
  */
-RPSysGameConfig::RPSysGameConfig(EGG::Heap* pHeap)
+RPSysGameConfig::RPSysGameConfig()
     : RPSysTagParameters("GameConfig"),
-      mpParentHeap(pHeap),
       mRootScene(this, "RootScene"),
       mTVMode(this, "TVMode"),
       mLanguage(this, "Language"),
@@ -25,6 +24,8 @@ RPSysGameConfig::RPSysGameConfig(EGG::Heap* pHeap)
     mRootScene.set(NULL);
     mTVMode.set(NULL);
     mLanguage.set(NULL);
+    mSound.set(NULL);
+    mTrainingLevel.set(NULL);
 
     mRPPrint.set(false);
     mRPSysPrint.set(false);

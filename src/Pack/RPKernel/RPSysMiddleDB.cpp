@@ -79,21 +79,12 @@ RPSysMiddleDB::RPSysMiddleDB(const RPSysMiddleDBGenInfo* pGenInfo)
         }
 
         for (u16 i = 0; i < userSetSize; i++) {
-            // Only Wii Sports uses character data (no checksum)
-            if (RP_GET_INSTANCE(RPSysProjectLocal)->getPack() ==
-                RPSysSceneCreator::EPackID_SportsPack) {
-
-                RFLiAddMiddleDBUserData(mpMiddleDB,
-                                        pMiiManager->GetCharData(i));
-            } else {
-                RFLAddMiddleDBStoreData(mpMiddleDB,
-                                        pMiiManager->GetStoreData(i));
-            }
+            RFLAddMiddleDBStoreData(mpMiddleDB, pMiiManager->GetStoreData(i));
         }
+    }
 
         mStoredNum = RFLGetMiddleDBStoredSize(mpMiddleDB);
         break;
-    }
 
     default: {
         mpMiddleDB = NULL;

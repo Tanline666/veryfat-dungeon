@@ -474,6 +474,11 @@ nw4r/ut/ut_TextWriterBase.cpp:
 	.bss        start:0x807A9D10 end:0x807A9D28
 	.sbss       start:0x80816240 end:0x80816258
 
+egg/gfxe/eggDrawGX.cpp:
+	.text       start:0x8009E734 end:0x800A11F8
+	.ctors      start:0x80688D28 end:0x80688D2C
+	.rodata     start:0x8068FF60 end:0x80690158
+
 egg/math/eggMatrix.cpp:
 	extab       start:0x80006720 end:0x80006750
 	extabindex  start:0x80006BE8 end:0x80006C30
@@ -1109,6 +1114,36 @@ Pack/RPSystem/RPSysProjectLocal.cpp:
 	.data       start:0x80740010 end:0x80740050
 	.sbss       start:0x80816CD0 end:0x80816CD8
 
+Pack/RPSystem/RPSysGameConfig.cpp:
+	.text       start:0x801DB4B0 end:0x801DB668
+	.rodata     start:0x80699638 end:0x806996A8
+	.data       start:0x80740050 end:0x80740070
+	.sbss       start:0x80816CD8 end:0x80816CDC
+
+Pack/RPSystem/RPSysTagParms.cpp:
+	.text       start:0x801DB668 end:0x801DB7A0
+	.data       start:0x80740070 end:0x80740098
+
+Pack/RPSystem/RPSysLoadScene.cpp:
+	.text       start:0x801DB7A0 end:0x801DBD34
+
+Pack/RPSystem/RPSysResourceManager.cpp:
+	.text       start:0x801DBD34 end:0x801DD414
+	.sbss       start:0x80816CE0 end:0x80816CE4
+
+Pack/RPSystem/RPSysQueuedScene.cpp:
+	.text       start:0x801DD414 end:0x801DD498
+	.data       start:0x80740100 end:0x8074010C
+	.sbss       start:0x80816CE8 end:0x80816CEC
+
+Pack/RPSystem/RPSysCommonObject.cpp:
+	.text       start:0x801DD498 end:0x801DD810
+
+Pack/RPSystem/RPSysDvdStatus.cpp:
+	.text       start:0x801DD810 end:0x801DDD9C
+	.data       start:0x80740138 end:0x80740144
+	.sbss       start:0x80816CF0 end:0x80816CF4
+
 Pack/RPKernel/RPSysEffectMgr.cpp:
 	.text       start:0x801E1600 end:0x801E3400
 	.data       start:0x80740298 end:0x807403B0
@@ -1128,8 +1163,50 @@ Pack/RPKernel/RPSysMiddleDBGenInfo.cpp:
 	.text       start:0x801EBA48 end:0x801EBABC
 	.data       start:0x80740540 end:0x8074054C
 
+Pack/RPKernel/RPSysMiddleDB.cpp:
+	.text       start:0x801EBABC end:0x801EBE10
+	.data       start:0x80740550 end:0x8074055C
+
 Pack/RPKernel/RPSysLytDynamicAnm.cpp:
 	.text       start:0x801EBEC8 end:0x801EC430
+
+Pack/RPKernel/RPSysCursorDrawMgr.cpp:
+	.text       start:0x801EC658 end:0x801EDD8C
+	.ctors      start:0x80688DB4 end:0x80688DB8
+
+Pack/RPGraphics/RPGrpCamera.cpp:
+	.text       start:0x801F6A1C end:0x801F7554
+	.ctors      start:0x80688DC0 end:0x80688DC4
+	.data       start:0x80740830 end:0x80740844
+	.bss        start:0x808113C8 end:0x8081164C
+	.sbss       start:0x80816DB8 end:0x80816DC0
+
+Pack/RPGraphics/RPGrpScreen.cpp:
+	.text       start:0x801FFDF8 end:0x80200178
+	.ctors      start:0x80688DCC end:0x80688DD0
+
+Pack/RPGraphics/RPGrpCaptureTexture.cpp:
+	.text       start:0x80204630 end:0x80204904
+	.data       start:0x80740E40 end:0x80740E4C
+
+Pack/RPGraphics/RPGrpFogManager.cpp:
+	.text       start:0x80204904 end:0x80204954
+
+Pack/RPGraphics/RPGrpProjectionObject.cpp:
+	.text       start:0x80204954 end:0x80204B08
+	.data       start:0x80740E50 end:0x80740E5C
+
+Pack/RPGraphics/RPGrpModelRfl.cpp:
+	.text       start:0x80204B08 end:0x80205E1C
+	.ctors      start:0x80688DD4 end:0x80688DD8
+
+Pack/RPAudio/RPSndHomeMenuArcMgr.cpp:
+	.text       start:0x802096AC end:0x80209854
+	.data       start:0x80741060 end:0x807410D8
+
+Pack/RPUtility/RPUtlDohMath.cpp:
+	.text       start:0x8020C3BC end:0x8020C998
+	.ctors      start:0x80688DD8 end:0x80688DDC
 
 Pack/RPHealth/RPHealthCommon/RPHealthWiiBoard.cpp:
 	.text       start:0x802B3ED8 end:0x802B4A70

@@ -12,7 +12,7 @@
  * \~english @brief Pack Project Game Config File (`gameConfig.ini`)
  */
 class RPSysGameConfig : public RPSysTagParameters {
-    RP_SINGLETON_DECL_EX(RPSysGameConfig);
+    RP_SINGLETON_DECL(RPSysGameConfig);
 
 private:
     //! Scene loaded on boot
@@ -24,7 +24,7 @@ private:
     //! Sound(?)
     RPSysStringTagParm mSound; // at 0x40
     //! Unknown
-    RPSysStringTagParm mTrainingLevel; // at 0x50
+    RPSysPrimTagParm<int> mTrainingLevel; // at 0x50
 
     //! Common print setting
     RPSysPrimTagParm<int> mRPPrint; // at 0x60

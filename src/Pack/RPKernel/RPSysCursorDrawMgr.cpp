@@ -352,10 +352,7 @@ void RPSysCursorDrawMgr::preUpdate() {
     s32 remoteNum = RP_GET_INSTANCE(RPSysPlayerMgr)->getRemoteNum();
 
     if (remoteNum == 0) {
-        remoteNum = RP_GET_INSTANCE(RPSysProjectLocal)->getPack() ==
-                            RPSysSceneCreator::EPackID_SportsPack
-                        ? RP_SPORTS_MAX_PLAYERS
-                        : RP_PARTY_MAX_PLAYERS;
+        remoteNum = 4;
     }
 
     // Hide active cursor if the device is not supported
@@ -449,10 +446,7 @@ void RPSysCursorDrawMgr::postUpdate() {
  */
 void RPSysCursorDrawMgr::postUpdateActive() {
     if (mCursorFlagStack[0] & 1 << EFlag_ActiveCursorValid) {
-        s32 playerNum = RP_GET_INSTANCE(RPSysProjectLocal)->getPack() ==
-                                RPSysSceneCreator::EPackID_PartyPack
-                            ? RP_PARTY_MAX_PLAYERS
-                            : RP_MAX_PLAYERS;
+        s32 playerNum = 4;
 
         if (mCursorFlagStack[0] & 1 << EFlag_ActiveCursorValid) {
             for (int i = 0; i < playerNum; i++) {
@@ -627,13 +621,7 @@ RPSysCursorDrawMgr::RPSysCursorDrawMgr(EGG::Heap* pHeap)
         "def_cursor_normal_4p_blur",
     };
 
-    // Wii Sports uses the _n ("neon"?) version
     int cursorType = 0;
-    if (RP_GET_INSTANCE(RPSysProjectLocal)->getPack() ==
-        RPSysSceneCreator::EPackID_SportsPack) {
-
-        cursorType = 1;
-    }
 
     for (int i = 0; i < EPlayer_Max; i++) {
         mCursorType[i] = ECursorType_Invalid;

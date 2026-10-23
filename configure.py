@@ -635,6 +635,7 @@ config.libs = [
         "cflags": cflags_egg,
         "progress_category": "egg",
         "objects": [
+            Object(NonMatching, "egg/gfxe/eggDrawGX.cpp"),
             Object(NonMatching, "egg/math/eggMatrix.cpp"),
             Object(Matching, "egg/core/eggExpHeap.cpp"),
             Object(Matching, "egg/core/eggFrmHeap.cpp"),
@@ -828,6 +829,9 @@ config.libs = [
             Object(Matching, "Pack/RPKernel/RPSysFrameCtrl.cpp"),
             Object(NonMatching, "Pack/RPKernel/RPSysEffectCreator.cpp"),
             Object(Matching, "Pack/RPKernel/RPSysMiddleDBGenInfo.cpp"),
+            Object(NonMatching, "Pack/RPKernel/RPSysMiddleDB.cpp"),
+            Object(NonMatching, "Pack/RPKernel/RPSysLytDynamicAnm.cpp"),
+            Object(NonMatching, "Pack/RPKernel/RPSysCursorDrawMgr.cpp"),
         ],
     },
     {
@@ -841,6 +845,45 @@ config.libs = [
             Object(NonMatching, "Pack/RPSystem/RPSysRenderMode.cpp"),
             Object(NonMatching, "Pack/RPSystem/RPSysSceneMgr.cpp"),
             Object(Matching, "Pack/RPSystem/RPSysProjectLocal.cpp"),
+            Object(Matching, "Pack/RPSystem/RPSysGameConfig.cpp"),
+            Object(Matching, "Pack/RPSystem/RPSysTagParms.cpp"),
+            Object(NonMatching, "Pack/RPSystem/RPSysLoadScene.cpp"),
+            Object(NonMatching, "Pack/RPSystem/RPSysResourceManager.cpp"),
+            Object(Matching, "Pack/RPSystem/RPSysQueuedScene.cpp"),
+            Object(NonMatching, "Pack/RPSystem/RPSysCommonObject.cpp"),
+            Object(NonMatching, "Pack/RPSystem/RPSysDvdStatus.cpp"),
+        ],
+    },
+    {
+        "lib": "RP",
+        "mw_version": config.linker_version,
+        "cflags": cflags_rp,
+        "progress_category": "graphics",
+        "objects": [
+            Object(NonMatching, "Pack/RPGraphics/RPGrpCamera.cpp"),
+            Object(NonMatching, "Pack/RPGraphics/RPGrpScreen.cpp"),
+            Object(NonMatching, "Pack/RPGraphics/RPGrpCaptureTexture.cpp"),
+            Object(NonMatching, "Pack/RPGraphics/RPGrpFogManager.cpp"),
+            Object(NonMatching, "Pack/RPGraphics/RPGrpProjectionObject.cpp"),
+            Object(NonMatching, "Pack/RPGraphics/RPGrpModelRfl.cpp"),
+        ],
+    },
+    {
+        "lib": "RP",
+        "mw_version": config.linker_version,
+        "cflags": cflags_rp,
+        "progress_category": "audio",
+        "objects": [
+            Object(NonMatching, "Pack/RPAudio/RPSndHomeMenuArcMgr.cpp"),
+        ],
+    },
+    {
+        "lib": "RP",
+        "mw_version": config.linker_version,
+        "cflags": cflags_rp,
+        "progress_category": "utility",
+        "objects": [
+            Object(NonMatching, "Pack/RPUtility/RPUtlDohMath.cpp"),
         ],
     },
     {
@@ -884,6 +927,9 @@ config.progress_categories = [
     ProgressCategory("kbd", "Software Keyboard"),
     ProgressCategory("kernel", "RPKernel"),
     ProgressCategory("system", "RPSystem"),
+    ProgressCategory("graphics", "RPGraphics"),
+    ProgressCategory("audio", "RPAudio"),
+    ProgressCategory("utility", "RPUtility"),
     ProgressCategory("healthcommon", "RPHealthCommon"),
 ]
 config.progress_each_module = args.verbose

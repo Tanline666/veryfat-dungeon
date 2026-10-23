@@ -1,6 +1,4 @@
 #include <Pack/RPKernel.h>
-#include <Pack/RPParty/RPPartyCommon.h>
-#include <Pack/RPSports/RPSportsCommon.h>
 #include <Pack/RPSystem.h>
 
 #include <nw4r/ut.h>
@@ -337,7 +335,6 @@ void RPSysResourceManager::GetStaticSoundCommonPath(char* pBuffer,
     RPSysProjectLocal* pProjectLocal = RP_GET_INSTANCE(RPSysProjectLocal);
 
     std::strcpy(pBuffer, "Sound/");
-    std::strcat(pBuffer, STATIC_DIR_NAMES[pProjectLocal->getPack()]);
 }
 
 /**
@@ -351,7 +348,6 @@ void RPSysResourceManager::GetStaticSoundLocalPath(char* pBuffer,
     RPSysProjectLocal* pProjectLocal = RP_GET_INSTANCE(RPSysProjectLocal);
 
     std::strcpy(pBuffer, "Sound/");
-    std::strcat(pBuffer, STATIC_DIR_NAMES[pProjectLocal->getPack()]);
     pProjectLocal->appendLocalDirectory(pBuffer);
 }
 

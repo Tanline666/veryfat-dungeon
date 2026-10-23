@@ -6,8 +6,8 @@
 #include <nw4r/math.h>
 #include <nw4r/ut.h>
 
-const f32* RPSysLytDynamicAnm::lbl_804BF588 = NULL;
-const f32 RPSysLytDynamicAnm::lbl_804C1750[] = {12625.324f, 1.7388418E-19f};
+const f32* RPSysLytDynamicAnm::lbl_80816D68 = NULL;
+const f32 RPSysLytDynamicAnm::lbl_80819D50[] = {12625.324f, 1.7388418E-19f};
 
 /**
  * \~english @brief Constructor
@@ -69,7 +69,7 @@ RPSysLytDynamicAnm::RPSysLytDynamicAnm(nw4r::lyt::Pane* pParent,
     mNowPos = mStartPos + delta;
     reset();
 
-    lbl_804BF588 = lbl_804C1750;
+    lbl_80816D68 = lbl_80819D50;
 }
 
 /**

@@ -21,6 +21,8 @@ public:
      */
     static void Initialize();
 
+    static void Begin(nw4r::ut::Font& rFont);
+
 private:
     //! Size of the text work buffer
     static const int TEXT_BUFFER_SIZE = 256;

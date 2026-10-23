@@ -76,7 +76,6 @@ void DrawQuadLineStripNormal(u8 p1, u8 p2, u8 p3, u8 p4, u8 n) {
 
 void DrawCircleYPolygonFan(const nw4r::math::MTX34& rMtx, f32 radius,
                            u16 divide) {
-#line 104
     EGG_ASSERT(divide > 0);
 
     f32 step = 2 * NW4R_MATH_PI / divide;
@@ -252,6 +251,8 @@ void DrawGX::BeginDrawScreen(bool lu, bool texture, bool alpha) {
     SetMat_Ind();
 
     GXSetNumTevStages(1);
+    GXSetTevSwapModeTable(GX_TEV_SWAP0, GX_CH_RED, GX_CH_GREEN, GX_CH_BLUE,
+                          GX_CH_ALPHA);
     SetMat_Tev(GX_TEVSTAGE0, texture ? TEVSETTING_TEXTURE : TEVSETTING_COLOR);
 
     if (alpha) {
@@ -584,8 +585,6 @@ void DrawGX::SetMat_TexGen(TexGen texGen) {
 
 void DrawGX::SetMat_Ind() {
     GXSetNumIndStages(0);
-    GXSetIndTexOrder(GX_INDTEXSTAGE0, GX_TEXCOORD1, GX_TEXMAP1);
-    GXSetIndTexCoordScale(GX_INDTEXSTAGE0, GX_ITS_1, GX_ITS_1);
 }
 
 void DrawGX::SetMat_Tev(GXTevStageID stage, TevSetting setting) {

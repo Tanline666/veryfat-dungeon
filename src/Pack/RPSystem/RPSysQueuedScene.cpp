@@ -1,12 +1,8 @@
 #include <Pack/RPSystem.h>
 
-RP_SINGLETON_IMPL_EX(RPSysQueuedScene);
+RP_SINGLETON_IMPL(RPSysQueuedScene);
 
-RPSysQueuedScene::RPSysQueuedScene(EGG::Heap* pHeap) : mpParentHeap(pHeap) {
-    mNextSceneID = -1;
-}
-
-void RPSysQueuedScene::reset() {
+RPSysQueuedScene::RPSysQueuedScene() {
     mNextSceneID = -1;
 }
 

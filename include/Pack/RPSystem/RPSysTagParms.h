@@ -34,17 +34,17 @@ public:
      *
      * \~english @param rStream Input stream
      */
-    virtual void read(EGG::Stream& /* rStream */) {} // at 0x8
+    virtual void read(EGG::Stream& /* rStream */); // at 0x8
     /**
      * \~english @brief Writes the parameter's value
      *
      * \~english @param rStream Output stream
      */
-    virtual void write(EGG::Stream& /* rStream */) {} // at 0xC
+    virtual void write(EGG::Stream& /* rStream */); // at 0xC
     /**
      * \~english @brief Prints the parameter's value
      */
-    virtual void dump() {} // at 0x10
+    virtual void dump(); // at 0x10
 
     /**
      * \~english @brief Gets the parameter's tag name

@@ -650,6 +650,30 @@ revolution/AX/AXOut.c:
 	.bss        start:0x807B3260 end:0x807B4060
 	.sbss       start:0x808165C0 end:0x808165FC
 
+revolution/AX/AXSPB.c:
+	.text       start:0x800E8CB0 end:0x800E90DC
+	.bss        start:0x807B4060 end:0x807B40D8
+	.sbss       start:0x80816600 end:0x80816650
+
+revolution/AX/AXVPB.c:
+	.text       start:0x800E90E0 end:0x800E9E98
+	.data       start:0x8070E0D8 end:0x8070E168
+	.bss        start:0x807B40E0 end:0x807C57E0
+	.sbss       start:0x80816650 end:0x8081666C
+	.sdata2     start:0x808192E8 end:0x80819308
+
+revolution/AX/DSPCode.c:
+	.data       start:0x8070F140 end:0x80711140
+	.sdata      start:0x80813D10 end:0x80813D18
+
+revolution/AX/AXProf.c:
+	.text       start:0x800E9EA0 end:0x800E9EE0
+	.sbss       start:0x80816670 end:0x80816680
+
+revolution/AXFX/AXFXHooks.c:
+	.text       start:0x800F0600 end:0x800F0644
+	.sdata      start:0x80813D18 end:0x80813D20
+
 revolution/BASE/PPCArch.c:
 	.text       start:0x800F0650 end:0x800F0870
 	.data       start:0x80711FC0 end:0x80711FF8
@@ -1043,6 +1067,16 @@ RVLFaceLib/RFL_Format.c:
 	extabindex  start:0x80007254 end:0x80007260
 	.text       start:0x80195C74 end:0x80195D30
 
+keyboard/tiPcKeyboard.cpp:
+	.text       start:0x80195D30 end:0x8019DD18
+	.ctors      start:0x80688D6C end:0x80688D70
+	.rodata     start:0x80694208 end:0x806958C0
+
+keyboard/SKB_UNSPLIT.o:
+	.text       start:0x8019DD18 end:0x801D7914
+	.ctors      start:0x80688D70 end:0x80688DA4
+	.rodata     start:0x806958C0 end:0x80698CB8
+
 Pack/RPKernel/RPSysSystem.cpp:
 	.text       start:0x801D7914 end:0x801D8B24
 	.ctors      start:0x80688DA4 end:0x80688DA8
@@ -1055,6 +1089,11 @@ Pack/RPSystem/RPSysSceneCreator.cpp:
 	.text       start:0x801D8B58 end:0x801D9E60
 	.rodata     start:0x80698CC8 end:0x806995F0
 	.sbss       start:0x80816CB8 end:0x80816CBC
+
+Pack/RPSystem/RPSysScene.cpp:
+	.text       start:0x801D9E60 end:0x801DA5BC
+	.ctors      start:0x80688DA8 end:0x80688DAC
+	.sbss       start:0x80816CC0 end:0x80816CC4
 
 Pack/RPSystem/RPSysRenderMode.cpp:
 	.text       start:0x801DA5BC end:0x801DA674

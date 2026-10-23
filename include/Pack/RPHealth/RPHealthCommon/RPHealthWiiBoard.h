@@ -10,10 +10,17 @@ public:
     void STUB();
     s32 getBatteryLevel();
 
+private:
+    ~RPHealthWiiBoard();
+
     //! Tentative privilege
 private:
     u8 mUNK_0x0[19392];
     u8 mBatteryLevel; // at 0x4BC0
+    u32 mUNK_0x4BC4;
+    u32 mUNK_0x4BC8;
+    u32 mUNK_0x4BCC;
+    u32 mUNK_0x4BD0;
 };
 
 #endif

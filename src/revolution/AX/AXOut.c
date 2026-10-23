@@ -238,6 +238,14 @@ void __AXOutInit(u32 mode) {
     u32* dst2;
     void* rmt[AX_RMT_MAX];
 
+#if defined(DEBUG)
+    OSReport("Initializing AXOut code module\n");
+    OS_DEFAULT_ASSERT((u32)&__AXOutBuffer[0][0] & 0x1F == 0);
+    OS_DEFAULT_ASSERT((u32)&__AXOutBuffer[1][0] & 0x1F == 0);
+    OS_DEFAULT_ASSERT((u32)&__AXOutBuffer[2][0] & 0x1F == 0);
+    OS_DEFAULT_ASSERT((u32)&__AXOutSBuffer[0] & 0x1F == 0);
+#endif
+
     __AXOutFrame = 0;
     __AXAiDmaFrame = 0;
     __AXOutputBufferMode = mode;

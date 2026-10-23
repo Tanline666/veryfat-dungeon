@@ -1,5 +1,6 @@
 #include <revolution/AX.h>
 #include <revolution/OS.h>
+
 #include <string.h>
 
 /**
@@ -69,9 +70,14 @@ static u32 __AXAuxCpuReadWritePosition;
 
 void __AXAuxInit(void) {
     int i;
+
     u32* bufferA = (u32*)__AXBufferAuxA;
     u32* bufferB = (u32*)__AXBufferAuxB;
     u32* bufferC = (u32*)__AXBufferAuxC;
+
+#if defined(DEBUG)
+    OSReport("Initializing AXAux code module\n");
+#endif
 
     __AXCallbackAuxA = NULL;
     __AXCallbackAuxB = NULL;

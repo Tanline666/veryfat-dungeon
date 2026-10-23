@@ -396,9 +396,8 @@ bool RPSysSceneMgr::isFadeOut() {
  */
 bool RPSysSceneMgr::isTaskFinished() {
     if (RP_GET_INSTANCE(RPSysSaveDataMgr)->isNandAccessFinish() &&
-        !RP_GET_INSTANCE(RPSysSystem)->getNandThread()->isTaskExist() &&
-        !RP_GET_INSTANCE(RPSysSystem)->getDvdThread()->isTaskExist() &&
-        !RP_GET_INSTANCE(RPSysSystem)->getWc24Thread()->isTaskExist()) {
+        !RP_GET_INSTANCE(RPSysSystem)->getNandThread() &&
+        !RP_GET_INSTANCE(RPSysSystem)->getDvdThread()) {
 
         return true;
     }

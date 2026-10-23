@@ -105,6 +105,10 @@ void __AXNextFrame(void* surround, void* lr, void* rmt) {
         LIST_WRITE_32((uintptr_t)surround);
         __AXCommandListCycles += 925;
         break;
+#if defined(DEBUG)
+    default:
+        OS_ERROR("Unknown AX mode!");
+#endif
     }
 
     imm = __AXGetPBs();
@@ -200,8 +204,8 @@ void __AXNextFrame(void* surround, void* lr, void* rmt) {
     if (__AXCompressor) {
         LIST_WRITE_16(COMMAND_COMPRESSOR);
         LIST_WRITE_16(THRESHOLD);
-        LIST_WRITE_16(RELEASE_FRAMES);
-        LIST_WRITE_32((uintptr_t)__AXCompressorTable);
+        LIST_WRITE_16(__AXCompressorReleaseFrames);
+        // LIST_WRITE_32((uintptr_t)__AXCompressorTable);
         __AXCommandListCycles += 1850;
     }
 
@@ -233,6 +237,9 @@ void __AXNextFrame(void* surround, void* lr, void* rmt) {
 }
 
 void __AXClInit(void) {
+#if defined(DEBUG)
+    OSReport("Initializing AXCL code module\n");
+#endif
     __AXClMode = AX_OUTPUT_STEREO;
     __AXCommandListPosition = 0;
     __AXClWrite = (u16*)__AXCommandList;
@@ -264,6 +271,10 @@ u16 AXGetAuxCReturnVolume(void) {
 }
 
 void AXSetMasterVolume(u16 volume) {
+#if defined(DEBUG)
+    //! Code appears to use raw value of AX_MAX_VOLUME if TFP2 is an indication
+    OS_DEFAULT_ASSERT(volume <= 0x8000);
+#endif
     if (volume > AX_MAX_VOLUME) {
         volume = AX_MAX_VOLUME;
     }

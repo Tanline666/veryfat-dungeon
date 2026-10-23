@@ -11,6 +11,10 @@ void AXInit(void) {
 }
 
 void AXInitEx(u32 mode) {
+#if defined(DEBUG)
+    OSReport("Initializing AX\n");
+#endif
+
     if (!__init) {
         OSRegisterVersion(__AXVersion);
 

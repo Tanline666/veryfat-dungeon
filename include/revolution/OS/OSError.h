@@ -14,6 +14,8 @@ typedef struct OSContext OSContext;
     if (!(exp))                                                                \
     OSPanic(__FILE__, __LINE__, __VA_ARGS__)
 
+#define OS_DEFAULT_ASSERT(exp) OS_ASSERT(exp, "Failed assertion %s", exp)
+
 typedef enum {
     OS_ERR_SYSTEM_RESET,
     OS_ERR_MACHINE_CHECK,

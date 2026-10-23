@@ -223,14 +223,10 @@ void RPSysScene::calc() {
  * \~english @brief Renders the scene state
  */
 void RPSysScene::draw() {
-    RP_GET_INSTANCE(RPSysKokeshiManager)->UpdateCtrlMgr();
-
     RPGrpRenderer::Begin();
     {
         mpRenderer->Rendering();
-
         RPGrpRenderer::StartDebugDraw();
-        RP_GET_INSTANCE(RP_DEBUG_STUB_0)->DebugDraw();
     }
     RPGrpRenderer::End();
 }

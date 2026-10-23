@@ -435,6 +435,9 @@ cflags_hbm = [
     "-i include/homebuttonLib",
 ]
 
+# software keyboard flags
+cflags_key = [*cflags_base, *cflags_pedantic, "-char signed"]  # is this needed?
+
 # Unlike ogws, this repo will only target Wii Fit Plus
 cflags_rp = [
     *cflags_base,
@@ -693,9 +696,14 @@ config.libs = [
         "objects": [
             Object(NonMatching, "revolution/WUD/WUD.c"),
             Object(Matching, "revolution/ARC/arc.c"),
+            Object(NonMatching, "revolution/AX/DSPCode.c"),
             Object(Matching, "revolution/AX/AXAux.c"),
             Object(NonMatching, "revolution/AX/AXCL.c"),
             Object(Matching, "revolution/AX/AXOut.c"),
+            Object(Matching, "revolution/AX/AXSPB.c"),
+            Object(Matching, "revolution/AX/AXVPB.c"),
+            Object(Matching, "revolution/AX/AXProf.c"),
+            Object(Matching, "revolution/AXFX/AXFXHooks.c"),
             Object(Matching, "revolution/BASE/PPCArch.c"),
             Object(Matching, "revolution/BTE/gki/common/gki_buffer.c"),
             Object(Equivalent, "revolution/BTE/gki/common/gki_time.c"),
@@ -798,6 +806,16 @@ config.libs = [
         ],
     },
     {
+        "lib": "keyboard",
+        "mw_version": config.linker_version,
+        "cflags": cflags_key,
+        "progress_category": "kbd",
+        "objects": [
+            Object(NonMatching, "keyboard/tiPcKeyboard.cpp"),
+            Object(NonMatching, "keyboard/SKB_UNSPLIT.o"),
+        ],
+    },
+    {
         "lib": "RP",
         "mw_version": config.linker_version,
         "cflags": cflags_rp,
@@ -819,6 +837,7 @@ config.libs = [
         "progress_category": "system",
         "objects": [
             Object(NonMatching, "Pack/RPSystem/RPSysSceneCreator.cpp"),
+            Object(NonMatching, "Pack/RPSystem/RPSysScene.cpp"),
             Object(NonMatching, "Pack/RPSystem/RPSysRenderMode.cpp"),
             Object(NonMatching, "Pack/RPSystem/RPSysSceneMgr.cpp"),
             Object(Matching, "Pack/RPSystem/RPSysProjectLocal.cpp"),
@@ -862,6 +881,7 @@ config.progress_categories = [
     ProgressCategory("sdk", "RVL SDK"),
     ProgressCategory("hbm", "homeButtonLib"),
     ProgressCategory("rfl", "RVLFaceLib"),
+    ProgressCategory("kbd", "Software Keyboard"),
     ProgressCategory("kernel", "RPKernel"),
     ProgressCategory("system", "RPSystem"),
     ProgressCategory("healthcommon", "RPHealthCommon"),

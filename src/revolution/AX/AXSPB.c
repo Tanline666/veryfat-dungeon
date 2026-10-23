@@ -113,6 +113,9 @@ void __AXPrintStudio(void) {
 }
 
 void __AXSPBInit(void) {
+#if defined(DEBUG)
+    OSReport("Initializing AXSPB code module\n");
+#endif
     __AXSpbAux3 = 0;
     __AXSpbAux2 = 0;
     __AXSpbAux1 = 0;

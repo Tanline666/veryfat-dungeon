@@ -5,3 +5,5 @@
 s32 RPHealthWiiBoard::getBatteryLevel() {
     return WBCGetBatteryLevel(mBatteryLevel);
 }
+
+RPHealthWiiBoard::~RPHealthWiiBoard() {}

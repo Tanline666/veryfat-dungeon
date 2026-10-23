@@ -16,6 +16,8 @@ enum WBCResult {
     WBC_ERR_INVALID = WPAD_ERR_INVALID
 };
 
+//! TENTATIVE
+int crc_table[256];
 u16 CALB_DATA[12];
 u8 wbcInfo[2];
 f64 wbc[28];
@@ -26,7 +28,7 @@ static BOOL crc_table_computed;
 static f32 __abs_weight;
 static f64 wbc_grav_coff;
 
-void make_crc_table(void);
+BOOL make_crc_table(void);
 u32 calc_read_crc(void);
 u32 getOffset(void);
 u32 getBattThrsh(void);

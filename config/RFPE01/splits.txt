@@ -147,6 +147,13 @@ nw4r/ef/drawstrategy/ef_drawsmoothstripestrategy.cpp:
 nw4r/g3d/res/g3d_rescommon.cpp:
 	.text       start:0x80031AB0 end:0x80031BF4
 
+nw4r/g3d/res/g3d_resdict.cpp:
+	.text       start:0x80031C00 end:0x80031F20
+
+nw4r/g3d/res/g3d_resfile.cpp:
+	.text       start:0x80031F20 end:0x80033CAC
+	.data       start:0x80708820 end:0x80708980
+
 nw4r/g3d/res/g3d_resmdl.cpp:
 	.text       start:0x80033CB0 end:0x80034ED0
 
@@ -173,6 +180,14 @@ nw4r/g3d/res/g3d_resnode.cpp:
 nw4r/g3d/res/g3d_resanm.cpp:
 	.text       start:0x80038A10 end:0x80038C54
 	.sdata2     start:0x80817EA0 end:0x80817EB4
+
+nw4r/g3d/res/g3d_resanmvis.cpp:
+	.text       start:0x80038C60 end:0x80038D80
+	.sdata2     start:0x80817EB8 end:0x80817EC8
+
+nw4r/g3d/res/g3d_resanmscn.cpp:
+	.text       start:0x8003BEE0 end:0x8003C51C
+	.data       start:0x807089E0 end:0x80708A40
 
 nw4r/g3d/g3d_transform.cpp:
 	.text       start:0x8003C690 end:0x8003C994
@@ -215,6 +230,18 @@ nw4r/g3d/g3d_calcview.cpp:
 	.text       start:0x8004ACC0 end:0x8004CF40
 	.rodata     start:0x8068B160 end:0x8068B17C
 	.sdata2     start:0x80818028 end:0x80818034
+
+nw4r/g3d/g3d_camera.cpp:
+	.text       start:0x8004FA20 end:0x8005091C
+	.sdata2     start:0x80818050 end:0x80818080
+
+nw4r/g3d/g3d_basic.cpp:
+	.text       start:0x80050920 end:0x80050BE8
+
+nw4r/g3d/g3d_maya.cpp:
+	.text       start:0x80050BF0 end:0x800518F4
+	.rodata     start:0x8068B180 end:0x8068B1B8
+	.sdata2     start:0x80818090 end:0x808180A4
 
 nw4r/g3d/g3d_scnmdl.cpp:
 	.text       start:0x80058640 end:0x8005AFEC
@@ -925,6 +952,10 @@ revolution/OS/__start.c:
 	.init       start:0x800062C0 end:0x800065B8
 	.sbss       start:0x80816A20 end:0x80816A28
 
+revolution/OS/OSLaunch.c:
+	.text       start:0x80150030 end:0x80150F40
+	.sbss       start:0x80816A70 end:0x80816A74
+
 revolution/SC/scsystem.c:
 	.text       start:0x80151060 end:0x801529F0
 	.data       start:0x807288B0 end:0x80728A90
@@ -943,6 +974,9 @@ revolution/VI/VI.c:
 
 revolution/VI/i2c.c:
 	.text       start:0x80158460 end:0x80158D80
+
+revolution/VI/vi3in1.c:
+	.text       start:0x80158D80 end:0x8015A4CC
 
 revolution/WENC/wenc.c:
 	.text       start:0x8015A4CC end:0x8015A7A4
@@ -1173,6 +1207,10 @@ Pack/RPKernel/RPSysLytDynamicAnm.cpp:
 Pack/RPKernel/RPSysCursorDrawMgr.cpp:
 	.text       start:0x801EC658 end:0x801EDD8C
 	.ctors      start:0x80688DB4 end:0x80688DB8
+
+Pack/RPKernel/RPSysOfficialDB.cpp:
+	.text       start:0x801F2F38 end:0x801F318C
+	.data       start:0x807406E8 end:0x807406F4
 
 Pack/RPGraphics/RPGrpCamera.cpp:
 	.text       start:0x801F6A1C end:0x801F7554

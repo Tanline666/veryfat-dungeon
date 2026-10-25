@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_cnt
+ * @{
+ */
 #ifndef RVL_SDK_CNT_H
 #define RVL_SDK_CNT_H
 #include <types.h>
@@ -34,3 +38,4 @@ s32 contentCloseNAND(CNTFileInfo* info);
 }
 #endif
 #endif
+/**@} */

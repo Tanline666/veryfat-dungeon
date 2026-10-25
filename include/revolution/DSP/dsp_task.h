@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_dsp
+ * @{
+ */
 #ifndef RVL_SDK_DSP_TASK_H
 #define RVL_SDK_DSP_TASK_H
 #include <types.h>
@@ -69,3 +73,4 @@ void __DSP_remove_task(DSPTask* task);
 }
 #endif
 #endif
+/**@} */

@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_ax
+ * @{
+ */
 #ifndef RVL_SDK_AX_ALLOC_H
 #define RVL_SDK_AX_ALLOC_H
 #include <types.h>
@@ -30,3 +34,4 @@ void AXSetVoicePriority(AXVPB* vpb, u32 prio);
 }
 #endif
 #endif
+/**@} */

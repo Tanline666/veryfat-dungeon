@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_ax
+ * @{
+ */
 #ifndef RVL_SDK_AX_SPB_H
 #define RVL_SDK_AX_SPB_H
 #include <types.h>
@@ -80,3 +84,4 @@ void __AXDepopVoice(AXPB* pb);
 }
 #endif
 #endif
+/**@} */

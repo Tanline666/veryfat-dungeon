@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_dsp
+ * @{
+ */
 #ifndef RVL_SDK_DSP_H
 #define RVL_SDK_DSP_H
 #include <types.h>
@@ -25,3 +29,4 @@ DSPTask* DSPAssertTask(DSPTask* task);
 }
 #endif
 #endif
+/**@} */

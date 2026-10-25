@@ -95,7 +95,7 @@ struct ResAnmTexPatData {
 class ResAnmTexPat : public ResCommon<ResAnmTexPatData> {
 public:
     static const u32 SIGNATURE = FOURCC('P', 'A', 'T', '0');
-    static const int REVISION = 3;
+    static const int REVISION = 4;
 
 public:
     NW4R_G3D_RESOURCE_FUNC_DEF(ResAnmTexPat);
@@ -131,7 +131,10 @@ public:
     int GetNumMaterial() const {
         return ref().info.numMaterial;
     }
-
+    /**
+     * \~english @brief Gets animation replay policy.
+     * \~japanese @brief アニメ再生ポリシーを取得する。
+     */
     AnmPolicy GetAnmPolicy() const {
         return ref().info.policy;
     }

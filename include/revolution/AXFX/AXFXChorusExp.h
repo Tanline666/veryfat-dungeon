@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_axfx
+ * @{
+ */
 #ifndef RVL_SDK_AXFX_CHORUS_EXP_H
 #define RVL_SDK_AXFX_CHORUS_EXP_H
 #include <types.h>
@@ -57,3 +61,4 @@ void AXFXChorusExpCallback(AXFX_BUFFERUPDATE* update, AXFX_CHORUS_EXP* fx);
 }
 #endif
 #endif
+/**@} */

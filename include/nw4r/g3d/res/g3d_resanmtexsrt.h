@@ -126,7 +126,7 @@ struct ResAnmTexSrtData {
 class ResAnmTexSrt : public ResCommon<ResAnmTexSrtData> {
 public:
     static const u32 SIGNATURE = FOURCC('S', 'R', 'T', '0');
-    static const int REVISION = 4;
+    static const int REVISION = 5;
 
 public:
     NW4R_G3D_RESOURCE_FUNC_DEF(ResAnmTexSrt);
@@ -157,7 +157,10 @@ public:
     int GetNumMaterial() const {
         return ref().info.numMaterial;
     }
-
+    /**
+     * \~english @brief Gets animation replay policy.
+     * \~japanese @brief アニメ再生ポリシーを取得する。
+     */
     AnmPolicy GetAnmPolicy() const {
         return ref().info.policy;
     }

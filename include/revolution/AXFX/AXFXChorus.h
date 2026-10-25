@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_axfx
+ * @{
+ */
 #ifndef RVL_SDK_AXFX_CHORUS_H
 #define RVL_SDK_AXFX_CHORUS_H
 #include <types.h>
@@ -24,3 +28,4 @@ void AXFXChorusCallback(void* chans, void* context);
 }
 #endif
 #endif
+/**@} */

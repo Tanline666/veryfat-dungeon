@@ -1,5 +1,11 @@
 #ifndef RVL_SDK_AI_H
 #define RVL_SDK_AI_H
+
+/**
+ * @addtogroup rvl_ai
+ * @{
+ */
+
 #include <types.h>
 #ifdef __cplusplus
 extern "C" {
@@ -27,4 +33,5 @@ void __AIDHandler(s16 intr, OSContext* ctx);
 #ifdef __cplusplus
 }
 #endif
+/** @} */
 #endif

@@ -1,4 +1,8 @@
 /**
+ * @addtogroup rvl_os
+ * @{
+ */
+/**
  * References: YAGCD, WiiBrew, Dolphin Emulator
  */
 
@@ -45,3 +49,4 @@ extern "C" {
 }
 #endif
 #endif
+/**@} */

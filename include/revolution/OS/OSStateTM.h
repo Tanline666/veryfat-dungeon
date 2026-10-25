@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_os
+ * @{
+ */
 #ifndef RVL_SDK_OS_STATETM_H
 #define RVL_SDK_OS_STATETM_H
 #include <types.h>
@@ -21,3 +25,4 @@ s32 __OSUnRegisterStateEvent(void);
 }
 #endif
 #endif
+/**@} */

@@ -240,7 +240,7 @@ class ResAnmChr : public ResCommon<ResAnmChrData> {
 public:
     static const u32 SIGNATURE = FOURCC('C', 'H', 'R', '0');
 
-    static const int REVISION = 4;
+    static const int REVISION = 5;
 
 public:
     NW4R_G3D_RESOURCE_FUNC_DEF(ResAnmChr);
@@ -275,7 +275,10 @@ public:
     int GetNumNode() const {
         return ref().info.numNode;
     }
-
+    /**
+     * \~english @brief Gets animation replay policy.
+     * \~japanese @brief アニメ再生ポリシーを取得する。
+     */
     AnmPolicy GetAnmPolicy() const {
         return ref().info.policy;
     }

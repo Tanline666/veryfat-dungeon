@@ -44,6 +44,10 @@ void RPSysOfficialDB::Reset() {
     }
 }
 
+u16 RPSysOfficialDB::GetOfficialDBValidNum() {
+    return RFLGetAvailableOfficialDataNum();
+}
+
 /**
  * \~english @brief Gets the number of valid Miis in the database
  */

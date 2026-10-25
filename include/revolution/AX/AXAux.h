@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_ax
+ * @{
+ */
 #ifndef RVL_SDK_AX_AUX_H
 #define RVL_SDK_AX_AUX_H
 #include <types.h>
@@ -60,3 +64,4 @@ void AXGetAuxCCallback(AXAuxCallback* callback, void** context);
 }
 #endif
 #endif
+/**@} */

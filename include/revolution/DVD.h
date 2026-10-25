@@ -1,4 +1,8 @@
 /**
+ * @addtogroup rvl_dvd
+ * @{
+ */
+/**
  * References: WiiBrew, YAGCD, WiiCore
  */
 
@@ -20,3 +24,4 @@ extern "C" {
 }
 #endif
 #endif
+/**@} */

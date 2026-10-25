@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_db
+ * @{
+ */
 #ifndef RVL_SDK_DB_H
 #define RVL_SDK_DB_H
 #include <types.h>
@@ -15,3 +19,4 @@ void DBPrintf(const char* msg, ...);
 }
 #endif
 #endif
+/**@} */

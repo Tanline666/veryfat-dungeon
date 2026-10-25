@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_os
+ * @{
+ */
 #ifndef RVL_SDK_OS_RTC_H
 #define RVL_SDK_OS_RTC_H
 #include <types.h>
@@ -41,3 +45,4 @@ BOOL __OSClearRTCFlags(void);
 }
 #endif
 #endif
+/**@} */

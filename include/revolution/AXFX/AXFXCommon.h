@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_axfx
+ * @{
+ */
 #ifndef RVL_SDK_AXFX_COMMON_H
 #define RVL_SDK_AXFX_COMMON_H
 #include <types.h>
@@ -28,3 +32,4 @@ typedef struct AXFX_BUFFERUPDATE_DPL2 {
 }
 #endif
 #endif
+/**@} */

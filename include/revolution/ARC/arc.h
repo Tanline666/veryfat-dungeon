@@ -1,40 +1,59 @@
 #ifndef RVL_SDK_ARC_H
 #define RVL_SDK_ARC_H
+
+/**
+ * @addtogroup rvl_arc
+ * @{
+ */
+
 #include <types.h>
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 typedef struct ARCHandle {
-    void* archiveStartAddr; // at 0x0
-    void* FSTStart;         // at 0x4
-    void* fileStart;        // at 0x8
-    u32 entryNum;           // at 0xC
-    char* FSTStringStart;   // at 0x10
-    u32 FSTLength;          // at 0x14
-    u32 currDir;            // at 0x18
+    void* archiveStartAddr; //!< \~ at 0x0
+    void* FSTStart;         //!< \~ at 0x4
+    void* fileStart;        //!< \~ at 0x8
+    u32 entryNum;           //!< \~ at 0xC
+    char* FSTStringStart;   //!< \~ at 0x10
+    u32 FSTLength;          //!< \~ at 0x14
+    u32 currDir;            //!< \~ at 0x18
 } ARCHandle;
 
 typedef struct ARCFileInfo {
-    ARCHandle* handle; // at 0x0
-    u32 startOffset;   // at 0x4
-    u32 length;        // at 0x8
+    ARCHandle* handle; //!< \~ at 0x0
+    u32 startOffset;   //!< \~ at 0x4
+    u32 length;        //!< \~ at 0x8
 } ARCFileInfo;
 
 typedef struct ARCDir {
-    ARCHandle* handle; // at 0x0
-    u32 entryNum;      // at 0x4
-    u32 location;      // at 0x8
-    u32 next;          // at 0xC
+    ARCHandle* handle; //!< \~ at 0x0
+    u32 entryNum;      //!< \~ at 0x4
+    u32 location;      //!< \~ at 0x8
+    u32 next;          //!< \~ at 0xC
 } ARCDir;
 
 typedef struct ARCDirEntry {
-    ARCHandle* handle; // at 0x0
-    u32 entryNum;      // at 0x4
-    BOOL isDir;        // at 0x8
-    char* name;        // at 0xC
+    ARCHandle* handle; //!< \~ at 0x0
+    u32 entryNum;      //!< \~ at 0x4
+    BOOL isDir;        //!< \~ at 0x8
+    char* name;        //!< \~ at 0xC
 } ARCDirEntry;
 
+/**
+ * \~english @brief Opens a specified archive and initializes the given
+ * archive handle.
+ * \~japanese @brief 指定のアーカイブをオープンして、指定のアーカイブ
+ * ハンドルの初期化を行う。
+ *
+ * \~english @param arcStart Pointer to start address of archive
+ * \~japanese @param arcStart アーカイブの開始アドレスへのポインタ
+ * \~english @param handle Pointer to archive handle
+ * \~japanese @param handle アーカイブハンドルへのポインタ
+ * \~english @return TRUE if successful
+ * \~japanese @return 成功すればTRUE
+ */
 BOOL ARCInitHandle(void* arcStart, ARCHandle* handle);
 BOOL ARCOpen(ARCHandle* handle, const char* fileName, ARCFileInfo* af);
 BOOL ARCFastOpen(ARCHandle* handle, s32 entrynum, ARCFileInfo* af);
@@ -53,4 +72,5 @@ BOOL ARCCloseDir(ARCDir* dir);
 #ifdef __cplusplus
 }
 #endif
+/**@} */
 #endif

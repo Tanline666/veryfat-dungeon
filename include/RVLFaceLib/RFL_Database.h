@@ -8,6 +8,7 @@ extern "C" {
 #endif
 
 BOOL RFLIsAvailableOfficialData(u16 index);
+u16 RFLGetAvailableOfficialDataNum(void);
 BOOL RFLSearchOfficialData(const RFLCreateID* id, u16* index);
 
 #ifdef __cplusplus

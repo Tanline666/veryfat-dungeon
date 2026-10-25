@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_ax
+ * @{
+ */
 #ifndef RVL_SDK_AX_CL_H
 #define RVL_SDK_AX_CL_H
 #include <types.h>
@@ -38,3 +42,4 @@ void AXSetAuxCReturnVolume(u16 volume);
 }
 #endif
 #endif
+/**@} */

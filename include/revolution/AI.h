@@ -4,6 +4,12 @@
 
 #ifndef RVL_SDK_PUBLIC_AI_H
 #define RVL_SDK_PUBLIC_AI_H
+
+/**
+ * @addtogroup rvl_ai
+ * @{
+ */
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -14,4 +20,7 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
+
+/**@} */
+
 #endif

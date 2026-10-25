@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_card
+ * @{
+ */
 #ifndef RVL_SDK_CARD_H
 #define RVL_SDK_CARD_H
 #include <types.h>
@@ -18,3 +22,4 @@ typedef struct CARDFileInfo {
 }
 #endif
 #endif
+/**@} */

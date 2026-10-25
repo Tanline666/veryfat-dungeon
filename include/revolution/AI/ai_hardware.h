@@ -1,17 +1,23 @@
 #ifndef RVL_SDK_AI_HARDWARE_H
 #define RVL_SDK_AI_HARDWARE_H
+
+/**
+ * @addtogroup rvl_ai
+ * @{
+ */
+
 #include <types.h>
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /**
- * AI hardware registers
+ * @brief AI hardware registers
  */
 volatile u32 DECL_HW_REGS(AI) DECL_ADDRESS(0xCD006C00);
 
 /**
- * Hardware register indexes
+ * @brief Hardware register indexes
  */
 typedef enum {
     AI_AICR,   //!< 0xCD006C00
@@ -32,4 +38,5 @@ typedef enum {
 #ifdef __cplusplus
 }
 #endif
+/** @} */
 #endif

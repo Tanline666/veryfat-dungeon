@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_ax
+ * @{
+ */
 #ifndef RVL_SDK_AX_VPB_H
 #define RVL_SDK_AX_VPB_H
 #include <types.h>
@@ -78,3 +82,4 @@ s32 AXGetMaxVoices(void);
 }
 #endif
 #endif
+/**@} */

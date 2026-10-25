@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_axfx
+ * @{
+ */
 #ifndef RVL_SDK_AXFX_DELAY_H
 #define RVL_SDK_AXFX_DELAY_H
 #include <types.h>
@@ -27,3 +31,4 @@ void AXFXDelayCallback(void* chans, void* context);
 }
 #endif
 #endif
+/**@} */

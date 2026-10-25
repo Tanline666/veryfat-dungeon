@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_dsp
+ * @{
+ */
 #ifndef RVL_SDK_DSP_DEBUG_H
 #define RVL_SDK_DSP_DEBUG_H
 #include <types.h>
@@ -11,3 +15,4 @@ void __DSP_debug_printf(const char* fmt, ...);
 }
 #endif
 #endif
+/**@} */

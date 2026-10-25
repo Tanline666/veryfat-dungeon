@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_ax
+ * @{
+ */
 #ifndef RVL_SDK_AX_DSP_CODE_H
 #define RVL_SDK_AX_DSP_CODE_H
 #include <types.h>
@@ -15,3 +19,4 @@ extern u16 axDspSlaveLength;
 }
 #endif
 #endif
+/**@} */

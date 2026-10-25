@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_ax
+ * @{
+ */
 #ifndef RVL_SDK_AX_OUT_H
 #define RVL_SDK_AX_OUT_H
 #include <types.h>
@@ -24,3 +28,4 @@ s32 AXRmtAdvancePtr(s32 num);
 }
 #endif
 #endif
+/**@} */

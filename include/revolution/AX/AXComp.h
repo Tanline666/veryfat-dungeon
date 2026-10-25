@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_ax
+ * @{
+ */
 #ifndef RVL_SDK_AX_COMP_H
 #define RVL_SDK_AX_COMP_H
 #include <types.h>
@@ -11,3 +15,4 @@ extern u16 __AXCompressorTable[];
 }
 #endif
 #endif
+/**@} */

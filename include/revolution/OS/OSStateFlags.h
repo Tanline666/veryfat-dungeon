@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_os
+ * @{
+ */
 #ifndef RVL_SDK_OS_STATE_FLAGS_H
 #define RVL_SDK_OS_STATE_FLAGS_H
 #include <types.h>
@@ -26,3 +30,4 @@ BOOL __OSReadStateFlags(OSStateFlags* state);
 }
 #endif
 #endif
+/**@} */

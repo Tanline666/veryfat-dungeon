@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_base
+ * @{
+ */
 #ifndef RVL_SDK_PPC_ARCH_H
 #define RVL_SDK_PPC_ARCH_H
 #include <types.h>
@@ -5,7 +9,18 @@
 extern "C" {
 #endif
 
+/**
+ * \~english @brief Gets current MSR value.
+ * \~japanese @brief 現在MSR値を取得する。
+ */
 u32 PPCMfmsr(void);
+/**
+ * \~english @brief Sets MSR value.
+ * \~japanese @brief MSR値を設定する。
+ *
+ * \~english @param val New MSR value
+ * \~japanese @param val 新しいMSR値
+ */
 void PPCMtmsr(u32 val);
 
 u32 PPCMfhid0(void);
@@ -17,6 +32,10 @@ void PPCMtl2cr(u32 val);
 void PPCMtdec(u32 val);
 
 void PPCSync(void);
+/**
+ * \~english @brief Halts system by looping indefinitely.
+ * \~japanese @brief 無限のループをしてシステムを止まる。
+ */
 void PPCHalt(void);
 
 void PPCMtmmcr0(u32 val);
@@ -337,3 +356,4 @@ void PPCMthid4(u32 val);
 #define HID4_L2_CCFI (1 << (31 - 11))
 // Paired-singles control bit 2
 #define HID4_PSS2_CTL (1 << (31 - 12))
+/**@} */

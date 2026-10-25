@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_ax
+ * @{
+ */
 #ifndef RVL_SDK_AX_PROF_H
 #define RVL_SDK_AX_PROF_H
 #include <types.h>
@@ -22,3 +26,4 @@ AXPROFILE* __AXGetCurrentProfile(void);
 }
 #endif
 #endif
+/**@} */

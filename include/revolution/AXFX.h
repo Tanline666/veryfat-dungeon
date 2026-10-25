@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_axfx
+ * @{
+ */
 #ifndef RVL_SDK_PUBLIC_AXFX_H
 #define RVL_SDK_PUBLIC_AXFX_H
 #ifdef __cplusplus
@@ -20,3 +24,4 @@ extern "C" {
 }
 #endif
 #endif
+/**@} */

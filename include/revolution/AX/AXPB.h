@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_ax
+ * @{
+ */
 #ifndef RVL_SDK_AX_PB_H
 #define RVL_SDK_AX_PB_H
 #include <types.h>
@@ -282,3 +286,4 @@ typedef struct _AXPB {
 }
 #endif
 #endif
+/**@} */

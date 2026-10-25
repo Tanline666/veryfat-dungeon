@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_os
+ * @{
+ */
 #ifndef RVL_SDK_OS_PLAY_RECORD_H
 #define RVL_SDK_OS_PLAY_RECORD_H
 #include <types.h>
@@ -12,3 +16,4 @@ void __OSStopPlayRecord(void);
 }
 #endif
 #endif
+/**@} */

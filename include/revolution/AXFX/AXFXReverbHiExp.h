@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_axfx
+ * @{
+ */
 #ifndef RVL_SDK_AXFX_REVERB_HI_EXP_H
 #define RVL_SDK_AXFX_REVERB_HI_EXP_H
 #include <types.h>
@@ -67,3 +71,4 @@ void AXFXReverbHiExpCallback(AXFX_BUFFERUPDATE* update, AXFX_REVERBHI_EXP* fx);
 }
 #endif
 #endif
+/**@} */

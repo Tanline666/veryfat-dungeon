@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_dsp
+ * @{
+ */
 #ifndef RVL_SDK_DSP_HARDWARE_H
 #define RVL_SDK_DSP_HARDWARE_H
 #include <types.h>
@@ -71,3 +75,4 @@ typedef enum {
 }
 #endif
 #endif
+/**@} */

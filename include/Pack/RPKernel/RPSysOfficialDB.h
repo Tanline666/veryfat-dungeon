@@ -42,6 +42,8 @@ public:
      */
     void Reset();
 
+    u16 GetOfficialDBValidNum();
+
     /**
      * \~english @brief Gets the number of valid Miis in the database
      */

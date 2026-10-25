@@ -19,13 +19,7 @@ RPSysAppMiiManager::RPSysAppMiiManager(u16 num, EGG::Heap* pHeap)
     mppStoreData = NULL;
     mppCharData = NULL;
 
-    // Only Wii Sports uses character data (no checksum)
-    if (local->getPack() == RPSysSceneCreator::EPackID_SportsPack) {
-
-        mppCharData = new (pHeap) RFLCharData*[num];
-    } else {
-        mppStoreData = new (pHeap) RFLStoreData*[num];
-    }
+    mppStoreData = new (pHeap) RFLStoreData*[num];
 }
 
 /**

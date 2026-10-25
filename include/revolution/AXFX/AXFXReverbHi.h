@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_axfx
+ * @{
+ */
 #ifndef RVL_SDK_AXFX_REVERB_HI_H
 #define RVL_SDK_AXFX_REVERB_HI_H
 #include <types.h>
@@ -27,3 +31,4 @@ void AXFXReverbHiCallback(void* chans, void* context);
 }
 #endif
 #endif
+/**@} */

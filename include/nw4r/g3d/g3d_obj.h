@@ -23,46 +23,86 @@ inline u32 align32(u32 x) {
 
 } // namespace
 
-/******************************************************************************
- *
- * G3dObj
- *
- ******************************************************************************/
+/**
+ * \~english @brief Abstract class for basic G3D objects
+ * \~japanese @brief 基底のG3Dオブジェクトのための抽象クラス
+ */
 class G3dObj {
 public:
+    /**
+     * \~english @brief Specifies resources within G3dObj source
+     * \~japanese @brief G3dObjソース内リソースを定義する
+     */
     template <u32 N> struct ResNameDataT {
         u32 len; // at 0x0
-        // @bug 'N' already includes the null terminator
+        //! \~english @bug 'N' already includes the null terminator
+        //! \~japanese @bug 'N'はもう終端文字を持っている
         char str[ROUND_UP(N + 1, 4)]; // at 0x4
     };
 
+    /**
+     * \~english @brief Class that provides type info
+     * \~japanese @brief タイプ情報を提供するクラス
+     */
     class TypeObj {
     public:
+        /**
+         * \~english @brief Specifies resources within TypeObj source
+         * \~japanese @brief TypeObjソース内リソースを定義する
+         */
         struct ResNameDataPT {
-            u32 len;     // at 0x0
-            char str[4]; // at 0x4
+            u32 len;     //!< \~ // at 0x0
+            char str[4]; //!< \~ // at 0x4
         };
 
     public:
+        /**
+         * \~english @brief Constructor
+         * \~japanese @brief コンストラクタ
+         *
+         * \~english @tparam N Size
+         * \~japanese @tparam N サイズ
+         * \~english @param rName Type name
+         * \~japanese @param rName タイプ名
+         */
         template <u32 N>
         explicit TypeObj(const ResNameDataT<N>& rName)
             : mName(reinterpret_cast<const ResNameDataPT*>(&rName)) {}
 
+        /**
+         * \~english @brief Gets type ID.
+         * \~japanese @brief タイプIDを取得する。
+         */
         u32 GetTypeID() const {
-            // @note Address is used for comparing TypeObjs
+            //! \~english @note Address is used for comparing TypeObjs
+            //! \~japanese @note TypeObjを比較するためにアドレスを使う
             return reinterpret_cast<u32>(mName);
         }
 
+        /**
+         * \~english @brief Gets type name.
+         * \~japanese @brief タイプ名を取得する。
+         */
         const char* GetTypeName() const {
             return mName->str;
         }
 
+        /**
+         * \~english @brief Checks if type IDs are equal.
+         * \~japanese @brief タイプIDが同じかどうか判定する。
+         *
+         * \~english @param rOther Right side value of comparison (via TypeObj)
+         * \~japanese @param rOther 比較の右辺値 (TypeObjを通じて)
+         * \~english @return TRUE if own type ID and rOther's are equal
+         * \~japanese @return 自らとrOtherのタイプIDが等しければTRUE
+         */
         bool operator==(const TypeObj& rOther) const {
             return GetTypeID() == rOther.GetTypeID();
         }
 
     private:
-        const ResNameDataPT* mName; // at 0x0
+        const ResNameDataPT* mName; //!< \~english Type name resource \~japanese
+                                    //!< タイプ名リソース \~ // at 0x0
     };
 
     enum G3dProcTask {
@@ -92,7 +132,11 @@ public:
     } // at 0x8
 
     virtual void G3dProc(u32 task, u32 param, void* pInfo) = 0; // at 0xC
-    virtual ~G3dObj();                                          // at 0x10
+    /**
+     * \~english @brief Destructor
+     * \~japanese @brief デストラクタ
+     */
+    virtual ~G3dObj(); // at 0x10
 
     virtual const TypeObj GetTypeObj() const {
         return TypeObj(TYPE_NAME);
@@ -104,16 +148,40 @@ public:
         return GetTypeObj().GetTypeName();
     } // at 0x18
 
+    /**
+     * \~english @brief Constructor
+     * \~japanese @brief コンストラクタ
+     *
+     * \~english @param pAllocator Pointer to memory allocator
+     * \~japanese @param pAllocator メモリアロケータへのポインタ
+     * \~english @param pParent Pointer to parent G3dObj
+     * \~japanese @param pParent 親G3dObjへのポインタ
+     */
     G3dObj(MEMAllocator* pAllocator, G3dObj* pParent)
         : mpHeap(pAllocator), mpParent(pParent) {}
 
+    /**
+     * \~english @brief Gets the pointer to the parent G3dObj.
+     * \~japanese @brief 親G3dObjへのポインタを取得する。
+     */
     G3dObj* GetParent() const {
         return mpParent;
     }
+    /**
+     * \~english @brief Sets the parent G3dObj.
+     * \~japanese @brief 親G3dObjを設定する。
+     *
+     * \~english @param pParent Pointer to new parent G3dObj
+     * \~japanese @param pParent 新しい親G3dObjへのポインタ
+     */
     void SetParent(G3dObj* pParent) {
         mpParent = pParent;
     }
 
+    /**
+     * \~english @brief Destroys G3dObj instance.
+     * \~japanese @brief G3dObjのインスタンスを破棄する。
+     */
     void Destroy();
 
     static void* Alloc(MEMAllocator* pAllocator, u32 size) {
@@ -126,6 +194,10 @@ public:
     static inline void* operator new(size_t /* size */, void* pBlock) {
         return pBlock;
     }
+    /**
+     * \~english @brief Dummy delete operator.
+     * \~japanese @brief ダミーdeleteオペレータ。
+     */
     static inline void operator delete(void* /* pBlock */) {}
 
     template <typename TTo> static TTo* DynamicCast(G3dObj* pObj) {

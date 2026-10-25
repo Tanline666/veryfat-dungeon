@@ -96,7 +96,7 @@ struct ResAnmShpData {
 class ResAnmShp : public ResCommon<ResAnmShpData> {
 public:
     static const u32 SIGNATURE = FOURCC('S', 'H', 'P', '0');
-    static const int REVISION = 3;
+    static const int REVISION = 4;
 
 public:
     NW4R_G3D_RESOURCE_FUNC_DEF(ResAnmShp);
@@ -136,7 +136,10 @@ public:
     int GetNumVtxNames() const {
         return ref().info.numVtxName;
     }
-
+    /**
+     * \~english @brief Gets animation replay policy.
+     * \~japanese @brief アニメ再生ポリシーを取得する。
+     */
     AnmPolicy GetAnmPolicy() const {
         return ref().info.policy;
     }

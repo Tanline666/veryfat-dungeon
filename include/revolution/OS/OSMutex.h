@@ -1,3 +1,7 @@
+/**
+ * @addtogroup rvl_os
+ * @{
+ */
 #ifndef RVL_SDK_OS_MUTEX_H
 #define RVL_SDK_OS_MUTEX_H
 #include <types.h>
@@ -25,3 +29,4 @@ BOOL OSTryLockMutex(OSMutex* mutex);
 }
 #endif
 #endif
+/**@} */

@@ -350,13 +350,8 @@ private:
     //! Archive containing static layout assets for this pack
     EGG::Archive* mpStaticLayoutArchive; // at 0x34
 
-#if defined(PACK_SPORTS)
-    //! Sports Pack Mii manager
-    RPSportsAppMiiManager* mpAppMiiManager; // at 0x38
-#endif
-
     //! Extra handle for opening files outside the DVD
-    void* mpMultiHandle; // at 0x3C
+    void* mpMultiHandle; // at 0x38
 };
 
 //! @}

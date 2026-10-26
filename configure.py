@@ -882,6 +882,8 @@ config.libs = [
             Object(Matching, "Pack/RPSystem/RPSysQueuedScene.cpp"),
             Object(NonMatching, "Pack/RPSystem/RPSysCommonObject.cpp"),
             Object(NonMatching, "Pack/RPSystem/RPSysDvdStatus.cpp"),
+            Object(NonMatching, "Pack/RPSystem/RPSysSaveDataMgr.cpp"),
+            Object(NonMatching, "Pack/RPSystem/RPSysFontManager.cpp"),
         ],
     },
     {

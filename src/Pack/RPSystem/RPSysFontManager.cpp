@@ -17,7 +17,7 @@ const char* RPSysFontManager::RES_FONT_NAMES[ResFontType_Max] = {
     "pac_nRodDb_200_IA4.brfnt", // ResFontType_nRodDb_200_IA4
     "pac_nRodEb_32_I4.brfnt",   // ResFontType_nRodEb_32_I4
     "pac_nRodEb_70_IA4.brfnt",  // ResFontType_nRodEb_70_IA4
-    "pac_healthTime.brfnt",     // ResFontType_HealthTime
+    "fit_kakouG5_52_I4.brfnt",  // ResFontType_FitKakouG5_52_I4
 };
 
 /**
@@ -30,16 +30,17 @@ const BOOL RPSysFontManager::sIsNeedResFont[ResFontType_Max] = {
     FALSE, // ResFontType_nRodDb_200_IA4
     TRUE,  // ResFontType_nRodEb_32_I4
     TRUE,  // ResFontType_nRodEb_70_IA4
-    FALSE, // ResFontType_HealthTime
+    FALSE, // ResFontType_FitKakouG5_52_I4
 };
 
 /**
  * \~english @brief Constructor
+ * \~japanese @brief コンストラクタ
  */
 RPSysFontManager::RPSysFontManager() {
-    mpRomFont = new nw4r::ut::RomFont();
+    mpRomFont = NULL;
 
-    for (int i = 0; i < ResFontType_Max; i++) {
+    for (u32 i = 0; i < ResFontType_Max; i++) {
         mpResFonts[i] = new nw4r::ut::ResFont();
         mpResFontData[i] = NULL;
     }
@@ -47,6 +48,7 @@ RPSysFontManager::RPSysFontManager() {
 
 /**
  * \~english @brief Destructor
+ * \~japanese @brief デストラクタ
  */
 RPSysFontManager::~RPSysFontManager() {}
 

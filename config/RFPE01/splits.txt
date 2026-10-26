@@ -1265,6 +1265,15 @@ Pack/RPSystem/RPSysDvdStatus.cpp:
 	.data       start:0x80740138 end:0x80740144
 	.sbss       start:0x80816CF0 end:0x80816CF4
 
+Pack/RPSystem/RPSysSaveDataMgr.cpp:
+	.text       start:0x801DDD9C end:0x801DEEA8
+	.sbss       start:0x80816CF8 end:0x80816CFC
+
+Pack/RPSystem/RPSysFontManager.cpp:
+	.text       start:0x801DEEA8 end:0x801DF104
+	.data       start:0x80740158 end:0x80740180
+	.sbss       start:0x80816D00 end:0x80816D04
+
 Pack/RPKernel/RPSysEffectMgr.cpp:
 	.text       start:0x801E1600 end:0x801E3400
 	.data       start:0x80740298 end:0x807403B0

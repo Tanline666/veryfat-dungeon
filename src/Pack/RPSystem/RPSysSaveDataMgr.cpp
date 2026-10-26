@@ -35,7 +35,7 @@ static const char* SAVE_FILE_NAME = "RPSports.dat";
 static const char* SAVE_FILE_NAME = "RPParty.dat";
 #endif
 
-RP_SINGLETON_IMPL_EX(RPSysSaveDataMgr);
+RP_SINGLETON_IMPL(RPSysSaveDataMgr);
 
 /**
  * \~english @brief Checks which save data files exist on the NAND
@@ -378,7 +378,7 @@ bool RPSysSaveDataMgr::isSaveFileBroken() const {
 
 /**
  * \~english @brief Tests whether any unrecoverable error has occurred
- * @typo
+ * @note typo
  */
 bool RPSysSaveDataMgr::isErrorOccured() const {
     return !mFlags.onBit(EFlag_DisableSave) &&
@@ -729,34 +729,12 @@ void RPSysSaveDataMgr::saveDataFunc(void* /* pArg */) {
  *
  * \~english @param pHeap Parent heap
  */
-RPSysSaveDataMgr::RPSysSaveDataMgr(EGG::Heap* pHeap)
-    : IRPSysHostIOSocket("Save File"), mpParentHeap(pHeap) {
-
-    if (VFIsAvailable() == VF_OK) {
-        void* pWorkBuffer = EGG::Heap::alloc(VF_WORK_SIZE, 4, pHeap);
-        VFInitEx(pWorkBuffer, VF_WORK_SIZE);
-    }
+RPSysSaveDataMgr::RPSysSaveDataMgr() {
 
     mFlags.makeAllZero();
     mNandErrorCode = NAND_RESULT_OK;
     unk10 = 0;
     mNandCheckAnswer = 0;
-
-    mpSaveData = new (pHeap) RPSysSaveData();
-
-    mSaveFileSize = RPSysSaveData::getSaveFileSize();
-    // mBannerFileSize = SAVE_BANNER_SIZE;
-
-    mClusterFileSize = ((mSaveFileSize / NAND_CLUSTER_SIZE) +
-                        (mSaveFileSize % NAND_CLUSTER_SIZE != 0) +
-                        (mBannerFileSize / NAND_CLUSTER_SIZE) +
-                        (mBannerFileSize % NAND_CLUSTER_SIZE != 0)) //
-                       * NAND_CLUSTER_SIZE;
-
-    mpBannerFile = static_cast<NANDBanner*>(
-        EGG::Heap::alloc(sizeof(NANDBanner), 32, pHeap));
-
-    mpSaveFile = static_cast<u8*>(EGG::Heap::alloc(mSaveFileSize, 32, pHeap));
 }
 
 /**

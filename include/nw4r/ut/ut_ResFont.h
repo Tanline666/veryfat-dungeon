@@ -13,7 +13,7 @@ struct BinaryFileHeader;
 class ResFont : public detail::ResFontBase {
 public:
     ResFont();
-    virtual ~ResFont(); // at 0x8
+    virtual ~ResFont(); //!< at 0x8
 
     bool SetResource(void* pBuffer);
 

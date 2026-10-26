@@ -21,8 +21,8 @@ class RPSysSaveData;
 //! IRPSysHostIOSocket may have been removed in Wii Fit Plus
 //! TODO(texline): The below structure might be wrong as the game
 //! has multiple save files, not just one
-class RPSysSaveDataMgr : public IRPSysHostIOSocket {
-    RP_SINGLETON_DECL_EX(RPSysSaveDataMgr);
+class RPSysSaveDataMgr {
+    RP_SINGLETON_DECL(RPSysSaveDataMgr);
 
 public:
     /**

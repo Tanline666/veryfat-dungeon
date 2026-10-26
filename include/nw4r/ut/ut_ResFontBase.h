@@ -119,8 +119,10 @@ private:
     void GetGlyphFromIndex(Glyph* pGlyph, u16 index) const;
 
 private:
-    void* mResource;            // at 0x10
-    FontInformation* mFontInfo; // at 0x14
+    void* mResource;             //!< at 0x10
+    FontInformation* mFontInfo;  //!< at 0x14
+    mutable u16 mLastCharCode;   //!< at 0x18
+    mutable u16 mLastGlyphIndex; //!< at 0x1C
 };
 
 } // namespace detail

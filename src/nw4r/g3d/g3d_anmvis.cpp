@@ -372,6 +372,9 @@ f32 AnmObjVisRes::GetUpdateRate() const {
 }
 
 void AnmObjVisRes::UpdateFrame() {
+    if (GetRate() == 0.0f) {
+        return;
+    }
     UpdateFrm();
     G3dProc(G3DPROC_UPDATEFRAME, 0, NULL);
 }

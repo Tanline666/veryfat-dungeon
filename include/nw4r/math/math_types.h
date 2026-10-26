@@ -10,18 +10,23 @@
 namespace nw4r {
 namespace math {
 
-/******************************************************************************
- *
- * VEC2 structure
- *
- ******************************************************************************/
-// Provides a POD type that can be upcasted to the real structure.
-// (Has the added benefit of forcing struct copies to use lwz/stw.)
+/**
+ * \~english @brief C-compatible VEC2 struct.
+ * \~japanese @brief C互換のVEC2ストラクト。
+ */
 struct _VEC2 {
     f32 x, y;
 };
 
+/**
+ * \~english @brief Struct that represents a 2D vector.
+ * \~japanese @brief 2次元ベクトルを表現するストラクト。
+ */
 struct VEC2 : _VEC2 {
+    /**
+     * \~english @brief Constructor
+     * \~japanese @brief コンストラクタ
+     */
     VEC2() {}
     VEC2(f32 fx, f32 fy) {
         x = fx;
@@ -61,25 +66,40 @@ struct VEC2 : _VEC2 {
     }
 };
 
-/******************************************************************************
- *
- * VEC3 structure
- *
- ******************************************************************************/
-// Forward declarations
+/**
+ * \~english @brief Struct that represents a 3D vector.
+ * \~japanese @brief 3次元ベクトルを表現するストラクト。
+ */
 struct VEC3;
 VEC3* VEC3Add(VEC3* pOut, const VEC3* pA, const VEC3* pB);
 VEC3* VEC3Sub(VEC3* pOut, const VEC3* pA, const VEC3* pB);
 VEC3* VEC3Scale(VEC3* pOut, const VEC3* pIn, f32 scale);
 
-// Provides a POD type that can be upcasted to the real structure.
-// (Has the added benefit of forcing struct copies to use lwz/stw.)
+/**
+ * \~english @brief C-compatible VEC3 struct.
+ * \~japanese @brief C互換のVEC3ストラクト。
+ */
 struct _VEC3 {
     f32 x, y, z;
 };
 
 struct VEC3 : _VEC3 {
+    /**
+     * \~english @brief Constructor
+     * \~japanese @brief コンストラクタ
+     */
     VEC3() {}
+    /**
+     * \~english @brief Constructor
+     * \~japanese @brief コンストラクタ
+     *
+     * \~english @param fx x component value
+     * \~japanese @param fx x成分の値
+     * \~english @param fy y component value
+     * \~japanese @param fy y成分の値
+     * \~english @param fz z component value
+     * \~japanese @param fz z成分の値
+     */
     VEC3(f32 fx, f32 fy, f32 fz) {
         x = fx;
         y = fy;
@@ -101,9 +121,17 @@ struct VEC3 : _VEC3 {
         z = pData[2];
     }
 
+    /**
+     * \~english @brief Converts a VEC3 object into an SDK vector.
+     * \~japanese @brief VEC3オブジェクトをSDKベクトルに変換する。
+     */
     operator Vec*() {
         return reinterpret_cast<Vec*>(this);
     }
+    /**
+     * \~english @brief Converts a VEC3 object into a constant SDK vector.
+     * \~japanese @brief VEC3オブジェクトを定数SDKベクトルに変換する。
+     */
     operator const Vec*() const {
         return reinterpret_cast<const Vec*>(this);
     }
@@ -160,13 +188,10 @@ struct VEC3 : _VEC3 {
     }
 };
 
-/******************************************************************************
- *
- * MTX33 structure
- *
- ******************************************************************************/
-// Provides a POD type that can be upcasted to the real structure.
-// (Has the added benefit of forcing struct copies to use lwz/stw.)
+/**
+ * \~english @brief C-compatible MTX33 struct.
+ * \~japanese @brief C互換のMTX33ストラクト。
+ */
 struct _MTX33 {
     union {
         struct {
@@ -180,10 +205,41 @@ struct _MTX33 {
     };
 };
 
+/**
+ * \~english @brief Struct that represents a 3x3 matrix.
+ * \~japanese @brief 3x3行列を表現するストラクト。
+ */
 struct MTX33 : _MTX33 {
+    /**
+     * \~english @brief Constructor
+     * \~japanese @brief コンストラクタ
+     */
     MTX33() {}
 
     // clang-format off
+    /**
+     * \~english @brief Constructor
+     * \~japanese @brief コンストラクタ
+     * 
+     * \~english @param f00 Value in row 0, column 0
+     * \~japanese @param f00 0行0列の値
+     * \~english @param f01 Value in row 0, column 1
+     * \~japanese @param f01 0行1列の値
+     * \~english @param f02 Value in row 0, column 2
+     * \~japanese @param f02 0行2列の値
+     * \~english @param f10 Value in row 1, column 0
+     * \~japanese @param f10 1行0列の値
+     * \~english @param f11 Value in row 1, column 1
+     * \~japanese @param f11 1行1列の値
+     * \~english @param f12 Value in row 1, column 2
+     * \~japanese @param f12 1行2列の値
+     * \~english @param f20 Value in row 2, column 0
+     * \~japanese @param f20 2行0列の値
+     * \~english @param f21 Value in row 2, column 1
+     * \~japanese @param f21 2行1列の値
+     * \~english @param f22 Value in row 2, column 2
+     * \~japanese @param f22 2行2列の値
+     */
     MTX33(f32 f00, f32 f01, f32 f02,
           f32 f10, f32 f11, f32 f12,
           f32 f20, f32 f21, f32 f22) {
@@ -194,13 +250,10 @@ struct MTX33 : _MTX33 {
     // clang-format on
 };
 
-/******************************************************************************
- *
- * MTX34 structure
- *
- ******************************************************************************/
-// Provides a POD type that can be upcasted to the real structure.
-// (Has the added benefit of forcing struct copies to use lwz/stw.)
+/**
+ * \~english @brief C-compatible MTX34 struct.
+ * \~japanese @brief C互換のMTX34ストラクト。
+ */
 struct _MTX34 {
     union {
         struct {
@@ -215,6 +268,10 @@ struct _MTX34 {
     };
 };
 
+/**
+ * \~english @brief Struct that represents a 3x4 matrix.
+ * \~japanese @brief 3x4行列を表現するストラクト。
+ */
 struct MTX34 : _MTX34 {
     typedef f32 (*MtxRef)[4];
     typedef const f32 (*MtxRefConst)[4];
@@ -239,13 +296,10 @@ struct MTX34 : _MTX34 {
     }
 };
 
-/******************************************************************************
- *
- * MTX44 structure
- *
- ******************************************************************************/
-// Provides a POD type that can be upcasted to the real structure.
-// (Has the added benefit of forcing struct copies to use lwz/stw.)
+/**
+ * \~english @brief C-compatible MTX44 struct.
+ * \~japanese @brief C互換のMTX44ストラクト。
+ */
 struct _MTX44 {
     union {
         struct {
@@ -261,10 +315,18 @@ struct _MTX44 {
     };
 };
 
+/**
+ * \~english @brief Struct that represents a 4x4 matrix.
+ * \~japanese @brief 4x4行列を表現するストラクト。
+ */
 struct MTX44 : _MTX44 {
     typedef f32 (*Mtx44Ref)[4];
     typedef const f32 (*Mtx44RefConst)[4];
 
+    /**
+     * \~english @brief Constructor
+     * \~japanese @brief コンストラクタ
+     */
     MTX44() {}
 
     operator Mtx44Ref() {
@@ -275,19 +337,37 @@ struct MTX44 : _MTX44 {
     }
 };
 
-/******************************************************************************
- *
- * QUAT structure
- *
- ******************************************************************************/
-// Provides a POD type that can be upcasted to the real structure.
-// (Has the added benefit of forcing struct copies to use lwz/stw.)
+/**
+ * \~english @brief C-compatible QUAT struct.
+ * \~japanese @brief C互換のQUATストラクト。
+ */
 struct _QUAT {
     f32 x, y, z, w;
 };
 
+/**
+ * \~english @brief Struct that represents a quaternion.
+ * \~japanese @brief クォータニオンを表現するストラクト。
+ */
 struct QUAT : _QUAT {
+    /**
+     * \~english @brief Constructor
+     * \~japanese @brief コンストラクタ
+     */
     QUAT() {}
+    /**
+     * \~english @brief Constructor
+     * \~japanese @brief コンストラクタ
+     *
+     * \~english @param fx x-component value
+     * \~japanese @param fx x成分の値
+     * \~english @param fy y-component value
+     * \~japanese @param fy y成分の値
+     * \~english @param fz z-component value
+     * \~japanese @param fz z成分の値
+     * \~english @param fw w-component value
+     * \~japanese @param fw w成分の値
+     */
     QUAT(f32 fx, f32 fy, f32 fz, f32 fw) {
         x = fx;
         y = fy;
@@ -305,24 +385,63 @@ struct QUAT : _QUAT {
     }
 };
 
-/******************************************************************************
+/**
+ * \~english @brief Calculates a given VEC2 struct's length.
+ * \~japanese @brief 指定のVEC2ストラクトの長さを計算する。
  *
- * VEC2 functions
- *
- ******************************************************************************/
+ * \~english @param pVec Pointer to VEC2 parameter
+ * \~japanese @param pVec VEC2パラメータへのポインタ
+ * \~english @return pVec's length
+ * \~japanese @return pVecの長さ
+ */
 inline f32 VEC2Len(const VEC2* pVec) {
     return FSqrt(pVec->x * pVec->x + pVec->y * pVec->y);
 }
 
-/******************************************************************************
+/**
+ * \~english @brief Creates a VEC3 struct incorporating the highest
+ * component values of two VEC3 objects.
+ * \~japanese @brief 2つのVEC3オブジェクトの最大成分値から
+ * 構成されるVEC3ストラクトを作成する。
  *
- * VEC3 functions
- *
- ******************************************************************************/
+ * \~english @param pOut Pointer to buffer receiving calculation result
+ * \~japanese @param pOut 計算結果を受け取るバッファへのポインタ
+ * \~english @param pA Pointer to left-side vector
+ * \~japanese @param pA 左辺ベクトルへのポインタ
+ * \~english @param pB Pointer to right-side vector
+ * \~japanese @param pA 右辺ベクトルへのポインタ
+ * \~ @return pOut
+ */
 VEC3* VEC3Maximize(VEC3* pOut, const VEC3* pA, const VEC3* pB);
+/**
+ * \~english @brief Creates a VEC3 struct incorporating the lowest
+ * component values of two VEC3 objects.
+ * \~japanese @brief 2つのVEC3オブジェクトの最小成分値から
+ * 構成されるVEC3ストラクトを作成する。
+ *
+ * \~english @param pOut Pointer to buffer receiving calculation result
+ * \~japanese @param pOut 計算結果を受け取るバッファへのポインタ
+ * \~english @param pA Pointer to left-side vector
+ * \~japanese @param pA 左辺ベクトルへのポインタ
+ * \~english @param pB Pointer to right-side vector
+ * \~japanese @param pA 右辺ベクトルへのポインタ
+ * \~ @return pOut
+ */
 VEC3* VEC3Minimize(VEC3* pOut, const VEC3* pA, const VEC3* pB);
 VEC3* VEC3TransformNormal(VEC3* pOut, const MTX34* pMtx, const VEC3* pVec);
 
+/**
+ * \~english @brief Calculates the sum of two vectors.
+ * \~japanese @brief 2つのベクトルの和を計算する。
+ *
+ * \~english @param pOut Pointer to buffer receiving calculation result
+ * \~japanese @param pOut 計算結果を受け取るバッファへのポインタ
+ * \~english @param pA Pointer to left-side vector
+ * \~japanese @param pA 左辺ベクトルへのポインタ
+ * \~english @param pB Pointer to right-side vector
+ * \~japanese @param pA 右辺ベクトルへのポインタ
+ * \~ @return pOut
+ */
 inline VEC3* VEC3Add(register VEC3* pOut, register const VEC3* pA,
                      register const VEC3* pB) {
     register f32 work0, work1, work2;
@@ -344,47 +463,81 @@ inline VEC3* VEC3Add(register VEC3* pOut, register const VEC3* pA,
     return pOut;
 }
 
+/**
+ * \~english @brief Calculates the dot product of two vectors.
+ * \~japanese @brief 2つのベクトルの内積を計算する。
+ *
+ * \~english @param pA Pointer to left-side vector
+ * \~japanese @param pA 左辺ベクトルへのポインタ
+ * \~english @param pB Pointer to right-side vector
+ * \~japanese @param pA 右辺ベクトルへのポインタ
+ * \~english @return The dot product of pA and pB
+ * \~japanese @return pAとpBの内積
+ */
 inline f32 VEC3Dot(register const VEC3* pA, register const VEC3* pB) {
     register f32 dot;
     register f32 work0, work1, work2, work3;
 
     ASM (
-        // YZ product
+        //! \~english YZ product
+        //! \~japanese YZ積
         psq_l  work0, VEC3.y(pA), 0, 0
         psq_l  work1, VEC3.y(pB), 0, 0
         ps_mul work0, work0, work1
         
-        // X product + YZ product
+        //! \~english X product + YZ product
+        //! \~japanese X積+YZ積
         psq_l   work3, VEC3.x(pA), 1, 0
         psq_l   work2, VEC3.x(pB), 1, 0
         ps_madd work1, work3, work2, work0
         
-        // Dot product
+        //! \~english Dot product
+        //! \~japanese 内積
         ps_sum0 dot, work1, work0, work0
     )
 
     return dot;
 }
 
+/**
+ * \~english @brief Calculates the square of a VEC3 object's length.
+ * \~japanese @brief VEC3オブジェクトの長さの2乗を計算する。
+ *
+ * \~english @param pVec Pointer to VEC3 object
+ * \~japanese @param pVec VEC3オブジェクトへのポインタ
+ */
 inline f32 VEC3LenSq(register const VEC3* pVec) {
     register f32 work0, work1, work2;
 
     ASM (
-        // Square XY
+        //! \~english Square XY
+        //! \~japanese XYを2乗する
         psq_l  work0, VEC3.x(pVec), 0, 0
         ps_mul work0, work0, work0
 
-        // Square Z
+        //! \~english Square Z
+        //! \~japanese Zを2乗する
         lfs     work1, VEC3.z(pVec)
         ps_madd work2, work1, work1, work0
 
-        // Sum products
+        //! \~english Sum products
+        //! \~japanese 積を加える
         ps_sum0 work2, work2, work0, work0
     )
 
     return work2;
 }
 
+/**
+ * \~english @brief Calculates the linear interpolation between two vectors.
+ * \~japanese @brief 2つのベクトル間の線形補間を計算する。
+ *
+ * @param pOut
+ * @param pVec1
+ * @param pVec2
+ * @param t
+ * @return VEC3*
+ */
 inline VEC3* VEC3Lerp(register VEC3* pOut, register const VEC3* pVec1,
                       register const VEC3* pVec2, register f32 t) {
     register f32 work0, work1, work2;
@@ -410,6 +563,15 @@ inline VEC3* VEC3Lerp(register VEC3* pOut, register const VEC3* pVec1,
     return pOut;
 }
 
+/**
+ * \~english @brief Calculates the scalar multiple of a vector.
+ * \~japanese @brief ベクトルのスカラー倍を計算する。
+ *
+ * @param pOut
+ * @param pIn
+ * @param scale
+ * @return VEC3*
+ */
 inline VEC3* VEC3Scale(register VEC3* pOut, register const VEC3* pIn,
                        register f32 scale) {
     register f32 work0, work1;

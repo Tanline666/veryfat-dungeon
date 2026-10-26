@@ -19,6 +19,12 @@ public:
         return static_cast<int>(mSeed >> 16);
     }
 
+    /**
+     * \~english @brief Obtains a random number between 0.0 and 1.0.
+     * \~japanese @brief 0.0と1.0の間からの乱数を得る。
+     * \~english @note 0.0 is included, while 1.0 is excluded.
+     * \~japanese @note 0.0は含まれ、1.0は含まれない。
+     */
     f32 RandFloat() {
         MixRandomSeed();
         return static_cast<f32>(mSeed >> 16) / 0x10000;

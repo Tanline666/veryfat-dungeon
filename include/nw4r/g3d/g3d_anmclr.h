@@ -158,7 +158,7 @@ public:
     }
 
 private:
-    ResAnmClr mRes;                    // at 0x2C
+    const ResAnmClr mRes;              // at 0x2C
     ClrAnmResult* const mpResultCache; // at 0x30
 
     NW4R_G3D_RTTI_DECL_DERIVED(AnmObjMatClrRes, AnmObjMatClr);

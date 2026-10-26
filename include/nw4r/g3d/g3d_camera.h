@@ -3,7 +3,6 @@
 #include <nw4r/types_nw4r.h>
 
 #include <nw4r/g3d/res/g3d_rescommon.h>
-
 #include <nw4r/math.h>
 
 #include <revolution/MTX.h>
@@ -61,8 +60,16 @@ struct CameraData {
 
 class Camera : public ResCommon<CameraData> {
 public:
+    /**
+     * \~english @brief Specifies how the camera posture is represented.
+     * \~japanese @brief カメラ姿勢の表現方法を指定する。
+     */
     enum PostureType { POSTURE_LOOKAT, POSTURE_ROTATE, POSTURE_AIM };
 
+    /**
+     * \~english @brief Struct for storing camera posture info.
+     * \~japanese @brief カメラ姿勢情報を格納するストラクト。
+     */
     struct PostureInfo {
         PostureType tp;          // at 0x0
         math::VEC3 cameraUp;     // at 0x4
@@ -72,15 +79,68 @@ public:
     };
 
 public:
+    /**
+     * \~english @brief Constructor
+     * \~japanese @brief コンストラクタ
+     *
+     * \~english @param pData Pointer to camera data
+     * \~japanese @param pData カメラデータへのポインタ
+     */
     explicit Camera(CameraData* pData);
 
+    /**
+     * \~english @brief Initializes camera data.
+     * \~japanese @brief カメラデータの初期化を行う。
+     */
     void Init();
+    /**
+     * \~english @brief Initializes camera data.
+     * \~japanese @brief カメラデータの初期化を行う。
+     *
+     * \~english @param efbWidth Embedded frame buffer width
+     * \~japanese @param efbWidth 混載フレームバッファの幅
+     * \~english @param efbHeight Embedded frame buffer height
+     * \~japanese @param efbHeight 混載フレームバッファの高さ
+     * \~english @param xfbWidth External frame buffer width
+     * \~japanese @param xfbWidth 外部フレームバッファの幅
+     * \~english @param xfbHeight External frame buffer height
+     * \~japanese @param xfbHeight 外部フレームバッファの高さ
+     * \~english @param viWidth On-screen image width
+     * \~japanese @param viWidth 画面上でのイメージの幅
+     * \~english @param viHeight On-screen image height
+     * \~japanese @param viHeight 画面上でのイメージの高さ
+     */
     void Init(u16 efbWidth, u16 efbHeight, u16 xfbWidth, u16 xfbHeight,
               u16 viWidth, u16 viHeight);
 
+    /**
+     * \~english @brief Sets the camera position.
+     * \~japanese @brief カメラ位置を設定する。
+     *
+     * \~english @param x New camera position's x coordinate
+     * \~japanese @param x 新しいカメラ位置のx座標軸
+     * \~english @param y New camera position's y coordinate
+     * \~japanese @param y 新しいカメラ位置のy座標軸
+     * \~english @param z New camera position's z coordinate
+     * \~japanese @param z 新しいカメラ位置のz座標軸
+     */
     void SetPosition(f32 x, f32 y, f32 z);
+    /**
+     * \~english @brief Sets the camera position.
+     * \~japanese @brief カメラ位置を設定する。
+     *
+     * \~english @param rPos Reference to new camera position vector
+     * \~japanese @param rPos 新しいカメラ位置のベクトルへの参照
+     */
     void SetPosition(const math::VEC3& rPos);
 
+    /**
+     * \~english @brief Sets the camera posture.
+     * \~japanese @brief カメラ姿勢を設定する。
+     *
+     * \~english @param rInfo Reference to new camera posture info struct
+     * \~japanese @param rInfo 新しいカメラ姿勢情報ストラクトへの参照
+     */
     void SetPosture(const PostureInfo& rInfo);
     void SetCameraMtxDirectly(const math::MTX34& rMtx);
     void SetPerspective(f32 fovy, f32 aspect, f32 near, f32 far);

@@ -34,64 +34,12 @@ public:
 
     /**
      * \~english @brief Tests whether an error occurred while reading the save
-     * file
-     * @typo
+     * file.
+     * \~japanese セーブファイルを読む時にエラーが発生したかどうかテストする。
+     * \~english @note Might be deprecated or inlined.
+     * \~japanese @note 非推奨になったかインラインされる可能性がある。
      */
     bool isErrorOccured() const;
-
-    /**
-     * \~english @brief Gets the Sports Pack player data at the specified player
-     * list index
-     *
-     * \~english @param idx Player list index
-     */
-    RPSportsPlayerData* getSportsPlayerData(u32 idx) const;
-    /**
-     * \~english @brief Sets the Sports Pack player data at the specified player
-     * list index
-     *
-     * \~english @param pPlayerData Player data
-     * \~english @param idx Player list index
-     */
-    void setSportsPlayerData(const RPSportsPlayerData* pPlayerData, u32 idx);
-
-    /**
-     * \~english @brief Gets the Sports Pack system data
-     */
-    RPSportsSystemData* getSportsSystemData() const;
-    /**
-     * \~english @brief Sets the Sports Pack system data
-     *
-     * \~english @param pSystemData System data
-     */
-    void setSportsSystemData(const RPSportsSystemData* pSystemData);
-
-    /**
-     * \~english @brief Gets the Party Pack player data at the specified player
-     * list index
-     *
-     * \~english @param idx Player list index
-     */
-    RPPartyPlayerData* getPartyPlayerData(u32 idx) const;
-    /**
-     * \~english @brief Sets the Party Pack player data at the specified player
-     * list index
-     *
-     * \~english @param pPlayerData Player data
-     * \~english @param idx Player list index
-     */
-    void setPartyPlayerData(const RPPartyPlayerData* pPlayerData, u32 idx);
-
-    /**
-     * \~english @brief Gets the Party Pack system data
-     */
-    RPPartySystemData* getPartySystemData() const;
-    /**
-     * \~english @brief Sets the Party Pack system data
-     *
-     * \~english @param pSystemData System data
-     */
-    void setPartySystemData(const RPPartySystemData* pSystemData);
 
     /**
      * \~english @brief Deserializes this object from the specified stream

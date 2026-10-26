@@ -1011,7 +1011,7 @@ typedef enum {
         /* get value  */ #define GX_BP_GET_SU_SIZE_SCALE(reg) GX_BITGET((reg), 16, 16)
         /* set value  */ #define GX_BP_SET_SU_SIZE_SCALE(reg, x) ((reg) = GX_BITSET((reg), 16, 16, x))
 
-        //! @typo should be shift, not bitor for the reg... but this works better? Somehow?
+        //! @note should be shift, not bitor for the reg... but this works better? Somehow?
         /* masker     */ #define GX_BP_SU_SIZE_SCALE_MASK_FUNC(mask, reg) (mask | ((reg)))
 
 // RANGEBIAS [15:15] (1)

@@ -9,7 +9,8 @@
 
 /**
  * \~english @brief Mii data source iterator
- * @typo
+ * \~english @note typo
+ * \~japanese @note タイプミス
  */
 class RPSysKokeshiIterater {
 private:

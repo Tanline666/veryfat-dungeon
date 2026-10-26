@@ -5,7 +5,6 @@
 #include <nw4r/snd/snd_BasicPlayer.h>
 #include <nw4r/snd/snd_DisposeCallback.h>
 #include <nw4r/snd/snd_SoundThread.h>
-
 #include <nw4r/ut.h>
 
 namespace nw4r {
@@ -183,7 +182,7 @@ private:
     u32 mTickCounter;                                // at 0x118
 
     static volatile s16 mGlobalVariable[LOCAL_VARIABLE_NUM];
-    static bool mGobalVariableInitialized; // @typo
+    static bool mGobalVariableInitialized; //!< typo
 };
 
 } // namespace detail

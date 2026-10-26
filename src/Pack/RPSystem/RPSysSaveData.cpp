@@ -56,82 +56,6 @@ bool RPSysSaveData::isErrorOccured() const {
 }
 
 /**
- * \~english @brief Gets the Sports Pack player data at the specified player
- * list index
- *
- * \~english @param idx Player list index
- */
-RPSportsPlayerData* RPSysSaveData::getSportsPlayerData(u32 idx) const {
-    return &mpSportsPlayerList[idx];
-}
-
-/**
- * \~english @brief Sets the Sports Pack player data at the specified player
- * list index
- *
- * \~english @param pPlayerData Player data
- * \~english @param idx Player list index
- */
-void RPSysSaveData::setSportsPlayerData(const RPSportsPlayerData* pPlayerData,
-                                        u32 idx) {
-    mpSportsPlayerList[idx] = *pPlayerData;
-}
-
-/**
- * \~english @brief Gets the Sports Pack system data
- */
-RPSportsSystemData* RPSysSaveData::getSportsSystemData() const {
-    return mpSportsSystemData;
-}
-
-/**
- * \~english @brief Sets the Sports Pack system data
- *
- * \~english @param pSystemData System data
- */
-void RPSysSaveData::setSportsSystemData(const RPSportsSystemData* pSystemData) {
-    *mpSportsSystemData = *pSystemData;
-}
-
-/**
- * \~english @brief Gets the Party Pack player data at the specified player list
- * index
- *
- * \~english @param idx Player list index
- */
-RPPartyPlayerData* RPSysSaveData::getPartyPlayerData(u32 idx) const {
-    return &mpPartyPlayerList[idx];
-}
-
-/**
- * \~english @brief Sets the Party Pack player data at the specified player list
- * index
- *
- * \~english @param pPlayerData Player data
- * \~english @param idx Player list index
- */
-void RPSysSaveData::setPartyPlayerData(const RPPartyPlayerData* pPlayerData,
-                                       u32 idx) {
-    mpPartyPlayerList[idx] = *pPlayerData;
-}
-
-/**
- * \~english @brief Gets the Party Pack system data
- */
-RPPartySystemData* RPSysSaveData::getPartySystemData() const {
-    return mpPartySystemData;
-}
-
-/**
- * \~english @brief Sets the Party Pack system data
- *
- * \~english @param pSystemData System data
- */
-void RPSysSaveData::setPartySystemData(const RPPartySystemData* pSystemData) {
-    *mpPartySystemData = *pSystemData;
-}
-
-/**
  * \~english @brief Deserializes this object from the specified stream
  *
  * \~english @param rStrm Memory stream
@@ -139,13 +63,6 @@ void RPSysSaveData::setPartySystemData(const RPPartySystemData* pSystemData) {
  */
 void RPSysSaveData::read(EGG::RamStream& rStrm, const void* pRawSave) {
     mFlags.makeAllZero();
-
-    if (rStrm.read_u32() != SIGNATURE_PACK) {
-        mFlags.setBit(EFlag_BadPack);
-
-        reset();
-        return;
-    }
 
     if (rStrm.read_u32() != SIGNATURE_VERSION) {
         mFlags.setBit(EFlag_BadVersion);
@@ -174,25 +91,6 @@ void RPSysSaveData::read(EGG::RamStream& rStrm, const void* pRawSave) {
         reset();
         return;
     }
-}
-
-/**
- * \~english @brief Serializes this object to the specified stream
- *
- * \~english @param rStrm Memory stream
- * \~english @param pRawSave Raw save data
- */
-void RPSysSaveData::write(EGG::RamStream& rStrm, const void* pRawSave) const {
-    rStrm.write_u32(SIGNATURE_PACK);
-    rStrm.write_u32(SIGNATURE_VERSION);
-
-    mpSportsSystemData->write(rStrm);
-
-    for (int i = 0; i < PLAYER_LIST_SIZE; i++) {
-        mpSportsPlayerList[i].write(rStrm);
-    }
-
-    rStrm.write_u32(calcCrc(pRawSave, rStrm.getPosition()));
 }
 
 /**

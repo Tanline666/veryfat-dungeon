@@ -1,7 +1,6 @@
 #include <Pack/RPKernel.h>
 #include <Pack/RPSystem.h>
-#include <Pack/common_message.h>
-#include <Pack/sports_message.h>
+#include <Pack/health_message.h>
 
 #include <egg/core.h>
 
@@ -12,11 +11,7 @@
 /**
  * \~english @brief Pack-specific message file name
  */
-#if defined(PACK_SPORTS)
-#define PACK_MSG_FILE_NAME "sports_message.bmg"
-#elif defined(PACK_PARTY)
-#define PACK_MSG_FILE_NAME "party_message.bmg"
-#endif
+#define PACK_MSG_FILE_NAME "health_message.bmg"
 
 /**
  * \~english @brief Banner icon TPL file name
@@ -41,92 +36,6 @@ static const char* SAVE_FILE_NAME = "RPParty.dat";
 #endif
 
 RP_SINGLETON_IMPL_EX(RPSysSaveDataMgr);
-
-/**
- * \~english @brief Gets the Sports Pack player data at the specified player
- * list index
- *
- * \~english @param idx Player list index
- */
-RPSportsPlayerData RPSysSaveDataMgr::getSportsPlayerData(s32 idx) const {
-    return *mpSaveData->getSportsPlayerData(idx);
-}
-
-/**
- * \~english @brief Sets the Sports Pack player data at the specified player
- * list index
- *
- * \~english @param rPlayerData Player data
- * \~english @param idx Player list index
- */
-void RPSysSaveDataMgr::setSportsPlayerData(
-    const RPSportsPlayerData& rPlayerData, s32 idx) {
-
-    RPSportsPlayerData clone(rPlayerData);
-    mpSaveData->setSportsPlayerData(&clone, idx);
-}
-
-/**
- * \~english @brief Gets the Sports Pack system data
- */
-RPSportsSystemData RPSysSaveDataMgr::getSportsSystemData() const {
-    return *mpSaveData->getSportsSystemData();
-}
-
-/**
- * \~english @brief Sets the Sports Pack system data
- *
- * \~english @param rSystemData System data
- */
-void RPSysSaveDataMgr::setSportsSystemData(
-    const RPSportsSystemData& rSystemData) {
-
-    RPSportsSystemData clone(rSystemData);
-    mpSaveData->setSportsSystemData(&clone);
-}
-
-/**
- * \~english @brief Gets the Party Pack player data at the specified player list
- * index
- *
- * \~english @param idx Player list index
- */
-RPPartyPlayerData RPSysSaveDataMgr::getPartyPlayerData(s32 idx) const {
-    return *mpSaveData->getPartyPlayerData(idx);
-}
-
-/**
- * \~english @brief Sets the Party Pack player data at the specified player list
- * index
- *
- * \~english @param rPlayerData Player data
- * \~english @param idx Player list index
- */
-void RPSysSaveDataMgr::setPartyPlayerData(const RPPartyPlayerData& rPlayerData,
-                                          s32 idx) {
-
-    RPPartyPlayerData clone(rPlayerData);
-    mpSaveData->setPartyPlayerData(&clone, idx);
-}
-
-/**
- * \~english @brief Gets the Party Pack system data
- */
-RPPartySystemData RPSysSaveDataMgr::getPartySystemData() const {
-    return *mpSaveData->getPartySystemData();
-}
-
-/**
- * \~english @brief Sets the Party Pack system data
- *
- * \~english @param rSystemData System data
- */
-void RPSysSaveDataMgr::setPartySystemData(
-    const RPPartySystemData& rSystemData) {
-
-    RPPartySystemData clone(rSystemData);
-    mpSaveData->setPartySystemData(&clone);
-}
 
 /**
  * \~english @brief Checks which save data files exist on the NAND
@@ -522,128 +431,6 @@ u32 RPSysSaveDataMgr::getSaveFileNum() const {
  */
 void RPSysSaveDataMgr::finishNandAccess() {
     mFlags.resetBit(EFlag_NandAccess);
-}
-
-/**
- * \~english @brief Updates the save manager state
- *
- * \~english @param display Whether the scene is fully displayed
- */
-void RPSysSaveDataMgr::update(bool display) {
-    if (mFlags.offBit(EFlag_AsyncSave)) {
-        return;
-    }
-    if (mFlags.onBit(EFlag_NandAccess)) {
-        return;
-    }
-
-    if (isErrorOccured()) {
-        if (mNandErrorCode == NAND_RESULT_BUSY) {
-            RPSysSystemWinMgr* pWinMgr = RP_GET_INSTANCE(RPSysSystemWinMgr);
-
-            if (mFlags.offBit(EFlag_ErrorWindow)) {
-                // "Unable to save."
-                pWinMgr->setSystemWindow(RPSysSystemWinMgr::E_WINDOW_TYPE_ERROR,
-                                         MSG_GROUP(CMN_MSG_171_000), NULL, 0);
-
-                pWinMgr->setCursors();
-                mFlags.setBit(EFlag_ErrorWindow);
-
-            } else if (pWinMgr->getResult() ==
-                       RPSysSystemWinMgr::RESULT_CONTINUE) {
-
-                mFlags.resetBit(EFlag_AsyncSave);
-                mFlags.resetBit(EFlag_ErrorWindow);
-            }
-
-        } else if (display) {
-            checkContinueReject();
-        }
-
-    } else {
-        mFlags.resetBit(EFlag_AsyncSave);
-        mFlags.resetBit(EFlag_ErrorWindow);
-    }
-}
-
-/**
- * \~english @brief Initializes the banner file binary
- */
-void RPSysSaveDataMgr::initBanner() {
-    EGG::Heap* pHeap =
-        RP_GET_INSTANCE(RPSysSceneMgr)->getCurrentSceneRP()->getHeap();
-
-    void* pMessageRes =
-        RPSysResourceManager::GetMessageResource(PACK_MSG_FILE_NAME);
-
-    RPSysMessage* pMessage = new (pHeap) RPSysMessage(pMessageRes, pHeap);
-
-    const wchar_t* pSaveTitleMsg =
-        pMessage->GetMsg(MSG_TUPLE(SP_MSG_29940_000));
-    const wchar_t* pSaveSubTitleMsg =
-        pMessage->GetMsg(MSG_TUPLE(SP_MSG_29941_000));
-
-    NANDInitBanner(mpBannerFile, 0, pSaveTitleMsg, pSaveSubTitleMsg);
-
-    u8* pTplBuffer =
-        static_cast<u8*>(EGG::Heap::alloc(mBannerFileSize, 32, pHeap));
-
-    void* pTplFile =
-        EGG::DvdRipper::loadToMainRAM(BANNER_ICON_FILE_NAME, pTplBuffer, pHeap,
-                                      EGG::DvdRipper::ALLOC_DIR_HEAD);
-
-    TPLPalette* pPalette = static_cast<TPLPalette*>(pTplFile);
-    TPLBind(pPalette);
-
-    TPLDescriptor* pBannerTexture = TPLGet(pPalette, ETplIndex_BannerTexture);
-
-    memcpy(mpBannerFile->bannerTexture, pBannerTexture->textureHeader->data,
-           sizeof(mpBannerFile->bannerTexture));
-
-    for (int i = 0; i < BANNER_ICON_FRAME_NUM; i++) {
-        TPLDescriptor* pIconTexture =
-            TPLGet(pPalette, ETplIndex_IconTexture + i);
-
-        if (pIconTexture != NULL) {
-            memcpy(mpBannerFile->iconTexture[i],
-                   pIconTexture->textureHeader->data, NAND_BANNER_ICON_SIZE);
-
-            NAND_BANNER_SET_ICON_SPEED(mpBannerFile, i, 2);
-        }
-    }
-
-    // Frame with a speed of zero marks the end of the animation
-    NAND_BANNER_SET_ICON_SPEED(mpBannerFile, BANNER_ICON_FRAME_NUM + 1, 0);
-}
-
-/**
- * \~english @brief Prompts the user to continue without saving
- */
-void RPSysSaveDataMgr::checkContinueReject() {
-    RPSysSystemWinMgr* pWinMgr = RP_GET_INSTANCE(RPSysSystemWinMgr);
-
-    if (mFlags.offBit(EFlag_ErrorWindow)) {
-        // "The game could not be saved. Continue without saving?"
-        pWinMgr->setSystemWindow(RPSysSystemWinMgr::E_WINDOW_TYPE_ERROR,
-                                 MSG_GROUP(CMN_MSG_052_000), NULL, 0);
-
-        pWinMgr->setDefaultCursor(RPSysSystemWinMgr::E_BUTTON_YES);
-        pWinMgr->setCursors();
-
-        mFlags.setBit(EFlag_ErrorWindow);
-
-    } else if (pWinMgr->getResult() == RPSysSystemWinMgr::RESULT_YES) {
-        mFlags.setBit(EFlag_DisableSave);
-
-        mFlags.resetBit(EFlag_AsyncSave);
-        mFlags.resetBit(EFlag_ErrorWindow);
-
-    } else if (pWinMgr->getResult() == RPSysSystemWinMgr::RESULT_NO) {
-        RP_GET_INSTANCE(RPSysSceneMgr)->returnToMenu(false);
-
-        mFlags.resetBit(EFlag_AsyncSave);
-        mFlags.resetBit(EFlag_ErrorWindow);
-    }
 }
 
 /**

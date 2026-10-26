@@ -79,17 +79,18 @@ struct ResAnmTexPatInfoData {
 };
 
 struct ResAnmTexPatData {
-    ResBlockHeaderData header; // at 0x0
-    u32 revision;              // at 0x8
-    s32 toResFileData;         // at 0xC
-    s32 toTexPatDataDic;       // at 0x10
-    s32 toTexNameArray;        // at 0x14
-    s32 toPlttNameArray;       // at 0x18
-    s32 toResTexArray;         // at 0x1C
-    s32 toResPlttArray;        // at 0x20
-    s32 name;                  // at 0x24
-    s32 original_path;         // at 0x28
-    ResAnmTexPatInfoData info; // at 0x2C
+    ResBlockHeaderData header; //!< at 0x0
+    u32 revision;              //!< at 0x8
+    s32 toResFileData;         //!< at 0xC
+    s32 toTexPatDataDic;       //!< at 0x10
+    s32 toTexNameArray;        //!< at 0x14
+    s32 toPlttNameArray;       //!< at 0x18
+    s32 toResTexArray;         //!< at 0x1C
+    s32 toResPlttArray;        //!< at 0x20
+    s32 toResUserData;         //!< at 0x24
+    s32 name;                  //!< at 0x28
+    s32 original_path;         //!< at 0x2C
+    ResAnmTexPatInfoData info; //!< at 0x30
 };
 
 class ResAnmTexPat : public ResCommon<ResAnmTexPatData> {

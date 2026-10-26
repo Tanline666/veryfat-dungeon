@@ -114,13 +114,14 @@ struct ResAnmTexSrtInfoData : TexSrtTypedef {
 };
 
 struct ResAnmTexSrtData {
-    ResBlockHeaderData header; // at 0x0
-    u32 revision;              // at 0x8
-    s32 toResFileData;         // at 0xC
-    s32 toTexSrtDataDic;       // at 0x10
-    s32 name;                  // at 0x14
-    s32 original_path;         // at 0x18
-    ResAnmTexSrtInfoData info; // at 0x1C
+    ResBlockHeaderData header; //!< at 0x0
+    u32 revision;              //!< at 0x8
+    s32 toResFileData;         //!< at 0xC
+    s32 toTexSrtDataDic;       //!< at 0x10
+    s32 toResUserData;         //!< at 0x14
+    s32 name;                  //!< at 0x18
+    s32 original_path;         //!< at 0x1C
+    ResAnmTexSrtInfoData info; //!< at 0x20
 };
 
 class ResAnmTexSrt : public ResCommon<ResAnmTexSrtData> {

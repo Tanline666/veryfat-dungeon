@@ -2,7 +2,7 @@
 #include <Pack/RPKernel.h>
 #include <Pack/RPSystem.h>
 #include <Pack/RPUtility.h>
-#include <Pack/common_message.h>
+#include <Pack/health_message.h>
 
 #include <RVLFaceLib.h>
 
@@ -270,9 +270,9 @@ void RPSysKokeshiManager::LoadStaticResource() {
     mpCommonMessage = new (pResHeap) RPSysMessage(pCommonRes, pResHeap);
 
     static const bmg_message GUEST_NAME_MSGS[RFL_DEFAULT_CHAR_MAX] = {
-        MSG_TUPLE(CMN_MSG_660_000), MSG_TUPLE(CMN_MSG_661_000),
-        MSG_TUPLE(CMN_MSG_662_000), MSG_TUPLE(CMN_MSG_663_000),
-        MSG_TUPLE(CMN_MSG_664_000), MSG_TUPLE(CMN_MSG_665_000),
+        MSG_TUPLE(MSG_14909_000), MSG_TUPLE(MSG_14910_000),
+        MSG_TUPLE(MSG_14911_000), MSG_TUPLE(MSG_14912_000),
+        MSG_TUPLE(MSG_14913_000), MSG_TUPLE(MSG_14914_000),
     };
 
     for (u16 i = 0; i < RFL_DEFAULT_CHAR_MAX; i++) {

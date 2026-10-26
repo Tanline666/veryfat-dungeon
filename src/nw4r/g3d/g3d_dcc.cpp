@@ -21,5 +21,15 @@ void CalcTexMtx(math::MTX34* pMtx, bool set, const TexSrt& rSrt,
     }
 }
 
+void CalcTexMtx(math::MTX34* pMtx, bool set, const TexSrt& rSrt,
+                TexSrt::Flag flag) {
+    bool identity = TRUE;
+
+    identity = !detail::dcc::CalcTexMtx_Basic(pMtx, set, rSrt, flag);
+    if (identity && set) {
+        math::MTX34Identity(pMtx);
+    }
+}
+
 } // namespace g3d
 } // namespace nw4r

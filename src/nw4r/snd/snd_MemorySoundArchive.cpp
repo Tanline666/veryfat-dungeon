@@ -151,6 +151,7 @@ ut::FileStream* MemorySoundArchive::OpenExtStream(void* pBuffer, int size,
 #pragma unused(offset)
 #pragma unused(length)
 
+    NW4R_WARNING(FALSE, 187, "Cannot OpenExtStream for MemorySoundArchive\n");
     return NULL;
 }
 

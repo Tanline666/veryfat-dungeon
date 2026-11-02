@@ -8,14 +8,17 @@ CreationQueue::CreationQueue() : mNumItem(0) {}
 void CreationQueue::AddParticleCreation(const EmitterInheritSetting* pSetting,
                                         Particle* pParticle,
                                         EmitterResource* pResource,
-                                        u16 calcRemain) {
+                                        u16 calcRemain,
+                                        const math::VEC3* pPosition,
+                                        const math::VEC3* pVelocity) {
 
     if (mNumItem >= QUEUE_SIZE) {
+        NW4R_WARNING(FALSE, 37, "EffectLib: CreationQueue Full\n");
         return;
     }
 
-    // @bug Flags field not initialized
-    mQueueData[mNumItem].mType = CreationQueueData::TYPE_PARTICLE;
+    mQueueData[mNumItem].mType = TYPE_PARTICLE;
+    mQueueData[mNumItem].mFlags = NULL;
     mQueueData[mNumItem].mCalcRemain = calcRemain;
     mQueueData[mNumItem].mInheritSetting = *pSetting;
     mQueueData[mNumItem].mReferenceParticle = pParticle;
@@ -23,6 +26,18 @@ void CreationQueue::AddParticleCreation(const EmitterInheritSetting* pSetting,
     pParticle->Ref();
 
     mQueueData[mNumItem].mEmitterResource = pResource;
+
+    if (pPosition) {
+        mQueueData[mNumItem].mFlags |=
+            CreationQueue::CreationQueueData::OPTION_USE_POSITION;
+        mQueueData[mNumItem].mPosition = *pPosition;
+    }
+
+    if (pVelocity) {
+        mQueueData[mNumItem].mFlags |=
+            CreationQueue::CreationQueueData::OPTION_USE_VELOCITY;
+        mQueueData[mNumItem].mVelocity = *pVelocity;
+    }
 
     mNumItem++;
 }
@@ -30,14 +45,17 @@ void CreationQueue::AddParticleCreation(const EmitterInheritSetting* pSetting,
 void CreationQueue::AddEmitterCreation(const EmitterInheritSetting* pSetting,
                                        Particle* pParticle,
                                        EmitterResource* pResource,
-                                       u16 calcRemain) {
+                                       u16 calcRemain,
+                                       const math::VEC3* pPosition,
+                                       const math::VEC3* pVelocity) {
 
     if (mNumItem >= QUEUE_SIZE) {
+        NW4R_WARNING(FALSE, 70, "EffectLib: CreationQueue Full\n");
         return;
     }
 
-    // @bug Flags field not initialized
-    mQueueData[mNumItem].mType = CreationQueueData::TYPE_EMITTER;
+    mQueueData[mNumItem].mType = TYPE_EMITTER;
+    mQueueData[mNumItem].mFlags = NULL;
     mQueueData[mNumItem].mCalcRemain = calcRemain;
     mQueueData[mNumItem].mInheritSetting = *pSetting;
     mQueueData[mNumItem].mReferenceParticle = pParticle;
@@ -45,6 +63,18 @@ void CreationQueue::AddEmitterCreation(const EmitterInheritSetting* pSetting,
     pParticle->Ref();
 
     mQueueData[mNumItem].mEmitterResource = pResource;
+
+    if (pPosition) {
+        mQueueData[mNumItem].mFlags |=
+            CreationQueue::CreationQueueData::OPTION_USE_POSITION;
+        mQueueData[mNumItem].mPosition = *pPosition;
+    }
+
+    if (pVelocity) {
+        mQueueData[mNumItem].mFlags |=
+            CreationQueue::CreationQueueData::OPTION_USE_VELOCITY;
+        mQueueData[mNumItem].mVelocity = *pVelocity;
+    }
 
     mNumItem++;
 }
@@ -54,7 +84,7 @@ void CreationQueue::Execute() {
         CreationQueueData& rData = mQueueData[i];
 
         switch (rData.mType) {
-        case CreationQueueData::TYPE_PARTICLE: {
+        case TYPE_PARTICLE: {
             rData.mReferenceParticle->mParticleManager->mManagerEM
                 ->CreateEmitterTmp(rData.mEmitterResource,
                                    &rData.mInheritSetting,
@@ -64,7 +94,7 @@ void CreationQueue::Execute() {
             break;
         }
 
-        case CreationQueueData::TYPE_EMITTER: {
+        case TYPE_EMITTER: {
             rData.mReferenceParticle->mParticleManager->mManagerEM
                 ->CreateEmitter(rData.mEmitterResource, &rData.mInheritSetting,
                                 rData.mReferenceParticle, rData.mCalcRemain);

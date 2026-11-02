@@ -49,6 +49,13 @@ public:
             math::_VEC3 mWorldYAxis; // at 0x0
         } mNoDesign;                 // at 0xB0
 
+        /**
+         * \~english @brief Constructor
+         * \~japanese @brief コンストラクタ
+         *
+         * @param rViewMtx
+         * @param pManager
+         */
         AheadContext(const math::MTX34& rViewMtx, ParticleManager* pManager);
     };
 
@@ -119,6 +126,10 @@ public:
     };
 
 public:
+    /**
+     * \~english @brief Constructor
+     * \~japanese @brief コンストラクタ
+     */
     DrawStrategyImpl();
 
     virtual GetFirstDrawParticleFunc
@@ -128,10 +139,12 @@ public:
     GetGetNextDrawParticleFunc(int drawOrder); // at 0x14
 
 protected:
-    void InitTexture(const EmitterDrawSetting& rSetting);
-    void InitTev(const EmitterDrawSetting& rSetting, const DrawInfo& rInfo);
-    void InitColor(ParticleManager* pManager,
-                   const EmitterDrawSetting& rSetting, const DrawInfo& rInfo);
+    void _InitTexture(const EmitterDrawSetting& rSetting);
+    void _InitTev(const EmitterDrawSetting& rSetting, const DrawInfo& rInfo);
+    void _InitColor(ParticleManager* pManager,
+                    const EmitterDrawSetting& rSetting, const DrawInfo& rInfo);
+    void Initialize(ParticleManager* pManager,
+                    const EmitterDrawSetting& rSetting, const DrawInfo& rInfo);
 
     void SetupGP(Particle* pParticle, const EmitterDrawSetting& rSetting,
                  const DrawInfo& rInfo, bool first, bool xfDirty);

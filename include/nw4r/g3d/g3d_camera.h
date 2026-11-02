@@ -90,12 +90,12 @@ public:
 
     /**
      * \~english @brief Initializes camera data.
-     * \~japanese @brief カメラデータの初期化を行う。
+     * \~japanese @brief カメラデータを初期化する。
      */
     void Init();
     /**
      * \~english @brief Initializes camera data.
-     * \~japanese @brief カメラデータの初期化を行う。
+     * \~japanese @brief カメラデータを初期化する。
      *
      * \~english @param efbWidth Embedded frame buffer width
      * \~japanese @param efbWidth 混載フレームバッファの幅

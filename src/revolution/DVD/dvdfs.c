@@ -84,12 +84,10 @@ s32 DVDConvertPathToEntrynum(const char* path) {
     it = currentDirectory;
 
     while (TRUE) {
-        // End of string -> return what we have
         if (*path == '\0') {
             return it;
         }
 
-        // Ignore initial slash: /Path/File vs Path/File
         if (*path == '/') {
             it = 0;
             path++;
@@ -161,20 +159,15 @@ s32 DVDConvertPathToEntrynum(const char* path) {
             OS_ASSERT(!illegal_format, "DVDConvertEntrynumToPath(possibly DVDOpen or DVDChangeDir or DVDOpenDir): specified directory or file (%s) doesn't match standard 8.3 format. This is a temporary restriction and will be removed soon\n", backup_path);
             // clang-format on
         } else {
-            // We've ensured the directory is not special.
-            // Isolate the name of the current item in the path string.
             name_end = path;
             while (*name_end != '\0' && *name_end != '/') {
                 name_end++;
             }
         }
 
-        // If the name was delimited by a '/' rather than truncated.
-        // This must be expressed as a ternary, and an enum cannot be used..
         name_delimited_by_slash = (*name_end == '\0') ? 0 : 1;
         name_length = name_end - path;
 
-        // Traverse all children of the parent.
         anchor = it + 1;
         new_var = FstStart;
         while (anchor < new_var[it].folder.sibling_next) {
@@ -203,9 +196,6 @@ s32 DVDConvertPathToEntrynum(const char* path) {
         return -1;
 
     descend:
-        // If the path was truncated, there is nowhere else to go
-        // These basic blocks have to go here right at the end, accessed via a
-        // goto. An odd choice.
         if (!name_delimited_by_slash) {
             return anchor;
         }

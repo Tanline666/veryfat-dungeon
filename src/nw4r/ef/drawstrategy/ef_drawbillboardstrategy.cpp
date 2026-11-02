@@ -248,9 +248,9 @@ void DrawBillboardStrategy::InitGraphics(const DrawInfo& rInfo,
     const EmitterDrawSetting& rSetting =
         *pManager->mResource->GetEmitterDrawSetting();
 
-    InitTexture(rSetting);
-    InitTev(rSetting, rInfo);
-    InitColor(pManager, rSetting, rInfo);
+    _InitTexture(rSetting);
+    _InitTev(rSetting, rInfo);
+    _InitColor(pManager, rSetting, rInfo);
 
     GXEnableTexOffsets(GX_TEXCOORD0, TRUE, TRUE);
 

@@ -142,7 +142,7 @@ void* RunThread_(void* arg) {
     return NULL;
 }
 
-void DumpException_(const ExceptionCallbackParam* exPtr) {
+static void DumpException_(const ExceptionCallbackParam* exPtr) {
     u16 error = exPtr->error;
     const OSContext* context = exPtr->context;
     u32 dsisr = exPtr->dsisr;
@@ -158,16 +158,19 @@ void DumpException_(const ExceptionCallbackParam* exPtr) {
     while (TRUE) {
         PrintContext_(error, context, dsisr, dar);
         if (sException.console && DirectPrint_IsActive()) {
+#if !defined(PRODUCT)
+            Console_SetVisible(sException.console, TRUE);
+#endif
             Console_DrawDirect(sException.console);
         }
         if (sException.callback) {
             u16 dispInfo = sException.dispInfo;
-            while (dispInfo == sException.dispInfo) {
+            do {
                 if (!(*(sException.callback))(sException.console,
                                               sException.callbackArg)) {
                     return;
                 }
-            }
+            } while (dispInfo == sException.dispInfo);
         } else if (sException.console) {
             DrawConsoleEndless_(sException.console);
         } else {
@@ -485,13 +488,13 @@ void WaitTime_(s32 time) {
     }
 }
 
-void DrawConsoleEndless_(ConsoleHandle console) {
+static void DrawConsoleEndless_(ConsoleHandle console) {
     s32 line = Console_GetBufferHeadLine(console);
     while (TRUE) {
         if (line >= Console_GetTotalLines(console)) {
             line = Console_GetBufferHeadLine(console);
         }
-        Console_SetViewBaseLine(console, line);
+        Console_SetViewBaseLine(sException.console, line);
         Console_DrawDirect(console);
         WaitTime_(200);
         line++;

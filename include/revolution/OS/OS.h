@@ -24,6 +24,8 @@ typedef enum {
     OS_CONSOLE_NDEV_1_2 = 0x10000012,
     OS_CONSOLE_NDEV_2_0 = 0x10000020,
     OS_CONSOLE_NDEV_2_1 = 0x10000021,
+
+    OS_CONSOLE_RVA_1 = 0x00000100
 } OSConsoleType;
 
 typedef enum {

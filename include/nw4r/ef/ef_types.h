@@ -49,11 +49,25 @@ enum TextureLayer {
     TEX_LAYER_MAX
 };
 
+/**
+ * \~english @brief Enum that evaluates effect status.
+ * \~japanese @brief エフェクトの状態を評価するenum。
+ */
 enum EvaluateStatus {
     NW4R_EF_ES_WAIT,
     NW4R_EF_ES_DONE,
     NW4R_EF_ES_STOP,
     NW4R_EF_ES_SKIP,
+};
+
+/**
+ * \~english @brief Effect calculation options.
+ * \~japanese @brief エフェクトの計算オプション。
+ */
+enum CalcOption {
+    CALC_TYPE_NORMAL,
+    CALC_TYPE_BILLBOARD,
+    CALC_TYPE_EXTENDED,
 };
 
 typedef u32 ForEachParam;

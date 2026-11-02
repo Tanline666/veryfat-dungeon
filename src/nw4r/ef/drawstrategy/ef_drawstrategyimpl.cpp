@@ -26,7 +26,7 @@ const math::MTX34 DrawStrategyImpl::mIdentityMtx(
  ******************************************************************************/
 DrawStrategyImpl::DrawStrategyImpl() {}
 
-void DrawStrategyImpl::InitTexture(const EmitterDrawSetting& rSetting) {
+void DrawStrategyImpl::_InitTexture(const EmitterDrawSetting& rSetting) {
     mNumTexmap = 0;
 
     mTexmapMap[TEX_LAYER_1] = -1;
@@ -51,8 +51,8 @@ void DrawStrategyImpl::InitTexture(const EmitterDrawSetting& rSetting) {
     GXSetNumTexGens(mNumTexmap);
 }
 
-void DrawStrategyImpl::InitTev(const EmitterDrawSetting& rSetting,
-                               const DrawInfo& rInfo) {
+void DrawStrategyImpl::_InitTev(const EmitterDrawSetting& rSetting,
+                                const DrawInfo& rInfo) {
 
     int i;
 
@@ -180,9 +180,9 @@ void DrawStrategyImpl::InitTev(const EmitterDrawSetting& rSetting,
     }
 }
 
-void DrawStrategyImpl::InitColor(ParticleManager* pManager,
-                                 const EmitterDrawSetting& rSetting,
-                                 const DrawInfo& rInfo) {
+void DrawStrategyImpl::_InitColor(ParticleManager* pManager,
+                                  const EmitterDrawSetting& rSetting,
+                                  const DrawInfo& rInfo) {
 
 #pragma unused(pManager)
 

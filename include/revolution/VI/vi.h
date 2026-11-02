@@ -15,6 +15,8 @@ extern "C" {
 // Get TV scan mode from TV mode
 #define VI_TVMODE_SCANMODE(mode) ((mode) & 0b00000011)
 
+#define VI_PAD_FB_WIDTH(width) ((u16)(((u16)(width) + 15) & ~15))
+
 typedef enum {
     VI_TVFORMAT_NTSC,
     VI_TVFORMAT_PAL,

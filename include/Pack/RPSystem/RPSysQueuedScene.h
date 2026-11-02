@@ -18,9 +18,17 @@ public:
      */
     void reset();
 
+    /**
+     * \~english @brief Gets the ID of the next scene.
+     * \~japanese @brief 次のシーンのIDを取得する。
+     */
     s32 getNextSceneID() const {
         return mNextSceneID;
     }
+    /**
+     * \~english @brief Sets the ID of the next scene.
+     * \~japanese @brief 次のシーンのIDを設定する。
+     */
     void setNextSceneID(s32 id) {
         mNextSceneID = id;
     }

@@ -11,6 +11,10 @@ inline u16 UtlistSize(const ut::List* pList) {
     return pList->numObjects;
 }
 
+/**
+ * \~english @brief A list class for managing specific LinkedObjects.
+ * \~japanese @brief 特定のLinkedObjectを管理するためのリストクラス。
+ */
 class ActivityList {
 public:
     ut::List mActiveList;  // at 0x0
@@ -18,10 +22,21 @@ public:
     u16 mNumActive;        // at 0x18
 
 public:
+    /**
+     * \~english @brief Constructor
+     * \~japanese @brief コンストラクタ
+     */
     ActivityList() {
         SetOffset(0);
     }
 
+    /**
+     * \~english @brief Constructor
+     * \~japanese @brief コンストラクタ
+     *
+     * \~english @param offset Offset of Link object in list
+     * \~japanese @param offset リストのLinkオブジェクトのオフセット
+     */
     explicit ActivityList(u16 offset) {
         SetOffset(offset);
     }
@@ -32,6 +47,10 @@ public:
         mNumActive = 0;
     }
 
+    /**
+     * \~english @brief Removes all registered lists.
+     * \~japanese @brief 全ての登録されているリストを取り除く。
+     */
     void Initialize() {
         mActiveList.headObject = NULL;
         mActiveList.numObjects = 0;

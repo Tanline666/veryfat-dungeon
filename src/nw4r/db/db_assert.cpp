@@ -26,12 +26,12 @@ static void Assertion_Printf_(const char* pFmt, ...) {
 
 static bool ShowMapInfoSubroutine_(u32 addr, bool flag) {
     if (!MapFile_Exists()) {
-        return false;
+        return FALSE;
     }
 
     // ---- Indicates whether or not this is to be taken as an address
     if (addr < 0x80000000 || 0x82ffffff < addr) {
-        return false;
+        return FALSE;
     }
 
     {
@@ -44,9 +44,9 @@ static bool ShowMapInfoSubroutine_(u32 addr, bool flag) {
                 Assertion_Printf_("\n");
             }
             Assertion_Printf_("%s\n", strBuf);
-            return true;
+            return TRUE;
         } else {
-            return false;
+            return FALSE;
         }
     }
 }
@@ -138,6 +138,13 @@ DECL_WEAK void VWarning(const char* pFile, int line, const char* pFmt,
         OSVReport(pFmt, vList);
         OSReport("\n");
     }
+}
+
+DECL_WEAK void Warning(const char* pFile, int line, const char* pFmt, ...) {
+    std::va_list vList;
+    va_start(vList, pFmt);
+    VWarning(pFile, line, pFmt, vList);
+    va_end(vList);
 }
 
 void Assertion_ShowConsole(u32 tick) {

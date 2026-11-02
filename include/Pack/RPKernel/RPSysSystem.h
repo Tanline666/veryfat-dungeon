@@ -83,42 +83,51 @@ class RPSysSystem {
 
 public:
     /**
-     * \~english @brief Gets this class's singleton instance
+     * \~english @brief Gets this class's singleton instance.
+     * \~japanese @brief このクラスのSingletonインスタンスを取得する。
      */
     static RPSysSystem* instance() {
         return spInstance;
     }
 
     /**
-     * \~english @brief Auto-detects the screen's aspect ratio
+     * \~english @brief Auto-detects the screen's aspect ratio.
+     * \~japanese @brief 画面のアスペクト比を自動検出する。
      */
     static void setupTVMode();
     /**
-     * \~english @brief Auto-detects the render mode and progressive setting
+     * \~english @brief Auto-detects the render mode and progressive setting.
+     * \~japanese @brief
+     * レンダーモードとプログレッシブモードの設定を自動検出する。
      */
     static void setupRenderMode();
 
     /**
-     * \~english @brief Initializes the RP engine and its core components
+     * \~english @brief Initializes the RP engine and its core components.
+     * \~japanese @brief RPエンジンとの核心部分の初期化を行う。
      */
     static void initialize();
 
     /**
-     * \~english @brief Creates this class's singleton instance
+     * \~english @brief Creates this class's singleton instance.
+     * \~japanese @brief このクラスのSingletonインスタンスを作成する。
      */
     static void create();
 
     /**
-     * \~english @brief Gets the width of the framebuffer, in pixels
+     * \~english @brief Gets the width of the frame buffer in pixels.
+     * \~japanese @brief ピクセル単位でフレームバッファの幅を取得する。
      */
     u16 getFBWidth() const;
     /**
-     * \~english @brief Gets the height of the framebuffer, in pixels
+     * \~english @brief Gets the height of the frame buffer in pixels.
+     * \~japanese @brief ピクセル単位でフレームバッファの高さを取得する。
      */
     u16 getFBHeight() const;
 
     /**
-     * \~english @brief Loads the Pack Project build timestamp from the disc
+     * \~english @brief Loads the build timestamp from the disc.
+     * \~japanese @brief ディスクからビルドタイムスタンプを読み込む。
      */
     void createTimeStamp();
     /**
@@ -127,7 +136,8 @@ public:
     void createEffectWork();
     /**
      * \~english @brief Creates the engine's core components using the system
-     * heap
+     * heap.
+     * \~japanese @brief システムヒープでエンジンの核心部分を作成する。
      */
     void createFromSystemHeap();
 
@@ -136,7 +146,8 @@ public:
      */
     void setup();
     /**
-     * \~english @brief Enters the engine's main loop
+     * \~english @brief Enters the engine's main loop.
+     * \~japanese @brief エンジンのメインループに入る。
      */
     void mainLoop();
 
@@ -157,47 +168,63 @@ public:
     RPTime16 getCalendarTime16();
 
     /**
-     * \~english @brief Splits 32-bit calendar time into parts
-     * \~ @note If no input time is specified, this function operates on the
-     * current clock time.
+     * \~english @brief Splits the 32-bit calendar time into parts.
+     * \~japanese @brief 32ビット型の暦時間を分ける。
+     * \~english @note If no input time is specified, this function operates on
+     * the current clock time.
+     * \~japanese @note 入力時間が指定しない場合は、関数が現在の時間を使う。
      *
      * \~english @param pTime32 Input time
+     * \~japanese @param pTime32 入力時間
      * \~english @param rWDay Day of the week
+     * \~japanese @param rWDay 曜日
      * \~english @param rYear Year
+     * \~japanese @param rYear 年
      * \~english @param rMon Month (one-indexed)
+     * \~japanese @param rMon 月間 (1オリジン)
      * \~english @param rMDay Day of the month
+     * \~japanese @param rMDay 月間の一日
      * \~english @param rHour Hour
+     * \~japanese @param rHour 時間
      */
     void getCalendarTime(const RPTime32* pTime32, u32& rWDay, u32& rYear,
                          u32& rMon, u32& rMDay, u32& rHour);
 
     /**
-     * \~english @brief Splits 16-bit calendar time into parts
-     * \~ @note If no input time is specified, this function operates on the
-     * current clock time.
+     * \~english @brief Splits the 16-bit calendar time into parts.
+     * \~japanese @brief 16ビット型の暦時間を分ける。
+     * \~english @note If no input time is specified, this function operates on
+     * the current clock time.
+     * \~japanese @note 入力時間が指定しない場合は、関数が現在の時間を使う。
      *
      * \~english @param pTime16 Input time
+     * \~japanese @param pTime16 入力時間
      * \~english @param rYear Year
+     * \~japanese @param rYear 年
      * \~english @param rMon Month (one-indexed)
+     * \~japanese @param rMon 月間 (1オリジン)
      * \~english @param rMDay Day of the month
+     * \~japanese @param rMDay 月間の一日
      */
     void getCalendarTime(const RPTime16* pTime16, u32& rYear, u32& rMon,
                          u32& rMDay);
 
     /**
      * \~english @brief Shuts down the engine and exits the application
-     * @details Depending on the instructions from the scene manager, this will
-     * either exit to the system menu or shutdown the console.
+     * \~english @details Depending on the instructions from the scene manager,
+     * this will either exit to the system menu or shutdown the console.
      */
     void systemShutDown();
 
     /**
-     * \~english @brief Updates the system state during resource loading
+     * \~english @brief Updates the system state while loading resources.
+     * \~japanese @brief リソースを読み込む時にシステム状態を更新する。
      */
     void loadFrameWork();
 
     /**
-     * \~english @brief Gets the number of ticks per frame
+     * \~english @brief Gets the number of ticks per frame.
+     * \~japanese @brief フレーム毎のチックを取得する。
      */
     u8 getFrameRate() const;
     /**

@@ -13,10 +13,13 @@
 namespace nw4r {
 namespace ef {
 
-// Forward declarations
 struct EmitterInheritSetting;
 struct TextureData;
 
+/**
+ * \~english @brief ParticleParameter resources.
+ * \~japanese @brief ParticleParameterのリソース。
+ */
 struct ParticleParameterDesc {
     GXColor mColor[COLOR_LAYER_MAX][COLOR_IDX_MAX]; // at 0x0
     math::VEC2 size;                                // at 0x10
@@ -35,6 +38,10 @@ struct ParticleParameterDesc {
     u8 textureNames[1];                             // at 0x88
 };
 
+/**
+ * \~english @brief Parameters for the Particle class.
+ * \~japanese @brief Particleクラスのパラメータ。
+ */
 class ParticleParameter {
 public:
     GXColor mColor[COLOR_LAYER_MAX][COLOR_IDX_MAX]; // at 0x0
@@ -61,6 +68,10 @@ public:
     void Initialize(ParticleParameterDesc* pDesc, ParticleManager* pManager);
 };
 
+/**
+ * \~english @brief Class that represents a single particle.
+ * \~japanese @brief 1つのパーティクル（粒子）を表現するクラス。
+ */
 class Particle : public ReferencedObject {
     friend class ParticleManager;
 
@@ -75,11 +86,21 @@ public:
     u16 mCalcRemain;                   // at 0xE2
 
 public:
+    /**
+     * \~english @brief Constructor
+     * \~japanese @brief コンストラクタ
+     */
     Particle();
+    /**
+     * \~english @brief Destructor
+     * \~japanese @brief デストラクタ
+     */
     ~Particle();
 
     virtual void SendClosing(); // at 0x8
+protected:
     virtual void DestroyFunc(); // at 0xC
+public:
     virtual bool Initialize(u16 life, math::VEC3 pos, math::VEC3 vel,
                             ParticleManager* pManager,
                             const math::MTX34* pSpace, float momentum,

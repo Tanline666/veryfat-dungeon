@@ -65,9 +65,9 @@ void AnmObjChr::Release() {
     SetAnmFlag(FLAG_ANM_BOUND, false);
 }
 
-AnmObjChrRes* AnmObjChr::Attach(int idx, AnmObjChrRes* pRes) {
+AnmObjChrRes* AnmObjChr::Attach(int idx, AnmObjChrRes* pObj) {
 #pragma unused(idx)
-#pragma unused(pRes)
+#pragma unused(pObj)
 
     return NULL;
 }

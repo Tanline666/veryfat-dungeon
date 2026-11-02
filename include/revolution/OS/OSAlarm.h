@@ -8,6 +8,7 @@ extern "C" {
 // Forward declarations
 typedef struct OSAlarm OSAlarm;
 typedef struct OSContext OSContext;
+typedef struct OSThread OSThread;
 
 typedef void (*OSAlarmHandler)(OSAlarm* alarm, OSContext* ctx);
 
@@ -36,6 +37,7 @@ void OSCancelAlarm(OSAlarm* alarm);
 void OSSetAlarmTag(OSAlarm* alarm, u32 tag);
 void OSSetAlarmUserData(OSAlarm* alarm, void* userData);
 void* OSGetAlarmUserData(const OSAlarm* alarm);
+void __OSCancelInternalAlarms(OSThread* thread);
 
 #ifdef __cplusplus
 }

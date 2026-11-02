@@ -4,6 +4,7 @@
 
 #include <MSL/cmath>
 
+#include <nw4r/db/db_assert.h>
 #include <nw4r/math/math_constant.h>
 
 #include <revolution/OS.h>
@@ -78,10 +79,12 @@ inline f32 FModf(f32 x, f32* pY) {
 }
 
 inline f32 FSqrt(f32 x) {
+    NW4R_WARNING(x >= 0.0f, 627, "FSqrt: Input is out of the domain.");
     return x <= 0.0f ? 0.0f : x * FrSqrt(x);
 }
 
 inline f32 FLog(f32 x) {
+    NW4R_WARNING(x > 0.0f, 295, "FLog: Input is out of the domain.");
     if (x > 0.0f) {
         return detail::FLog(x);
     }

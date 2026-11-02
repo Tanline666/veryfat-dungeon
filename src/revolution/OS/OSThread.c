@@ -440,7 +440,7 @@ BOOL OSCreateThread(OSThread* thread, OSThreadFunc func, void* funcArg,
     OSThread* tail;
     void* sp;
 
-    if (prio < OS_PRIORITY_MIN || prio > OS_PRIORITY_MAX) {
+    if (prio < OS_PRIORITY_MIN || OS_PRIORITY_MAX < prio) {
         return FALSE;
     }
 
@@ -545,6 +545,7 @@ void OSCancelThread(OSThread* thread) {
     OSThread* prev;
 
     enabled = OSDisableInterrupts();
+    __OSCancelInternalAlarms(thread);
 
     switch (thread->state) {
     case OS_THREAD_STATE_READY:
@@ -906,7 +907,7 @@ void OSWakeupThread(OSThreadQueue* queue) {
 BOOL OSSetThreadPriority(OSThread* thread, s32 prio) {
     BOOL enabled;
 
-    if (prio < OS_PRIORITY_MIN || prio > OS_PRIORITY_MAX) {
+    if (prio < OS_PRIORITY_MIN || OS_PRIORITY_MAX < prio) {
         return FALSE;
     }
 

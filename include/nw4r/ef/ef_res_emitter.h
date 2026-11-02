@@ -216,6 +216,7 @@ struct EmitterDesc {
         EMIT_FLAG_24 = (1 << 24),
         EMIT_FLAG_XYZ_SAME_SIZE = (1 << 25),
         EMIT_FLAG_26 = (1 << 26),
+        EMIT_FLAG_RELOCATE_COMPLETE = (1 << 30),
     };
 
     u32 commonFlag;                 // at 0x0
@@ -260,10 +261,15 @@ struct EmitterDesc {
     }
 };
 
+/**
+ * \~english @brief Struct that manages emitter resources.
+ * \~japanese @brief エミッタのリソースを管理するストラクト。
+ */
 struct EmitterResource {
 private:
-    char* name;     // at 0x0
-    u32 headersize; // at 0x4
+    char* name; //!< \~english Emitter name \~japanese エミッタ名 \~ // at 0x0
+    u32 headersize; //!< \~english Size of file header \~japanese
+                    //!< ファイルヘッダのサイズ \~ // at 0x4
 
 public:
     /******************************************************************************

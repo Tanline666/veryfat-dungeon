@@ -35,6 +35,7 @@ extern "C" {
 #include <revolution/OS/OSMutex.h>
 #include <revolution/OS/OSNet.h>
 #include <revolution/OS/OSPlayRecord.h>
+#include <revolution/OS/OSPlayTime.h>
 #include <revolution/OS/OSReset.h>
 #include <revolution/OS/OSRtc.h>
 #include <revolution/OS/OSStateFlags.h>

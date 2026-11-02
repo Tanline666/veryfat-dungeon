@@ -5,11 +5,23 @@
 namespace nw4r {
 namespace ut {
 
+/**
+ * \~english @brief Bidirectional list structure.
+ * \~japanese @brief 双方向リストのストラクト。
+ */
 struct List {
-    void* headObject; // at 0x0
-    void* tailObject; // at 0x4
-    u16 numObjects;   // at 0x8
-    u16 offset;       // at 0xA
+    void* headObject; //!< \~english Pointer to the object linked to the start
+                      //!< of the list \~japanese
+                      //!< リストの先頭に繋がれているオブジェクトへのポインタ \~
+                      //!< // at 0x0
+    void* tailObject; //!< \~english Pointer to the object linked to the start
+                      //!< of the list \~japanese
+                      //!< リストの後尾に繋がれているオブジェクトへのポインタ \~
+                      //!< // at 0x4
+    u16 numObjects;   //!< \~english Number of linked objects in the list
+                    //!< \~japanese リストに繋げれているオブジェクトの個数 \~ //
+                    //!< at 0x8
+    u16 offset; //!< \~ // at 0xA
 };
 
 struct Link {
@@ -17,6 +29,14 @@ struct Link {
     void* nextObject; // at 0x4
 };
 
+/**
+ * \~english @brief Initializes a specified List object.
+ * \~japanese @brief 指定のListオブジェクトを初期化する。
+ *
+ * \~english @param pList Pointer to List object.
+ * \~japanese @param pList Listオブジェクトへのポインタ
+ * @param offset
+ */
 void List_Init(List* pList, u16 offset);
 
 void List_Append(List* pList, void* pObject);

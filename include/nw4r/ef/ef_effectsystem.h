@@ -54,7 +54,7 @@ public:
     u32 RetireEmitterAll(u32 groupID);
     u32 RetireParticleAll(u32 groupID);
 
-    void Calc(u32 groupID, bool onlyBillboard);
+    void Calc(u32 groupID, CalcOption option);
     void Draw(const DrawInfo& rInfo, u32 groupID);
 
     MemoryManagerBase* GetMemoryManager() const {

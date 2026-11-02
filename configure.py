@@ -34,6 +34,13 @@ VERSIONS = [
     "RFPE01",  # 0
 ]
 
+DEFAULT_TARGET = 0
+TARGETS = [
+    "PRODUCT",
+    "RELEASE",
+    "TEX_DEV",
+]
+
 parser = argparse.ArgumentParser()
 parser.add_argument(
     "mode",
@@ -49,6 +56,14 @@ parser.add_argument(
     type=str.upper,
     default=VERSIONS[DEFAULT_VERSION],
     help="version to build",
+)
+parser.add_argument(
+    "-t",
+    "--target",
+    choices=TARGETS,
+    type=str.upper,
+    default=TARGETS[DEFAULT_TARGET],
+    help="target to build",
 )
 parser.add_argument(
     "--build-dir",
@@ -197,6 +212,7 @@ config.asflags = [
 config.ldflags = [
     "-fp hardware",
     "-nodefaults",
+    # "-g",
 ]
 if args.debug:
     config.ldflags.append("-g")  # Or -gdwarf-2 for Wii linkers
@@ -238,7 +254,15 @@ cflags_base = [
     f"-DVERSION_{config.version}",
     "-ir include/revolution/BTE",  # thanks broadcom...(kiwi)
     "-DREVOLUTION",  # BTE changes
+    # "-sym on",
 ]
+
+if args.target == "RELEASE":
+    cflags_base.extend(["-DRELEASE"])
+elif args.target == "TEX_DEV":
+    cflags_base.extend(["-DTEX_DEV"])
+else:
+    cflags_base.extend(["-DPRODUCT"])
 
 # Debug flags
 if args.debug:
@@ -307,7 +331,6 @@ elif args.warn == "off":
 elif args.warn == "error":
     cflags_base.append("-W error")
 
-# TODO(texline) Does this actually apply to Wii Fit Plus?
 cflags_pedantic = [
     "-w unused",
     "-w missingreturn",
@@ -475,12 +498,12 @@ config.libs = [
         "cflags": cflags_libnw4r_db,
         "progress_category": "nw4r",
         "objects": [
-            Object(NonMatching, "nw4r/db/db_directPrint.cpp"),
-            Object(NonMatching, "nw4r/db/db_console.cpp"),
-            Object(NonMatching, "nw4r/db/db_exception.cpp"),
+            Object(Matching, "nw4r/db/db_directPrint.cpp"),
+            Object(Matching, "nw4r/db/db_console.cpp"),
+            Object(Matching, "nw4r/db/db_exception.cpp"),
             Object(NonMatching, "nw4r/db/db_mapFile.cpp"),
             Object(NonMatching, "nw4r/db/db_DbgPrintBase.cpp"),
-            Object(NonMatching, "nw4r/db/db_assert.cpp"),
+            Object(Matching, "nw4r/db/db_assert.cpp"),
         ],
     },
     {
@@ -490,7 +513,7 @@ config.libs = [
         "progress_category": "nw4r",
         "objects": [
             Object(Matching, "nw4r/ef/ef_draworder.cpp"),
-            Object(NonMatching, "nw4r/ef/ef_effect.cpp"),
+            Object(Matching, "nw4r/ef/ef_effect.cpp"),
             Object(NonMatching, "nw4r/ef/ef_effectsystem.cpp"),
             Object(NonMatching, "nw4r/ef/ef_emitter.cpp"),
             Object(NonMatching, "nw4r/ef/ef_animcurve.cpp"),
@@ -595,7 +618,7 @@ config.libs = [
         "cflags": cflags_libnw4r_math,
         "progress_category": "nw4r",
         "objects": [
-            Object(NonMatching, "nw4r/math/math_arithmetic.cpp"),
+            Object(Matching, "nw4r/math/math_arithmetic.cpp"),
             Object(Matching, "nw4r/math/math_triangular.cpp"),
             Object(NonMatching, "nw4r/math/math_geometry.cpp"),
         ],
@@ -769,17 +792,17 @@ config.libs = [
             Object(NonMatching, "revolution/MTX/mtx.c"),
             Object(NonMatching, "revolution/NAND/NANDOpenClose.c"),
             Object(NonMatching, "revolution/NAND/NANDCore.c"),
-            Object(NonMatching, "revolution/OS/OS.c"),
+            Object(Matching, "revolution/OS/OS.c"),
             Object(Matching, "revolution/OS/OSAlarm.c"),
             Object(Matching, "revolution/OS/OSAlloc.c"),
             Object(Matching, "revolution/OS/OSArena.c"),
             Object(Matching, "revolution/OS/OSContext.c"),
             Object(Matching, "revolution/OS/OSError.c"),
             Object(NonMatching, "revolution/OS/OSExec.c"),
-            Object(NonMatching, "revolution/OS/OSFatal.c"),
+            Object(Matching, "revolution/OS/OSFatal.c"),
             Object(NonMatching, "revolution/OS/OSFont.c"),
             Object(Matching, "revolution/OS/OSInterrupt.c"),
-            Object(NonMatching, "revolution/OS/OSThread.c"),
+            Object(Matching, "revolution/OS/OSThread.c"),
             Object(Matching, "revolution/OS/OSTime.c"),
             Object(Matching, "revolution/OS/OSStateTM.c"),
             Object(NonMatching, "revolution/OS/OSPlayTime.c"),
@@ -853,6 +876,7 @@ config.libs = [
         "objects": [
             Object(NonMatching, "Pack/RPKernel/RPSysSystem.cpp"),
             Object(Matching, "main.cpp"),
+            Object(NonMatching, "Pack/RPKernel/IRPSysHostIOSocket.cpp"),
             Object(NonMatching, "Pack/RPKernel/RPSysEffectMgr.cpp"),
             Object(NonMatching, "Pack/RPKernel/RPSysLayout.cpp"),
             Object(Matching, "Pack/RPKernel/RPSysFrameCtrl.cpp"),

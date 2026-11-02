@@ -74,7 +74,7 @@ public:
         return CreateEmitter(res.ptr(), drawWeight, calcRemain);
     } // at 0x14
 
-    virtual void Calc(bool onlyBillboard);    // at 0x18
+    virtual void Calc(CalcOption option);     // at 0x18
     virtual void Draw(const DrawInfo& rInfo); // at 0x1C
 
     bool Closing(Emitter* pEmitter);

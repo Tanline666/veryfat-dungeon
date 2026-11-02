@@ -219,7 +219,7 @@ void RPSysEffectCreator::update() {
     nw4r::ef::EffectSystem* pSystem = nw4r::ef::EffectSystem::GetInstance();
 
     for (int i = 0; i < RPSysEffectMgr::EDrawGroup_Max; i++) {
-        pSystem->Calc(mBaseGroupID | i, false);
+        pSystem->Calc(mBaseGroupID | i, nw4r::ef::CALC_TYPE_NORMAL);
     }
 
     if (mpSlowSystem != NULL) {
@@ -246,7 +246,8 @@ void RPSysEffectCreator::update() {
 
         if (mIsSlowEffect) {
             for (int i = 0; i < RPSysEffectMgr::EDrawGroup_Max; i++) {
-                mpSlowSystem->Calc(mBaseGroupID | i, false);
+                mpSlowSystem->Calc(mBaseGroupID | i,
+                                   nw4r::ef::CALC_TYPE_NORMAL);
             }
 
             RP_NW4R_LIST_FOREACH (nw4r::ef::Emitter, it, *pListEmitter) {

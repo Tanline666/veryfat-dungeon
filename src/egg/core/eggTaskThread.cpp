@@ -61,14 +61,13 @@ bool TaskThread::request(TaskFunc pTask, void* pTaskArg, OSMessage endMesg) {
 }
 
 OSMessageQueue* TaskThread::createTaskEndMessageQueue(int size, Heap* pHeap) {
-#line 378
     EGG_ASSERT(size > 0);
 
     sEndMesgBufSize = size;
 
     sEndMesgBuffer = static_cast<OSMessage*>(
         Heap::alloc(size * sizeof(OSMessage), 4, pHeap));
-#line 389
+
     EGG_ASSERT(sEndMesgBuffer);
 
     OSInitMessageQueue(&sEndMesgQueue, sEndMesgBuffer, sEndMesgBufSize);

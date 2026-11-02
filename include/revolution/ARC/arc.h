@@ -45,7 +45,7 @@ typedef struct ARCDirEntry {
  * \~english @brief Opens a specified archive and initializes the given
  * archive handle.
  * \~japanese @brief 指定のアーカイブをオープンして、指定のアーカイブ
- * ハンドルの初期化を行う。
+ * ハンドルを初期化する。
  *
  * \~english @param arcStart Pointer to start address of archive
  * \~japanese @param arcStart アーカイブの開始アドレスへのポインタ

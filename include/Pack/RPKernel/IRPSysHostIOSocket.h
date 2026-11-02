@@ -24,8 +24,9 @@ public:
 
     /**
      * \~english @brief Destructor
+     * \~japanese @brief デストラクタ
      */
-    virtual ~IRPSysHostIOSocket(); // at 0x8
+    ~IRPSysHostIOSocket();
 
     /**
      * \~english @brief Handles property events from the host
@@ -40,6 +41,11 @@ public:
     virtual void GenMessage() { // at 0x10
         // Stubbed for release
     }
+
+    void SetName(const char* pName);
+
+private:
+    char mName[24]; //!< at 0x4?
 };
 
 //! @}

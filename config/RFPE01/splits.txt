@@ -17,13 +17,16 @@ Sections:
 nw4r/db/db_directPrint.cpp:
 	.text       start:0x80007280 end:0x80007D3C
 	.rodata     start:0x8068A360 end:0x8068A614
+	.data       start:0x80707D20 end:0x80707D30
 	.bss        start:0x80760500 end:0x80760524
-	.sbss       start:0x80816060 end:0x80816068
+	.sbss       start:0x80816060 end:0x80816064
 
 nw4r/db/db_console.cpp:
-	.text       start:0x80007D40 end:0x80008820
+	.text       start:0x80007D40 end:0x8000881C
+	.data       start:0x80707D30 end:0x80707D58
 	.bss        start:0x80760528 end:0x80760940
-	.sdata      start:0x80813AA4 end:0x80813AA8
+	.sdata      start:0x80813AA0 end:0x80813AA8
+	.sbss       start:0x80816068 end:0x80816070
 
 nw4r/db/db_exception.cpp:
 	.text       start:0x80008820 end:0x800098D4
@@ -51,13 +54,14 @@ nw4r/ef/ef_draworder.cpp:
 	.data       start:0x807083A8 end:0x807083BC
 
 nw4r/ef/ef_effect.cpp:
-	.text       start:0x8000C170 end:0x8000CD70
-	.data       start:0x807083C0 end:0x80708428
+	.text       start:0x8000C170 end:0x8000CD64
+	.data       start:0x807083C0 end:0x807083E0
 	.sdata2     start:0x808179A0 end:0x808179A4
 
 nw4r/ef/ef_effectsystem.cpp:
 	.text       start:0x8000CD70 end:0x8000D840
 	.ctors      start:0x80688CC4 end:0x80688CC8
+	.data       start:0x807083E0 end:0x80708428
 	.bss        start:0x80764FB0 end:0x80771028
 
 nw4r/ef/ef_emitter.cpp:
@@ -965,8 +969,11 @@ revolution/NAND/NANDCore.c:
 
 revolution/OS/OS.c:
 	.text       start:0x80141E30 end:0x80143370
+	.data       start:0x8071A700 end:0x8071ABA8
 	.bss        start:0x80802200 end:0x80802270
+	.sdata      start:0x80813F78 end:0x80813FA4
 	.sbss       start:0x80816920 end:0x80816968
+	.sdata2     start:0x80819760 end:0x80819768
 
 revolution/OS/OSAlarm.c:
 	.text       start:0x80143370 end:0x80143C30
@@ -997,8 +1004,10 @@ revolution/OS/OSExec.c:
 	.text       start:0x80145CA0 end:0x801479D0
 
 revolution/OS/OSFatal.c:
-	.text       start:0x801479D0 end:0x80148600
-	.bss        start:0x808022E0 end:0x808025C0
+	.text       start:0x801479D0 end:0x801485F8
+	.bss        start:0x808022E0 end:0x808025B4
+	.sdata      start:0x80813FD8 end:0x80813FDC
+	.sdata2     start:0x80819768 end:0x808197A8
 
 revolution/OS/OSFont.c:
 	.text       start:0x80148600 end:0x801492F0
@@ -1273,6 +1282,10 @@ Pack/RPSystem/RPSysFontManager.cpp:
 	.text       start:0x801DEEA8 end:0x801DF104
 	.data       start:0x80740158 end:0x80740180
 	.sbss       start:0x80816D00 end:0x80816D04
+
+Pack/RPKernel/IRPSysHostIOSocket.cpp:
+	.text       start:0x801DF784 end:0x801DF848
+	.data       start:0x80740218 end:0x80740228
 
 Pack/RPKernel/RPSysEffectMgr.cpp:
 	.text       start:0x801E1600 end:0x801E3400

@@ -33,9 +33,11 @@ BOOL __OSInNandBoot;
 BOOL __OSInIPL;
 
 const char* __OSVersion =
-    "<< RVL_SDK - OS \trelease build: Apr 24 2007 11:50:47 (0x4199_60831) >>";
+    "<< RVL_SDK - OS \trelease build: Feb 27 2009 10:04:29 (0x4302_145) >>";
 
 static void OSExceptionInit(void);
+
+extern BOOL __DVDCheckDevice(void);
 
 void __OSDBINTSTART(void);
 void __OSDBINTEND(void);
@@ -210,6 +212,9 @@ u32 OSGetConsoleType(void) {
             if (hollywood > 0x00000011) {
                 return OS_CONSOLE_NDEV_2_1;
             }
+
+        case 0x0300:
+            return OS_CONSOLE_RVA_1;
         }
     }
 
@@ -345,7 +350,7 @@ static void CheckTargets(void) {
         OSReport("OS ERROR: boot program is not for RVL target. Please use "
                  "correct boot program.\n");
         // clang-format off
-#line 1112
+#line 1153
         OS_ERROR("Failed to run app");
         // clang-format on
         break;
@@ -359,7 +364,7 @@ static void CheckTargets(void) {
         OSReport("OS ERROR: apploader[D].img is not for RVL target. Please use "
                  "correct apploader[D].img.\n");
         // clang-format off
-#line 1130
+#line 1171
         OS_ERROR("Failed to run app");
         // clang-format on
         break;
@@ -369,14 +374,47 @@ static void CheckTargets(void) {
     }
 }
 
+/**
+ * \~english @brief Checks if the IOS version is less than the expected one and
+ * halts the system if it is.
+ * \~japanese @brief
+ * IOSバージョンが想定のバージョンより低いかどうかを調べて、そうであった場合は
+ * システムを止まる。
+ */
+static void CheckFirmare(void) {
+    OSIOSRev rev;
+    u32 myVersion;
+    const GXColor bgColor = {0, 0, 255, 0};
+    const GXColor textColor = {255, 255, 255, 0};
+    __OSGetIOSRev(&rev);
+
+    myVersion = rev.idLo << 16 | rev.verMajor << 8 | rev.verMinor;
+
+    if (rev.idLo != (OS_MINIMUM_IOS_VERSION >> 16) ||
+        rev.idLo == (OS_MINIMUM_IOS_VERSION >> 16) &&
+            myVersion < OS_MINIMUM_IOS_VERSION) {
+        OSReport("OS ERROR: This firmware is an improper version for this SDK. "
+                 "Please use a correct Firmware.\n");
+        //! \~english Always in English
+        //! \~japanese 常に英語
+        OSFatal(textColor, bgColor,
+                "\n\nERROR #002\nAn error has occurred.\nPress the Eject "
+                "Button, remove the\nGame Disc, and turn off the power to "
+                "\nthe console. \nPlease read the Wii Operations Manual \nfor "
+                "further instructions.\n");
+#line 1236
+        OS_ERROR("Failed to run app");
+    }
+}
+
 static void ReportOSInfo(void) {
-    OSConsoleType type;
+    u32 type; //!< \~ OSConsoleType
     OSIOSRev rev;
     u32 category;
     u32 tdev;
 
     OSReport("\nRevolution OS\n");
-    OSReport("Kernel built : %s %s\n", "Apr 24 2007", "11:50:47");
+    OSReport("Kernel built : %s %s\n", "Feb 27 2009", "10:04:29");
 
     OSReport("Console Type : ");
     type = OSGetConsoleType();
@@ -392,6 +430,9 @@ static void ReportOSInfo(void) {
             break;
         case OS_CONSOLE_RVL_PP_2_2:
             OSReport("Pre-production board 2-2\n");
+            break;
+        case OS_CONSOLE_RVA_1:
+            OSReport("RVA 1\n");
             break;
         default:
             OSReport("Retail %d\n", type);
@@ -494,31 +535,17 @@ void OSInit(void) {
         // Initialize MEM1 arena lo
         mem1lo = *(void**)OSPhysicalToCached(OS_PHYS_USABLE_MEM1_START);
         if (mem1lo == NULL) {
-            // Use the linker-generated arena if it is in MEM1...
+            //! Use the linker-generated arena if it is in MEM1...
             if (OSIsMEM1Region(__ArenaLo)) {
-                // ...and if the OS boot info does not specify one
+                //! ...and if the OS boot info does not specify one.
                 mem1lo =
                     BootInfo->arenaLo == NULL ? __ArenaLo : BootInfo->arenaLo;
 
-                /**
-                 * Linker generates stack/arena in this order:
-                 * 1. Program stack (32K)
-                 * 2. Debug stack (8K)
-                 * 3. Program arena
-                 *
-                 * By using the end of the debug stack as the arena start,
-                 * we can avoid wasting the 8K allocated for the debug stack
-                 * (if there is no debugger attached).
-                 *
-                 * If the arena instead starts in MEM2, this optimization is
-                 * also performed.
-                 */
                 if (BootInfo->arenaLo == NULL && BI2DebugFlag != NULL &&
                     *BI2DebugFlag < 2) {
-                    mem1lo = ROUND_UP_PTR(_db_stack_end, 32);
+                    mem1lo = ROUND_UP_PTR(_stack_addr, 32);
                 }
             } else {
-                // ???
                 mem1lo = (void*)0x80004000;
             }
         }
@@ -542,7 +569,7 @@ void OSInit(void) {
 
                 // Use debugger stack if it would be wasted
                 if (BI2DebugFlag != NULL && *BI2DebugFlag < 2) {
-                    mem2lo = ROUND_UP_PTR(_db_stack_end, 32);
+                    mem2lo = ROUND_UP_PTR(_stack_addr, 32);
                 }
             }
             // First 2K of MEM2 is reserved?
@@ -588,8 +615,11 @@ void OSInit(void) {
             EnableMetroTRKInterrupts();
         }
 
-        ClearArena();
-        ClearMEM2Arena();
+        if (!__OSInNandBoot && !__OSInReboot) {
+            ClearArena();
+            ClearMEM2Arena();
+        }
+
         OSEnableInterrupts();
         IPCCltInit();
 
@@ -606,6 +636,7 @@ void OSInit(void) {
 
         if (!__OSInIPL) {
             CheckTargets();
+            CheckFirmare();
             DVDInit();
 
             if (__OSIsGcam) {
@@ -614,8 +645,17 @@ void OSInit(void) {
                 DCInvalidateRange(&DriveInfo, sizeof(DVDDriveInfo));
                 DVDInquiryAsync(&DriveBlock, &DriveInfo, InquiryCallback);
             }
+
+            if (OSGetAppType() == OS_APP_TYPE_DVD && !__OSInReboot) {
+                if (!__DVDCheckDevice()) {
+                    OSReturnToMenu();
+                }
+            }
         }
 
+        if (!__OSInIPL && !__OSInNandBoot) {
+            __OSInitPlayTime();
+        }
         if (!__OSInIPL && !__OSInNandBoot && !__OSInReboot) {
             __OSStartPlayRecord();
         }
@@ -732,7 +772,7 @@ static asm void __OSDBJump(void){
 
     entry __OSDBJUMPSTART
 
-    bl __OSDBJUMPDEST
+    bla 0x60
 
     entry __OSDBJUMPEND
     // clang-format on
@@ -877,11 +917,14 @@ static const char* AppGameNameForSysMenu = "HAEA";
 
 const char* OSGetAppGamename(void) {
     int i;
-    const char* name =
-        (const char*)OSPhysicalToCached(OS_PHYS_CURRENT_APP_NAME);
+    //! BOOT_PARTITION_TYPE
+    const char* name = (const char*)OSPhysicalToCached(0x3194);
 
     if (__OSInIPL) {
         name = AppGameNameForSysMenu;
+    } else if ((*name < '0') || ('9' < *name && *name < 'A') || ('Z' < *name)) {
+        //! OS_CURRENT_APP_NAME
+        name = (const char*)OSPhysicalToCached(0x3180);
     }
 
     for (i = 0; i < 4; i++) {

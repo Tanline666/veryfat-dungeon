@@ -43,7 +43,7 @@ static void ScreenClear(u8* fb, u16 width, u16 height, GXColor yuv) {
 
 static void ScreenReport(void* fb, u16 width, u16 height, GXColor msgYUV, s32 x,
                          s32 y, u32 lf, const char* msg) {
-    u32 texel[70];
+    u32 texel[72];
     u32 charWidth;
     u8* tmp;
     u8 bright;
@@ -122,7 +122,7 @@ static void ConfigureVideo(u16 width, u16 height) {
     rmode.viWidth = FATAL_FB_W;
     rmode.viHeight = height;
 
-    switch (VIGetTvFormat()) {
+    switch ((u32)VIGetTvFormat()) {
     case VI_TVFORMAT_NTSC:
     case VI_TVFORMAT_MPAL: {
         if (VI_HW_REGS[VI_VICLK] & VI_VICLK_SPEED /* == VI_VICLK_54MHZ */) {
@@ -140,9 +140,15 @@ static void ConfigureVideo(u16 width, u16 height) {
     }
 
     case VI_TVFORMAT_EURGB60: {
-        rmode.tvInfo = VI_TVMODE(VI_TVFORMAT_EURGB60, VI_SCANMODE_INT);
-        rmode.viYOrigin = 0;
-        rmode.xfbMode = VI_XFBMODE_DF;
+        if (VI_HW_REGS[VI_VICLK] & VI_VICLK_SPEED) {
+            rmode.tvInfo = VI_TVMODE(VI_TVFORMAT_EURGB60, VI_SCANMODE_PROG);
+            rmode.viYOrigin = 0;
+            rmode.xfbMode = VI_XFBMODE_SF;
+        } else {
+            rmode.tvInfo = VI_TVMODE(VI_TVFORMAT_EURGB60, VI_SCANMODE_INT);
+            rmode.viYOrigin = 0;
+            rmode.xfbMode = VI_XFBMODE_DF;
+        }
         break;
     }
 
@@ -236,7 +242,11 @@ void OSFatal(GXColor textColor, GXColor bgColor, const char* msg) {
     GXAbortFrame();
 
     OSSetArenaLo((void*)0x81400000);
-    OSSetArenaHi(bootInfo->fstStart);
+    if (!bootInfo->fstStart) {
+        OSSetArenaHi(*(void**)OSPhysicalToCached(OS_PHYS_USABLE_MEM1_END));
+    } else {
+        OSSetArenaHi(bootInfo->fstStart);
+    }
 
     FatalParam.textColor = textColor;
     FatalParam.bgColor = bgColor;

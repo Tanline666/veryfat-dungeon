@@ -16,26 +16,26 @@ class RPSysGameConfig : public RPSysTagParameters {
 
 private:
     //! Scene loaded on boot
-    RPSysStringTagParm mRootScene; // at 0x10
+    RPSysStringTagParm mRootScene; // at 0xC
     //! TV mode (aspect ratio)
-    RPSysStringTagParm mTVMode; // at 0x20
+    RPSysStringTagParm mTVMode; // at 0x1C
     //! Game language
-    RPSysStringTagParm mLanguage; // at 0x30
+    RPSysStringTagParm mLanguage; // at 0x2C
     //! Sound(?)
-    RPSysStringTagParm mSound; // at 0x40
+    RPSysStringTagParm mSound; // at 0x3C
     //! Unknown
-    RPSysPrimTagParm<int> mTrainingLevel; // at 0x50
+    RPSysPrimTagParm<int> mTrainingLevel; // at 0x4C
 
     //! Common print setting
-    RPSysPrimTagParm<int> mRPPrint; // at 0x60
+    RPSysPrimTagParm<int> mRPPrint; // at 0x5C
     //! System print setting
-    RPSysPrimTagParm<int> mRPSysPrint; // at 0x70
+    RPSysPrimTagParm<int> mRPSysPrint; // at 0x6C
     //! Audio print setting
-    RPSysPrimTagParm<int> mRPAudPrint; // at 0x80
+    RPSysPrimTagParm<int> mRPAudPrint; // at 0x7C
     //! Sound print setting
-    RPSysPrimTagParm<int> mRPSndPrint; // at 0x90
+    RPSysPrimTagParm<int> mRPSndPrint; // at 0x8C
     //! User print setting
-    RPSysPrimTagParm<int> mRPUserPrint; // at 0xA0
+    RPSysPrimTagParm<int> mRPUserPrint; // at 0x9C
 };
 
 //! @}

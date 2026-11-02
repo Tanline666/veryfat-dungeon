@@ -11,7 +11,7 @@ extern "C" {
 
 /**
  * \~english @brief Initializes the network module.
- * \~japanese @brief ネットワークモジュールの初期化を行う。
+ * \~japanese @brief ネットワークモジュールを初期化する。
  */
 void __OSInitNet(void);
 

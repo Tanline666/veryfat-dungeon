@@ -23,7 +23,11 @@ public:
 public:
     AnmObjChr(MEMAllocator* pAllocator, u16* pBindingBuf, int numBinding);
     virtual void G3dProc(u32 task, u32 param, void* pInfo) = 0; // at 0xC
-    virtual ~AnmObjChr() {}                                     // at 0x10
+    /**
+     * \~english @brief Destructor
+     * \~japanese @brief デストラクタ
+     */
+    virtual ~AnmObjChr() {} // at 0x10
 
     virtual void SetFrame(f32 frame) = 0; // at 0x1C
     virtual f32 GetFrame() const = 0;     // at 0x20
@@ -38,7 +42,18 @@ public:
     virtual const ChrAnmResult* GetResult(ChrAnmResult* pResult,
                                           u32 idx) = 0; // at 0x38
 
-    virtual AnmObjChrRes* Attach(int idx, AnmObjChrRes* pRes); // at 0x3C
+    /**
+     * \~english @brief Dummy function.
+     * \~japanese @brief ダミー関数。
+     *
+     * \~english @param idx Dummy argument
+     * \~japanese @param idx ダミー引数
+     * \~english @param pObj Dummy argument
+     * \~japanese @param pObj ダミー引数
+     * \~english @return Always NULL
+     * \~japanese @return 常にNULL
+     */
+    virtual AnmObjChrRes* Attach(int idx, AnmObjChrRes* pObj); // at 0x3C
     virtual AnmObjChrRes* Detach(int idx);                     // at 0x40
     virtual void DetachAll();                                  // at 0x44
 

@@ -6,13 +6,17 @@
 #include <nw4r/ef/ef_res_texture.h>
 #include <nw4r/ut.h>
 
-
 namespace nw4r {
 namespace ef {
 
 // Forward declarations
 struct EmitterResource;
 
+/**
+ * \~english @brief Struct that represents the binary data in a BREFF file.
+ * \~japanese @brief
+ * BREFFファイルに格納されているバイナリデータを表現するストラクト。
+ */
 struct EffectProject {
     u32 headersize;       // at 0x0
     ut::Link projectlink; // at 0x4
@@ -21,6 +25,11 @@ struct EffectProject {
     u8 projectname[4];    // at 0x10
 };
 
+/**
+ * \~english @brief Struct that represents the binary data in a BREFT file.
+ * \~japanese @brief
+ * BREFTファイルに格納されているバイナリデータを表現するストラクト。
+ */
 struct TextureProject {
     u32 headersize;       // at 0x0
     ut::Link projectlink; // at 0x4
@@ -29,6 +38,10 @@ struct TextureProject {
     u8 projectname[4];    // at 0x10
 };
 
+/**
+ * \~english @brief Class that manages binary effect data files.
+ * \~japanese @brief エフェクトのバイナリデータファイルを管理するクラス。
+ */
 class Resource {
 private:
     static const u16 VERSION = 7;
@@ -70,6 +83,10 @@ public:
     bool RemoveTextureProject(TextureProject* pTexProject);
 
 private:
+    /**
+     * \~english @brief Constructor
+     * \~japanese @brief コンストラクタ
+     */
     Resource();
 
     u32 relocateCurveTexture(u8* pCmdList);

@@ -48,8 +48,8 @@ Exception::Exception(u16 width, u16 height, u16 attr, Heap* pHeap) {
         pRenderMode = &GXNtsc480IntDf;
     }
     nw4r::db::Exception_SetConsole(sConsoleHandle, pRenderMode);
-    sConsoleHandle->posX = -120;
-    sConsoleHandle->posY = 30;
+    sConsoleHandle->viewPosX = -120;
+    sConsoleHandle->viewPosY = 30;
     sConsoleHandle->isVisible = FALSE;
     sMapFileBuffer = Heap::alloc(16, 4, pHeap);
     nw4r::db::Exception_SetUserCallback(ExceptionCallBack_, 0);

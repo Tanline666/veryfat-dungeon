@@ -5,7 +5,7 @@
 
 namespace {
 
-NW4R_LIB_VERSION(EF, "Jun  8 2007", "11:16:29", "0x4199_60831");
+NW4R_LIB_VERSION(EF, "Jun 25 2009", "15:00:26", "0x4302_145");
 
 } // namespace
 
@@ -157,7 +157,7 @@ u32 EffectSystem::RetireParticleAll(u32 groupID) {
     return num;
 }
 
-void EffectSystem::Calc(u32 groupID, bool onlyBillboard) {
+void EffectSystem::Calc(u32 groupID, CalcOption option) {
     void* pArray[NW4R_EF_MAX_EFFECT];
 
     u16 size = UtlistToArray(&mActivityList[groupID].mActiveList, pArray,
@@ -165,7 +165,7 @@ void EffectSystem::Calc(u32 groupID, bool onlyBillboard) {
 
     for (u16 i = 0; i < size; i++) {
         Effect* pEffect = static_cast<Effect*>(pArray[i]);
-        pEffect->Calc(onlyBillboard);
+        pEffect->Calc(option);
     }
 
     mMemoryManager->GarbageCollection();

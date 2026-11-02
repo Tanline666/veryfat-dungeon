@@ -9,7 +9,6 @@
 #include <nw4r/ut/ut_CharWriter.h>
 #include <nw4r/ut/ut_TagProcessorBase.h>
 
-
 namespace nw4r {
 namespace ut {
 
@@ -106,6 +105,7 @@ public:
     void CalcStringRect(Rect* pRect, const T* pStr, int len) const;
 
     int VSNPrintf(T* buffer, u32 count, const T* pStr, std::va_list args);
+    f32 Printf(const T* pFmt, ...);
     f32 VPrintf(const T* pStr, std::va_list args);
     f32 Print(const T* pStr, int len);
 

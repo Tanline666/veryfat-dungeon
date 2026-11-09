@@ -23,7 +23,7 @@ void DrawPointStrategy::Draw(const DrawInfo& rInfo, ParticleManager* pManager) {
     math::MTX34 posMtx;
 
     pManager->CalcGlobalMtx(&glbMtx);
-    math::MTX34Mult(&posMtx, rInfo.GetViewMtx(), &glbMtx);
+    math::MTX34Mult(&posMtx, &rInfo.GetViewMtx(), &glbMtx);
     GXLoadPosMtxImm(posMtx, GX_PNMTX0);
 
     GetFirstDrawParticleFunc pGetFirstFunc = GetGetFirstDrawParticleFunc(

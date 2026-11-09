@@ -7,9 +7,9 @@ void ResAnimCurve::SetStop(bool stop) {
     AnimCurveHeader* pHeader = ptr();
 
     if (stop) {
-        pHeader->processFlag |= AnimCurveHeader::PROC_FLAG_STOP;
+        pHeader->processFlag |= AC_PROC_FLAG_STOP;
     } else {
-        pHeader->processFlag &= ~AnimCurveHeader::PROC_FLAG_STOP;
+        pHeader->processFlag &= ~AC_PROC_FLAG_STOP;
     }
 }
 

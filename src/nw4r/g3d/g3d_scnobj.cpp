@@ -69,6 +69,8 @@ ScnObj::ScnObj(MEMAllocator* pAllocator)
 }
 
 ScnObj::~ScnObj() {
+    NW4R_ASSERT(!GetParent(), 97);
+
     if (mpFuncObjExec == NULL) {
         return;
     }
@@ -194,35 +196,47 @@ bool ScnObj::GetScnObjOption(u32 option, u32* pValue) const {
     return true;
 }
 
-bool ScnObj::SetMtx(ScnObjMtxType type, const math::MTX34* pMtx) {
-    if (static_cast<u32>(type) < MTX_TYPE_MAX) {
-        if (pMtx != NULL) {
-            if (type == MTX_LOCAL) {
+bool ScnObj::SetMtx(ScnObjMtxType tp, const math::MTX34* pM) {
+    if (static_cast<u32>(tp) < MTX_TYPE_MAX) {
+        if (pM != NULL) {
+            if (tp == MTX_LOCAL) {
                 SetScnObjFlag(SCNOBJFLAG_MTX_LOCAL_IDENTITY, FALSE);
             }
 
-            math::MTX34Copy(&mMtxArray[type], pMtx);
+            math::MTX34Copy(&mMtxArray[tp], pM);
         } else {
-            if (type == MTX_LOCAL) {
+            if (tp == MTX_LOCAL) {
                 SetScnObjFlag(SCNOBJFLAG_MTX_LOCAL_IDENTITY, TRUE);
             }
 
-            math::MTX34Identity(&mMtxArray[type]);
+            math::MTX34Identity(&mMtxArray[tp]);
         }
 
-        return true;
+        return TRUE;
     }
 
-    return false;
+    return FALSE;
+}
+
+bool ScnObj::SetMtx(ScnObjMtxType tp, const math::MTX34& M) {
+    if ((u32)tp < MTX_TYPE_MAX) {
+        if (tp == MTX_LOCAL) {
+            SetScnObjFlag(SCNOBJFLAG_MTX_LOCAL_IDENTITY, FALSE);
+        }
+        math::MTX34Copy(&mMtxArray[tp], &M);
+        return TRUE;
+    } else {
+        return FALSE;
+    }
 }
 
 bool ScnObj::GetMtx(ScnObjMtxType type, math::MTX34* pMtx) const {
     if (pMtx != NULL && static_cast<u32>(type) < MTX_TYPE_MAX) {
         math::MTX34Copy(pMtx, &mMtxArray[type]);
-        return true;
+        return TRUE;
     }
 
-    return false;
+    return FALSE;
 }
 
 f32 ScnObj::GetValueForSortOpa() const {
@@ -253,17 +267,31 @@ void ScnObj::SetPriorityDrawXlu(int prio) {
     mPriorityDrawXlu = prio;
 }
 
-void ScnObj::EnableScnObjCallbackTiming(Timing timing) {
-    if (timing & CALLBACK_TIMING_A) {
+void ScnObj::EnableScnObjCallbackTiming(Timing t) {
+    if (t & CALLBACK_TIMING_A) {
         mCallbackTiming |= CALLBACK_TIMING_A;
     }
 
-    if (timing & CALLBACK_TIMING_B) {
+    if (t & CALLBACK_TIMING_B) {
         mCallbackTiming |= CALLBACK_TIMING_B;
     }
 
-    if (timing & CALLBACK_TIMING_C) {
+    if (t & CALLBACK_TIMING_C) {
         mCallbackTiming |= CALLBACK_TIMING_C;
+    }
+}
+
+void ScnObj::DisableScnObjCallbackTiming(Timing t) {
+    if (t & CALLBACK_TIMING_A) {
+        mCallbackTiming &= ~CALLBACK_TIMING_A;
+    }
+
+    if (t & CALLBACK_TIMING_B) {
+        mCallbackTiming &= ~CALLBACK_TIMING_B;
+    }
+
+    if (t & CALLBACK_TIMING_C) {
+        mCallbackTiming &= ~CALLBACK_TIMING_C;
     }
 }
 
@@ -406,6 +434,7 @@ void ScnLeaf::DefG3dProcScnLeaf(u32 task, u32 param, void* pInfo) {
     }
 
     case G3DPROC_ATTACH_PARENT: {
+        NW4R_ASSERT(!GetParent(), 492);
         SetParent(static_cast<G3dObj*>(pInfo));
         break;
     }
@@ -545,7 +574,6 @@ void ScnGroup::G3dProc(u32 task, u32 param, void* pInfo) {
 
 void ScnGroup::DefG3dProcScnGroup(u32 task, u32 param, void* pInfo) {
     switch (task) {
-    //! TODO(texline) This case is inlined in Rev 0
     case G3DPROC_GATHER_SCNOBJ: {
         ScnGroup_G3DPROC_GATHER_SCNOBJ(param,
                                        static_cast<IScnObjGather*>(pInfo));
@@ -583,6 +611,7 @@ void ScnGroup::DefG3dProcScnGroup(u32 task, u32 param, void* pInfo) {
     }
 
     case G3DPROC_ATTACH_PARENT: {
+        NW4R_ASSERT(!GetParent(), 742);
         SetParent(static_cast<ScnObj*>(pInfo));
         break;
     }
@@ -602,23 +631,18 @@ bool ScnGroup::Insert(u32 idx, ScnObj* pObj) {
     if (idx <= mNumScnObj && mNumScnObj < mSizeScnObj && pObj != NULL &&
         pObj->GetParent() == NULL) {
 
-        ScnObj** ppObj =
-            std::find(mpScnObjArray, mpScnObjArray + mNumScnObj, pObj);
-
-        if (ppObj == mpScnObjArray + mNumScnObj) {
-            for (u32 i = mNumScnObj; i > idx; i--) {
-                mpScnObjArray[i] = mpScnObjArray[i - 1];
-            }
-
-            mpScnObjArray[idx] = pObj;
-            pObj->G3dProc(G3DPROC_ATTACH_PARENT, 0, this);
-
-            mNumScnObj++;
-            return true;
+        for (u32 i = mNumScnObj; i > idx; i--) {
+            mpScnObjArray[i] = mpScnObjArray[i - 1];
         }
+
+        mpScnObjArray[idx] = pObj;
+        pObj->G3dProc(G3DPROC_ATTACH_PARENT, 0, this);
+
+        mNumScnObj++;
+        return TRUE;
     }
 
-    return false;
+    return FALSE;
 }
 
 ScnObj* ScnGroup::Remove(u32 idx) {
@@ -647,17 +671,20 @@ bool ScnGroup::Remove(ScnObj* pObj) {
     return false;
 }
 
-ScnGroup::ScnGroup(MEMAllocator* pAllocator, ScnObj** ppObj, u32 capacity)
-    : ScnObj(pAllocator),
-      mpScnObjArray(ppObj),
-      mSizeScnObj(capacity),
+ScnGroup::ScnGroup(MEMAllocator* pHeap, ScnObj** pBuf, u32 maxNumChildren)
+    : ScnObj(pHeap),
+      mpScnObjArray(pBuf),
+      mSizeScnObj(maxNumChildren),
       mNumScnObj(0) {
+
+    NW4R_NULL_ASSERT(pBuf, 836);
 
     SetScnObjFlag(SCNOBJFLAG_NOT_GATHER_DRAW_OPA, TRUE);
     SetScnObjFlag(SCNOBJFLAG_NOT_GATHER_DRAW_XLU, TRUE);
 }
 
 ScnGroup::~ScnGroup() {
+    NW4R_ASSERT(!GetParent(), 845);
     Clear();
 }
 

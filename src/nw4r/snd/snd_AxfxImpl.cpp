@@ -10,18 +10,18 @@ u32 AxfxImpl::mAllocatedSize = 0;
 
 bool AxfxImpl::CreateHeap(void* pBuffer, u32 size) {
     if (!pBuffer || !size) {
-        mHeap = NULL;
+        mHandle = NULL;
         return FALSE;
     }
 
-    mHeap = MEMCreateFrmHeap(pBuffer, size);
-    return mHeap != NULL;
+    mHandle = MEMCreateFrmHeap(pBuffer, size);
+    return mHandle != NULL;
 }
 
 void AxfxImpl::DestroyHeap() {
-    if (mHeap != NULL) {
-        MEMDestroyFrmHeap(mHeap);
-        mHeap = NULL;
+    if (mHandle != NULL) {
+        MEMDestroyFrmHeap(mHandle);
+        mHandle = NULL;
     }
 }
 
@@ -39,23 +39,26 @@ u32 AxfxImpl::RestoreAlloc(AXFXAllocHook allocHook, AXFXFreeHook freeHook) {
 }
 
 void* AxfxImpl::Alloc(u32 size) {
-    void* pBlock = MEMAllocFromFrmHeap(mCurrentFx->mHeap, size);
+    NW4R_NULL_ASSERT(mCurrentFx, 136);
+    NW4R_ASSERT(mCurrentFx->mHandle != MEM_HEAP_INVALID_HANDLE, 137);
 
-    mCurrentFx->mAllocCount++;
+    void* addr = MEMAllocFromFrmHeap(mCurrentFx->mHandle, size);
+
+    mCurrentFx->mAllocCounter++;
     mAllocatedSize += ut::RoundUp(size, 4);
 
-    return pBlock;
+    return addr;
 }
 
 void AxfxImpl::Free(void* pBlock) {
 #pragma unused(pBlock)
 
-    if (mCurrentFx->mAllocCount != 0) {
-        mCurrentFx->mAllocCount--;
+    if (mCurrentFx->mAllocCounter != 0) {
+        mCurrentFx->mAllocCounter--;
     }
 
-    if (mCurrentFx->mAllocCount == 0) {
-        MEMFreeToFrmHeap(mCurrentFx->mHeap, MEM_FRM_HEAP_FREE_ALL);
+    if (mCurrentFx->mAllocCounter == 0) {
+        MEMFreeToFrmHeap(mCurrentFx->mHandle, MEM_FRM_HEAP_FREE_ALL);
     }
 }
 

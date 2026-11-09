@@ -11,6 +11,9 @@
  * 
  * 2025/05/02:
  *      - Add BTA_DmSendHciReset
+ *
+ * 2026/11/07:
+ *      - Deleting uipc_msg
  * 
  *  Compile with REVOLUTION defined to include these changes.
  * 
@@ -49,7 +52,6 @@
 #include "bt_target.h"
 #include "bt_types.h"
 #include "btm_api.h"
-#include "uipc_msg.h"
 
 #if BLE_INCLUDED == TRUE
 #include "btm_ble_api.h"

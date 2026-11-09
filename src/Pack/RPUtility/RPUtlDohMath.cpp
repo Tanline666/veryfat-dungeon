@@ -246,6 +246,7 @@ const nw4r::math::QUAT RPUtlDohMath::QUAT_IDENT(0.0f, 0.0f, 0.0f, 1.0f);
 
 /**
  * \~english @brief Float close to zero for tolerance checks
- * \~ @note Same as JGeometry's epsilon
+ * \~english @note Same as JGeometry's epsilon
+ * \~japanese @note JGeometryのエプシロンと同じ
  */
 const f32 RPUtlDohMath::FLOAT_EPSILON = 32.0f * FLT_EPSILON;

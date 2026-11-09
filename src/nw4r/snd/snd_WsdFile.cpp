@@ -83,7 +83,7 @@ bool WsdFileReader::ReadWaveSoundNoteInfo(WaveSoundNoteInfo* pSoundNoteInfo,
         Util::GetDataRefAddress0(pWsd->refNoteTable, &mDataBlock->wsdCount);
 
     const WsdFile::NoteInfo* pNoteInfo =
-        Util::GetDataRefAddress0(pTable->items[note], &mDataBlock->wsdCount);
+        Util::GetDataRefAddress0(pTable->item[note], &mDataBlock->wsdCount);
 
     pSoundNoteInfo->waveIndex = pNoteInfo->waveIndex;
     pSoundNoteInfo->attack = pNoteInfo->attack;
@@ -104,29 +104,6 @@ bool WsdFileReader::ReadWaveSoundNoteInfo(WaveSoundNoteInfo* pSoundNoteInfo,
     }
 
     return true;
-}
-
-bool WsdFileReader::ReadWaveParam(int id, WaveData* pWaveData,
-                                  const void* pWaveAddr) const {
-    const WaveFile::WaveInfo* pWaveInfo;
-
-    if (mHeader->fileHeader.version == NW4R_VERSION(1, 0)) {
-        const WsdFile::WaveBlockOld* pWaveBlockOld =
-            reinterpret_cast<const WsdFile::WaveBlockOld*>(mWaveBlock);
-
-        pWaveInfo = static_cast<const WaveFile::WaveInfo*>(
-            ut::AddOffsetToPtr(pWaveBlockOld, pWaveBlockOld->offsetTable[id]));
-    } else {
-        if (id >= mWaveBlock->waveCount) {
-            return false;
-        }
-
-        pWaveInfo = static_cast<const WaveFile::WaveInfo*>(
-            ut::AddOffsetToPtr(mWaveBlock, mWaveBlock->offsetTable[id]));
-    }
-
-    WaveFileReader reader(pWaveInfo);
-    return reader.ReadWaveParam(pWaveData, pWaveAddr);
 }
 
 } // namespace detail

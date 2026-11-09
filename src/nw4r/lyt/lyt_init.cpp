@@ -4,7 +4,7 @@
 
 namespace {
 
-NW4R_LIB_VERSION(LYT, "Jun  8 2007", "11:17:26", "0x4199_60831");
+NW4R_LIB_VERSION(LYT, "Jun 25 2009", "15:01:26", "0x4302_145");
 
 } // namespace
 

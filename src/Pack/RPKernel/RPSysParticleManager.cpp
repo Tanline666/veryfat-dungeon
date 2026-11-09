@@ -1,11 +1,6 @@
 #include <Pack/RPKernel.h>
 
-/**
- * \~english @brief Constructor
- */
-RPSysParticleManager::RPSysParticleManager() : mModifyFlags(0) {
-    Reset();
-}
+RPSysParticleManager::RPSysParticleManager() : mModifyFlags(0) {}
 
 /**
  * \~english @brief Destructor
@@ -21,9 +16,9 @@ RPSysParticleManager::~RPSysParticleManager() {}
  */
 bool RPSysParticleManager::Initialize(nw4r::ef::Emitter* pParent,
                                       nw4r::ef::EmitterResource* pResource) {
-    bool success = nw4r::ef::ParticleManager::Initialize(pParent, pResource);
+    mModifyFlags = NULL;
 
-    Reset();
+    bool success = nw4r::ef::ParticleManager::Initialize(pParent, pResource);
     return success;
 }
 

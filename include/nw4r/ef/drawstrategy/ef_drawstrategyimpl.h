@@ -245,21 +245,16 @@ protected:
         return pManager->mActivityList.GetNumActive();
     }
 
-    static Particle* GetElderParticle(ParticleManager* pManager,
-                                      Particle* pParticle) {
+    static Particle* GetElderParticle(ParticleManager* pm, Particle* current) {
 
-        return static_cast<Particle*>(
-            NW4R_UT_LIST_GET_LINK(pManager->mActivityList.mActiveList,
-                                  pParticle)
-                ->prevObject);
+        return reinterpret_cast<Particle*>(
+            NW4R_EF_LIST_GET_PREV(&pm->mActivityList.mActiveList, current));
     }
-    static Particle* GetYoungerParticle(ParticleManager* pManager,
-                                        Particle* pParticle) {
+    static Particle* GetYoungerParticle(ParticleManager* pm,
+                                        Particle* current) {
 
-        return static_cast<Particle*>(
-            NW4R_UT_LIST_GET_LINK(pManager->mActivityList.mActiveList,
-                                  pParticle)
-                ->nextObject);
+        return reinterpret_cast<Particle*>(
+            NW4R_EF_LIST_GET_NEXT(&pm->mActivityList.mActiveList, current));
     }
 
     static Particle* GetOldestParticle(ParticleManager* pManager) {
@@ -284,18 +279,16 @@ protected:
 
         return pIt;
     }
-    static Particle* GetYoungerDrawParticle(ParticleManager* pManager,
-                                            Particle* pParticle) {
+    static Particle* GetYoungerDrawParticle(ParticleManager* pm,
+                                            Particle* current) {
 
-        Particle* pIt = GetYoungerParticle(pManager, pParticle);
+        Particle* pp = GetYoungerParticle(pm, current);
 
-        while (pIt != NULL &&
-               pIt->GetLifeStatus() != ReferencedObject::NW4R_EF_LS_ACTIVE) {
-
-            pIt = GetYoungerParticle(pManager, pIt);
+        while (pp && pp->GetLifeStatus() != pp->NW4R_EF_LS_ACTIVE) {
+            pp = GetYoungerParticle(pm, pp);
         }
 
-        return pIt;
+        return pp;
     }
 
     static Particle* GetOldestDrawParticle(ParticleManager* pManager) {
@@ -328,7 +321,7 @@ protected:
             return false;
         }
 
-        *pVec /= math::FSqrt(sqMag);
+        *pVec *= math::FSqrt(sqMag);
         return true;
     }
 
@@ -342,7 +335,7 @@ protected:
         return mZUnitVec;
     }
 
-private:
+protected:
     bool _SetupACmp(Particle* pParticle, const EmitterDrawSetting& rSetting,
                     bool first);
     bool _SetupTevReg(Particle* pParticle, const EmitterDrawSetting& rSetting,

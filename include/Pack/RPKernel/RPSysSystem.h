@@ -156,6 +156,8 @@ public:
      */
     RPSysSceneCreator::ESceneID getBootScene();
 
+    EGG::Heap* getCurrentHeap();
+
     /**
      * \~english @brief Gets the current clock time represented as a 32-bit
      * calendar time
@@ -277,6 +279,8 @@ public:
      * seconds (600f)
      */
     bool isLoadCountEnd() const;
+
+    bool getPowerFlag() const;
 
     void returnToMenu();
 

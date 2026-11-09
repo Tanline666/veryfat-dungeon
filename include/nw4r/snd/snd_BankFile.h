@@ -23,16 +23,41 @@ inline u8 ReadByte(const void* pAddr) {
 struct BankFile {
 
     struct InstParam {
-        s32 waveIndex; // at 0x0
-        u8 attack;     // at 0x4
-        u8 decay;      // at 0x5
-        u8 sustain;    // at 0x6
-        u8 release;    // at 0x7
-        char UNK_0x8[0x4];
-        u8 originalKey; // at 0xC
-        u8 volume;      // at 0xD
-        u8 pan;         // at 0xE
-        f32 tune;       // at 0x10
+        union {
+            s32 waveIndex;
+            const WaveInfo* waveInfoAddress;
+            WaveDataLocationCallback* waveDataLocationCallback;
+        };
+        u8 attack;               //!< // at 0x4
+        u8 decay;                //!< // at 0x5
+        u8 sustain;              //!< // at 0x6
+        u8 release;              //!< // at 0x7
+        u8 hold;                 //!< // at 0x8
+        u8 waveDataLocationType; //!< // at 0x9
+        u8 noteOffType;          //!< // at 0xA
+        u8 alternateAssign;      //!< // at 0xB
+
+        u8 originalKey; //!< // at 0xC
+        u8 volume;      //!< // at 0xD
+        u8 pan;         //!< // at 0xE
+        u8 padding2;    //!< // at 0xF
+
+        f32 tune; //!< // at 0x10
+
+        Util::DataRef<void> lfoTableRef;        //!< // at 0x14
+        Util::DataRef<void> graphEnvTablevRef;  //!< // at 0x1C
+        Util::DataRef<void> randomizerTableRef; //!< // at 0x24
+
+        u32 reserved; //!< // at 0x2C
+    };
+
+    //! Adapted from BrawlCrate
+    enum RegionTableType {
+        REGION_SET_INVALID,
+        REGION_SET_DIRECT,
+        REGION_SET_RANGE_TABLE,
+        REGION_SET_INDEX_TABLE,
+        REGION_SET_NULL,
     };
 
     struct RangeTable {
@@ -85,32 +110,40 @@ struct InstInfo {
         WaveDataLocationType type; // at 0x0
         union {
             s32 index;
-            const WaveInfo* pAddr;
-            WaveDataLocationCallback* pCallback;
+            const WaveInfo* address;
+            WaveDataLocationCallback* callback;
         };
     };
 
-    WaveDataLocation location; // at 0x0
-    u8 attack;                 // at 0x8
-    u8 hold;                   // at 0x9
-    u8 decay;                  // at 0xA
-    u8 sustain;                // at 0xB
-    u8 release;                // at 0xC
-    NoteOffType offType;       // at 0x10
-    u8 alternateAssign;        // at 0x14
-    u8 originalKey;            // at 0x15
-    u8 pan;                    // at 0x16
-    u8 volume;                 // at 0x17
-    f32 tune;                  // at 0x18
+    WaveDataLocation waveDataLocation; // at 0x0
+    u8 attack;                         // at 0x8
+    u8 hold;                           // at 0x9
+    u8 decay;                          // at 0xA
+    u8 sustain;                        // at 0xB
+    u8 release;                        // at 0xC
+    NoteOffType noteOffType;           // at 0x10
+    u8 alternateAssign;                // at 0x14
+    u8 originalKey;                    // at 0x15
+    u8 pan;                            // at 0x16
+    u8 volume;                         // at 0x17
+    f32 tune;                          // at 0x18
 };
 
+/**
+ * \~english @brief Class for reading BankFile objects.
+ * \~japanese @brief BankFileオブジェクトを読み込むためのクラス。
+ */
 class BankFileReader {
 public:
     static const u32 SIGNATURE = FOURCC('R', 'B', 'N', 'K');
-    static const int VERSION = NW4R_VERSION(1, 1);
+    static const int VERSION = NW4R_VERSION(1, 2);
+    static const u16 VERSION_SUPPORT_INST_VOLUME = NW4R_VERSION(1, 1);
 
 public:
     explicit BankFileReader(const void* pBankBin);
+
+    const BankFile::InstParam* GetInstParam(int prgNo, int key,
+                                            int velocity) const;
 
     bool IsValidFileHeader(const void* pBankBin);
 

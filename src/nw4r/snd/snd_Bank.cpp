@@ -19,7 +19,7 @@ Channel* Bank::NoteOn(const NoteOnInfo& rInfo) const {
 
     WaveInfo waveInfo;
     const WaveInfo* pWaveInfoAddr;
-    if (!mBankReader.ReadWaveInfo(&waveInfo, instInfo.location,
+    if (!mBankReader.ReadWaveInfo(&waveInfo, instInfo.waveDataLocation,
                                   mWaveDataAddress, &pWaveInfoAddr)) {
         return NULL;
     }
@@ -53,11 +53,12 @@ Channel* Bank::NoteOn(const NoteOnInfo& rInfo) const {
     pChannel->SetInitSurroundPan(0.0f);
 
     pChannel->SetAlternateAssignId(instInfo.alternateAssign);
-    pChannel->SetReleaseIgnore(instInfo.offType == NOTE_OFF_TYPE_IGNORE);
+    pChannel->SetReleaseIgnore(instInfo.noteOffType == NOTE_OFF_TYPE_IGNORE);
 
-    if (instInfo.location.type == InstInfo::WAVE_DATA_LOCATION_CALLBACK) {
-        pChannel->SetWaveDataLocationCallback(instInfo.location.pCallback,
-                                              pWaveInfoAddr);
+    if (instInfo.waveDataLocation.type ==
+        InstInfo::WAVE_DATA_LOCATION_CALLBACK) {
+        pChannel->SetWaveDataLocationCallback(
+            instInfo.waveDataLocation.callback, pWaveInfoAddr);
     }
 
     pChannel->Start(waveInfo, rInfo.length, 0);

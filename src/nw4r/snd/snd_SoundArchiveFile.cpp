@@ -95,7 +95,7 @@ SoundArchive::SoundType SoundArchiveFileReader::GetSoundType(u32 id) const {
 
     if (GetVersion() >= NW4R_VERSION(1, 1)) {
         const SoundArchiveFile::SoundCommonInfo* pCmnInfo =
-            Util::GetDataRefAddress0(pTable->items[id], mInfo);
+            Util::GetDataRefAddress0(pTable->item[id], mInfo);
 
         if (pCmnInfo == NULL) {
             return SoundArchive::SOUND_TYPE_INVALID;
@@ -104,7 +104,7 @@ SoundArchive::SoundType SoundArchiveFileReader::GetSoundType(u32 id) const {
         soundType = static_cast<SoundArchive::SoundType>(pCmnInfo->soundType);
     } else {
         soundType =
-            static_cast<SoundArchive::SoundType>(pTable->items[id].dataType);
+            static_cast<SoundArchive::SoundType>(pTable->item[id].dataType);
     }
 
     switch (soundType) {
@@ -142,12 +142,11 @@ bool SoundArchiveFileReader::ReadSoundInfo(
     pSoundInfo->remoteFilter = pCmnInfo->remoteFilter;
 
     if (GetVersion() >= NW4R_VERSION(1, 2)) {
-        pSoundInfo->panMode = static_cast<detail::PanMode>(pCmnInfo->panMode);
-        pSoundInfo->panCurve =
-            static_cast<detail::PanCurve>(pCmnInfo->panCurve);
+        pSoundInfo->panMode = static_cast<PanMode>(pCmnInfo->panMode);
+        pSoundInfo->panCurve = static_cast<PanCurve>(pCmnInfo->panCurve);
     } else {
-        pSoundInfo->panMode = detail::PAN_MODE_BALANCE;
-        pSoundInfo->panCurve = detail::PAN_CURVE_SQRT;
+        pSoundInfo->panMode = PAN_MODE_BALANCE;
+        pSoundInfo->panCurve = PAN_CURVE_SQRT;
     }
 
     return true;
@@ -310,7 +309,7 @@ bool SoundArchiveFileReader::ReadGroupItemInfo(
     }
 
     const SoundArchiveFile::GroupItemInfo* pSrc =
-        Util::GetDataRefAddress0(pTable->items[itemId], mInfo);
+        Util::GetDataRefAddress0(pTable->item[itemId], mInfo);
 
     if (pSrc == NULL) {
         return false;
@@ -408,7 +407,7 @@ bool SoundArchiveFileReader::ReadFileInfo(u32 id,
     }
 
     const SoundArchiveFile::FileInfo* pFile =
-        Util::GetDataRefAddress0(pFileTable->items[id], mInfo);
+        Util::GetDataRefAddress0(pFileTable->item[id], mInfo);
 
     if (pFile == NULL) {
         return false;
@@ -444,7 +443,7 @@ bool SoundArchiveFileReader::ReadFilePos(u32 fileId, u32 id,
     }
 
     const SoundArchiveFile::FileInfo* pInfo =
-        Util::GetDataRefAddress0(pFileTable->items[fileId], mInfo);
+        Util::GetDataRefAddress0(pFileTable->item[fileId], mInfo);
 
     if (pInfo == NULL) {
         return false;
@@ -462,7 +461,7 @@ bool SoundArchiveFileReader::ReadFilePos(u32 fileId, u32 id,
     }
 
     const SoundArchive::FilePos* pSrc =
-        Util::GetDataRefAddress0(pPosTable->items[id], mInfo);
+        Util::GetDataRefAddress0(pPosTable->item[id], mInfo);
 
     if (pSrc == NULL) {
         return false;
@@ -483,7 +482,7 @@ const char* SoundArchiveFileReader::GetString(u32 id) const {
     }
 
     return static_cast<const char*>(
-        GetPtrConst(mStringBase, mStringTable->offsetTable.items[id]));
+        GetPtrConst(mStringBase, mStringTable->offsetTable.item[id]));
 }
 
 u32 SoundArchiveFileReader::ConvertLabelStringToId(
@@ -498,7 +497,7 @@ u32 SoundArchiveFileReader::ConvertLabelStringToId(
     }
 
     const SoundArchiveFile::StringTreeNode* pNode =
-        &pTree->nodeTable.items[pTree->rootIdx];
+        &pTree->nodeTable.item[pTree->rootIdx];
 
     int length = std::strlen(pLabel);
 
@@ -513,7 +512,7 @@ u32 SoundArchiveFileReader::ConvertLabelStringToId(
             nodeIndex = pNode->leftIdx;
         }
 
-        pNode = &pTree->nodeTable.items[nodeIndex];
+        pNode = &pTree->nodeTable.item[nodeIndex];
     }
 
     const char* pExpected = GetString(pNode->strIdx);
@@ -540,10 +539,10 @@ SoundArchiveFileReader::impl_GetSoundInfo(u32 id) const {
     }
 
     if (GetVersion() >= NW4R_VERSION(1, 1)) {
-        return Util::GetDataRefAddress0(pTable->items[id], mInfo);
+        return Util::GetDataRefAddress0(pTable->item[id], mInfo);
     } else {
         return static_cast<const SoundArchiveFile::SoundCommonInfo*>(
-            ut::AddOffsetToPtr(mInfo, pTable->items[id].value));
+            ut::AddOffsetToPtr(mInfo, pTable->item[id].value));
     }
 }
 
@@ -564,7 +563,7 @@ SoundArchiveFileReader::impl_GetSoundInfoOffset(u32 id) const {
 
     if (GetVersion() >= NW4R_VERSION(1, 1)) {
         const SoundArchiveFile::SoundCommonInfo* pInfo =
-            Util::GetDataRefAddress0(pTable->items[id], mInfo);
+            Util::GetDataRefAddress0(pTable->item[id], mInfo);
 
         if (pInfo == NULL) {
             return INVALID_DATA_REF;
@@ -576,9 +575,9 @@ SoundArchiveFileReader::impl_GetSoundInfoOffset(u32 id) const {
     SoundArchiveFile::SoundInfoOffset ref;
 
     // TODO(kiwi) Why is the offset changed?
-    ref.refType = pTable->items[id].refType;
-    ref.dataType = pTable->items[id].dataType;
-    ref.value = pTable->items[id].value + 0x1C;
+    ref.refType = pTable->item[id].refType;
+    ref.dataType = pTable->item[id].dataType;
+    ref.value = pTable->item[id].value + 0x1C;
 
     return ref;
 }
@@ -618,7 +617,7 @@ SoundArchiveFileReader::impl_GetBankInfo(u32 id) const {
         return NULL;
     }
 
-    return Util::GetDataRefAddress0(pTable->items[id], mInfo);
+    return Util::GetDataRefAddress0(pTable->item[id], mInfo);
 }
 
 const SoundArchiveFile::PlayerInfo*
@@ -635,7 +634,7 @@ SoundArchiveFileReader::impl_GetPlayerInfo(u32 id) const {
         return NULL;
     }
 
-    return Util::GetDataRefAddress0(pTable->items[id], mInfo);
+    return Util::GetDataRefAddress0(pTable->item[id], mInfo);
 }
 
 const SoundArchiveFile::GroupInfo*
@@ -652,7 +651,7 @@ SoundArchiveFileReader::impl_GetGroupInfo(u32 id) const {
         return NULL;
     }
 
-    return Util::GetDataRefAddress0(pTable->items[id], mInfo);
+    return Util::GetDataRefAddress0(pTable->item[id], mInfo);
 }
 
 } // namespace detail

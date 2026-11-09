@@ -39,6 +39,9 @@ class FxChorus : public FxBase {
 public:
     typedef detail::FxChorusParam ChorusParam;
 
+private:
+    static const int AUX_BUFFER_SIZE = 384;
+
 public:
     /**
      * \~english @brief Constructor
@@ -137,10 +140,10 @@ public:
     const ChorusParam& GetParam() const;
 
 private:
-    bool mActive;           // at 0xC
-    detail::AxfxImpl mImpl; // at 0x10
-    ChorusParam mParam;     // at 0x1C
-    AXFX_CHORUS mAxfxParam; // at 0x24
+    bool mActive;               //!< // at 0xC
+    detail::AxfxImpl mImpl;     //!< // at 0x10
+    ChorusParam mParam;         //!< // at 0x18
+    AXFX_CHORUS_EXP mAxfxParam; //!< // at 0x2C
 };
 
 } // namespace snd

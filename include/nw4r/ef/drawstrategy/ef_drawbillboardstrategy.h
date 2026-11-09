@@ -47,6 +47,14 @@ private:
     void DispPolygon(const math::VEC3& rP, const math::VEC3& rD1,
                      const math::VEC3& rD2, int flags);
 
+    /**
+     * @deprecated
+     *
+     * @param pMtx
+     * @param pManager
+     * @param rInfo
+     * @param offsetZ
+     */
     void CalcZOffset(math::MTX34* pMtx, const ParticleManager* pManager,
                      const DrawInfo& rInfo, f32 offsetZ);
 };

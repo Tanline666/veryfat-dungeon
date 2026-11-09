@@ -123,8 +123,8 @@ public:
 
     virtual Emitter* CreateEmitter(EmitterResource* pResource,
                                    EmitterInheritSetting* pSetting,
-                                   Particle* pParticle,
-                                   u16 calcRemain); // at 0x14
+                                   Particle* pParticle, u16 calcRemain = 0,
+                                   math::VEC3* position = NULL); // at 0x14
 
     virtual void CalcEmitter();   //!< // at 0x18
     virtual void CalcParticle();  //!< // at 0x1C
@@ -140,13 +140,14 @@ public:
     void UpdateDatas(EmitterResource* pResource);
     bool InitializeDatas(EmitterResource* pResource, Effect* pEffect);
 
-    void CreateEmitterTmp(EmitterResource* pResource,
+    bool CreateEmitterTmp(EmitterResource* pResource,
                           EmitterInheritSetting* pSetting, Particle* pParticle,
-                          u16 calcRemain);
+                          u16 calcRemain, math::VEC3* pPosition = NULL);
 
     ParticleManager* FindParticleManager(EmitterResource* pResource,
                                          bool inheritS, bool inheritR,
-                                         s8 inheritT, u8 weight);
+                                         s8 inheritT, bool movePivot,
+                                         u8 weight);
 
     void Emission(ParticleManager* pManager, const math::MTX34* pSpace);
 

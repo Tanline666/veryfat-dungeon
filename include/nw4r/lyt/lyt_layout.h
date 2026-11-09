@@ -4,7 +4,6 @@
 
 #include <nw4r/lyt/lyt_animation.h>
 #include <nw4r/lyt/lyt_types.h>
-
 #include <nw4r/ut.h>
 
 #include <revolution/MEM.h>
@@ -105,6 +104,13 @@ public:
         MEMFreeToAllocator(mspAllocator, pBlock);
     }
 
+    template <typename TObj> static TObj* NewObj();
+
+    template <typename TObj, typename TParam1, typename TParam2>
+    static TObj* NewObj(TParam1 param1, TParam2 param2);
+
+    template <typename TObj> static void DeleteObj(TObj* pObj);
+
 protected:
     static const u32 SIGNATURE_TEXTURELIST = FOURCC('t', 'x', 'l', '1');
     static const u32 SIGNATURE_FONTLIST = FOURCC('f', 'n', 'l', '1');
@@ -137,8 +143,39 @@ protected:
  * Utility functions
  *
  ******************************************************************************/
+
+template <typename TObj> TObj* Layout::NewObj() {
+    if (void* pMem = Layout::AllocMemory(sizeof(TObj))) {
+        return new (pMem) TObj();
+    }
+
+    return NULL;
+}
+
+template <typename TObj, typename TParam1, typename TParam2>
+TObj* Layout::NewObj(TParam1 param1, TParam2 param2) {
+    if (void* pMem = Layout::AllocMemory(sizeof(TObj))) {
+        return new (pMem) TObj(param1, param2);
+    }
+
+    return NULL;
+}
+
+template <typename TObj> void Layout::DeleteObj(TObj* pObj) {
+    if (pObj) {
+        pObj->~TObj();
+        FreeMemory(pObj);
+    }
+}
+
 namespace {
 
+/**
+ * \~english @brief Creates the specified object.
+ * \~japanese @brief 指定のオブジェクトを作成する。
+ * \~english @deprecated Superseded by Layout::NewObj.
+ * \~japanese @deprecated Layout::NewObjに取って代わられた。
+ */
 template <typename TObj> TObj* CreateObject() {
     void* pBuffer = Layout::AllocMemory(sizeof(TObj));
 

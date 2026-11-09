@@ -11,8 +11,16 @@ namespace ef {
 class Emitter;
 class ParticleManager;
 
+/**
+ * \~english @brief Basic class for emitter shapes.
+ * \~japanese @brief エミッタ形状の基底クラス。
+ */
 class EmitterForm {
 public:
+    /**
+     * \~english @brief Constructor
+     * \~japanese @brief コンストラクタ
+     */
     EmitterForm() {}
 
     virtual void Emission(Emitter* pEmitter, ParticleManager* pManager,

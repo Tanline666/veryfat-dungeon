@@ -26,6 +26,7 @@ typedef struct MEMiUntHeapHead {
 
 MEMiHeapHead* MEMCreateUnitHeapEx(void* pStart, u32 heapSize, u32 mbSize,
                                   s32 align, u16 opt);
+void* MEMDestroyUnitHeap(MEMiHeapHead* pHeap);
 void* MEMAllocFromUnitHeap(MEMiHeapHead* pHeap);
 void MEMFreeToUnitHeap(MEMiHeapHead* pHeap, void* pMemBlock);
 

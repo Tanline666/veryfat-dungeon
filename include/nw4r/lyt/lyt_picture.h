@@ -40,7 +40,7 @@ public:
     NW4R_UT_RTTI_DECL(Picture);
 
 public:
-    Picture(u8 num);
+    Picture(u8 texNum);
     Picture(const res::Picture* pRes, const ResBlockSet& rBlockSet);
     virtual ~Picture(); // at 0x8
 

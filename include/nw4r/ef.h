@@ -7,10 +7,12 @@
 #include <nw4r/ef/ef_effectsystem.h>
 #include <nw4r/ef/ef_emitter.h>
 #include <nw4r/ef/ef_emitterform.h>
+#include <nw4r/ef/ef_field.h>
 #include <nw4r/ef/ef_handle.h>
 #include <nw4r/ef/ef_memorymanager.h>
 #include <nw4r/ef/ef_particle.h>
 #include <nw4r/ef/ef_particlemanager.h>
+#include <nw4r/ef/ef_postfield.h>
 #include <nw4r/ef/ef_res_animcurve.h>
 #include <nw4r/ef/ef_res_emitter.h>
 #include <nw4r/ef/ef_res_texture.h>

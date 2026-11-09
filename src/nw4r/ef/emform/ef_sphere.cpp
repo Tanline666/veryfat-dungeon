@@ -39,7 +39,7 @@ void EmitterFormSphere::Emission(Emitter* pEmitter, ParticleManager* pManager,
         startAngle += pEmitter->mRandom.RandFloat() * NW4R_MATH_PI * 2;
     }
 
-    if (flags & EmitterDesc::EMIT_FLAG_17) {
+    if (flags & EmitterDesc::EMIT_FLAG_FIXED_INTERVAL) {
         int maxX = count * 2 + 1;
         int countX = 0;
 

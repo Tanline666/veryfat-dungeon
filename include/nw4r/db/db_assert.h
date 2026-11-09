@@ -93,7 +93,7 @@ bool Assertion_SetAutoWarning(bool enable);
 #define NW4R_ASSERTMSG(exp, line, ...) ((void)0)
 #else
 #define NW4R_ASSERTMSG(exp, line, ...)                                         \
-    (void)((exp) || (Panic(__FILE__, line, __VA_ARGS__), 0))
+    (void)((exp) || (db::Panic(__FILE__, line, __VA_ARGS__), 0))
 #endif
 #endif
 
@@ -116,12 +116,31 @@ bool Assertion_SetAutoWarning(bool enable);
                    static_cast<int>(exp), static_cast<int>(min))
 #endif
 
+#ifndef NW4R_ANY_TO_PTR
+#define NW4R_ANY_TO_PTR(ptr)                                                   \
+    reinterpret_cast<u32>(reinterpret_cast<const void*>(ptr))
+#endif
+
+#ifndef NW4R_POINTER_ASSERT
+#define NW4R_POINTER_ASSERT(exp, line)                                         \
+    NW4R_ASSERTMSG(((NW4R_ANY_TO_PTR(exp) & 0xFF000000) == 0x80000000) ||      \
+                       ((NW4R_ANY_TO_PTR(exp) & 0xFF800000) == 0x81000000) ||  \
+                       ((NW4R_ANY_TO_PTR(exp) & 0xF8000000) == 0x90000000) ||  \
+                       ((NW4R_ANY_TO_PTR(exp) & 0xFF000000) == 0xC0000000) ||  \
+                       ((NW4R_ANY_TO_PTR(exp) & 0xFF800000) == 0xC1000000) ||  \
+                       ((NW4R_ANY_TO_PTR(exp) & 0xF8000000) == 0xD0000000) ||  \
+                       ((NW4R_ANY_TO_PTR(exp) & 0xFFFFC000) == 0xE0000000),    \
+                   line,                                                       \
+                   "NW4R:Pointer Error\n" #exp "(=%p) is not valid pointer.",  \
+                   (exp))
+#endif
+
 #ifndef NW4R_WARNING
 #if defined(PRODUCT)
 #define NW4R_WARNING(exp, line, ...) ((void)0)
 #else
 #define NW4R_WARNING(exp, line, ...)                                           \
-    (void)((exp) || (Warning(__FILE__, line, __VA_ARGS__), 0))
+    (void)((exp) || (db::Warning(__FILE__, line, __VA_ARGS__), 0))
 #endif
 #endif
 

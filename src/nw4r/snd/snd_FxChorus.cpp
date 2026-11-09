@@ -4,14 +4,14 @@
 namespace nw4r {
 namespace snd {
 
-FxChorus::FxChorus() {
+FxChorus::FxChorus() : FxBase(), mActive(FALSE) {
     const ChorusParam param;
     SetParam(param);
 }
 
 u32 FxChorus::GetRequiredMemSize() {
-    u32 memSize = AXFXChorusGetMemSize(&mAxfxParam);
-    return ut::RoundUp(memSize + detail::AxfxImpl::HEAP_SIZE_MIN, 32);
+    u32 requiredSize = AXFXChorusExpGetMemSize(&mAxfxParam);
+    return ut::RoundUp(requiredSize + detail::AxfxImpl::HEAP_SIZE_MIN, 32);
 }
 
 bool FxChorus::AssignWorkBuffer(void* pBuffer, u32 size) {
@@ -28,73 +28,89 @@ bool FxChorus::StartUp() {
         return false;
     }
 
-    AXFXAllocHook allocHook;
-    AXFXFreeHook freeHook;
-    mImpl.HookAlloc(&allocHook, &freeHook);
+    AXFXAllocHook alloc;
+    AXFXFreeHook free;
+    mImpl.HookAlloc(&alloc, &free);
+    int result = AXFXChorusExpInit(&mAxfxParam);
+    u32 allocatedSize = mImpl.RestoreAlloc(alloc, free);
 
-    mImpl.mAllocatedSize = 0;
-    BOOL success = AXFXChorusInit(&mAxfxParam);
+    //! Variable is debug leftover
+    u32 requiredMemSize = GetRequiredMemSize();
 
-    mImpl.RestoreAlloc(allocHook, freeHook);
-
-    (void)AXFXChorusGetMemSize(&mAxfxParam); // debug leftover
-
-    return success;
+    mActive = TRUE;
+    return result;
 }
 
 void FxChorus::Shutdown() {
 
-    AXFXAllocHook allocHook;
-    AXFXFreeHook freeHook;
-    mImpl.HookAlloc(&allocHook, &freeHook);
-
-    AXFXChorusShutdown(&mAxfxParam);
-
-    mImpl.RestoreAlloc(allocHook, freeHook);
-}
-
-bool FxChorus::SetParam(const ChorusParam& rParam) {
-    mParam = rParam;
-
-    u32 baseDelay = static_cast<u32>(rParam.delayTime);
-    u32 variation = static_cast<u32>(rParam.delayTime * rParam.depth);
-    u32 period = static_cast<u32>(1000.0f / rParam.rate);
-
-    mAxfxParam.baseDelay = ut::Clamp<u32>(baseDelay, 1, 50);
-    mAxfxParam.variation = ut::Clamp<u32>(variation, 0, 50);
-    mAxfxParam.period = ut::Clamp<u32>(period, 500, 10000);
-
-    u32 memSize = GetRequiredMemSize();
-    if (memSize > mImpl.GetHeapTotalSize()) {
-        return false;
+    if (!mActive) {
+        return;
     }
 
-    AXFXAllocHook allocHook;
-    AXFXFreeHook freeHook;
-    mImpl.HookAlloc(&allocHook, &freeHook);
+    mActive = FALSE;
 
-    BOOL success = AXFXChorusSettings(&mAxfxParam);
+    AXFXAllocHook alloc;
+    AXFXFreeHook free;
+    mImpl.HookAlloc(&alloc, &free);
 
-    mImpl.RestoreAlloc(allocHook, freeHook);
+    AXFXChorusExpShutdown(&mAxfxParam);
 
-    return success;
+    mImpl.RestoreAlloc(alloc, free);
 }
 
-void FxChorus::UpdateBuffer(int channels, void** ppBuffer, u32 size,
+bool FxChorus::SetParam(const ChorusParam& param) {
+    DECOMP_I_BOMB;
+    mParam = param;
+
+    mAxfxParam.delayTime = ut::Clamp(param.delayTime, 0.1f, 50.0f);
+    mAxfxParam.depth = ut::Clamp(param.depth, 0.0f, 1.0f);
+    mAxfxParam.rate = ut::Clamp(param.rate, 0.1f, 2.0f);
+    mAxfxParam.feedback = ut::Clamp(param.feedback, 0.0f, 0.99f);
+    mAxfxParam.outGain = ut::Clamp(param.outGain, 0.0f, 1.0f);
+
+    mAxfxParam.busIn = NULL;
+    mAxfxParam.busOut = NULL;
+    mAxfxParam.sendGain = 0.0f;
+
+    if (!mActive) {
+        return TRUE;
+    }
+
+    if (GetRequiredMemSize() > mImpl.GetHeapTotalSize()) {
+        return FALSE;
+    }
+
+    int result = AXFXChorusExpSettingsUpdate(&mAxfxParam);
+
+    return result;
+}
+
+void FxChorus::UpdateBuffer(int numChannels, void* buffer[], u32 bufferSize,
                             SampleFormat format, f32 sampleRate,
                             OutputMode mode) {
-#pragma unused(channels)
-#pragma unused(size)
-#pragma unused(format)
 #pragma unused(sampleRate)
-#pragma unused(mode)
 
-    void* chans[AX_STEREO_MAX];
-    chans[AX_STEREO_L] = ppBuffer[AX_STEREO_L];
-    chans[AX_STEREO_R] = ppBuffer[AX_STEREO_R];
-    chans[AX_STEREO_S] = ppBuffer[AX_STEREO_S];
+    NW4R_ASSERT(numChannels >= 3, 246);
+    NW4R_ASSERT(bufferSize == AUX_BUFFER_SIZE, 247);
+    NW4R_ASSERT(format == SAMPLE_FORMAT_PCM_S32, 248);
 
-    AXFXChorusCallback(chans, &mAxfxParam);
+    if (!mActive) {
+        return;
+    }
+
+    if (mode == OUTPUT_MODE_DPL2) {
+        return;
+    }
+
+    (void)numChannels;
+    (void)bufferSize;
+    (void)format;
+
+    AXFX_BUFFERUPDATE axfxbuf = {static_cast<s32*>(buffer[0]),
+                                 static_cast<s32*>(buffer[1]),
+                                 static_cast<s32*>(buffer[2])};
+
+    AXFXChorusExpCallback(&axfxbuf, &mAxfxParam);
 }
 
 } // namespace snd

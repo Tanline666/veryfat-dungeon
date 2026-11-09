@@ -49,7 +49,7 @@ struct ColorInput {
         TEVCOLOR_NULL,
         TEVCOLOR1_1,
         TEVCOLOR1_2,
-        TEVCOLOR2_3,
+        TEVCOLOR2_1,
         TEVCOLOR2_2,
         TEVCOLOR1_MULT,
         TEVCOLOR2_MULT
@@ -65,7 +65,6 @@ struct ColorInput {
     u8 mTevKColor[GX_MAX_KCOLOR];    // at 0x4
 };
 
-// TODO(kiwi) Why?
 #pragma pack(push, 1)
 struct Lighting {
     enum Mode {
@@ -151,6 +150,9 @@ struct EmitterDrawSetting {
 
     enum DirType {
         DIR_NO_DESIGN = 5,
+        DIR_PARTICLE_BOTH,
+        DIR_NO_DESIGN2,
+        DIR_MAX
     };
 
     u16 mFlags;                     // at 0x0
@@ -160,34 +162,36 @@ struct EmitterDrawSetting {
     u8 mNumTevs;                    // at 0x5
     u8 mFlagClamp;                  // at 0x6
     u8 mIndirectTargetStage;        // at 0x7
-    TevStageColor mTevColor[4];     // at 0x8
-    TevStageColorOp mTevColorOp[4]; // at 0x18
-    TevStageAlpha mTevAlpha[4];     // at 0x2C
-    TevStageColorOp mTevAlphaOp[4]; // at 0x3C
-    u8 mTevKColorSel[4];            // at 0x50
-    u8 mTevKAlphaSel[4];            // at 0x54
-    BlendMode mBlendMode;           // at 0x58
-    ColorInput mColorInput;         // at 0x5C
-    u8 mZCompareFunc;               // at 0x64
-    u8 mAlphaFlickType;             // at 0x65
-    u16 mAlphaFlickCycle;           // at 0x66
-    u8 mAlphaFlickRandom;           // at 0x68
-    u8 mAlphaFlickAmplitude;        // at 0x69
-    Lighting mLighting;             // at 0x6A
-    f32 mIndTexOffsetMtx[2][3];     // at 0x84
-    s8 mIndTexScaleExp;             // at 0x9C
-    s8 pivotX;                      // at 0x9D
-    s8 pivotY;                      // at 0x9E
-    u8 PADDING_0xA3;                // at 0x9F
-    u8 ptcltype;                    // at 0xA0
-    u8 typeOption;                  // at 0xA1
-    u8 typeDir;                     // at 0xA2
-    u8 typeAxis;                    // at 0xA3
-    u8 typeOption0;                 // at 0xA4
-    u8 typeOption1;                 // at 0xA5
-    u8 typeOption2;                 // at 0xA6
-    u8 PADDING_0xAB;                // at 0xA7
-    f32 zOffset;                    // at 0xA8
+    u8 mTevTexture[4];              // at 0x8
+    TevStageColor mTevColor[4];     // at 0xC
+    TevStageColorOp mTevColorOp[4]; // at 0x1C
+    TevStageAlpha mTevAlpha[4];     // at 0x30
+    TevStageColorOp mTevAlphaOp[4]; // at 0x40
+    u8 mTevKColorSel[4];            // at 0x54
+    u8 mTevKAlphaSel[4];            // at 0x58
+    BlendMode mBlendMode;           // at 0x5C
+    ColorInput mColorInput;         // at 0x60
+    ColorInput mAlphaInput;         // at 0x68
+    u8 mZCompareFunc;               // at 0x70
+    u8 mAlphaFlickType;             // at 0x71
+    u16 mAlphaFlickCycle;           // at 0x72
+    u8 mAlphaFlickRandom;           // at 0x74
+    u8 mAlphaFlickAmplitude;        // at 0x75
+    Lighting mLighting;             // at 0x78
+    f32 mIndTexOffsetMtx[2][3];     // at 0x94
+    s8 mIndTexScaleExp;             // at 0xAC
+    s8 pivotX;                      // at 0xAD
+    s8 pivotY;                      // at 0xAE
+    u8 padding;                     // at 0xAF
+    u8 ptcltype;                    // at 0xB0
+    u8 typeOption;                  // at 0xB1
+    u8 typeDir;                     // at 0xB2
+    u8 typeAxis;                    // at 0xB3
+    u8 typeOption0;                 // at 0xB4
+    u8 typeOption1;                 // at 0xB5
+    u8 typeOption2;                 // at 0xB6
+    u8 padding4;                    // at 0xB7
+    f32 zOffset;                    // at 0xB8
 };
 
 struct EmitterDesc {
@@ -203,6 +207,10 @@ struct EmitterDesc {
         CMN_FLAG_EMIT_INHERIT_ROT = (1 << 8),
 
         CMN_FLAG_DISABLE_CALC = (1 << 9),
+        CMN_FLAG_INHERIT_PTCL_PIVOT = (1 << 10),
+        CMN_FLAG_INHERIT_CHILD_PIVOT = (1 << 11),
+        CMN_FLAG_INHERIT_CHILD_P_SCALE = (1 << 12),
+        CMN_FLAG_INHERIT_CHILD_P_ROTATE = (1 << 13),
 
         CMN_FLAG_RELOCATED = (1 << 30),
     };
@@ -211,12 +219,12 @@ struct EmitterDesc {
         EMIT_FLAG_8 = (1 << 8),
         EMIT_FLAG_15 = (1 << 15),
         EMIT_FLAG_16 = (1 << 16),
-        EMIT_FLAG_17 = (1 << 17),
+        EMIT_FLAG_FIXED_INTERVAL = (1 << 17),
         EMIT_FLAG_18 = (1 << 18),
         EMIT_FLAG_24 = (1 << 24),
         EMIT_FLAG_XYZ_SAME_SIZE = (1 << 25),
         EMIT_FLAG_26 = (1 << 26),
-        EMIT_FLAG_RELOCATE_COMPLETE = (1 << 30),
+        EMIT_FLAG_RELOCATED = (1 << 30),
     };
 
     u32 commonFlag;                 // at 0x0
@@ -303,7 +311,7 @@ public:
     }
     u8* SkipParticleParameterDesc() {
         u8* pPtr = SkipEmitterDesc();
-        pPtr += *reinterpret_cast<u32*>(pPtr) + sizeof(u32);
+        pPtr += *reinterpret_cast<const u32*>(pPtr) + sizeof(u32);
         return pPtr;
     }
 
@@ -354,13 +362,15 @@ public:
         return ppTbl;
     }
 
-    u8* GetPtclTrack(u16 idx) {
+    u8* GetPtclTrack(u16 num) {
         u8** ppTbl = GetPtclTrackTbl();
-        return ppTbl[idx];
+        NW4R_ASSERT(num < NumEmitTrack(), 670);
+        return ppTbl[num];
     }
-    u8* GetEmitTrack(u16 idx) {
+    u8* GetEmitTrack(u16 num) {
         u8** ppTbl = GetEmitTrackTbl();
-        return ppTbl[idx];
+        NW4R_ASSERT(num < NumEmitTrack(), 737);
+        return ppTbl[num];
     }
 
     void LocateTracks() {

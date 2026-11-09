@@ -89,8 +89,8 @@ private:
      */
     Resource();
 
-    u32 relocateCurveTexture(u8* pCmdList);
-    u32 relocateCurveChild(u8* pCmdList);
+    u32 relocateCurveTexture(u8* pCmdList, const EmitterResource* eh);
+    u32 relocateCurveChild(u8* pCmdList, const EmitterResource* eh);
 
 private:
     static Resource mResource;

@@ -9,33 +9,35 @@ namespace nw4r {
 namespace snd {
 namespace detail {
 
-struct AxfxImpl {
-    MEMiHeapHead* mHeap; // at 0x4
-    u32 mAllocCount;     // at 0x8
-
+class AxfxImpl {
+public:
     static const u32 HEAP_SIZE_MIN = MEM_FRM_HEAP_MIN_SIZE + 32;
 
-    AxfxImpl() : mHeap(NULL), mAllocCount(0) {}
+    AxfxImpl() : mHandle(NULL), mAllocCounter(0) {}
 
     bool CreateHeap(void* pBuffer, u32 size);
     void DestroyHeap();
 
-    u32 GetHeapTotalSize() {
-        if (mHeap == NULL) {
+    s32 GetHeapTotalSize() {
+        if (mHandle == NULL) {
             return 0;
         }
 
-        return MEMGetHeapTotalSize(mHeap);
+        return MEMGetHeapTotalSize(mHandle);
     }
 
     void HookAlloc(AXFXAllocHook* pAllocHook, AXFXFreeHook* pFreeHook);
     u32 RestoreAlloc(AXFXAllocHook allocHook, AXFXFreeHook freeHook);
 
-    static void* Alloc(u32 size);
-    static void Free(void* pBlock);
+private:
+    MEMiHeapHead* mHandle; // at 0x4
+    u32 mAllocCounter;     // at 0x8
 
     static AxfxImpl* mCurrentFx;
     static u32 mAllocatedSize;
+
+    static void* Alloc(u32 size);
+    static void Free(void* pBlock);
 };
 
 } // namespace detail

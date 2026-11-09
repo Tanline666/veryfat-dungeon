@@ -8,7 +8,6 @@
 #include <nw4r/lyt/lyt_types.h>
 #include <nw4r/ut.h>
 
-
 namespace nw4r {
 namespace lyt {
 
@@ -103,13 +102,17 @@ public:
     virtual ~AnimTransform(); // at 0x8
 
     virtual void SetResource(const res::AnimationBlock* pBlock,
-                             ResourceAccessor* pAccessor) = 0; // at 0xC
+                             ResourceAccessor* pAccessor) = 0; //!< // at 0xC
 
-    virtual void Bind(Pane* pPane, bool recursive) = 0; // at 0x10
-    virtual void Bind(Material* pMaterial) = 0;         // at 0x14
+    virtual void SetResource(const res::AnimationBlock* pRes,
+                             ResourceAccessor* pResAccessor,
+                             u16 animNum) = 0; //!< // at 0x10
 
-    virtual void Animate(u32 idx, Pane* pPane) = 0;         // at 0x18
-    virtual void Animate(u32 idx, Material* pMaterial) = 0; // at 0x1C
+    virtual void Bind(Pane* pPane, bool recursive) = 0; // at 0x14
+    virtual void Bind(Material* pMaterial) = 0;         // at 0x18
+
+    virtual void Animate(u32 idx, Pane* pPane) = 0;         // at 0x1C
+    virtual void Animate(u32 idx, Material* pMaterial) = 0; // at 0x20
 
     u16 GetFrameSize() const;
 
@@ -220,6 +223,12 @@ namespace detail {
 
 AnimationLink* FindAnimationLink(AnimationLinkList* pAnimList,
                                  AnimTransform* pAnimTrans);
+
+AnimationLink* FindAnimationLink(AnimationLinkList* pAnimList,
+                                 const AnimResource& animRes);
+
+void UnbindAnimationLink(AnimationLinkList* pAnimList,
+                         AnimTransform* pAnimTrans);
 
 } // namespace detail
 

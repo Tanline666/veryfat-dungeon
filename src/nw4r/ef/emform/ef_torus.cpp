@@ -41,7 +41,7 @@ void EmitterFormTorus::Emission(Emitter* pEmitter, ParticleManager* pManager,
         angleOffset = pEmitter->mRandom.RandFloat() * NW4R_MATH_PI * 2;
     }
 
-    if (flags & EmitterDesc::EMIT_FLAG_17) {
+    if (flags & EmitterDesc::EMIT_FLAG_FIXED_INTERVAL) {
         f32 f = std::fmodf(pParams[3] - pParams[2], NW4R_MATH_PI * 2);
 
         if (f < NW4R_EF_EMIT_ANGLE_MIN || f > NW4R_EF_EMIT_ANGLE_MAX) {
@@ -55,7 +55,7 @@ void EmitterFormTorus::Emission(Emitter* pEmitter, ParticleManager* pManager,
     }
 
     int loopCount;
-    if (flags & EmitterDesc::EMIT_FLAG_17) {
+    if (flags & EmitterDesc::EMIT_FLAG_FIXED_INTERVAL) {
         loopCount = count * count;
     } else {
         loopCount = count;
@@ -69,7 +69,7 @@ void EmitterFormTorus::Emission(Emitter* pEmitter, ParticleManager* pManager,
 
         f32 inner = (100.0f - pParams[1]) / (100.0f + pParams[1]);
 
-        if (!(flags & EmitterDesc::EMIT_FLAG_17)) {
+        if (!(flags & EmitterDesc::EMIT_FLAG_FIXED_INTERVAL)) {
             angle = (pParams[3] - pParams[2]) * pEmitter->mRandom.RandFloat();
             ringAngle = pEmitter->mRandom.RandFloat() * NW4R_MATH_PI * 2;
         }
@@ -125,7 +125,7 @@ void EmitterFormTorus::Emission(Emitter* pEmitter, ParticleManager* pManager,
             pEmitter->mCalcRemain);
         // clang-format on
 
-        if (flags & EmitterDesc::EMIT_FLAG_17) {
+        if (flags & EmitterDesc::EMIT_FLAG_FIXED_INTERVAL) {
             if ((i + 1) % count == 0) {
                 angle += dangle;
                 ringAngle = 0.0f;

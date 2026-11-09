@@ -383,6 +383,13 @@ bool RPSysSceneMgr::isBlank() {
            mpSceneFader->getStatus() == EGG::Fader::STATUS_PREPARE_IN;
 }
 
+bool RPSysSceneMgr::isFading() {
+    return mCurrentFader->getStatus() == EGG::Fader::STATUS_FADE_IN ||
+           mpSceneFader->getStatus() == EGG::Fader::STATUS_FADE_IN ||
+           mCurrentFader->getStatus() == EGG::Fader::STATUS_FADE_OUT ||
+           mpSceneFader->getStatus() == EGG::Fader::STATUS_FADE_OUT;
+}
+
 /**
  * \~english @brief Tests whether the scene is fading out
  */
@@ -411,14 +418,13 @@ bool RPSysSceneMgr::isTaskFinished() {
 bool RPSysSceneMgr::isSceneChangeEnable() {
     if (mCurrentFader->getStatus() == EGG::Fader::STATUS_PREPARE_OUT &&
         RP_GET_INSTANCE(RPSysSaveDataMgr)->isNandAccessFinish() &&
-        !RP_GET_INSTANCE(RPSysSystem)->getNandThread()->isTaskExist() &&
-        !RP_GET_INSTANCE(RPSysSystem)->getDvdThread()->isTaskExist() &&
-        !RP_GET_INSTANCE(RPSysSystem)->getWc24Thread()->isTaskExist()) {
+        !RP_GET_INSTANCE(RPSysSystem)->getNandThread() &&
+        !RP_GET_INSTANCE(RPSysSystem)->getDvdThread()) {
 
-        return true;
+        return TRUE;
     }
 
-    return false;
+    return FALSE;
 }
 
 /**

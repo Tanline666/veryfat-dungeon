@@ -62,10 +62,14 @@ nw4r/ef/ef_effectsystem.cpp:
 	.text       start:0x8000CD70 end:0x8000D840
 	.ctors      start:0x80688CC4 end:0x80688CC8
 	.data       start:0x807083E0 end:0x80708428
-	.bss        start:0x80764FB0 end:0x80771028
+	.bss        start:0x80764F10 end:0x80771028
+	.sdata      start:0x80813AF8 end:0x80813AFC
+	.sbss       start:0x808160A8 end:0x808160B8
+	.sdata2     start:0x808179A8 end:0x808179B0
 
 nw4r/ef/ef_emitter.cpp:
 	.text       start:0x8000D840 end:0x8000F9E0
+	.data       start:0x80708428 end:0x80708450
 	.sdata2     start:0x808179B0 end:0x808179E8
 
 nw4r/ef/ef_animcurve.cpp:
@@ -83,6 +87,7 @@ nw4r/ef/ef_particle.cpp:
 nw4r/ef/ef_particlemanager.cpp:
 	.text       start:0x80018DE0 end:0x8001B0E4
 	.ctors      start:0x80688CC8 end:0x80688CCC
+	.data       start:0x80708668 end:0x807086B0
 	.bss        start:0x80771028 end:0x80771058
 	.sbss       start:0x808160B8 end:0x808160BC
 	.sdata2     start:0x80817AA8 end:0x80817AF0
@@ -92,21 +97,61 @@ nw4r/ef/ef_resource.cpp:
 	.ctors      start:0x80688CCC end:0x80688CD0
 	.bss        start:0x80771058 end:0x80771078
 
+nw4r/ef/ef_util.cpp:
+	.text       start:0x8001BDF0 end:0x8001CD68
+	.sdata      start:0x80813B00 end:0x80813B08
+	.sdata2     start:0x80817AF0 end:0x80817B30
+
 nw4r/ef/ef_handle.cpp:
 	.text       start:0x8001CD70 end:0x8001CE40
 
 nw4r/ef/ef_emitterform.cpp:
 	.text       start:0x8001CE40 end:0x8001D3E0
-	.sdata2     start:0x80817B30 end:0x80817B60
+	.sdata2     start:0x80817B30 end:0x80817B5C
 
 nw4r/ef/ef_creationqueue.cpp:
-	.text       start:0x8001D3E0 end:0x8001D830
+	.text       start:0x8001D3E0 end:0x8001D824
+
+nw4r/ef/ef_emform.cpp:
+	.text       start:0x8001D830 end:0x8001D908
+	.ctors      start:0x80688CD0 end:0x80688CD4
+	.data       start:0x807086B0 end:0x807086BC
+	.sbss       start:0x808160C0 end:0x808160DC
+
+nw4r/ef/emform/ef_point.cpp:
+	.text       start:0x8001D910 end:0x8001DC58
+	.data       start:0x807086C0 end:0x807086CC
+	.sdata2     start:0x80817B60 end:0x80817B90
+
+nw4r/ef/emform/ef_line.cpp:
+	.text       start:0x8001DC60 end:0x8001DF98
+	.data       start:0x807086D0 end:0x807086DC
+	.sdata2     start:0x80817B90 end:0x80817BB8
+
+nw4r/ef/emform/ef_disc.cpp:
+	.text       start:0x8001DFA0 end:0x8001E4D4
+	.data       start:0x807086E0 end:0x807086EC
+	.sdata2     start:0x80817BB8 end:0x80817C00
 
 nw4r/ef/emform/ef_sphere.cpp:
-	.text       start:0x8001E4E0 end:0x8001ED40
+	.text       start:0x8001E4E0 end:0x8001ED34
+	.data       start:0x807086F0 end:0x807086FC
+	.sdata2     start:0x80817C00 end:0x80817C50
+
+nw4r/ef/emform/ef_cylinder.cpp:
+	.text       start:0x8001ED40 end:0x8001F4F0
+	.data       start:0x80708700 end:0x8070870C
+	.sdata2     start:0x80817C50 end:0x80817C94
+
+nw4r/ef/emform/ef_torus.cpp:
+	.text       start:0x8001F4F0 end:0x8001FB2C
+	.data       start:0x80708710 end:0x8070871C
+	.sdata2     start:0x80817C98 end:0x80817CE0
 
 nw4r/ef/emform/ef_cube.cpp:
-	.text       start:0x8001FB30 end:0x80021710
+	.text       start:0x8001FB30 end:0x8002170C
+	.data       start:0x80708720 end:0x8070872C
+	.sdata2     start:0x80817CE0 end:0x80817D18
 
 nw4r/ef/ef_drawstrategybuilder.cpp:
 	.text       start:0x80021710 end:0x800218B0
@@ -119,6 +164,7 @@ nw4r/ef/drawstrategy/ef_drawstrategyimpl.cpp:
 	.ctors      start:0x80688CD4 end:0x80688CD8
 	.data       start:0x80708740 end:0x80708758
 	.bss        start:0x80771698 end:0x807716F8
+	.sdata2     start:0x80817D18 end:0x80817D44
 
 nw4r/ef/drawstrategy/ef_drawbillboardstrategy.cpp:
 	.text       start:0x800238E0 end:0x80025A80
@@ -330,6 +376,18 @@ nw4r/g3d/g3d_maya.cpp:
 	.rodata     start:0x8068B180 end:0x8068B1B8
 	.sdata2     start:0x80818090 end:0x808180A4
 
+nw4r/g3d/g3d_xsi.cpp:
+	.text       start:0x80051900 end:0x80052514
+	.rodata     start:0x8068B1B8 end:0x8068B1F0
+	.sdata2     start:0x808180A8 end:0x808180B4
+
+nw4r/g3d/g3d_scnobj.cpp:
+	.text       start:0x80053040 end:0x80054AAC
+	.rodata     start:0x8068B228 end:0x8068B258
+	.data       start:0x80709198 end:0x80709290
+	.sbss       start:0x80816120 end:0x80816124
+	.sdata2     start:0x808180D0 end:0x808180D8
+
 nw4r/g3d/g3d_scnmdl.cpp:
 	.text       start:0x80058640 end:0x8005AFEC
 	.rodata     start:0x8068B280 end:0x8068B28C
@@ -349,18 +407,22 @@ nw4r/g3d/g3d_calcvtx.cpp:
 
 nw4r/lyt/lyt_init.cpp:
 	.text       start:0x8005D820 end:0x8005D874
+	.data       start:0x807094C8 end:0x80709510
+	.sdata      start:0x80813BF0 end:0x80813BF4
 
 nw4r/lyt/lyt_pane.cpp:
 	.text       start:0x8005D880 end:0x8005E9DC
 	.ctors      start:0x80688CDC end:0x80688CE0
 	.data       start:0x80709510 end:0x80709584
+	.sbss       start:0x80816128 end:0x8081612C
+	.sdata2     start:0x80818130 end:0x80818150
 
 nw4r/lyt/lyt_group.cpp:
-	.text       start:0x8005E9E0 end:0x8005ED40
+	.text       start:0x8005E9E0 end:0x8005ED3C
 	.data       start:0x80709588 end:0x80709594
 
 nw4r/lyt/lyt_picture.cpp:
-	.text       start:0x8005FEA0 end:0x8006041C
+	.text       start:0x8005FDA0 end:0x8006041C
 	.ctors      start:0x80688CE0 end:0x80688CE4
 	.data       start:0x807095D8 end:0x80709650
 	.sbss       start:0x80816138 end:0x8081613C
@@ -451,6 +513,7 @@ nw4r/snd/snd_Bank.cpp:
 
 nw4r/snd/snd_BankFile.cpp:
 	.text       start:0x80070E10 end:0x800714CC
+	.sdata2     start:0x808182D8 end:0x808182DC
 
 nw4r/snd/snd_BasicPlayer.cpp:
 	.text       start:0x800714D0 end:0x80071710
@@ -458,11 +521,14 @@ nw4r/snd/snd_BasicPlayer.cpp:
 	.sdata2     start:0x808182E0 end:0x808182E8
 
 nw4r/snd/snd_BasicSound.cpp:
-	.text       start:0x80071710 end:0x80072E80
+	.text       start:0x80071710 end:0x80072E7C
 	.ctors      start:0x80688CF4 end:0x80688CF8
 	.data       start:0x8070A340 end:0x8070A378
 	.sbss       start:0x80816188 end:0x8081618C
 	.sdata2     start:0x808182E8 end:0x808182F8
+
+nw4r/snd/snd_BiquadFilterPreset.cpp:
+	.text       start:0x80072E80 end:0x800732C0
 
 nw4r/snd/snd_DvdSoundArchive.cpp:
 	.text       start:0x800747F0 end:0x80074F18
@@ -480,6 +546,7 @@ nw4r/snd/snd_FrameHeap.cpp:
 
 nw4r/snd/snd_FxChorus.cpp:
 	.text       start:0x80075F70 end:0x8007640C
+	.data       start:0x8070A450 end:0x8070A474
 
 nw4r/snd/snd_MemorySoundArchive.cpp:
 	.text       start:0x80079690 end:0x80079B40
@@ -600,6 +667,10 @@ egg/math/eggMatrix.cpp:
 	.ctors      start:0x80688D40 end:0x80688D44
 	.bss        start:0x807AA2A0 end:0x807AA2D0
 
+egg/core/eggUnitHeap.cpp:
+	.text       start:0x800BA500 end:0x800BA788
+	.data       start:0x8070B670 end:0x8070B69C
+
 egg/core/eggExpHeap.cpp:
 	.text       start:0x800BA788 end:0x800BAAE0
 	.data       start:0x8070B6A0 end:0x8070B6CC
@@ -683,12 +754,14 @@ egg/core/eggCntFile.cpp:
 
 egg/audio/eggAudioArcPlayerMgr.cpp:
 	.text       start:0x800C4F90 end:0x800C5CEC
+	.data       start:0x8070BA60 end:0x8070BABC
 
 egg/audio/eggAudioExpMgr.cpp:
 	.text       start:0x800C5D2C end:0x800C6408
 
 egg/audio/eggAudioMgr.cpp:
 	.text       start:0x800C88D8 end:0x800C8C4C
+	.data       start:0x8070BBE0 end:0x8070BCAC
 
 egg/audio/eggAudioSystem.cpp:
 	.text       start:0x800C8C4C end:0x800C8DA0
@@ -1283,6 +1356,15 @@ Pack/RPSystem/RPSysFontManager.cpp:
 	.data       start:0x80740158 end:0x80740180
 	.sbss       start:0x80816D00 end:0x80816D04
 
+OSReport.c:
+	.text       start:0x801DF2F8 end:0x801DF348
+
+Pack/RPKernel/RPSysCalendar.cpp:
+	.text       start:0x801DF348 end:0x801DF6F0
+
+Pack/RPKernel/RPSysException.cpp:
+	.text       start:0x801DF6F0 end:0x801DF784
+
 Pack/RPKernel/IRPSysHostIOSocket.cpp:
 	.text       start:0x801DF784 end:0x801DF848
 	.data       start:0x80740218 end:0x80740228
@@ -1321,12 +1403,19 @@ Pack/RPKernel/RPSysOfficialDB.cpp:
 	.text       start:0x801F2F38 end:0x801F318C
 	.data       start:0x807406E8 end:0x807406F4
 
+Pack/RPKernel/RPSysParticleManager.cpp:
+	.text       start:0x801F33D4 end:0x801F3958
+
 Pack/RPGraphics/RPGrpCamera.cpp:
 	.text       start:0x801F6A1C end:0x801F7554
 	.ctors      start:0x80688DC0 end:0x80688DC4
 	.data       start:0x80740830 end:0x80740844
 	.bss        start:0x808113C8 end:0x8081164C
 	.sbss       start:0x80816DB8 end:0x80816DC0
+
+Pack/RPGraphics/RPGrpRenderer.cpp:
+	.text       start:0x801FE994 end:0x801FFDF8
+	.ctors      start:0x80688DC8 end:0x80688DCC
 
 Pack/RPGraphics/RPGrpScreen.cpp:
 	.text       start:0x801FFDF8 end:0x80200178

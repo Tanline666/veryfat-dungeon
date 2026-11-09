@@ -88,7 +88,8 @@ private:
     typedef ut::LinkList<Pane, offsetof(PaneBase, node)> PaneList;
 
 public:
-    explicit Pane(const res::Pane* pRes);
+    Pane();
+    Pane(const res::Pane* pRes);
     virtual ~Pane(); // at 0x8
 
     virtual void CalculateMtx(const DrawInfo& rInfo); // at 0x10
@@ -138,11 +139,21 @@ public:
     void AppendChild(Pane* pChild);
     void RemoveChild(Pane* pChild);
 
-    ut::Rect GetPaneRect(const DrawInfo& rInfo) const;
+    const ut::Rect GetPaneRect() const;
+    /**
+     * \~english @deprecated Gets the pane's local coordinate rectangle.
+     * Superseded by the no-variable version.
+     * \~japanese @deprecated ペインのローカル座標軸での矩形を取得する。
+     * 引数なし版に取って代わられた。
+     *
+     * \~english @param rInfo Dummy variable
+     * \~japanese @param rInfo ダミー引数
+     */
+    const ut::Rect GetPaneRect(const DrawInfo& rInfo) const;
 
     void AddAnimationLink(AnimationLink* pAnimLink);
 
-    math::VEC2 GetVtxPos() const;
+    const math::VEC2 GetVtxPos() const;
 
     Pane* GetParent() const {
         return mpParent;

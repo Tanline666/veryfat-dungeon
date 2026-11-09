@@ -222,10 +222,6 @@ NandSoundArchive::NandFileStream::NandFileStream(const NANDFileInfo* pFileInfo,
       mSize(size) {
 
     if (IsAvailable()) {
-        if (mSize == 0) {
-            mSize = ut::NandFileStream::GetSize();
-        }
-
         ut::NandFileStream::Seek(mOffset, SEEK_ORIGIN_BEG);
     }
 }
@@ -237,10 +233,6 @@ NandSoundArchive::NandFileStream::NandFileStream(const char* pPath, u32 offset,
       mSize(size) {
 
     if (IsAvailable()) {
-        if (mSize == 0) {
-            mSize = ut::NandFileStream::GetSize();
-        }
-
         ut::NandFileStream::Seek(mOffset, SEEK_ORIGIN_BEG);
     }
 }

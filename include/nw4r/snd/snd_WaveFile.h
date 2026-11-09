@@ -64,6 +64,12 @@ public:
     WaveFileReader(const WaveFile::FileHeader* pHeader);
     WaveFileReader(const WaveFile::WaveInfo* pWaveInfo);
 
+    bool ReadWaveInfo(WaveInfo* waveData) const {
+        return ReadWaveInfo(waveData, NULL);
+    }
+    bool ReadWaveInfo(WaveInfo* waveData,
+                      const void* waveDataOffsetOrigin) const;
+
     static SampleFormat GetAxVoiceFormatFromWaveFileFormat(u32 format);
 
 private:

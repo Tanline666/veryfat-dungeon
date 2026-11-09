@@ -118,11 +118,11 @@ public:
      * \~japanese @brief カメラ位置を設定する。
      *
      * \~english @param x New camera position's x coordinate
-     * \~japanese @param x 新しいカメラ位置のx座標軸
+     * \~japanese @param x 新しいカメラ位置のx座軸
      * \~english @param y New camera position's y coordinate
-     * \~japanese @param y 新しいカメラ位置のy座標軸
+     * \~japanese @param y 新しいカメラ位置のy座軸
      * \~english @param z New camera position's z coordinate
-     * \~japanese @param z 新しいカメラ位置のz座標軸
+     * \~japanese @param z 新しいカメラ位置のz座軸
      */
     void SetPosition(f32 x, f32 y, f32 z);
     /**

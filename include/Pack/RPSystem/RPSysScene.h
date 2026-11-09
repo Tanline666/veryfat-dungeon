@@ -133,6 +133,8 @@ public:
      */
     bool isSceneBlank() const;
 
+    bool isFading() const;
+
     /**
      * \~english @brief Tests whether a scene change would be allowed
      */
@@ -174,14 +176,14 @@ public:
      *
      * \~english @return Success
      */
-    bool startFadeIn();
+    bool startFadeIn(EGG::Fader::EStatus status);
 
     /**
      * \~english @brief Begins fading out the scene fader
      *
      * \~english @return Success
      */
-    bool startFadeOut();
+    bool startFadeOut(EGG::Fader::EStatus status);
 
     /**
      * \~english @brief Toggles screen dimming
@@ -190,6 +192,8 @@ public:
      * \~english @param enable Whether to dim the screen
      */
     void setDimming(bool enable);
+
+    void setAutoSleepTime(u8 time);
 
     /**
      * \~english @brief Sets this scene's parent/creator ID

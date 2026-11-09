@@ -34,8 +34,8 @@ class SeqTrackAllocator;
  ******************************************************************************/
 class SoundArchivePlayer_FileManager {
 public:
-    virtual const void* GetFileAddress(int id) const = 0;         // at 0x8
-    virtual const void* GetFileWaveDataAddress(int id) const = 0; // at 0xC
+    virtual const void* GetFileAddress(int id) const = 0;         //!< // at 0x8
+    virtual const void* GetFileWaveDataAddress(int id) const = 0; //!< // at 0xC
 };
 
 /******************************************************************************
@@ -50,22 +50,22 @@ private:
 
 public:
     SoundArchivePlayer();
-    virtual ~SoundArchivePlayer(); // at 0x8
+    virtual ~SoundArchivePlayer(); //!< // at 0x8
 
     virtual void InvalidateData(const void* pStart,
-                                const void* pEnd); // at 0xC
+                                const void* pEnd); //!< // at 0xC
 
     virtual void InvalidateWaveData(const void* pStart,
-                                    const void* pEnd); // at 0x10
+                                    const void* pEnd); //!< // at 0x10
 
 protected:
     virtual StartResult
     detail_SetupSound(SoundHandle* pHandle, u32 id, bool hold,
-                      const StartInfo* pStartInfo); // at 0x28
+                      const StartInfo* pStartInfo); //!< // at 0x28
 
     virtual u32 detail_ConvertLabelStringToSoundId(const char* pLabel) {
         return mSoundArchive->ConvertLabelStringToSoundId(pLabel);
-    } // at 0x2C
+    } //!< // at 0x2C
 
 public:
     bool IsAvailable() const;
@@ -125,11 +125,16 @@ public:
 
 private:
     struct Group {
-        const void* address;         // at 0x0
-        const void* waveDataAddress; // at 0x4
+        const void* address;         //!< // at 0x0
+        const void* waveDataAddress; //!< // at 0x4
+    };
+    struct File {
+        const void* address;
+        const void* waveDataAddress;
     };
 
     typedef detail::Util::Table<Group> GroupTable;
+    typedef detail::Util::Table<File> FileTable;
 
     /******************************************************************************
      * SeqNoteOnCallback
@@ -141,10 +146,10 @@ private:
 
         virtual detail::Channel*
         NoteOn(detail::SeqPlayer* pPlayer, int bankNo,
-               const detail::NoteOnInfo& rInfo); // at 0xC
+               const detail::NoteOnInfo& rInfo); //!< // at 0xC
 
     private:
-        const SoundArchivePlayer& mSoundArchivePlayer; // at 0x4
+        const SoundArchivePlayer& mSoundArchivePlayer; //!< // at 0x4
     };
 
     friend class SoundArchivePlayer::SeqNoteOnCallback;
@@ -162,10 +167,10 @@ private:
                                       detail::WaveData* pWaveData,
                                       const void* pWsdData, int index,
                                       int noteIndex,
-                                      u32 callbackArg) const; // at 0xC
+                                      u32 callbackArg) const; //!< // at 0xC
 
     private:
-        const SoundArchivePlayer& mSoundArchivePlayer; // at 0x4
+        const SoundArchivePlayer& mSoundArchivePlayer; //!< // at 0x4
     };
 
 private:
@@ -212,32 +217,36 @@ private:
                          int startOffset, int voices);
 
 private:
-    const SoundArchive* mSoundArchive;            // at 0x10
-    GroupTable* mGroupTable;                      // at 0x14
-    SoundArchivePlayer_FileManager* mFileManager; // at 0x18
+    const SoundArchive* mSoundArchive;            //!< // at 0x10
+    GroupTable* mGroupTable;                      //!< // at 0x14
+    FileTable* mFileTable;                        //!< // at 0x18
+    SoundArchivePlayer_FileManager* mFileManager; //!< // at 0x18
 
-    detail::SeqTrackAllocator* mSeqTrackAllocator; // at 0x1C
-    SeqNoteOnCallback mSeqCallback;                // at 0x20
-    WsdCallback mWsdCallback;                      // at 0x28
+    SeqNoteOnCallback mSeqCallback;                //!< // at 0x20
+    WsdCallback mWsdCallback;                      //!< // at 0x28
+    detail::SeqTrackAllocator* mSeqTrackAllocator; //!< // at 0x30
 
-    u32 mSoundPlayerCount;      // at 0x30
-    SoundPlayer* mSoundPlayers; // at 0x34
+    SeqUserprocCallback mSeqUserprocCallback; //!< // at 0x34
+    void* mSeqUserprocCallbackArg;            //!< // at 0x38
+
+    u32 mSoundPlayerCount;      //!< // at 0x3C
+    SoundPlayer* mSoundPlayers; //!< // at 0x40
 
     detail::SoundInstanceManager<detail::SeqSound>
-        mSeqSoundInstanceManager; // at 0x38
+        mSeqSoundInstanceManager; //!< // at 0x44
 
     detail::SoundInstanceManager<detail::StrmSound>
-        mStrmSoundInstanceManager; // at 0x60
+        mStrmSoundInstanceManager; //!< // at 0x60
 
     detail::SoundInstanceManager<detail::WaveSound>
-        mWaveSoundInstanceManager; // at 0x88
+        mWaveSoundInstanceManager; //!< // at 0x88
 
-    detail::MmlSeqTrackAllocator mMmlSeqTrackAllocator; // at 0xB0
-    detail::StrmBufferPool mStrmBufferPool;             // at 0xBC
-    detail::MmlParser mMmlParser;                       // at 0xD4
+    detail::MmlSeqTrackAllocator mMmlSeqTrackAllocator; //!< // at 0xB0
+    detail::StrmBufferPool mStrmBufferPool;             //!< // at 0xBC
+    detail::MmlParser mMmlParser;                       //!< // at 0xD4
 
-    void* mSetupBufferAddress; // at 0xD8
-    u32 mSetupBufferSize;      // at 0xDC
+    void* mSetupBufferAddress; //!< // at 0xD8
+    u32 mSetupBufferSize;      //!< // at 0xDC
 };
 
 } // namespace snd

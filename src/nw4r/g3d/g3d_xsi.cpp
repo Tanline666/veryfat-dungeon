@@ -320,57 +320,59 @@ bool CalcTexMtx_Xsi(math::MTX34* pMtx, bool set, const TexSrt& rSrt,
     return true;
 }
 
-u32 CalcWorldMtx_Xsi(math::MTX34* pW, math::VEC3* pS, const math::MTX34* pW1,
-                     const math::VEC3* pS1, u32 attr,
+u32 CalcWorldMtx_Xsi(math::MTX34* pW, math::VEC3* pS, const math::MTX34* pW_1,
+                     const math::VEC3* pS_1, u32 attr_1,
                      const ChrAnmResult* pResult) {
     u32 flag = pResult->flags;
-    u32 newAttr = attr;
-
-    if (flag & ChrAnmResult::FLAG_SCALE_ONE) {
-        newAttr = detail::WorldMtxAttr::AnmScaleOne(newAttr);
-        *pS = *pS1;
-    } else {
-        newAttr = detail::WorldMtxAttr::AnmNotScaleOne(newAttr);
-        pS->x = pS1->x * pResult->s.x;
-        pS->y = pS1->y * pResult->s.y;
-        pS->z = pS1->z * pResult->s.z;
-    }
+    u32 attr = attr_1;
 
     if ((flag & ChrAnmResult::FLAG_MTX_IDENT) ||
         (flag & ChrAnmResult::FLAG_ROT_TRANS_ZERO)) {
 
-        math::MTX34Copy(pW, pW1);
+        math::MTX34Copy(pW, pW_1);
     } else if (flag & ChrAnmResult::FLAG_ROT_ZERO) {
 
-        if (detail::WorldMtxAttr::IsAllScaleOne(attr)) {
+        if (detail::WorldMtxAttr::IsAllScaleOne(attr_1)) {
             math::VEC3 trans(pResult->rt._03, pResult->rt._13, pResult->rt._23);
 
-            math::MTX34Trans(pW, pW1, &trans);
+            math::MTX34Trans(pW, pW_1, &trans);
         } else {
-            math::VEC3 trans(pS1->x * pResult->rt._03, pS1->y * pResult->rt._13,
-                             pS1->z * pResult->rt._23);
+            math::VEC3 trans(pS_1->x * pResult->rt._03,
+                             pS_1->y * pResult->rt._13,
+                             pS_1->z * pResult->rt._23);
 
-            math::MTX34Trans(pW, pW1, &trans);
+            math::MTX34Trans(pW, pW_1, &trans);
         }
-    } else if (detail::WorldMtxAttr::IsAllScaleOne(attr)) {
-        math::MTX34Mult(pW, pW1, &pResult->rt);
+    } else if (detail::WorldMtxAttr::IsAllScaleOne(attr_1)) {
+        math::MTX34Mult(pW, pW_1, &pResult->rt);
     } else {
-        math::MTX34Copy(pW, &pResult->rt);
+        math::MTX34 tmp;
+        math::MTX34Copy(&tmp, &pResult->rt);
 
-        pW->_03 *= pS1->x;
-        pW->_13 *= pS1->y;
-        pW->_23 *= pS1->z;
+        tmp._03 *= pS_1->x;
+        tmp._13 *= pS_1->y;
+        tmp._23 *= pS_1->z;
 
-        math::MTX34Mult(pW, pW1, pW);
+        math::MTX34Mult(pW, pW_1, &tmp);
+    }
+
+    if (flag & ChrAnmResult::FLAG_SCALE_ONE) {
+        attr = detail::WorldMtxAttr::AnmScaleOne(attr);
+        *pS = *pS_1;
+    } else {
+        attr = detail::WorldMtxAttr::AnmNotScaleOne(attr);
+        pS->x = pS_1->x * pResult->s.x;
+        pS->y = pS_1->y * pResult->s.y;
+        pS->z = pS_1->z * pResult->s.z;
     }
 
     if (flag & ChrAnmResult::FLAG_SCALE_UNIFORM) {
-        newAttr = detail::WorldMtxAttr::AnmScaleUniform(newAttr);
+        attr = detail::WorldMtxAttr::AnmScaleUniform(attr);
     } else {
-        newAttr = detail::WorldMtxAttr::AnmNotScaleUniform(newAttr);
+        attr = detail::WorldMtxAttr::AnmNotScaleUniform(attr);
     }
 
-    return newAttr;
+    return attr;
 }
 
 } // namespace dcc

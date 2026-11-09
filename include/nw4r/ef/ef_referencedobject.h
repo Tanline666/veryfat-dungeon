@@ -3,9 +3,9 @@
 #include <nw4r/types_nw4r.h>
 
 #include <nw4r/ef/ef_linkedobject.h>
-
 #include <nw4r/math.h>
 #include <nw4r/ut.h>
+
 
 namespace nw4r {
 namespace ef {
@@ -28,8 +28,11 @@ public:
 
 public:
     virtual void SendClosing() {} // at 0x8
+
+protected:
     virtual void DestroyFunc() {} // at 0xC
 
+public:
     void ChangeLifeStatus(LifeStatus status) {
         mLifeStatus = status;
     }

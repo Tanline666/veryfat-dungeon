@@ -1,6 +1,9 @@
 #ifndef RVL_SDK_OS_CACHE_H
 #define RVL_SDK_OS_CACHE_H
 #include <types.h>
+
+#include <revolution/OS/OSContext.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -8,7 +11,6 @@ extern "C" {
 #define OS_CACHE_BASE 0xE0000000
 
 // Forward declarations
-typedef struct OSContext OSContext;
 
 void DCEnable(void);
 void DCInvalidateRange(const void* buf, u32 len);

@@ -31,6 +31,7 @@ void MEMInitAllocatorForExpHeap(MEMAllocator* allocator, MEMiHeapHead* heap,
                                 s32 align);
 void MEMInitAllocatorForFrmHeap(MEMAllocator* allocator, MEMiHeapHead* heap,
                                 s32 align);
+void MEMInitAllocatorForUnitHeap(MEMAllocator* pAllocator, MEMiHeapHead* pHeap);
 
 #ifdef __cplusplus
 }

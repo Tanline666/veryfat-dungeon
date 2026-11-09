@@ -2,117 +2,118 @@
 
 #include <nw4r/ef.h>
 
-
 namespace nw4r {
 namespace ef {
 
-void EmitterForm::CalcVelocity(math::VEC3* pVel, Emitter* pEmitter,
-                               const math::VEC3& rPos,
-                               const math::VEC3& rNormal,
-                               const math::VEC3& rFromOrigin,
-                               const math::VEC3& rFromYAxis) const {
+void EmitterForm::CalcVelocity(math::VEC3* result, Emitter* em,
+                               const math::VEC3& position,
+                               const math::VEC3& normalDir,
+                               const math::VEC3& fromOrigin,
+                               const math::VEC3& fromYAxis) const {
 
-#pragma unused(rPos)
+#pragma unused(position)
 
-    math::VEC3 vecWork;
-    f32 fltWork;
+    math::VEC3 tmpv3;
+    f32 tmpf;
 
-    if (pEmitter->mParameter.mVelPowerRadiationDir != 0.0f) {
-        math::VEC3Scale(pVel, &rFromOrigin,
-                        pEmitter->mParameter.mVelPowerRadiationDir);
+    if (em->mParameter.mVelPowerRadiationDir != 0.0f) {
+        math::VEC3Scale(result, &fromOrigin,
+                        em->mParameter.mVelPowerRadiationDir);
     } else {
-        pVel->x = 0.0f;
-        pVel->y = 0.0f;
-        pVel->z = 0.0f;
+        result->x = 0.0f;
+        result->y = 0.0f;
+        result->z = 0.0f;
     }
 
-    if (pEmitter->mParameter.mVelPowerYAxis != 0.0f) {
-        math::VEC3Scale(&vecWork, &rFromYAxis,
-                        pEmitter->mParameter.mVelPowerYAxis);
+    if (em->mParameter.mVelPowerYAxis != 0.0f) {
+        math::VEC3Scale(&tmpv3, &fromYAxis, em->mParameter.mVelPowerYAxis);
 
-        math::VEC3Add(pVel, pVel, &vecWork);
+        math::VEC3Add(result, result, &tmpv3);
     }
 
-    if (pEmitter->mParameter.mVelPowerRandomDir != 0.0f) {
-        f32 rx = pEmitter->mRandom.RandFloat() * NW4R_MATH_PI * 2;
-        f32 ry = pEmitter->mRandom.RandFloat() * NW4R_MATH_PI * 2;
-        f32 rz = pEmitter->mRandom.RandFloat() * NW4R_MATH_PI * 2;
+    if (em->mParameter.mVelPowerRandomDir != 0.0f) {
+        f32 rotx = em->mRandom.RandFloat() * NW4R_MATH_PI * 2;
+        f32 roty = em->mRandom.RandFloat() * NW4R_MATH_PI * 2;
+        f32 rotz = em->mRandom.RandFloat() * NW4R_MATH_PI * 2;
 
-        f32 sr = std::sinf(rx);
-        f32 cr = std::cosf(rx);
+        f32 sinr;
+        f32 cosr;
 
-        f32 sp = std::sinf(ry);
-        f32 cp = std::cosf(ry);
+        f32 sinp;
+        f32 cosp;
 
-        f32 sh = std::sinf(rz);
-        f32 ch = std::cosf(rz);
+        f32 sinh;
+        f32 cosh;
 
-        pVel->x +=
-            (cr * sp * ch + sr * sh) * pEmitter->mParameter.mVelPowerRandomDir;
-        pVel->y +=
-            (cr * sp * sh - sr * ch) * pEmitter->mParameter.mVelPowerRandomDir;
+        PSSinCosRad(&sinr, &cosr, rotx);
+        PSSinCosRad(&sinp, &cosp, roty);
+        PSSinCosRad(&sinh, &cosh, rotz);
 
-        pVel->z += pEmitter->mParameter.mVelPowerRandomDir * cr * cp;
+        result->x += (cosr * sinp * cosh + sinr * sinh) *
+                     em->mParameter.mVelPowerRandomDir;
+        result->y += (cosr * sinp * sinh - sinr * cosh) *
+                     em->mParameter.mVelPowerRandomDir;
+
+        result->z += em->mParameter.mVelPowerRandomDir * cosr * cosp;
     }
 
-    if (pEmitter->mParameter.mVelPowerNormalDir != 0.0f) {
-        pVel->x += rNormal.x * pEmitter->mParameter.mVelPowerNormalDir;
-        pVel->y += rNormal.y * pEmitter->mParameter.mVelPowerNormalDir;
-        pVel->z += rNormal.z * pEmitter->mParameter.mVelPowerNormalDir;
+    if (em->mParameter.mVelPowerNormalDir != 0.0f) {
+        result->x += normalDir.x * em->mParameter.mVelPowerNormalDir;
+        result->y += normalDir.y * em->mParameter.mVelPowerNormalDir;
+        result->z += normalDir.z * em->mParameter.mVelPowerNormalDir;
     }
 
-    if (pEmitter->mParameter.mVelPowerSpecDir != 0.0f) {
-        if (pEmitter->mParameter.mVelDiffusionSpecDir == 0.0f) {
+    if (em->mParameter.mVelPowerSpecDir != 0.0f) {
+        if (em->mParameter.mVelDiffusionSpecDir == 0.0f) {
             math::MTX34 mtx;
-            math::MTX34RotXYZRad(&mtx, pEmitter->mParameter.mVelSpecDir.x,
-                                 pEmitter->mParameter.mVelSpecDir.y,
-                                 pEmitter->mParameter.mVelSpecDir.z);
+            PSMTX34RotXYZRad(&mtx, em->mParameter.mVelSpecDir.x,
+                             em->mParameter.mVelSpecDir.y,
+                             em->mParameter.mVelSpecDir.z);
 
             math::VEC3 vec(0.0f, 1.0f, 0.0f);
             math::VEC3Transform(&vec, &mtx, &vec);
 
-            pVel->x += pEmitter->mParameter.mVelPowerSpecDir * vec.x;
-            pVel->y += pEmitter->mParameter.mVelPowerSpecDir * vec.y;
-            pVel->z += pEmitter->mParameter.mVelPowerSpecDir * vec.z;
+            result->x += em->mParameter.mVelPowerSpecDir * vec.x;
+            result->y += em->mParameter.mVelPowerSpecDir * vec.y;
+            result->z += em->mParameter.mVelPowerSpecDir * vec.z;
         } else {
             math::MTX34 mtx;
 
             // clang-format off
-            math::MTX34RotXYZRad(&mtx,
-                pEmitter->mRandom.RandFloat() * pEmitter->mParameter.mVelDiffusionSpecDir,
-                pEmitter->mRandom.RandFloat() * NW4R_MATH_PI * 2,
+            PSMTX34RotXYZRad(&mtx,
+                em->mRandom.RandFloat() * em->mParameter.mVelDiffusionSpecDir,
+                em->mRandom.RandFloat() * NW4R_MATH_PI * 2,
                 0.0f);
             // clang-format on
 
             math::MTX34 rotFromZ;
-            math::MTX34RotXYZRad(&rotFromZ, pEmitter->mParameter.mVelSpecDir.x,
-                                 pEmitter->mParameter.mVelSpecDir.y,
-                                 pEmitter->mParameter.mVelSpecDir.z);
+            PSMTX34RotXYZRad(&rotFromZ, em->mParameter.mVelSpecDir.x,
+                             em->mParameter.mVelSpecDir.y,
+                             em->mParameter.mVelSpecDir.z);
 
             math::MTX34Mult(&mtx, &rotFromZ, &mtx);
 
-            pVel->x += mtx._01 * pEmitter->mParameter.mVelPowerSpecDir;
-            pVel->y += mtx._11 * pEmitter->mParameter.mVelPowerSpecDir;
-            pVel->z += mtx._21 * pEmitter->mParameter.mVelPowerSpecDir;
+            result->x += mtx._01 * em->mParameter.mVelPowerSpecDir;
+            result->y += mtx._11 * em->mParameter.mVelPowerSpecDir;
+            result->z += mtx._21 * em->mParameter.mVelPowerSpecDir;
         }
     }
 
-    if (pEmitter->mParameter.mVelInitVelocityRandom != 0) {
-        fltWork = 1.0f - pEmitter->mParameter.mVelInitVelocityRandom *
-                             (1.0f / 100.0f) *
-                             (pEmitter->mRandom.RandFloat() * 2.0f - 1.0f);
+    if (em->mParameter.mVelInitVelocityRandom != 0) {
+        tmpf = 1.0f - em->mParameter.mVelInitVelocityRandom * (1.0f / 100.0f) *
+                          (em->mRandom.RandFloat() * 2.0f - 1.0f);
 
-        pVel->x *= fltWork;
-        pVel->y *= fltWork;
-        pVel->z *= fltWork;
+        result->x *= tmpf;
+        result->y *= tmpf;
+        result->z *= tmpf;
     }
 }
 
-u16 EmitterForm::CalcLife(u16 life, f32 lifeRnd, Emitter* pEmitter) {
+u16 EmitterForm::CalcLife(u16 life, f32 lifeRnd, Emitter* em) {
     u16 newLife = life;
 
     if (lifeRnd != 0.0f) {
-        f32 rnd = life * pEmitter->mRandom.RandFloat() * lifeRnd;
+        f32 rnd = life * em->mRandom.RandFloat() * lifeRnd;
 
         if (static_cast<f32>(newLife) - rnd < 1.0f) {
             newLife = 1;

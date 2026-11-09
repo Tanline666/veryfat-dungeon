@@ -29,6 +29,7 @@
 #include <egg/core/eggSystem.h>
 #include <egg/core/eggTaskThread.h>
 #include <egg/core/eggThread.h>
+#include <egg/core/eggUnitHeap.h>
 #include <egg/core/eggVideo.h>
 #include <egg/core/eggWatch.h>
 #include <egg/core/eggXfb.h>

@@ -37,7 +37,7 @@ void EmitterFormDisc::Emission(Emitter* pEmitter, ParticleManager* pManager,
         angleOffset = pEmitter->mRandom.RandFloat() * NW4R_MATH_PI * 2;
     }
 
-    if (flags & EmitterDesc::EMIT_FLAG_17) {
+    if (flags & EmitterDesc::EMIT_FLAG_FIXED_INTERVAL) {
         f32 f = std::fmodf(pParams[3] - pParams[2], NW4R_MATH_PI * 2);
 
         if (f < NW4R_EF_EMIT_ANGLE_MIN || f > NW4R_EF_EMIT_ANGLE_MAX) {
@@ -64,7 +64,7 @@ void EmitterFormDisc::Emission(Emitter* pEmitter, ParticleManager* pManager,
             dist = dist + inner * (1.0f - dist);
         }
 
-        if (!(flags & EmitterDesc::EMIT_FLAG_17)) {
+        if (!(flags & EmitterDesc::EMIT_FLAG_FIXED_INTERVAL)) {
             angle = (pParams[3] - pParams[2]) * pEmitter->mRandom.RandFloat();
         }
 
@@ -107,7 +107,7 @@ void EmitterFormDisc::Emission(Emitter* pEmitter, ParticleManager* pManager,
             pEmitter->mCalcRemain);
         // clang-format on
 
-        if (flags & EmitterDesc::EMIT_FLAG_17) {
+        if (flags & EmitterDesc::EMIT_FLAG_FIXED_INTERVAL) {
             angle += dangle;
         }
     }

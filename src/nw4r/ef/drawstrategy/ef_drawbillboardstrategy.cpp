@@ -41,7 +41,7 @@ void DrawBillboardStrategy::DrawNormalBillboard(const DrawInfo& rInfo,
         *pManager->mResource->GetEmitterDrawSetting();
 
     int flags = mNumTexmap > 0 ? 1 : 0;
-    const math::MTX34& rInfoMtx = *rInfo.GetViewMtx();
+    math::MTX34 rInfoMtx;
 
     math::VEC2 pivot;
     pivot.x = rSetting.pivotX / 100.0f;
@@ -200,46 +200,6 @@ void DrawBillboardStrategy::DispPolygon(const math::VEC3& rP,
         }
     }
     GXEnd();
-}
-
-void DrawBillboardStrategy::CalcZOffset(math::MTX34* pMtx,
-                                        const ParticleManager* pManager,
-                                        const DrawInfo& rInfo, f32 offsetZ) {
-
-    f32 proj[GX_PROJECTION_SZ];
-    GXGetProjectionv(proj);
-
-    switch (static_cast<GXProjectionType>(proj[0])) {
-    case GX_PERSPECTIVE: {
-        math::MTX34 glbMtx;
-        pManager->mManagerEM->CalcGlobalMtx(&glbMtx);
-
-        math::VEC3 pos(glbMtx._03, glbMtx._13, glbMtx._23);
-        math::VEC3TransformCoord(&pos, rInfo.GetViewMtx(), &pos);
-
-        if (Normalize(&pos)) {
-            if (pos.z >= 0.0f) {
-                pMtx->_03 += pos.x * offsetZ;
-                pMtx->_13 += pos.y * offsetZ;
-                pMtx->_23 += pos.z * offsetZ;
-            } else {
-                pMtx->_03 -= pos.x * offsetZ;
-                pMtx->_13 -= pos.y * offsetZ;
-                pMtx->_23 -= pos.z * offsetZ;
-            }
-        }
-        break;
-    }
-
-    case GX_ORTHOGRAPHIC: {
-        pMtx->_23 += offsetZ;
-        break;
-    }
-
-    default: {
-        break;
-    }
-    }
 }
 
 void DrawBillboardStrategy::InitGraphics(const DrawInfo& rInfo,

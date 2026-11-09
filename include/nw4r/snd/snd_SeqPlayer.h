@@ -9,6 +9,17 @@
 
 namespace nw4r {
 namespace snd {
+
+struct SeqUserprocCallbackParam {
+    volatile s16* localVariable;
+    volatile s16* globalVariable;
+    volatile s16* trackVariable;
+    bool cmpFlag;
+};
+
+typedef void (*SeqUserprocCallback)(u16 procId, SeqUserprocCallbackParam* param,
+                                    void* arg);
+
 namespace detail {
 
 // Forward declarations

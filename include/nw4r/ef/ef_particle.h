@@ -111,15 +111,6 @@ public:
         return &mParameter;
     }
 
-    void Draw_GetColor(int layer, GXColor* pColorPri, GXColor* pColorSec);
-
-    void GetColor(int layer, int index, GXColor* pColor) {
-        pColor->r = mParameter.mColor[layer][index].r;
-        pColor->g = mParameter.mColor[layer][index].g;
-        pColor->b = mParameter.mColor[layer][index].b;
-        pColor->a = mParameter.mColor[layer][index].a;
-    }
-
     f32 Draw_GetSizeX() {
         f32 sx = mParameter.mSize.x * mParameter.mScale.x;
         return mParticleManager->Draw_ModifyScaleX(this, sx);
@@ -156,22 +147,78 @@ public:
         return mParticleManager->Draw_ModifyScaleY(this, sy);
     }
 
-    void Draw_GetRotate(math::VEC3* pRot) {
-        *pRot = mParameter.mRotate;
+    void Draw_GetRotate(math::VEC3* rotate) {
+        NW4R_POINTER_ASSERT(rotate, 224);
+        *rotate = mParameter.mRotate;
 
         if (mParameter.mRotateOffset[AXIS_X] > 0) {
-            pRot->x += NW4R_MATH_FIDX_TO_RAD(mParameter.mRotateOffset[AXIS_X]);
+            rotate->x +=
+                NW4R_MATH_FIDX_TO_RAD(mParameter.mRotateOffset[AXIS_X]);
         }
 
         if (mParameter.mRotateOffset[AXIS_Y] > 0) {
-            pRot->y += NW4R_MATH_FIDX_TO_RAD(mParameter.mRotateOffset[AXIS_Y]);
+            rotate->y +=
+                NW4R_MATH_FIDX_TO_RAD(mParameter.mRotateOffset[AXIS_Y]);
         }
 
         if (mParameter.mRotateOffset[AXIS_Z] > 0) {
-            pRot->z += NW4R_MATH_FIDX_TO_RAD(mParameter.mRotateOffset[AXIS_Z]);
+            rotate->z +=
+                NW4R_MATH_FIDX_TO_RAD(mParameter.mRotateOffset[AXIS_Z]);
         }
 
-        mParticleManager->Draw_ModifyRotate(this, pRot);
+        mParticleManager->Draw_ModifyRotate(this, rotate);
+    }
+
+    math::VEC3& AddPosition(const math::VEC3* pDelta) {
+        mParameter.mPosition.x += pDelta->x * mParameter.mMomentum;
+        mParameter.mPosition.y += pDelta->y * mParameter.mMomentum;
+        mParameter.mPosition.z += pDelta->z * mParameter.mMomentum;
+        return mParameter.mPosition;
+    }
+
+    math::VEC3& GetMoveDir(math::VEC3* pDir) {
+        *pDir = mParameter.mPosition - mParameter.mPrevPosition;
+        return *pDir;
+    }
+
+    void GetColor(int layer, int index, GXColor* pColor) {
+        pColor->r = mParameter.mColor[layer][index].r;
+        pColor->g = mParameter.mColor[layer][index].g;
+        pColor->b = mParameter.mColor[layer][index].b;
+        pColor->a = mParameter.mColor[layer][index].a;
+    }
+
+    void GetColorRGB(int layer, int index, GXColor* color) {
+        NW4R_ASSERT(layer >= 0 && layer < 2, 325);
+        NW4R_ASSERT(index >= 0 && index < 2, 326);
+        NW4R_POINTER_ASSERT(color, 327);
+
+        color->r = mParameter.mColor[layer][index].r;
+        color->g = mParameter.mColor[layer][index].g;
+        color->b = mParameter.mColor[layer][index].b;
+    }
+
+    u8 GetAlpha(int layer, int index) const {
+        NW4R_ASSERT(layer >= 0 && layer < 2, 336);
+        NW4R_ASSERT(index >= 0 && index < 2, 337);
+
+        u8 val = mParameter.mColor[layer][index].a;
+        return val;
+    }
+
+    GXTexWrapMode GetTextureWrapS(int layer) const {
+        NW4R_ASSERT(layer >= 0 && layer < 3, 371);
+
+        // clang-format off
+        return static_cast<GXTexWrapMode>(mParameter.mTextureWrap >>
+                (layer * NUM_OF_TEX_WRAP_ST + 0) & TEX_WRAP_MASK);
+        // clang-format on
+    }
+    GXTexWrapMode GetTextureWrapT(int layer) const {
+        // clang-format off
+        return static_cast<GXTexWrapMode>(mParameter.mTextureWrap >>
+                (layer * NUM_OF_TEX_WRAP_ST + NUM_OF_TEX_WRAP_S) & TEX_WRAP_MASK);
+        // clang-format on
     }
 
     int Draw_GetTextureScaleS(int layer) const {
@@ -248,30 +295,9 @@ public:
         return trans;
     }
 
-    GXTexWrapMode GetTextureWrapS(int layer) const {
-        // clang-format off
-        return static_cast<GXTexWrapMode>(mParameter.mTextureWrap >>
-                (layer * NUM_OF_TEX_WRAP_ST + 0) & TEX_WRAP_MASK);
-        // clang-format on
-    }
-    GXTexWrapMode GetTextureWrapT(int layer) const {
-        // clang-format off
-        return static_cast<GXTexWrapMode>(mParameter.mTextureWrap >>
-                (layer * NUM_OF_TEX_WRAP_ST + NUM_OF_TEX_WRAP_S) & TEX_WRAP_MASK);
-        // clang-format on
-    }
+    void Draw_GetColor(int layer, GXColor* pColorPri, GXColor* pColorSec);
 
-    math::VEC3& GetMoveDir(math::VEC3* pDir) {
-        *pDir = mParameter.mPosition - mParameter.mPrevPosition;
-        return *pDir;
-    }
-
-    math::VEC3& AddPosition(const math::VEC3* pDelta) {
-        mParameter.mPosition.x += pDelta->x * mParameter.mMomentum;
-        mParameter.mPosition.y += pDelta->y * mParameter.mMomentum;
-        mParameter.mPosition.z += pDelta->z * mParameter.mMomentum;
-        return mParameter.mPosition;
-    }
+    u8 GetAlphaFlick() const;
 
 private:
     enum TextureReverseFlag {

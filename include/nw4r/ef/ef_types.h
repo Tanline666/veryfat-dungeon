@@ -73,10 +73,24 @@ enum CalcOption {
 typedef u32 ForEachParam;
 typedef void (*ForEachFunc)(void* pObject, ForEachParam param);
 
+#define NW4R_EF_LIST_GET_NEXT(list, object)                                    \
+    ((ut::Link*)(((u32)(object)) + (list)->offset))->nextObject
+#define NW4R_EF_LIST_GET_PREV(list, object)                                    \
+    ((ut::Link*)(((u32)(object)) + (list)->offset))->prevObject
+
 inline u8 ConvertF32RadToU8(f32 rad) {
     rad = math::FCeil(rad / NW4R_MATH_PI * 128.0f - 0.5f);
     return static_cast<int>(rad) % 256;
 }
+
+#define ALPHA_MODULATE(result, alpha1, alpha2)                                 \
+    (result) = static_cast<u8>(((alpha1) * (alpha2) + 128) >> 8);
+
+#define COLOR_MODULATE(result, color1, color2)                                 \
+    ALPHA_MODULATE((result).r, (color1).r, (color2).r);                        \
+    ALPHA_MODULATE((result).g, (color1).g, (color2).g);                        \
+    ALPHA_MODULATE((result).b, (color1).b, (color2).b);                        \
+    ALPHA_MODULATE((result).a, (color1).a, (color2).a);
 
 } // namespace ef
 } // namespace nw4r

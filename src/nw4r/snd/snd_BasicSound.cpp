@@ -21,7 +21,7 @@ BasicSound::BasicSound(int priority, int ambientPriority)
     mAmbientInfo.argAllocaterCallback = NULL;
     mAmbientInfo.arg = NULL;
     mAmbientInfo.argSize = 0;
-    mVoiceOutCount = 0;
+    mVoiceOutCount = 1;
     mPriority = priority;
     mAmbientParam.priority = ambientPriority;
 }

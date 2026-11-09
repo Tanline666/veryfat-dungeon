@@ -146,6 +146,7 @@ protected:
     nw4r::snd::SoundHeap* mSoundHeap; // at 0x5A8
     SARC_STORAGE mStorage;            // at 0x5AC
     u32 mStreamBlocks;                // at 0x5B0
+    void* UNK_0x5B4;
 };
 
 }; // namespace EGG

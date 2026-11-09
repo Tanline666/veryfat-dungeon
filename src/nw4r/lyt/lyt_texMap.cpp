@@ -11,8 +11,8 @@ void TexMap::Get(GXTexObj* pTexObj) const {
         u32 tlut = GXGetTexObjTlut(pTexObj);
 
         GXInitTexObjCI(pTexObj, GetImage(), GetWidth(), GetHeight(),
-                       GetTexelFormat(), GetWrapModeS(), GetWrapModeT(),
-                       IsMipMap(), tlut);
+                       GXCITexFmt(GetTexelFormat()), GetWrapModeS(),
+                       GetWrapModeT(), IsMipMap(), tlut);
     } else {
         GXInitTexObj(pTexObj, GetImage(), GetWidth(), GetHeight(),
                      GetTexelFormat(), GetWrapModeS(), GetWrapModeT(),

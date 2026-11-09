@@ -48,19 +48,19 @@ struct NameTable {
 };
 
 /* static */ void breffRelocate(EffectProject* pEffProject) {
-    u8* pPtr = reinterpret_cast<u8*>(pEffProject);
-    pPtr += pEffProject->headersize;
+    u8* ptr = reinterpret_cast<u8*>(pEffProject);
+    ptr += pEffProject->headersize;
 
-    u8* pData = pPtr;
-    NameTable* pNameTable = reinterpret_cast<NameTable*>(pPtr);
+    u8* pData = ptr;
+    NameTable* nameTable = reinterpret_cast<NameTable*>(ptr);
 
     pData += sizeof(NameTable);
 
-    for (int i = 0; i < pNameTable->numEntry; i++) {
+    for (int i = 0; i < nameTable->numEntry; i++) {
         int len = (pData[0] << 8) + pData[1];
         pData += sizeof(u16);
 
-        char* pName = reinterpret_cast<char*>(pData);
+        char* name = reinterpret_cast<char*>(pData);
         pData += len;
 
         u32 offset =
@@ -71,48 +71,48 @@ struct NameTable {
             (pData[0] << 24) + (pData[1] << 16) + (pData[2] << 8) + pData[3];
         pData += sizeof(u32);
 
-        EmitterResource* pResource = reinterpret_cast<EmitterResource*>(
-            reinterpret_cast<u8*>(pNameTable) + offset);
+        EmitterResource* eh = reinterpret_cast<EmitterResource*>(
+            reinterpret_cast<u8*>(nameTable) + offset);
 
         // I think they really did this, the member is private...
-        *reinterpret_cast<char**>(pResource) = pName;
+        *reinterpret_cast<char**>(eh) = name;
 
-        pResource->LocateTracks();
+        eh->LocateTracks();
     }
 }
 
 static u16 breffNumEmitter(EffectProject* pEffProject) {
-    u8* pPtr = reinterpret_cast<u8*>(pEffProject);
-    pPtr += pEffProject->headersize;
+    u8* ptr = reinterpret_cast<u8*>(pEffProject);
+    ptr += pEffProject->headersize;
 
-    NameTable* pNameTable = reinterpret_cast<NameTable*>(pPtr);
-    return pNameTable->numEntry;
+    NameTable* nameTable = reinterpret_cast<NameTable*>(ptr);
+    return nameTable->numEntry;
 }
 
-static u16 breftNumTexture(TextureProject* pTexProject) {
-    u8* pPtr = reinterpret_cast<u8*>(pTexProject);
-    pPtr += pTexProject->headersize;
+static u16 breftNumTexture(TextureProject* project) {
+    u8* ptr = reinterpret_cast<u8*>(project);
+    ptr += project->headersize;
 
-    NameTable* pNameTable = reinterpret_cast<NameTable*>(pPtr);
-    return pNameTable->numEntry;
+    NameTable* nameTable = reinterpret_cast<NameTable*>(ptr);
+    return nameTable->numEntry;
 }
 
 static EmitterResource* breffSearchName(EffectProject* pEffProject,
                                         const char* pEffName) {
 
-    u8* pPtr = reinterpret_cast<u8*>(pEffProject);
-    pPtr += pEffProject->headersize;
+    u8* ptr = reinterpret_cast<u8*>(pEffProject);
+    ptr += pEffProject->headersize;
 
-    u8* pData = pPtr;
-    NameTable* pNameTable = reinterpret_cast<NameTable*>(pPtr);
+    u8* pData = ptr;
+    NameTable* nameTable = reinterpret_cast<NameTable*>(ptr);
 
     pData += sizeof(NameTable);
 
-    for (int i = 0; i < pNameTable->numEntry; i++) {
+    for (int i = 0; i < nameTable->numEntry; i++) {
         int len = (pData[0] << 8) + pData[1];
         pData += sizeof(u16);
 
-        char* pName = reinterpret_cast<char*>(pData);
+        char* name = reinterpret_cast<char*>(pData);
         pData += len;
 
         u32 offset =
@@ -122,9 +122,9 @@ static EmitterResource* breffSearchName(EffectProject* pEffProject,
         // Skip size
         pData += sizeof(u32);
 
-        if (std::strcmp(pEffName, pName) == 0) {
+        if (std::strcmp(pEffName, name) == 0) {
             return reinterpret_cast<EmitterResource*>(
-                reinterpret_cast<u8*>(pNameTable) + offset);
+                reinterpret_cast<u8*>(nameTable) + offset);
         }
     }
 
@@ -132,19 +132,19 @@ static EmitterResource* breffSearchName(EffectProject* pEffProject,
 }
 
 static EmitterResource* breffIndexOf(EffectProject* pEffProject, u16 idx) {
-    u8* pPtr = reinterpret_cast<u8*>(pEffProject);
-    pPtr += pEffProject->headersize;
+    u8* ptr = reinterpret_cast<u8*>(pEffProject);
+    ptr += pEffProject->headersize;
 
-    u8* pData = pPtr;
-    NameTable* pNameTable = reinterpret_cast<NameTable*>(pPtr);
+    u8* pData = ptr;
+    NameTable* nameTable = reinterpret_cast<NameTable*>(ptr);
 
-    if (idx >= pNameTable->numEntry) {
+    if (idx >= nameTable->numEntry) {
         return NULL;
     }
 
     pData += sizeof(NameTable);
 
-    for (int i = 0; i < pNameTable->numEntry; i++) {
+    for (int i = 0; i < nameTable->numEntry; i++) {
         int len = (pData[0] << 8) + pData[1];
         pData += sizeof(u16);
 
@@ -160,27 +160,27 @@ static EmitterResource* breffIndexOf(EffectProject* pEffProject, u16 idx) {
 
         if (i == idx) {
             return reinterpret_cast<EmitterResource*>(
-                reinterpret_cast<u8*>(pNameTable) + offset);
+                reinterpret_cast<u8*>(nameTable) + offset);
         }
     }
 
     return NULL;
 }
 
-static void breftRelocate(TextureProject* pTexProject) {
-    u8* pPtr = reinterpret_cast<u8*>(pTexProject);
-    pPtr += pTexProject->headersize;
+static void breftRelocate(TextureProject* project) {
+    u8* ptr = reinterpret_cast<u8*>(project);
+    ptr += project->headersize;
 
-    u8* pData = pPtr;
-    NameTable* pNameTable = reinterpret_cast<NameTable*>(pPtr);
+    u8* pData = ptr;
+    NameTable* nameTable = reinterpret_cast<NameTable*>(ptr);
 
     pData += sizeof(NameTable);
 
-    for (int i = 0; i < pNameTable->numEntry; i++) {
+    for (int i = 0; i < nameTable->numEntry; i++) {
         int len = (pData[0] << 8) + pData[1];
         pData += sizeof(u16);
 
-        char* pName = reinterpret_cast<char*>(pData);
+        char* name = reinterpret_cast<char*>(pData);
         pData += len;
 
         u32 offset =
@@ -191,33 +191,32 @@ static void breftRelocate(TextureProject* pTexProject) {
             (pData[0] << 24) + (pData[1] << 16) + (pData[2] << 8) + pData[3];
         pData += sizeof(u32);
 
-        TextureData* pTexData = reinterpret_cast<TextureData*>(
-            reinterpret_cast<u8*>(pNameTable) + offset);
+        TextureData* result = reinterpret_cast<TextureData*>(
+            reinterpret_cast<u8*>(nameTable) + offset);
 
-        pTexData->name = pName;
-        pTexData->texture =
-            reinterpret_cast<u8*>(pTexData) + sizeof(TextureData);
-        pTexData->tlut = reinterpret_cast<u8*>(pTexData) + sizeof(TextureData) +
-                         pTexData->dataSize;
+        result->name = name;
+        result->texture = reinterpret_cast<u8*>(result) + sizeof(TextureData);
+        result->tlut = reinterpret_cast<u8*>(result) + sizeof(TextureData) +
+                       result->dataSize;
     }
 }
 
-static TextureData* breftSearchName(TextureProject* pTexProject,
+static TextureData* breftSearchName(TextureProject* project,
                                     const char* pTexName) {
 
-    u8* pPtr = reinterpret_cast<u8*>(pTexProject);
-    pPtr += pTexProject->headersize;
+    u8* ptr = reinterpret_cast<u8*>(project);
+    ptr += project->headersize;
 
-    u8* pData = pPtr;
-    NameTable* pNameTable = reinterpret_cast<NameTable*>(pPtr);
+    u8* pData = ptr;
+    NameTable* nameTable = reinterpret_cast<NameTable*>(ptr);
 
     pData += sizeof(NameTable);
 
-    for (int i = 0; i < pNameTable->numEntry; i++) {
+    for (int i = 0; i < nameTable->numEntry; i++) {
         int len = (pData[0] << 8) + pData[1];
         pData += sizeof(u16);
 
-        char* pName = reinterpret_cast<char*>(pData);
+        char* name = reinterpret_cast<char*>(pData);
         pData += len;
 
         u32 offset =
@@ -227,9 +226,9 @@ static TextureData* breftSearchName(TextureProject* pTexProject,
         // Skip size
         pData += sizeof(u32);
 
-        if (std::strcmp(pTexName, pName) == 0) {
+        if (std::strcmp(pTexName, name) == 0) {
             return reinterpret_cast<TextureData*>(
-                reinterpret_cast<u8*>(pNameTable) + offset);
+                reinterpret_cast<u8*>(nameTable) + offset);
         }
     }
 
@@ -242,15 +241,15 @@ static TextureData* breftSearchName(TextureProject* pTexProject,
  *
  ******************************************************************************/
 EffectProject* Resource::Add(u8* pData) {
-    u8* pPtr = pData;
+    u8* ptr = pData;
 
-    FileHeader* pFileHeader = reinterpret_cast<FileHeader*>(pPtr);
-    pPtr += pFileHeader->headersize;
+    FileHeader* pFileHeader = reinterpret_cast<FileHeader*>(ptr);
+    ptr += pFileHeader->headersize;
 
-    BlockHeader* pBlockHeader = reinterpret_cast<BlockHeader*>(pPtr);
-    pPtr += sizeof(BlockHeader);
+    BlockHeader* pBlockHeader = reinterpret_cast<BlockHeader*>(ptr);
+    ptr += sizeof(BlockHeader);
 
-    EffectProject* pEffProject = reinterpret_cast<EffectProject*>(pPtr);
+    EffectProject* pEffProject = reinterpret_cast<EffectProject*>(ptr);
 
     memset(&pEffProject->projectlink, 0, sizeof(ut::Link));
     ut::List_Append(&mBREFFList, pEffProject);
@@ -261,31 +260,31 @@ EffectProject* Resource::Add(u8* pData) {
     return pEffProject;
 }
 
-ResEmitter Resource::FindEmitter(const char* pName,
+ResEmitter Resource::FindEmitter(const char* name,
                                  EffectProject* pEffProject) const {
 
-    EmitterResource* const pResource = _FindEmitter(pName, pEffProject);
-    return ResEmitter(pResource);
+    EmitterResource* const eh = _FindEmitter(name, pEffProject);
+    return ResEmitter(eh);
 }
 
-EmitterResource* Resource::_FindEmitter(const char* pName,
+EmitterResource* Resource::_FindEmitter(const char* name,
                                         EffectProject* pEffProject) const {
 
-    EmitterResource* pResource;
+    EmitterResource* eh;
 
     if (pEffProject != NULL) {
-        pResource = breffSearchName(pEffProject, pName);
-        if (pResource != NULL) {
-            return pResource;
+        eh = breffSearchName(pEffProject, name);
+        if (eh != NULL) {
+            return eh;
         }
     }
 
     pEffProject = static_cast<EffectProject*>(ut::List_GetLast(&mBREFFList));
 
     while (pEffProject != NULL) {
-        pResource = breffSearchName(pEffProject, pName);
-        if (pResource != NULL) {
-            return pResource;
+        eh = breffSearchName(pEffProject, name);
+        if (eh != NULL) {
+            return eh;
         }
 
         pEffProject = static_cast<EffectProject*>(
@@ -295,39 +294,39 @@ EmitterResource* Resource::_FindEmitter(const char* pName,
     return NULL;
 }
 
-ResTexture Resource::FindTexture(const char* pName,
-                                 TextureProject* pTexProject) const {
+ResTexture Resource::FindTexture(const char* name,
+                                 TextureProject* project) const {
 
-    TextureData* pTexData = _FindTexture(pName, pTexProject);
-    return ResTexture(pTexData);
+    TextureData* result = _FindTexture(name, project);
+    return ResTexture(result);
 }
 
-TextureData* Resource::_FindTexture(const char* pName,
-                                    TextureProject* pTexProject) const {
+TextureData* Resource::_FindTexture(const char* name,
+                                    TextureProject* project) const {
 
-    TextureData* pTexData;
+    TextureData* result;
 
-    if (pName[0] == 0) {
+    if (*name == 0) {
         return NULL;
     }
 
-    if (pTexProject != NULL) {
-        pTexData = breftSearchName(pTexProject, pName);
-        if (pTexData != NULL) {
-            return pTexData;
+    if (project != NULL) {
+        result = breftSearchName(project, name);
+        if (result != NULL) {
+            return result;
         }
     }
 
-    pTexProject = static_cast<TextureProject*>(ut::List_GetLast(&mBREFTList));
+    project = static_cast<TextureProject*>(ut::List_GetLast(&mBREFTList));
 
-    while (pTexProject != NULL) {
-        pTexData = breftSearchName(pTexProject, pName);
-        if (pTexData != NULL) {
-            return pTexData;
+    while (project != NULL) {
+        result = breftSearchName(project, name);
+        if (result != NULL) {
+            return result;
         }
 
-        pTexProject = static_cast<TextureProject*>(
-            ut::List_GetPrev(&mBREFTList, pTexProject));
+        project = static_cast<TextureProject*>(
+            ut::List_GetPrev(&mBREFTList, project));
     }
 
     return NULL;
@@ -372,98 +371,120 @@ Resource::_GetEmitterIndexOf(u32 idx, EffectProject* pEffProject) const {
 }
 
 TextureProject* Resource::AddTexture(u8* pData) {
-    u8* pPtr = pData;
+    u8* ptr = pData;
 
-    FileHeader* pFileHeader = reinterpret_cast<FileHeader*>(pPtr);
-    pPtr += pFileHeader->headersize;
+    FileHeader* pFileHeader = reinterpret_cast<FileHeader*>(ptr);
+    ptr += pFileHeader->headersize;
 
-    BlockHeader* pBlockHeader = reinterpret_cast<BlockHeader*>(pPtr);
-    pPtr += sizeof(BlockHeader);
+    BlockHeader* pBlockHeader = reinterpret_cast<BlockHeader*>(ptr);
+    ptr += sizeof(BlockHeader);
 
-    TextureProject* pTexProject = reinterpret_cast<TextureProject*>(pPtr);
+    TextureProject* project = reinterpret_cast<TextureProject*>(ptr);
 
-    memset(&pTexProject->projectlink, 0, sizeof(ut::Link));
-    ut::List_Append(&mBREFTList, pTexProject);
+    memset(&project->projectlink, 0, sizeof(ut::Link));
+    ut::List_Append(&mBREFTList, project);
 
-    mNumTexture += breftNumTexture(pTexProject);
-    breftRelocate(pTexProject);
+    mNumTexture += breftNumTexture(project);
+    breftRelocate(project);
 
-    return pTexProject;
+    return project;
 }
 
-u32 Resource::relocateCurveTexture(u8* pCmdList) {
+u32 Resource::relocateCurveTexture(u8* cmdPtr, const EmitterResource* eh) {
+    NW4R_POINTER_ASSERT(cmdPtr, 685);
+
     u32 error = 0;
 
-    AnimCurveHeader* pHeader = reinterpret_cast<AnimCurveHeader*>(pCmdList);
+    AnimCurveHeader* header = reinterpret_cast<AnimCurveHeader*>(cmdPtr);
 
-    AnimCurveKey* pKey = reinterpret_cast<AnimCurveKey*>(
-        reinterpret_cast<u8*>(pHeader) + sizeof(AnimCurveHeader));
+    AnimCurveKey* key = reinterpret_cast<AnimCurveKey*>(
+        reinterpret_cast<u8*>(header) + sizeof(AnimCurveHeader));
 
-    AnimCurveRandom* pRandom = reinterpret_cast<AnimCurveRandom*>(
-        reinterpret_cast<u8*>(pKey) + pHeader->keyTable);
+    AnimCurveRandom* random = reinterpret_cast<AnimCurveRandom*>(
+        reinterpret_cast<u8*>(key) + header->keyTable);
 
-    AnimCurveRandomTable* pRandomTable =
-        reinterpret_cast<AnimCurveRandomTable*>(reinterpret_cast<u8*>(pRandom) +
-                                                pHeader->rangeTable);
+    AnimCurveRandomTable* randomTable = reinterpret_cast<AnimCurveRandomTable*>(
+        reinterpret_cast<u8*>(random) + header->rangeTable);
 
-    AnimCurveNameTable* pNameTable = reinterpret_cast<AnimCurveNameTable*>(
-        reinterpret_cast<u8*>(pRandomTable) + pHeader->randomTable);
+    AnimCurveNameTable* nameTable = reinterpret_cast<AnimCurveNameTable*>(
+        reinterpret_cast<u8*>(randomTable) + header->randomTable);
 
-    u8* pName = reinterpret_cast<u8*>(pNameTable) +
-                offsetof(AnimCurveNameTable, datas) +
-                pNameTable->count * sizeof(AnimCurveNameTable::Name);
+    if (!header->nameTable) {
+        return NULL;
+    }
 
-    for (int i = 0; i < pNameTable->count; i++) {
-        int size = *reinterpret_cast<u16*>(pName);
-        pName += sizeof(u16);
+    u8* name = reinterpret_cast<u8*>(nameTable) +
+               offsetof(AnimCurveNameTable, datas) +
+               nameTable->count * sizeof(AnimCurveNameTable::Name);
 
-        pNameTable->datas[i].work = reinterpret_cast<u32>(
-            _FindTexture(reinterpret_cast<const char*>(pName), NULL));
+    for (int i = 0; i < nameTable->count; i++) {
+        int size = *reinterpret_cast<u16*>(name);
+        name += sizeof(u16);
 
-        if (pName[0] != 0 && pNameTable->datas[i].work == 0) {
+        nameTable->datas[i].work = reinterpret_cast<u32>(
+            _FindTexture(reinterpret_cast<char*>(name), NULL));
+
+        if (*name && nameTable->datas[i].work == 0) {
             error++;
+            if (eh) {
+                NW4R_WARNING(FALSE, 711, "Cannot resolve Texture(%s from:%s)\n",
+                             reinterpret_cast<char*>(name), eh->GetName());
+            } else {
+                NW4R_WARNING(FALSE, 716, "Cannot resolve Texture(%s)\n",
+                             reinterpret_cast<char*>(name));
+            }
         }
 
-        pName += size;
+        name += size;
     }
 
     return error;
 }
 
-u32 Resource::relocateCurveChild(u8* pCmdList) {
+u32 Resource::relocateCurveChild(u8* pCmdList, const EmitterResource* eh) {
     u32 error = 0;
 
-    AnimCurveHeader* pHeader = reinterpret_cast<AnimCurveHeader*>(pCmdList);
+    AnimCurveHeader* header = reinterpret_cast<AnimCurveHeader*>(pCmdList);
 
-    AnimCurveKey* pKey = reinterpret_cast<AnimCurveKey*>(
-        reinterpret_cast<u8*>(pHeader) + sizeof(AnimCurveHeader));
+    AnimCurveKey* key = reinterpret_cast<AnimCurveKey*>(
+        reinterpret_cast<u8*>(header) + sizeof(AnimCurveHeader));
 
-    AnimCurveRandom* pRandom = reinterpret_cast<AnimCurveRandom*>(
-        reinterpret_cast<u8*>(pKey) + pHeader->keyTable);
+    AnimCurveRandom* random = reinterpret_cast<AnimCurveRandom*>(
+        reinterpret_cast<u8*>(key) + header->keyTable);
 
-    AnimCurveRandomTable* pRandomTable =
-        reinterpret_cast<AnimCurveRandomTable*>(reinterpret_cast<u8*>(pRandom) +
-                                                pHeader->rangeTable);
+    AnimCurveRandomTable* randomTable = reinterpret_cast<AnimCurveRandomTable*>(
+        reinterpret_cast<u8*>(random) + header->rangeTable);
 
-    AnimCurveNameTable* pNameTable = reinterpret_cast<AnimCurveNameTable*>(
-        reinterpret_cast<u8*>(pRandomTable) + pHeader->randomTable);
+    AnimCurveNameTable* nameTable = reinterpret_cast<AnimCurveNameTable*>(
+        reinterpret_cast<u8*>(randomTable) + header->randomTable);
 
-    u8* pName = reinterpret_cast<u8*>(pNameTable) +
-                offsetof(AnimCurveNameTable, datas) +
-                pNameTable->count * sizeof(AnimCurveNameTable::Name);
+    if (!header->nameTable) {
+        return NULL;
+    }
 
-    for (int i = 0; i < pNameTable->count; i++) {
-        int size = *reinterpret_cast<u16*>(pName);
-        pName += sizeof(u16);
+    u8* name = reinterpret_cast<u8*>(nameTable) +
+               offsetof(AnimCurveNameTable, datas) +
+               nameTable->count * sizeof(AnimCurveNameTable::Name);
 
-        pNameTable->datas[i].work = reinterpret_cast<u32>(
-            _FindEmitter(reinterpret_cast<char*>(pName), NULL));
+    for (int i = 0; i < nameTable->count; i++) {
+        int size = *reinterpret_cast<u16*>(name);
+        name += sizeof(u16);
 
-        if (pNameTable->datas[i].work == 0) {
+        nameTable->datas[i].work = reinterpret_cast<u32>(
+            _FindEmitter(reinterpret_cast<char*>(name), NULL));
+
+        if (nameTable->datas[i].work == 0) {
             error++;
+            if (eh) {
+                NW4R_WARNING(FALSE, 755, "Cannot resolve Child(%s from:%s)\n",
+                             reinterpret_cast<char*>(name), eh->GetName());
+            } else {
+                NW4R_WARNING(FALSE, 760, "Cannot resolve Child(%s)\n",
+                             reinterpret_cast<char*>(name));
+            }
         }
 
-        pName += size;
+        name += size;
     }
 
     return error;
@@ -473,60 +494,66 @@ u32 Resource::RelocateCommand() {
     u32 error = 0;
 
     for (u32 idx = 0; idx < NumEmitter(NULL); idx++) {
-        EmitterResource* pResource = _GetEmitterIndexOf(idx, NULL);
-        if (pResource == NULL) {
+        u8 currentError = 0;
+
+        EmitterResource* eh = _GetEmitterIndexOf(idx, NULL);
+        if (eh == NULL) {
             continue;
         }
 
-        ParticleParameterDesc* pPtclDesc =
-            pResource->GetParticleParameterDesc();
-        TextureData** ppWork = pPtclDesc->mTexture;
-        u8* pPtr = pPtclDesc->textureNames;
+        ParticleParameterDesc* ppd = eh->GetParticleParameterDesc();
+        TextureData** work = ppd->mTexture;
+        u8* ptr = ppd->textureNames;
 
         for (int i = 0; i < TEX_LAYER_MAX; i++) {
-            u16 size = *reinterpret_cast<u16*>(pPtr);
-            pPtr += sizeof(u16);
+            u16 size = *reinterpret_cast<u16*>(ptr);
+            ptr += sizeof(u16);
 
-            ppWork[i] = _FindTexture(reinterpret_cast<char*>(pPtr), NULL);
+            work[i] = _FindTexture(reinterpret_cast<const char*>(ptr), NULL);
 
-            if (pPtr[0] != 0 && ppWork[i] == NULL) {
-                error++;
+            if (ptr[0] != 0 && work[i] == NULL) {
+                currentError++;
             }
 
-            pPtr += size;
+            ptr += size;
         }
 
-        for (u16 pidx = 0; pidx < pResource->NumPtclTrack(); pidx++) {
-            u8* pPtr = pResource->GetPtclTrack(pidx);
+        for (u16 pidx = 0; pidx < eh->NumPtclTrack(); pidx++) {
+            u8* ptr = eh->GetPtclTrack(pidx);
 
-#define pTrackAsHeader reinterpret_cast<AnimCurveHeader*>(pPtr)
+#define pTrackAsHeader reinterpret_cast<AnimCurveHeader*>(ptr)
 
-            if (pTrackAsHeader->magic != NW4R_EF_MAGIC_ANIMCURVE) {
-                continue;
-            }
+            if (pTrackAsHeader->magic == NW4R_EF_MAGIC_ANIMCURVE ||
+                pTrackAsHeader->magic == NW4R_EF_MAGIC_ANIMBAKED) {
+                // Load curveFlag and kindEnable
+                const u8 curveType =
+                    *reinterpret_cast<u8*>(&pTrackAsHeader->curveFlag);
 
-            // Load curveFlag and kindEnable
-            u16 ctrl = *reinterpret_cast<u16*>(&pTrackAsHeader->curveFlag);
+                switch (curveType) {
+                case AC_TYPE_PARTICLE_TEXTURE: {
+                    currentError += relocateCurveTexture(ptr, eh);
+                    break;
+                }
 
-            switch (ctrl) {
-            case (AC_TYPE_PARTICLE_TEXTURE << 8 | 0b001): {
-                error += relocateCurveTexture(pPtr);
-                break;
-            }
-
-            case (AC_TYPE_CHILD << 8 | 0b001): {
-                error += relocateCurveChild(pPtr);
-                break;
-            }
-
-            case (AC_TYPE_PARTICLE_U8 << 8 | 0b111):
-            case (AC_TYPE_PARTICLE_F32 << 8 | 0b011): {
-                break;
-            }
+                case AC_TYPE_CHILD:
+                case AC_TYPE_POSTFIELD: {
+                    currentError += relocateCurveChild(ptr, eh);
+                    break;
+                }
+                }
             }
 
 #undef pTrackAsHeader
         }
+
+        EmitterDesc* ed = eh->GetEmitterDesc();
+        if (currentError > 0) {
+            ed->commonFlag &= ~ed->CMN_FLAG_RELOCATED;
+        } else {
+            ed->commonFlag |= ed->CMN_FLAG_RELOCATED;
+        }
+
+        error += currentError;
     }
 
     return error;
@@ -554,21 +581,20 @@ bool Resource::RemoveEffectProject(EffectProject* pEffProject) {
     return false;
 }
 
-bool Resource::RemoveTextureProject(TextureProject* pTexProject) {
+bool Resource::RemoveTextureProject(TextureProject* project) {
     TextureProject* pIt =
         static_cast<TextureProject*>(ut::List_GetFirst(&mBREFTList));
 
     for (; pIt != NULL; pIt = static_cast<TextureProject*>(
                             ut::List_GetNext(&mBREFTList, pIt))) {
 
-        if (pIt != pTexProject) {
+        if (pIt != project) {
             continue;
         }
 
-        ut::List_Remove(&mBREFTList, pTexProject);
+        ut::List_Remove(&mBREFTList, project);
 
-        mNumTexture -=
-            pTexProject != NULL ? breftNumTexture(pTexProject) : mNumTexture;
+        mNumTexture -= project != NULL ? breftNumTexture(project) : mNumTexture;
 
         return true;
     }

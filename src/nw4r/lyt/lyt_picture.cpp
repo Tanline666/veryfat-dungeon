@@ -7,40 +7,39 @@ namespace lyt {
 NW4R_UT_RTTI_DEF_DERIVED(Picture, Pane);
 
 // TODO(kiwi) Don't know what this actually looks like...
-Picture::Picture(u8 num) : Pane(NULL) {
-    num = ut::Min<u8>(num, GX_MAX_TEXCOORD);
-    Init(num);
+Picture::Picture(u8 texNum) : Pane() {
+    Init(texNum);
+    mpMaterial = Layout::NewObj<Material>();
+    if (mpMaterial) {
+        mpMaterial->ReserveGXMem(texNum, texNum, texNum);
+    }
 }
 
-Picture::Picture(const res::Picture* pRes, const ResBlockSet& rBlockSet)
-    : Pane(pRes) {
+Picture::Picture(const res::Picture* pResPic, const ResBlockSet& resBlockSet)
+    : Pane(pResPic) {
 
-    u8 num = ut::Min<u8>(pRes->texCoordNum, GX_MAX_TEXCOORD);
-    Init(num);
+    u8 texCoordNum = ut::Min<u8>(pResPic->texCoordNum, GX_MAX_TEXCOORD);
+    Init(texCoordNum);
 
     for (int i = 0; i < VERTEXCOLOR_MAX; i++) {
-        mVtxColors[i] = pRes->vtxCols[i];
+        mVtxColors[i] = pResPic->vtxCols[i];
     }
 
-    if (num > 0 && !mTexCoordAry.IsEmpty()) {
-        mTexCoordAry.Copy(
-            reinterpret_cast<const u8*>(pRes) + sizeof(res::Picture), num);
+    if (texCoordNum > 0 && !mTexCoordAry.IsEmpty()) {
+        mTexCoordAry.Copy(reinterpret_cast<const u8*>(pResPic) +
+                              sizeof(res::Picture),
+                          texCoordNum);
     }
 
-    void* pMaterialBuf = Layout::AllocMemory(sizeof(Material));
-
-    if (pMaterialBuf != NULL) {
-        const u32* const pMatOffsetTbl = detail::ConvertOffsToPtr<u32>(
-            rBlockSet.pMaterialList, sizeof(res::MaterialList));
+    {
+        const u32* const matOffsTbl = detail::ConvertOffsToPtr<u32>(
+            resBlockSet.pMaterialList, sizeof(res::MaterialList));
 
         const res::Material* const pResMaterial =
             detail::ConvertOffsToPtr<res::Material>(
-                rBlockSet.pMaterialList, pMatOffsetTbl[pRes->materialIdx]);
+                resBlockSet.pMaterialList, matOffsTbl[pResPic->materialIdx]);
 
-        Material* pMaterial =
-            new (pMaterialBuf) Material(pResMaterial, rBlockSet);
-
-        mpMaterial = pMaterial;
+        mpMaterial = Layout::NewObj<Material>(pResMaterial, resBlockSet);
     }
 }
 
@@ -52,8 +51,7 @@ void Picture::Init(u8 num) {
 
 Picture::~Picture() {
     if (mpMaterial != NULL && !mpMaterial->IsUserAllocated()) {
-        mpMaterial->~Material();
-        Layout::FreeMemory(mpMaterial);
+        Layout::DeleteObj(mpMaterial);
         mpMaterial = NULL;
     }
 

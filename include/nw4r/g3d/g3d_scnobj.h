@@ -106,7 +106,30 @@ public:
 
     void CalcViewMtx(const math::MTX34* pCamera);
 
-    bool SetMtx(ScnObjMtxType type, const math::MTX34* pMtx);
+    /**
+     * \~english @brief Sets the ScnObj's transformation matrix.
+     * \~japanese @brief ScnObjの変換行列を設定する。
+     *
+     * \~english @param tp Matrix type
+     * \~japanese @param tp 行列タイプ
+     * \~english @param pM Pointer to constant 3x4 matrix
+     * \~japanese @param pM 定数の3x4行列へのポインタ
+     * \~english @return TRUE if successful
+     * \~japanese @return 成功したらTRUE
+     */
+    bool SetMtx(ScnObjMtxType tp, const math::MTX34* pM);
+    /**
+     * \~english @brief Sets the ScnObj's transformation matrix.
+     * \~japanese @brief ScnObjの変換行列を設定する。
+     *
+     * \~english @param tp Matrix type
+     * \~japanese @param tp 行列タイプ
+     * \~english @param M Reference to constant 3x4 matrix
+     * \~japanese @param M 定数の3x4行列への参照
+     * \~english @return TRUE if successful
+     * \~japanese @return 成功したらTRUE
+     */
+    bool SetMtx(ScnObjMtxType tp, const math::MTX34& M);
     bool GetMtx(ScnObjMtxType type, math::MTX34* pMtx) const;
     const math::MTX34* GetMtxPtr(ScnObjMtxType type) const {
         return &mMtxArray[type];
@@ -129,7 +152,8 @@ public:
         return mpFuncObjExec;
     }
 
-    void EnableScnObjCallbackTiming(Timing timing);
+    void EnableScnObjCallbackTiming(Timing t);
+    void DisableScnObjCallbackTiming(Timing t);
     void EnableScnObjCallbackExecOp(ExecOp op);
 
     bool SetBoundingVolume(ScnObjBoundingVolumeType type,

@@ -59,8 +59,8 @@ public:
         mChanAmbColor.a = 255;
     }
 
-    const math::MTX34* GetViewMtx() const {
-        return &mViewMtx;
+    const math::MTX34& GetViewMtx() const {
+        return mViewMtx;
     }
     void SetViewMtx(const math::MTX34& rMtx) {
         mViewMtx = rMtx;
@@ -81,6 +81,10 @@ public:
         return mLightMask;
     }
 
+    GXLightID GetLightAlphaMask() const {
+        return mLightAlphaMask;
+    }
+
     bool IsSpotLight() const {
         return mIsSpotLight;
     }
@@ -94,6 +98,19 @@ public:
         *pNearZ = mFogNearz;
         *pFarZ = mFogFarz;
         *pColor = mFogColor;
+    }
+
+    void SetZOffset(f32 offset, const math::VEC3& pos) {
+        mZOffset = offset;
+        mZOffsetOrig = pos;
+    }
+
+    const GXColor& GetChanMatColor() const {
+        return mChanMatColor;
+    }
+
+    const GXColor& GetChanAmbColor() const {
+        return mChanAmbColor;
     }
 };
 

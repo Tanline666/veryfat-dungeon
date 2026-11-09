@@ -36,6 +36,26 @@ private:
     }
 };
 
+inline u32 RANDOM_INIT(u16 objectSeed, u16 keySeed, u16 keyIdx, u32 keyDiv) {
+    union {
+        u32 whole;
+        u8 part[4];
+    } result;
+
+    result.whole = objectSeed * 0x3F81F635 + keySeed * 0x30A74193 +
+                   keyIdx * 0x371097E7 + keyDiv * 0x7B929 + 0x4BF53;
+
+    result.part[2] ^= result.part[3];
+    result.part[1] ^= result.part[2];
+    result.part[0] ^= result.part[1];
+
+    return result.whole;
+}
+
+inline u32 RANDOM_NEXT(u32 prev) {
+    return prev * 214013 + 2531011;
+}
+
 } // namespace ef
 } // namespace nw4r
 

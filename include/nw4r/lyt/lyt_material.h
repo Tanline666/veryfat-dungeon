@@ -2,10 +2,10 @@
 #define NW4R_LYT_MATERIAL_H
 #include <nw4r/types_nw4r.h>
 
+#include <nw4r/lyt/lyt_animation.h>
 #include <nw4r/lyt/lyt_common.h>
 #include <nw4r/lyt/lyt_texMap.h>
 #include <nw4r/lyt/lyt_types.h>
-
 #include <nw4r/ut.h>
 
 #include <revolution/GX.h>
@@ -63,6 +63,7 @@ struct Material {
  ******************************************************************************/
 class Material {
 public:
+    Material();
     Material(const res::Material* pRes, const ResBlockSet& rBlockSet);
     virtual ~Material(); // at 0x8
 
@@ -77,8 +78,18 @@ public:
     virtual AnimationLink*
     FindAnimationLink(AnimTransform* pAnimTrans); // at 0x20
 
+    virtual AnimationLink* FindAnimationLink(const AnimResource& animRes);
+
     virtual void SetAnimationEnable(AnimTransform* pAnimTrans,
                                     bool enable); // at 0x24
+
+    virtual void SetAnimationEnable(const AnimResource& animRes, bool bEnable);
+
+    void ReserveGXMem(u8 texMapNum, u8 texSrtNum, u8 texCoordGenNum,
+                      u8 tevStageNum = 0, bool allocTevSwap = FALSE,
+                      u8 indStageNum = 0, u8 indSrtNum = 0,
+                      bool allocChanCtrl = FALSE, bool allocMatCol = FALSE,
+                      bool allocAlpComp = FALSE, bool allocBlendMode = FALSE);
 
     void AddAnimationLink(AnimationLink* pAnimLink);
 
@@ -244,11 +255,6 @@ protected:
 private:
     void Init();
     void InitBitGXNums(detail::BitGXNums* pNums);
-
-    void ReserveGXMem(u8 texMapNum, u8 texSrtNum, u8 texCoordGenNum,
-                      u8 tevStageNum, bool allocTevSwap, u8 indStageNum,
-                      u8 indSrtNum, bool allocChanCtrl, bool allocMatCol,
-                      bool allocAlpComp, bool allocBlendMode);
 };
 
 /******************************************************************************

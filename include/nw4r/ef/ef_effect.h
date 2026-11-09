@@ -74,14 +74,13 @@ public:
         return CreateEmitter(res.ptr(), drawWeight, calcRemain);
     } // at 0x14
 
-    virtual void Calc(CalcOption option);     // at 0x18
-    virtual void Draw(const DrawInfo& rInfo); // at 0x1C
+    virtual void Calc(CalcOption calcoption);    // at 0x18
+    virtual void Draw(const DrawInfo& drawInfo); // at 0x1C
 
-    bool Closing(Emitter* pEmitter);
+    bool Closing(Emitter* target);
 
-    Emitter* CreateEmitter(EmitterResource* pResource, u8 drawWeight,
-                           u16 calcRemain);
-    u32 RetireEmitter(Emitter* pEmitter);
+    Emitter* CreateEmitter(EmitterResource* eh, u8 drawWeight, u16 calcRemain);
+    u32 RetireEmitter(Emitter* target);
 
     u32 RetireEmitterAll();
     u32 RetireParticleAll();
@@ -94,8 +93,9 @@ public:
     u32 ForeachEmitterFrom(ForEachFunc pFunc, ForEachParam param,
                            bool ignoreLifeStatus, Emitter* pEmitter);
 
-    void ParticleManagerAdd(ParticleManager* pManager) {
-        mDrawOrderFunc->Add(this, pManager);
+    void ParticleManagerAdd(ParticleManager* pm) {
+        NW4R_POINTER_ASSERT(pm, 235);
+        mDrawOrderFunc->Add(this, pm);
     }
     void ParticleManagerRemove(ParticleManager* pManager) {
         mDrawOrderFunc->Remove(this, pManager);
@@ -164,7 +164,7 @@ public:
         return &mRootMtx;
     }
 
-    void SetRootMtx(const math::MTX34& rMtx);
+    void SetRootMtx(const math::MTX34& mtx);
 
     const math::VEC3* GetVelocity() const {
         return &mVelocity;

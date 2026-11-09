@@ -23,6 +23,10 @@ bool RPSysScene::isSceneBlank() const {
     return RP_GET_INSTANCE(RPSysSceneMgr)->isBlank();
 }
 
+bool RPSysScene::isFading() const {
+    return RP_GET_INSTANCE(RPSysSceneMgr)->isFading();
+}
+
 /**
  * \~english @brief Tests whether a scene change would be allowed
  */
@@ -77,7 +81,12 @@ void RPSysScene::setSceneFadeColor(nw4r::ut::Color color) {
  *
  * \~english @return Success
  */
-bool RPSysScene::startFadeIn() {
+bool RPSysScene::startFadeIn(EGG::Fader::EStatus status) {
+    if (status != EGG::Fader::STATUS_PREPARE_IN) {
+        RP_GET_INSTANCE(RPSysSceneMgr)
+            ->setSceneStatus(EGG::Fader::STATUS_PREPARE_OUT);
+        return TRUE;
+    }
     return RP_GET_INSTANCE(RPSysSceneMgr)->startSceneFadeIn();
 }
 
@@ -86,7 +95,12 @@ bool RPSysScene::startFadeIn() {
  *
  * \~english @return Success
  */
-bool RPSysScene::startFadeOut() {
+bool RPSysScene::startFadeOut(EGG::Fader::EStatus status) {
+    if (status != EGG::Fader::STATUS_PREPARE_IN) {
+        RP_GET_INSTANCE(RPSysSceneMgr)
+            ->setSceneStatus(EGG::Fader::STATUS_PREPARE_IN);
+        return TRUE;
+    }
     return RP_GET_INSTANCE(RPSysSceneMgr)->startSceneFadeOut();
 }
 
@@ -98,6 +112,10 @@ bool RPSysScene::startFadeOut() {
  */
 void RPSysScene::setDimming(bool enable) {
     RP_GET_INSTANCE(RPSysSystem)->setDimming(enable);
+}
+
+void RPSysScene::setAutoSleepTime(u8 time) {
+    RP_GET_INSTANCE(RPSysSystem)->setAutoSleepTime(time);
 }
 
 /**

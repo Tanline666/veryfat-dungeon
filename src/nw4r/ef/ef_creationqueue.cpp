@@ -81,14 +81,20 @@ void CreationQueue::AddEmitterCreation(const EmitterInheritSetting* pSetting,
 
 void CreationQueue::Execute() {
     for (int i = 0; i < mNumItem; i++) {
+        math::VEC3* pPosition = NULL;
+        math::VEC3* pVelocity = NULL;
         CreationQueueData& rData = mQueueData[i];
+
+        if ((rData.mFlags & CreationQueueData::OPTION_USE_POSITION)) {
+            pPosition = &rData.mPosition;
+        }
 
         switch (rData.mType) {
         case TYPE_PARTICLE: {
             rData.mReferenceParticle->mParticleManager->mManagerEM
-                ->CreateEmitterTmp(rData.mEmitterResource,
-                                   &rData.mInheritSetting,
-                                   rData.mReferenceParticle, rData.mCalcRemain);
+                ->CreateEmitterTmp(
+                    rData.mEmitterResource, &rData.mInheritSetting,
+                    rData.mReferenceParticle, rData.mCalcRemain, pPosition);
 
             rData.mReferenceParticle->UnRef();
             break;
@@ -97,7 +103,8 @@ void CreationQueue::Execute() {
         case TYPE_EMITTER: {
             rData.mReferenceParticle->mParticleManager->mManagerEM
                 ->CreateEmitter(rData.mEmitterResource, &rData.mInheritSetting,
-                                rData.mReferenceParticle, rData.mCalcRemain);
+                                rData.mReferenceParticle, rData.mCalcRemain,
+                                pPosition);
 
             rData.mReferenceParticle->UnRef();
             break;

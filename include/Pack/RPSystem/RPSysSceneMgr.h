@@ -201,6 +201,8 @@ public:
      */
     bool isBlank();
 
+    bool isFading();
+
     /**
      * \~english @brief Tests whether the scene is fading out
      */

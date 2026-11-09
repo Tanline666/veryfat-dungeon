@@ -58,31 +58,31 @@ void Effect::DestroyFunc() {
     RetireEmitterAll();
 }
 
-bool Effect::Closing(Emitter* pEmitter) {
-    if (pEmitter->mParent != NULL) {
-        pEmitter->mParent->UnRef();
+bool Effect::Closing(Emitter* target) {
+    if (target->mParent != NULL) {
+        target->mParent->UnRef();
     }
 
-    if (pEmitter->mpReferenceParticle != NULL) {
-        pEmitter->mpReferenceParticle->UnRef();
-        pEmitter->mpReferenceParticle = NULL;
+    if (target->mpReferenceParticle != NULL) {
+        target->mpReferenceParticle->UnRef();
+        target->mpReferenceParticle = NULL;
     }
 
-    pEmitter->mManagerEF->UnRef();
+    target->mManagerEF->UnRef();
 
-    mActivityList.ToClosing(pEmitter);
-    pEmitter->mLifeStatus = NW4R_EF_LS_CLOSING;
+    mActivityList.ToClosing(target);
+    target->mLifeStatus = NW4R_EF_LS_CLOSING;
 
     return true;
 }
 
-Emitter* Effect::CreateEmitter(EmitterResource* pResource, u8 drawWeight,
+Emitter* Effect::CreateEmitter(EmitterResource* eh, u8 drawWeight,
                                u16 calcRemain) {
 
-    if ((pResource->GetEmitterDesc()->commonFlag &
-         EmitterDesc::EMIT_FLAG_RELOCATE_COMPLETE) == FALSE) {
+    if ((eh->GetEmitterDesc()->commonFlag & EmitterDesc::EMIT_FLAG_RELOCATED) ==
+        FALSE) {
         NW4R_WARNING(FALSE, 118, "incomplete relocation (emitter:%s)",
-                     pResource->GetName());
+                     eh->GetName());
         return NULL;
     }
 
@@ -91,7 +91,7 @@ Emitter* Effect::CreateEmitter(EmitterResource* pResource, u8 drawWeight,
         return NULL;
     }
 
-    if (!pEmitter->Initialize(this, pResource, drawWeight)) {
+    if (!pEmitter->Initialize(this, eh, drawWeight)) {
         mManagerES->GetMemoryManager()->FreeEmitter(pEmitter);
         return NULL;
     }
@@ -104,13 +104,13 @@ Emitter* Effect::CreateEmitter(EmitterResource* pResource, u8 drawWeight,
     return pEmitter;
 }
 
-u32 Effect::RetireEmitter(Emitter* pEmitter) {
-    if (pEmitter->mLifeStatus != NW4R_EF_LS_ACTIVE) {
+u32 Effect::RetireEmitter(Emitter* target) {
+    if (target->mLifeStatus != NW4R_EF_LS_ACTIVE) {
         return 0;
     }
 
-    mActivityList.ToWait(pEmitter);
-    pEmitter->Destroy();
+    mActivityList.ToWait(target);
+    target->Destroy();
     return 1;
 }
 
@@ -147,8 +147,8 @@ u32 Effect::RetireParticleAll() {
     return num;
 }
 
-void Effect::Calc(CalcOption option) {
-    if ((option & CALC_TYPE_BILLBOARD)) {
+void Effect::Calc(CalcOption calcoption) {
+    if ((calcoption & CALC_TYPE_BILLBOARD)) {
         NW4R_UT_LIST_FOREACH (Emitter, it, mActivityList.mActiveList, {
             if (it->mLifeStatus == NW4R_EF_LS_ACTIVE ||
                 it->mLifeStatus == NW4R_EF_LS_WAIT) {
@@ -169,7 +169,7 @@ void Effect::Calc(CalcOption option) {
         return;
     }
 
-    if (!(option & CALC_TYPE_EXTENDED)) {
+    if (!(calcoption & CALC_TYPE_EXTENDED)) {
         NW4R_UT_LIST_FOREACH (Emitter, pEmitter, mActivityList.mActiveList, {
             if (pEmitter->mLifeStatus == NW4R_EF_LS_ACTIVE ||
                 pEmitter->mLifeStatus == NW4R_EF_LS_WAIT) {
@@ -307,12 +307,12 @@ void Effect::Calc(CalcOption option) {
     });
 }
 
-void Effect::Draw(const DrawInfo& rInfo) {
+void Effect::Draw(const DrawInfo& drawInfo) {
     if (GetFlagDisableDraw()) {
         return;
     }
 
-    mDrawOrderFunc->Draw(this, rInfo);
+    mDrawOrderFunc->Draw(this, drawInfo);
 }
 
 u16 Effect::GetNumEmitter() const {
@@ -368,8 +368,8 @@ u32 Effect::ForeachEmitterFrom(ForEachFunc pFunc, ForEachParam param,
     return calls;
 }
 
-void Effect::SetRootMtx(const math::MTX34& rMtx) {
-    math::MTX34Copy(&mRootMtx, &rMtx);
+void Effect::SetRootMtx(const math::MTX34& mtx) {
+    math::MTX34Copy(&mRootMtx, &mtx);
 
     NW4R_UT_LIST_FOREACH (Emitter, it, mActivityList.mActiveList, {
         if (it->mParent == NULL) {

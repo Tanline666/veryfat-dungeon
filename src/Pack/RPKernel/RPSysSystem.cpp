@@ -157,8 +157,16 @@ RPSysSceneCreator::ESceneID RPSysSystem::getBootScene() {
     return RPSysSceneCreator::ESceneID_RPHealthPackBootScene;
 }
 
+EGG::Heap* RPSysSystem::getCurrentHeap() {
+    return EGG::Heap::getCurrentHeap();
+}
+
 void RPSysSystem::startLoadCount() {
     mLoadCount = 0;
+}
+
+bool RPSysSystem::getPowerFlag() const {
+    return mPowerFlag;
 }
 
 void RPSysSystem::setDimming(BOOL dim) {

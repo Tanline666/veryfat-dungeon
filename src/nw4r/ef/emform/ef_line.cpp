@@ -5,10 +5,13 @@
 namespace nw4r {
 namespace ef {
 
-void EmitterFormLine::Emission(Emitter* pEmitter, ParticleManager* pManager,
-                               int count, u32 flags, f32* pParams, u16 life,
-                               f32 lifeRnd, const math::MTX34* pSpace) {
+void EmitterFormLine::Emission(Emitter* em, ParticleManager* pm, int count,
+                               u32 flags, f32* params, u16 life, f32 lifeRnd,
+                               const math::MTX34* pSpace) {
 
+    NW4R_POINTER_ASSERT(em, 42);
+    NW4R_POINTER_ASSERT(pm, 43);
+    NW4R_POINTER_ASSERT(params, 44);
     if (count < 1) {
         return;
     }
@@ -16,8 +19,8 @@ void EmitterFormLine::Emission(Emitter* pEmitter, ParticleManager* pManager,
     for (int i = 0; i < count; i++) {
         f32 fpos;
 
-        if (!(flags & EmitterDesc::EMIT_FLAG_17)) {
-            fpos = pEmitter->mRandom.RandFloat();
+        if (!(flags & EmitterDesc::EMIT_FLAG_FIXED_INTERVAL)) {
+            fpos = em->mRandom.RandFloat();
         } else if (count > 1) {
             fpos = static_cast<f32>(i) / static_cast<f32>(count - 1);
         } else {
@@ -28,16 +31,17 @@ void EmitterFormLine::Emission(Emitter* pEmitter, ParticleManager* pManager,
             fpos -= 0.5f;
         }
 
-        fpos *= pParams[0];
+        fpos *= params[0];
 
-        f32 sx = std::sinf(pParams[1]);
-        f32 cx = std::cosf(pParams[1]);
-
-        f32 sy = std::sinf(pParams[2]);
-        f32 cy = std::cosf(pParams[2]);
-
-        f32 sz = std::sinf(pParams[3]);
-        f32 cz = std::cosf(pParams[3]);
+        f32 sx;
+        f32 cx;
+        f32 sy;
+        f32 cy;
+        f32 sz;
+        f32 cz;
+        PSSinCosRad(&sx, &cx, params[1]);
+        PSSinCosRad(&sy, &cy, params[2]);
+        PSSinCosRad(&sz, &cz, params[3]);
 
         math::VEC3 pos;
         pos.x = (cx * cz * sy + sx * sz) * fpos;
@@ -52,19 +56,19 @@ void EmitterFormLine::Emission(Emitter* pEmitter, ParticleManager* pManager,
         math::VEC3 fromYAxis(pos.x, 0.0f, pos.z);
 
         math::VEC3 vel;
-        CalcVelocity(&vel, pEmitter, pos, normal, pos, fromYAxis);
+        CalcVelocity(&vel, em, pos, normal, pos, fromYAxis);
 
         // clang-format off
-        pManager->CreateParticle(
-            CalcLife(life, lifeRnd, pEmitter),
+        pm->CreateParticle(
+            CalcLife(life, lifeRnd, em),
             pos,
             vel,
             pSpace,
-            1.0f + pEmitter->mParameter.mVelMomentumRandom *
-                (1.0f / 100.0f) * pEmitter->mRandom.RandFloat(),
-            &pEmitter->mInheritSetting,
-            pEmitter->mpReferenceParticle,
-            pEmitter->mCalcRemain);
+            1.0f + em->mParameter.mVelMomentumRandom *
+                (1.0f / 100.0f) * em->mRandom.RandFloat(),
+            &em->mInheritSetting,
+            em->mpReferenceParticle,
+            em->mCalcRemain);
         // clang-format on
     }
 }

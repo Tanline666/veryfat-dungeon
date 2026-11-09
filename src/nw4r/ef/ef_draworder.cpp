@@ -18,20 +18,23 @@ void DrawOrder::Draw(Effect* pEffect, const DrawInfo& rInfo) {
     })
 }
 
-void DrawOrder::Add(Effect* pEffect, ParticleManager* pManager) {
-    ut::List* pList = GetPMList(pEffect);
+void DrawOrder::Add(Effect* ef, ParticleManager* pm) {
+    NW4R_POINTER_ASSERT(ef, 49);
+    NW4R_POINTER_ASSERT(ef, 50);
+
+    ut::List* pList = GetPMList(ef);
     ParticleManager* pIt = NULL;
 
     while (
         (pIt = static_cast<ParticleManager*>(ut::List_GetPrev(pList, pIt)))) {
 
-        if (pIt->mWeight <= pManager->mWeight) {
+        if (pIt->mWeight <= pm->mWeight) {
             break;
         }
     }
 
     pIt = static_cast<ParticleManager*>(ut::List_GetNext(pList, pIt));
-    ut::List_Insert(pList, pIt, pManager);
+    ut::List_Insert(pList, pIt, pm);
 }
 
 void DrawOrder::Remove(Effect* pEffect, ParticleManager* pManager) {

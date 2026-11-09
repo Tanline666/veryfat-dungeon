@@ -11,14 +11,12 @@
 
 #include <revolution/DVD/dvd.h>
 #include <revolution/OS/OSAddress.h>
+#include <revolution/OS/OSExec.h>
 #include <revolution/OS/OSThread.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-// Forward declarations
-typedef struct OSContext OSContext;
-typedef struct OSExecParams OSExecParams;
 
 // Derive offsets for use with OSAddress functions
 #define __DEF_ADDR_OFFSETS(name, addr)                                         \

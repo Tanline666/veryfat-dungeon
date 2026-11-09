@@ -5,59 +5,57 @@
 namespace nw4r {
 namespace ef {
 
-void EmitterFormCube::EmissionSub(math::VEC3& rPos, math::VEC3& rNormal,
-                                  Emitter* pEmitter, ParticleManager* pManager,
-                                  u16 life, f32 lifeRnd,
-                                  const math::MTX34* pSpace) {
+void EmitterFormCube::EmissionSub(math::VEC3& rPos, math::VEC3& normal,
+                                  Emitter* em, ParticleManager* pm,
+                                  u16 aPtclLife, f32 aPtclLifeRnd,
+                                  const math::MTX34* space) {
 
-    if (rNormal.x != 0.0f || rNormal.y != 0.0f || rNormal.z != 0.0f) {
-        math::VEC3Normalize(&rNormal, &rNormal);
-    }
+    Normalize(&normal, &normal);
 
     math::VEC3 fromOrigin = rPos;
 
     if (math::VEC3LenSq(&fromOrigin) <= NW4R_MATH_FLT_MIN) {
-        fromOrigin.x = 2.0f * pEmitter->mRandom.RandFloat() - 1.0f;
-        fromOrigin.y = 2.0f * pEmitter->mRandom.RandFloat() - 1.0f;
-        fromOrigin.z = 2.0f * pEmitter->mRandom.RandFloat() - 1.0f;
+        fromOrigin.x = 2.0f * em->mRandom.RandFloat() - 1.0f;
+        fromOrigin.y = 2.0f * em->mRandom.RandFloat() - 1.0f;
+        fromOrigin.z = 2.0f * em->mRandom.RandFloat() - 1.0f;
     }
 
-    if (fromOrigin.x != 0.0f || fromOrigin.y != 0.0f || fromOrigin.z != 0.0f) {
-        math::VEC3Normalize(&fromOrigin, &fromOrigin);
-    }
+    Normalize(&fromOrigin, &fromOrigin);
 
     math::VEC3 fromYAxis = rPos;
     fromYAxis.y = 0.0f;
 
     if (math::VEC3LenSq(&fromYAxis) <= NW4R_MATH_FLT_MIN) {
-        fromYAxis.x = 2.0f * pEmitter->mRandom.RandFloat() - 1.0f;
-        fromYAxis.z = 2.0f * pEmitter->mRandom.RandFloat() - 1.0f;
+        fromYAxis.x = 2.0f * em->mRandom.RandFloat() - 1.0f;
+        fromYAxis.z = 2.0f * em->mRandom.RandFloat() - 1.0f;
     }
 
-    if (fromYAxis.x != 0.0f || fromYAxis.y != 0.0f || fromYAxis.z != 0.0f) {
-        math::VEC3Normalize(&fromYAxis, &fromYAxis);
-    }
+    Normalize(&fromYAxis, &fromYAxis);
 
     math::VEC3 vel;
-    CalcVelocity(&vel, pEmitter, rPos, rNormal, fromOrigin, fromYAxis);
+    CalcVelocity(&vel, em, rPos, normal, fromOrigin, fromYAxis);
 
     // clang-format off
-    pManager->CreateParticle(
-        CalcLife(life, lifeRnd, pEmitter),
+    pm->CreateParticle(
+        CalcLife(aPtclLife, aPtclLifeRnd, em),
         rPos,
         vel,
-        pSpace,
-        1.0f + pEmitter->mParameter.mVelMomentumRandom *
-            (1.0f / 100.0f) * pEmitter->mRandom.RandFloat(),
-        &pEmitter->mInheritSetting,
-        pEmitter->mpReferenceParticle,
-        pEmitter->mCalcRemain);
+        space,
+        1.0f + em->mParameter.mVelMomentumRandom *
+            (1.0f / 100.0f) * em->mRandom.RandFloat(),
+        &em->mInheritSetting,
+        em->mpReferenceParticle,
+        em->mCalcRemain);
     // clang-format on
 }
 
-void EmitterFormCube::Emission(Emitter* pEmitter, ParticleManager* pManager,
-                               int count, u32 flags, f32* pParams, u16 life,
-                               f32 lifeRnd, const math::MTX34* pSpace) {
+void EmitterFormCube::Emission(Emitter* em, ParticleManager* pm, int count,
+                               u32 optionFlag, f32* params, u16 aPtclLife,
+                               f32 aPtclLifeRnd, const math::MTX34* space) {
+
+    NW4R_POINTER_ASSERT(em, 94);
+    NW4R_POINTER_ASSERT(pm, 95);
+    NW4R_POINTER_ASSERT(optionFlag, 96);
 
     if (count < 1) {
         return;
@@ -65,9 +63,15 @@ void EmitterFormCube::Emission(Emitter* pEmitter, ParticleManager* pManager,
 
     f32 outerX, outerY, outerZ;
 
-    outerX = pParams[0];
-    outerY = pParams[1];
-    outerZ = pParams[2];
+    outerX = params[PARAM_CUBE_X];
+
+    if (optionFlag & OPTION_CUBE_LINKED_SIZE) {
+        outerY = outerX;
+        outerZ = outerX;
+    } else {
+        outerY = params[PARAM_CUBE_Y];
+        outerZ = params[PARAM_CUBE_Z];
+    }
 
     if (outerX < 1e-5f) {
         outerX = 1e-5f;
@@ -80,564 +84,579 @@ void EmitterFormCube::Emission(Emitter* pEmitter, ParticleManager* pManager,
     }
 
     f32 inner;
-    if (pParams[3] == 0.0f) {
+    if (params[PARAM_CUBE_INNER] == 0.0f) {
         inner = 1e-5f;
     } else {
-        inner = pParams[3] * (1.0f / 100.0f);
+        inner = params[PARAM_CUBE_INNER] * (1.0f / 100.0f);
     }
 
-    f32 innerRev = 1.0f - inner;
+    f32 inner_rev = 1.0f - inner;
 
-    f32 diffuseNrm = pEmitter->mParameter.mVelDiffusionEmitterNormal;
-    if (std::fabs(diffuseNrm - NW4R_MATH_PI) <
+    f32 diffusionNormal = em->mParameter.mVelDiffusionEmitterNormal;
+    if (std::fabs(diffusionNormal - NW4R_MATH_PI) <
         NW4R_MATH_PI * NW4R_MATH_FLT_EPSILON) {
 
-        diffuseNrm -= NW4R_MATH_PI * NW4R_MATH_FLT_EPSILON;
+        diffusionNormal -= NW4R_MATH_PI * NW4R_MATH_FLT_EPSILON;
     }
 
-    if (flags & EmitterDesc::EMIT_FLAG_17) {
+    if (optionFlag & EmitterDesc::EMIT_FLAG_FIXED_INTERVAL) {
         f32 div = 2.0f / (count + 1);
-
-        int i;
-        int countX = (count / 2) + 1;
-        int countY = ((count - 1) / 2) + 1;
-
-        int dir = 0;
-        if (count % 2 == 0) {
-            dir = 2;
-        }
-
-        int dirCountLife = 1;
-        int dirCountRemain = dirCountLife;
-
-        for (i = 0; i < count * count; i++) {
-            if (i != 0) {
-                switch (dir) {
-                case 0: {
-                    countY--;
-                    break;
-                }
-
-                case 1: {
-                    countX++;
-                    break;
-                }
-
-                case 2: {
-                    countY++;
-                    break;
-                }
-
-                case 3: {
-                    countX--;
-                    break;
-                }
-                }
-
-                if (--dirCountRemain <= 0) {
-                    dir++;
-
-                    if (dir == 4) {
-                        dir = 0;
-                    }
-
-                    if (dir % 2 == 0) {
-                        dirCountLife++;
-                    }
-
-                    dirCountRemain = dirCountLife;
-                }
-            }
-
-            f32 baseX = countX * div - 1.0f;
-            f32 baseY = countY * div - 1.0f;
-
-            f32 x = baseX * outerX;
-            f32 y = baseY * outerZ;
-
-            f32 maxDepth = 1.0f - MAX(std::fabs(baseX), std::fabs(baseY));
-            f32 dist = MAX(std::fabs(baseX), std::fabs(baseY));
-
-            math::VEC3 pos;
-            math::VEC3 normal;
-
-            pos.x = x;
-            pos.y = -outerY;
-            pos.z = y;
-
-            if (innerRev != 0.0f) {
-                f32 rnd;
-                if (flags & EmitterDesc::EMIT_FLAG_24) {
-                    rnd = pEmitter->mRandom.RandFloat();
-                    rnd *= rnd;
-                    rnd = 1.0f - rnd * innerRev * maxDepth;
-                } else {
-                    rnd = 1.0f -
-                          (pEmitter->mRandom.RandFloat() * innerRev * maxDepth);
-                }
-
-                pos.y *= rnd;
-            }
-
-            if (diffuseNrm == 0.0f ||
-                (std::fabs(pos.x) < 1e-5f && std::fabs(pos.z) < 1e-5f)) {
-
-                normal.x = 0.0f;
-                normal.y = -1.0f;
-                normal.z = 0.0f;
-            } else {
-                f32 cone = dist * diffuseNrm;
-                f32 ylen = 1.0f / std::tanf(cone);
-
-                normal.x = pos.x;
-                normal.y = ylen * -std::sqrtf(pos.x * pos.x + pos.z * pos.z);
-                normal.z = pos.z;
-            }
-
-            EmissionSub(pos, normal, pEmitter, pManager, life, lifeRnd, pSpace);
-        }
-
-        for (countY = 1; countY <= count; countY++) {
-            f32 baseY = countY * div - 1.0f;
-            f32 y = baseY * outerY;
-
-            for (countX = 1; countX <= count; countX++) {
-                f32 baseX = countX * div - 1.0f;
-                f32 x = baseX * outerX;
-
-                f32 maxDepth = 1.0f - MAX(std::fabs(baseX), std::fabs(baseY));
-                f32 dist = MAX(std::fabs(baseX), std::fabs(baseY));
-
-                math::VEC3 pos;
-                math::VEC3 normal;
-
-                pos.x = x;
-                pos.y = y;
-                pos.z = -outerZ;
-
-                if (innerRev != 0.0f) {
-                    f32 rnd;
-                    if (flags & EmitterDesc::EMIT_FLAG_24) {
-                        rnd = pEmitter->mRandom.RandFloat();
-                        rnd *= rnd;
-                        rnd = 1.0f - rnd * innerRev * maxDepth;
-                    } else {
-                        rnd = 1.0f - (pEmitter->mRandom.RandFloat() * innerRev *
-                                      maxDepth);
-                    }
-
-                    pos.z *= rnd;
-                }
-
-                if (diffuseNrm == 0.0f ||
-                    (std::fabs(pos.x) < 1e-5f && std::fabs(pos.y) < 1e-5f)) {
-
-                    normal.x = 0.0f;
-                    normal.y = 0.0f;
-                    normal.z = -1.0f;
-                } else {
-                    f32 cone = dist * diffuseNrm;
-                    f32 ylen = 1.0f / std::tanf(cone);
-
-                    normal.x = pos.x;
-                    normal.y = pos.y;
-
-                    normal.z =
-                        ylen * -std::sqrtf(pos.x * pos.x + pos.y * pos.y);
-                }
-
-                EmissionSub(pos, normal, pEmitter, pManager, life, lifeRnd,
-                            pSpace);
-            }
-
-            for (countX = 1; countX <= count; countX++) {
-                f32 baseX = countX * div - 1.0f;
-                f32 x = baseX * outerZ;
-
-                f32 maxDepth = 1.0f - MAX(std::fabs(baseX), std::fabs(baseY));
-                f32 dist = MAX(std::fabs(baseX), std::fabs(baseY));
-
-                math::VEC3 pos;
-                math::VEC3 normal;
-
-                pos.x = outerX;
-                pos.y = y;
-                pos.z = x;
-
-                if (innerRev != 0.0f) {
-                    f32 rnd;
-                    if (flags & EmitterDesc::EMIT_FLAG_24) {
-                        rnd = pEmitter->mRandom.RandFloat();
-                        rnd *= rnd;
-                        rnd = 1.0f - rnd * innerRev * maxDepth;
-                    } else {
-                        rnd = 1.0f - (pEmitter->mRandom.RandFloat() * innerRev *
-                                      maxDepth);
-                    }
-
-                    pos.x *= rnd;
-                }
-
-                if (diffuseNrm == 0.0f ||
-                    (std::fabs(pos.y) < 1e-5f && std::fabs(pos.z) < 1e-5f)) {
-
-                    normal.x = 1.0f;
-                    normal.y = 0.0f;
-                    normal.z = 0.0f;
-                } else {
-                    f32 cone = dist * diffuseNrm;
-                    f32 ylen = 1.0f / std::tanf(cone);
-
-                    normal.x = ylen * std::sqrtf(pos.y * pos.y + pos.z * pos.z);
-
-                    normal.y = pos.y;
-                    normal.z = pos.z;
-                }
-
-                EmissionSub(pos, normal, pEmitter, pManager, life, lifeRnd,
-                            pSpace);
-            }
-
-            for (countX = count; countX >= 1; countX--) {
-                f32 baseX = countX * div - 1.0f;
-                f32 x = baseX * outerX;
-
-                f32 maxDepth = 1.0f - MAX(std::fabs(baseX), std::fabs(baseY));
-                f32 dist = MAX(std::fabs(baseX), std::fabs(baseY));
-
-                math::VEC3 pos;
-                math::VEC3 normal;
-
-                pos.x = x;
-                pos.y = y;
-                pos.z = outerZ;
-
-                if (innerRev != 0.0f) {
-                    f32 rnd;
-                    if (flags & EmitterDesc::EMIT_FLAG_24) {
-                        rnd = pEmitter->mRandom.RandFloat();
-                        rnd *= rnd;
-                        rnd = 1.0f - rnd * innerRev * maxDepth;
-                    } else {
-                        rnd = 1.0f - (pEmitter->mRandom.RandFloat() * innerRev *
-                                      maxDepth);
-                    }
-
-                    pos.z *= rnd;
-                }
-
-                if (diffuseNrm == 0.0f ||
-                    (std::fabs(pos.x) < 1e-5f && std::fabs(pos.y) < 1e-5f)) {
-
-                    normal.x = 0.0f;
-                    normal.y = 0.0f;
-                    normal.z = 1.0f;
-                } else {
-                    f32 cone = dist * diffuseNrm;
-                    f32 ylen = 1.0f / std::tanf(cone);
-
-                    normal.x = pos.x;
-                    normal.y = pos.y;
-                    normal.z = ylen * std::sqrtf(pos.x * pos.x + pos.y * pos.y);
-                }
-
-                EmissionSub(pos, normal, pEmitter, pManager, life, lifeRnd,
-                            pSpace);
-            }
-
-            for (countX = count; countX >= 1; countX--) {
-                f32 baseX = countX * div - 1.0f;
-                f32 x = baseX * outerZ;
-
-                f32 maxDepth = 1.0f - MAX(std::fabs(baseX), std::fabs(baseY));
-                f32 dist = MAX(std::fabs(baseX), std::fabs(baseY));
-
-                math::VEC3 pos;
-                math::VEC3 normal;
-
-                pos.x = -outerX;
-                pos.y = y;
-                pos.z = x;
-
-                if (innerRev != 0.0f) {
-                    f32 rnd;
-                    if (flags & EmitterDesc::EMIT_FLAG_24) {
-                        rnd = pEmitter->mRandom.RandFloat();
-                        rnd *= rnd;
-                        rnd = 1.0f - rnd * innerRev * maxDepth;
-                    } else {
-                        rnd = 1.0f - (pEmitter->mRandom.RandFloat() * innerRev *
-                                      maxDepth);
-                    }
-
-                    pos.x *= rnd;
-                }
-
-                if (diffuseNrm == 0.0f ||
-                    (std::fabs(pos.y) < 1e-5f && std::fabs(pos.z) < 1e-5f)) {
-
-                    normal.x = -1.0f;
-                    normal.y = 0.0f;
-                    normal.z = 0.0f;
-                } else {
-                    f32 cone = dist * diffuseNrm;
-                    f32 ylen = 1.0f / std::tanf(cone);
-
-                    normal.x =
-                        ylen * -std::sqrtf(pos.y * pos.y + pos.z * pos.z);
-                    normal.y = pos.y;
-                    normal.z = pos.z;
-                }
-
-                EmissionSub(pos, normal, pEmitter, pManager, life, lifeRnd,
-                            pSpace);
-            }
-        }
-
         {
             int i;
-            int countX = 1;
-            int countY = 1;
+            int xcnt;
+            int ycnt;
+            //! \~english Negative Y-axis
+            //! \~japanese 負数のY座軸
+            {
+                xcnt = (count / 2) + 1;
+                ycnt = ((count - 1) / 2) + 1;
 
-            int dir = 2;
-            int dirCountLife = count - 1;
-            int dirCountRemain = dirCountLife;
+                int dir = 0;
+                if (count % 2 == 0) {
+                    dir = 2;
+                }
 
-            for (i = 0; i < count * count; i++) {
-                if (i != 0) {
-                    switch (dir) {
-                    case 0: {
-                        countX--;
-                        break;
+                int dircntLife = 1;
+                int dircntRemain = dircntLife;
+
+                for (i = 0; i < count * count; i++) {
+                    if (i != 0) {
+                        switch (dir) {
+                        case 0: {
+                            ycnt--;
+                            break;
+                        }
+
+                        case 1: {
+                            xcnt++;
+                            break;
+                        }
+
+                        case 2: {
+                            ycnt++;
+                            break;
+                        }
+
+                        case 3: {
+                            xcnt--;
+                            break;
+                        }
+                        }
+
+                        if (--dircntRemain <= 0) {
+                            dir++;
+
+                            if (dir == 4) {
+                                dir = 0;
+                            }
+
+                            if (dir % 2 == 0) {
+                                dircntLife++;
+                            }
+
+                            dircntRemain = dircntLife;
+                        }
                     }
+                    {
+                        f32 xbase = xcnt * div - 1.0f;
+                        f32 ybase = ycnt * div - 1.0f;
 
-                    case 1: {
-                        countY++;
-                        break;
-                    }
+                        f32 x = xbase * outerX;
+                        f32 y = ybase * outerZ;
 
-                    case 2: {
-                        countX++;
-                        break;
-                    }
+                        f32 maxdepth =
+                            1.0f - MAX(std::fabs(xbase), std::fabs(ybase));
+                        f32 distance = MAX(std::fabs(xbase), std::fabs(ybase));
 
-                    case 3: {
-                        countY--;
-                        break;
-                    }
-                    }
+                        math::VEC3 p;
+                        math::VEC3 normal;
 
-                    if (--dirCountRemain <= 0) {
-                        if (dir == 0) {
-                            dir = 3;
+                        p.x = x;
+                        p.y = -outerY;
+                        p.z = y;
+
+                        if (inner_rev != 0.0f) {
+                            f32 rnd;
+                            if (optionFlag & EmitterDesc::EMIT_FLAG_24) {
+                                rnd = em->mRandom.RandFloat();
+                                rnd *= rnd;
+                                rnd = 1.0f - rnd * inner_rev * maxdepth;
+                            } else {
+                                rnd = 1.0f - (em->mRandom.RandFloat() *
+                                              inner_rev * maxdepth);
+                            }
+
+                            p.y *= rnd;
+                        }
+
+                        if (diffusionNormal == 0.0f ||
+                            (std::fabs(p.x) < 1e-5f &&
+                             std::fabs(p.z) < 1e-5f)) {
+
+                            normal.x = 0.0f;
+                            normal.y = -1.0f;
+                            normal.z = 0.0f;
                         } else {
-                            dir--;
+                            f32 cone = distance * diffusionNormal;
+                            f32 ylen = math::FInv(std::tanf(cone));
+
+                            normal.x = p.x;
+                            normal.y =
+                                ylen * -math::FSqrt(p.x * p.x + p.z * p.z);
+                            normal.z = p.z;
                         }
 
-                        if (dir % 2 == 1 &&
-                            (dir != 1 || dirCountLife != count - 1)) {
-
-                            dirCountLife--;
-                        }
-
-                        dirCountRemain = dirCountLife;
+                        EmissionSub(p, normal, em, pm, aPtclLife, aPtclLifeRnd,
+                                    space);
                     }
                 }
+            }
 
-                f32 baseX = countX * div - 1.0f;
-                f32 baseY = countY * div - 1.0f;
+            for (ycnt = 1; ycnt <= count; ycnt++) {
+                f32 ybase = ycnt * div - 1.0f;
+                f32 y = ybase * outerY;
 
-                f32 x = baseX * outerX;
-                f32 y = baseY * outerZ;
+                //! \~english Negative Z-axis
+                //! \~japanese 負数のZ座軸
+                for (xcnt = 1; xcnt <= count; xcnt++) {
+                    f32 xbase = xcnt * div - 1.0f;
+                    f32 x = xbase * outerX;
 
-                f32 maxDepth = 1.0f - MAX(std::fabs(baseX), std::fabs(baseY));
-                f32 dist = MAX(std::fabs(baseX), std::fabs(baseY));
+                    f32 maxdepth =
+                        1.0f - MAX(std::fabs(xbase), std::fabs(ybase));
+                    f32 distance = MAX(std::fabs(xbase), std::fabs(ybase));
 
-                math::VEC3 pos;
-                math::VEC3 normal;
+                    math::VEC3 p;
+                    math::VEC3 normal;
 
-                pos.x = x;
-                pos.y = outerY;
-                pos.z = y;
+                    p.x = x;
+                    p.y = y;
+                    p.z = -outerZ;
 
-                if (innerRev != 0.0f) {
-                    f32 rnd;
-                    if (flags & EmitterDesc::EMIT_FLAG_24) {
-                        rnd = pEmitter->mRandom.RandFloat();
-                        rnd *= rnd;
-                        rnd = 1.0f - rnd * innerRev * maxDepth;
+                    if (inner_rev != 0.0f) {
+                        f32 rnd;
+                        if (optionFlag & OPTION_CUBE_FLAT_DENSITY) {
+                            rnd = em->mRandom.RandFloat();
+                            rnd *= rnd;
+                            rnd = 1.0f - rnd * inner_rev * maxdepth;
+                        } else {
+                            rnd = 1.0f - (em->mRandom.RandFloat() * inner_rev *
+                                          maxdepth);
+                        }
+
+                        p.z *= rnd;
+                    }
+
+                    if (diffusionNormal == 0.0f ||
+                        (std::fabs(p.x) < 1e-5f && std::fabs(p.y) < 1e-5f)) {
+
+                        normal.x = 0.0f;
+                        normal.y = 0.0f;
+                        normal.z = -1.0f;
                     } else {
-                        rnd = 1.0f - (pEmitter->mRandom.RandFloat() * innerRev *
-                                      maxDepth);
+                        f32 cone = distance * diffusionNormal;
+                        f32 ylen = math::FInv(std::tanf(cone));
+
+                        normal.x = p.x;
+                        normal.y = p.y;
+
+                        normal.z = ylen * -math::FSqrt(p.x * p.x + p.y * p.y);
                     }
 
-                    pos.y *= rnd;
+                    EmissionSub(p, normal, em, pm, aPtclLife, aPtclLifeRnd,
+                                space);
                 }
 
-                if (diffuseNrm == 0.0f ||
-                    (std::fabs(pos.x) < 1e-5f && std::fabs(pos.z) < 1e-5f)) {
+                //! \~english Positive x-axis
+                //! \~japanese 正数のX座軸
+                for (xcnt = 1; xcnt <= count; xcnt++) {
+                    f32 xbase = xcnt * div - 1.0f;
+                    f32 x = xbase * outerZ;
 
-                    normal.x = 0.0f;
-                    normal.y = 1.0f;
-                    normal.z = 0.0f;
-                } else {
-                    f32 cone = dist * diffuseNrm;
-                    f32 ylen = 1.0f / std::tanf(cone);
+                    f32 maxdepth =
+                        1.0f - MAX(std::fabs(xbase), std::fabs(ybase));
+                    f32 distance = MAX(std::fabs(xbase), std::fabs(ybase));
 
-                    normal.x = pos.x;
-                    normal.y = ylen * std::sqrtf(pos.x * pos.x + pos.z * pos.z);
-                    normal.z = pos.z;
+                    math::VEC3 p;
+                    math::VEC3 normal;
+
+                    p.x = outerX;
+                    p.y = y;
+                    p.z = x;
+
+                    if (inner_rev != 0.0f) {
+                        f32 rnd;
+                        if (optionFlag & EmitterDesc::EMIT_FLAG_24) {
+                            rnd = em->mRandom.RandFloat();
+                            rnd *= rnd;
+                            rnd = 1.0f - rnd * inner_rev * maxdepth;
+                        } else {
+                            rnd = 1.0f - (em->mRandom.RandFloat() * inner_rev *
+                                          maxdepth);
+                        }
+
+                        p.x *= rnd;
+                    }
+
+                    if (diffusionNormal == 0.0f ||
+                        (std::fabs(p.y) < 1e-5f && std::fabs(p.z) < 1e-5f)) {
+
+                        normal.x = 1.0f;
+                        normal.y = 0.0f;
+                        normal.z = 0.0f;
+                    } else {
+                        f32 cone = distance * diffusionNormal;
+                        f32 ylen = math::FInv(std::tanf(cone));
+
+                        normal.x = ylen * math::FSqrt(p.y * p.y + p.z * p.z);
+
+                        normal.y = p.y;
+                        normal.z = p.z;
+                    }
+
+                    EmissionSub(p, normal, em, pm, aPtclLife, aPtclLifeRnd,
+                                space);
                 }
 
-                EmissionSub(pos, normal, pEmitter, pManager, life, lifeRnd,
-                            pSpace);
+                for (xcnt = count; xcnt >= 1; xcnt--) {
+                    f32 xbase = xcnt * div - 1.0f;
+                    f32 x = xbase * outerX;
+
+                    f32 maxdepth =
+                        1.0f - MAX(std::fabs(xbase), std::fabs(ybase));
+                    f32 distance = MAX(std::fabs(xbase), std::fabs(ybase));
+
+                    math::VEC3 p;
+                    math::VEC3 normal;
+
+                    p.x = x;
+                    p.y = y;
+                    p.z = outerZ;
+
+                    if (inner_rev != 0.0f) {
+                        f32 rnd;
+                        if (optionFlag & EmitterDesc::EMIT_FLAG_24) {
+                            rnd = em->mRandom.RandFloat();
+                            rnd *= rnd;
+                            rnd = 1.0f - rnd * inner_rev * maxdepth;
+                        } else {
+                            rnd = 1.0f - (em->mRandom.RandFloat() * inner_rev *
+                                          maxdepth);
+                        }
+
+                        p.z *= rnd;
+                    }
+
+                    if (diffusionNormal == 0.0f ||
+                        (std::fabs(p.x) < 1e-5f && std::fabs(p.y) < 1e-5f)) {
+
+                        normal.x = 0.0f;
+                        normal.y = 0.0f;
+                        normal.z = 1.0f;
+                    } else {
+                        f32 cone = distance * diffusionNormal;
+                        f32 ylen = math::FInv(std::tanf(cone));
+
+                        normal.x = p.x;
+                        normal.y = p.y;
+                        normal.z = ylen * math::FSqrt(p.x * p.x + p.y * p.y);
+                    }
+
+                    EmissionSub(p, normal, em, pm, aPtclLife, aPtclLifeRnd,
+                                space);
+                }
+
+                for (xcnt = count; xcnt >= 1; xcnt--) {
+                    f32 xbase = xcnt * div - 1.0f;
+                    f32 x = xbase * outerZ;
+
+                    f32 maxdepth =
+                        1.0f - MAX(std::fabs(xbase), std::fabs(ybase));
+                    f32 distance = MAX(std::fabs(xbase), std::fabs(ybase));
+
+                    math::VEC3 p;
+                    math::VEC3 normal;
+
+                    p.x = -outerX;
+                    p.y = y;
+                    p.z = x;
+
+                    if (inner_rev != 0.0f) {
+                        f32 rnd;
+                        if (optionFlag & OPTION_CUBE_FLAT_DENSITY) {
+                            rnd = em->mRandom.RandFloat();
+                            rnd *= rnd;
+                            rnd = 1.0f - rnd * inner_rev * maxdepth;
+                        } else {
+                            rnd = 1.0f - (em->mRandom.RandFloat() * inner_rev *
+                                          maxdepth);
+                        }
+
+                        p.x *= rnd;
+                    }
+
+                    if (diffusionNormal == 0.0f ||
+                        (std::fabs(p.y) < 1e-5f && std::fabs(p.z) < 1e-5f)) {
+
+                        normal.x = -1.0f;
+                        normal.y = 0.0f;
+                        normal.z = 0.0f;
+                    } else {
+                        f32 cone = distance * diffusionNormal;
+                        f32 ylen = math::FInv(std::tanf(cone));
+
+                        normal.x = ylen * -math::FSqrt(p.y * p.y + p.z * p.z);
+                        normal.y = p.y;
+                        normal.z = p.z;
+                    }
+
+                    EmissionSub(p, normal, em, pm, aPtclLife, aPtclLifeRnd,
+                                space);
+                }
+            }
+
+            {
+                int i;
+                int xcnt = 1;
+                int ycnt = 1;
+
+                int dir = 2;
+                int dircntLife = count - 1;
+                int dircntRemain = dircntLife;
+
+                for (i = 0; i < count * count; i++) {
+                    if (i != 0) {
+                        switch (dir) {
+                        case 0: {
+                            xcnt--;
+                            break;
+                        }
+
+                        case 1: {
+                            ycnt++;
+                            break;
+                        }
+
+                        case 2: {
+                            xcnt++;
+                            break;
+                        }
+
+                        case 3: {
+                            ycnt--;
+                            break;
+                        }
+                        }
+
+                        if (--dircntRemain <= 0) {
+                            if (dir == 0) {
+                                dir = 3;
+                            } else {
+                                dir--;
+                            }
+
+                            if (dir % 2 == 1 &&
+                                (dir != 1 || dircntLife != count - 1)) {
+
+                                dircntLife--;
+                            }
+
+                            dircntRemain = dircntLife;
+                        }
+                    }
+
+                    f32 xbase = xcnt * div - 1.0f;
+                    f32 ybase = ycnt * div - 1.0f;
+
+                    f32 x = xbase * outerX;
+                    f32 y = ybase * outerZ;
+
+                    f32 maxdepth =
+                        1.0f - MAX(std::fabs(xbase), std::fabs(ybase));
+                    f32 distance = MAX(std::fabs(xbase), std::fabs(ybase));
+
+                    math::VEC3 p;
+                    math::VEC3 normal;
+
+                    p.x = x;
+                    p.y = outerY;
+                    p.z = y;
+
+                    if (inner_rev != 0.0f) {
+                        f32 rnd;
+                        if (optionFlag & EmitterDesc::EMIT_FLAG_24) {
+                            rnd = em->mRandom.RandFloat();
+                            rnd *= rnd;
+                            rnd = 1.0f - rnd * inner_rev * maxdepth;
+                        } else {
+                            rnd = 1.0f - (em->mRandom.RandFloat() * inner_rev *
+                                          maxdepth);
+                        }
+
+                        p.y *= rnd;
+                    }
+
+                    if (diffusionNormal == 0.0f ||
+                        (std::fabs(p.x) < 1e-5f && std::fabs(p.z) < 1e-5f)) {
+
+                        normal.x = 0.0f;
+                        normal.y = 1.0f;
+                        normal.z = 0.0f;
+                    } else {
+                        f32 cone = distance * diffusionNormal;
+                        f32 ylen = math::FInv(std::tanf(cone));
+
+                        normal.x = p.x;
+                        normal.y = ylen * math::FSqrt(p.x * p.x + p.z * p.z);
+                        normal.z = p.z;
+                    }
+
+                    EmissionSub(p, normal, em, pm, aPtclLife, aPtclLifeRnd,
+                                space);
+                }
             }
         }
-    } else {
-        for (int i = 0; i < count; i++) {
-            f32 x, y, z;
 
-            if (inner == 0.0f) {
-                x = pEmitter->mRandom.RandFloat() * 2.0f - 1.0f;
-                y = pEmitter->mRandom.RandFloat() * 2.0f - 1.0f;
-                z = pEmitter->mRandom.RandFloat() * 2.0f - 1.0f;
-            } else if (inner == 1.0f) {
-                switch (pEmitter->mRandom.Rand() % 6) {
-                case 0: {
-                    x = pEmitter->mRandom.RandFloat() * 2.0f - 1.0f;
-                    y = pEmitter->mRandom.RandFloat() * 2.0f - 1.0f;
-                    z = 1.0f;
-                    break;
-                }
+        return;
+    }
 
-                case 1: {
-                    x = pEmitter->mRandom.RandFloat() * 2.0f - 1.0f;
-                    y = pEmitter->mRandom.RandFloat() * 2.0f - 1.0f;
-                    z = -1.0f;
-                    break;
-                }
+    for (int i = 0; i < count; i++) {
+        f32 x, y, z;
 
-                case 2: {
-                    x = pEmitter->mRandom.RandFloat() * 2.0f - 1.0f;
-                    y = 1.0f;
-                    z = pEmitter->mRandom.RandFloat() * 2.0f - 1.0f;
-                    break;
-                }
+        if (inner == 0.0f) {
+            x = em->mRandom.RandFloat() * 2.0f - 1.0f;
+            y = em->mRandom.RandFloat() * 2.0f - 1.0f;
+            z = em->mRandom.RandFloat() * 2.0f - 1.0f;
+        } else if (inner == 1.0f) {
+            switch (em->mRandom.Rand() % 6) {
+            case 0: {
+                x = em->mRandom.RandFloat() * 2.0f - 1.0f;
+                y = em->mRandom.RandFloat() * 2.0f - 1.0f;
+                z = 1.0f;
+                break;
+            }
 
-                case 3: {
-                    x = pEmitter->mRandom.RandFloat() * 2.0f - 1.0f;
-                    y = -1.0f;
-                    z = pEmitter->mRandom.RandFloat() * 2.0f - 1.0f;
-                    break;
-                }
+            case 1: {
+                x = em->mRandom.RandFloat() * 2.0f - 1.0f;
+                y = em->mRandom.RandFloat() * 2.0f - 1.0f;
+                z = -1.0f;
+                break;
+            }
 
-                case 4: {
-                    x = 1.0f;
-                    y = pEmitter->mRandom.RandFloat() * 2.0f - 1.0f;
-                    z = pEmitter->mRandom.RandFloat() * 2.0f - 1.0f;
-                    break;
-                }
+            case 2: {
+                x = em->mRandom.RandFloat() * 2.0f - 1.0f;
+                y = 1.0f;
+                z = em->mRandom.RandFloat() * 2.0f - 1.0f;
+                break;
+            }
 
-                case 5: {
-                    x = -1.0f;
-                    y = pEmitter->mRandom.RandFloat() * 2.0f - 1.0f;
-                    z = pEmitter->mRandom.RandFloat() * 2.0f - 1.0f;
-                    break;
-                }
-                }
+            case 3: {
+                x = em->mRandom.RandFloat() * 2.0f - 1.0f;
+                y = -1.0f;
+                z = em->mRandom.RandFloat() * 2.0f - 1.0f;
+                break;
+            }
+
+            case 4: {
+                x = 1.0f;
+                y = em->mRandom.RandFloat() * 2.0f - 1.0f;
+                z = em->mRandom.RandFloat() * 2.0f - 1.0f;
+                break;
+            }
+
+            case 5: {
+                x = -1.0f;
+                y = em->mRandom.RandFloat() * 2.0f - 1.0f;
+                z = em->mRandom.RandFloat() * 2.0f - 1.0f;
+                break;
+            }
+            }
+        } else {
+            f32 topbottom = outerX * outerY * inner_rev * outerZ;
+            f32 frontback = outerX * outerY * inner * outerZ * inner_rev;
+            f32 leftright =
+                outerX * inner_rev * outerY * inner * outerZ * inner;
+
+            f32 f =
+                em->mRandom.RandFloat() * (topbottom + frontback + leftright);
+
+            if (f < topbottom) {
+                x = em->mRandom.RandFloat() * 2.0f - 1.0f;
+
+                y = (em->mRandom.RandFloat() * 2.0f - 1.0f) * inner_rev;
+                y = y >= 0.0f ? 1.0f - y : -1.0f - y;
+
+                z = em->mRandom.RandFloat() * 2.0f - 1.0f;
+            } else if (f < topbottom + frontback) {
+                x = em->mRandom.RandFloat() * 2.0f - 1.0f;
+                y = (em->mRandom.RandFloat() * 2.0f - 1.0f) * inner;
+
+                z = (em->mRandom.RandFloat() * 2.0f - 1.0f) * inner_rev;
+                z = z >= 0.0f ? 1.0f - z : -1.0f - z;
             } else {
-                f32 topBottom = outerX * outerY * innerRev * outerZ;
-                f32 frontBack = outerX * outerY * inner * outerZ * innerRev;
-                f32 leftRight =
-                    outerX * innerRev * outerY * inner * outerZ * inner;
+                x = (em->mRandom.RandFloat() * 2.0f - 1.0f) * inner_rev;
+                x = x >= 0.0f ? 1.0f - x : -1.0f - x;
 
-                f32 f = pEmitter->mRandom.RandFloat() *
-                        (topBottom + frontBack + leftRight);
-
-                if (f < topBottom) {
-                    x = pEmitter->mRandom.RandFloat() * 2.0f - 1.0f;
-
-                    y = (pEmitter->mRandom.RandFloat() * 2.0f - 1.0f) *
-                        innerRev;
-                    y = y >= 0.0f ? 1.0f - y : -1.0f - y;
-
-                    z = pEmitter->mRandom.RandFloat() * 2.0f - 1.0f;
-                } else if (f < topBottom + frontBack) {
-                    x = pEmitter->mRandom.RandFloat() * 2.0f - 1.0f;
-                    y = (pEmitter->mRandom.RandFloat() * 2.0f - 1.0f) * inner;
-
-                    z = (pEmitter->mRandom.RandFloat() * 2.0f - 1.0f) *
-                        innerRev;
-                    z = z >= 0.0f ? 1.0f - z : -1.0f - z;
-                } else {
-                    x = (pEmitter->mRandom.RandFloat() * 2.0f - 1.0f) *
-                        innerRev;
-                    x = x >= 0.0f ? 1.0f - x : -1.0f - x;
-
-                    y = (pEmitter->mRandom.RandFloat() * 2.0f - 1.0f) * inner;
-                    z = (pEmitter->mRandom.RandFloat() * 2.0f - 1.0f) * inner;
-                }
+                y = (em->mRandom.RandFloat() * 2.0f - 1.0f) * inner;
+                z = (em->mRandom.RandFloat() * 2.0f - 1.0f) * inner;
             }
-
-            math::VEC3 pos;
-            math::VEC3 normal(0.0f, 0.0f, 0.0f);
-
-            if (y >= 0.0f && y >= std::fabs(x) && y >= std::fabs(z)) {
-                normal.y = 1.0f;
-            } else if (y < 0.0f && -y >= std::fabs(x) && -y >= std::fabs(z)) {
-                normal.y = -1.0f;
-            } else if (x >= 0.0f && x >= std::fabs(y) && x >= std::fabs(z)) {
-                normal.x = 1.0f;
-            } else if (x < 0.0f && -x >= std::fabs(y) && -x >= std::fabs(z)) {
-                normal.x = -1.0f;
-            } else if (z >= 0.0f) {
-                normal.z = 1.0f;
-            } else {
-                normal.z = -1.0f;
-            }
-
-            pos.x = x * outerX;
-            pos.y = y * outerY;
-            pos.z = z * outerZ;
-
-            if (diffuseNrm != 0.0f) {
-                f32 dist;
-
-                if (normal.x != 0.0f) {
-                    dist = MAX(std::fabs(pos.y), std::fabs(pos.z));
-
-                    f32 cone = dist * diffuseNrm;
-                    f32 ylen = 1.0f / std::tanf(cone);
-
-                    normal.x *=
-                        ylen * std::sqrtf(pos.y * pos.y + pos.z * pos.z);
-                    normal.y = pos.y;
-                    normal.z = pos.z;
-                } else if (normal.y != 0.0f) {
-                    dist = MAX(std::fabs(pos.x), std::fabs(pos.z));
-
-                    f32 cone = dist * diffuseNrm;
-                    f32 ylen = 1.0f / std::tanf(cone);
-
-                    normal.x = pos.x;
-                    normal.y *=
-                        ylen * std::sqrtf(pos.x * pos.x + pos.z * pos.z);
-                    normal.z = pos.z;
-                } else {
-                    dist = MAX(std::fabs(pos.x), std::fabs(pos.y));
-
-                    f32 cone = dist * diffuseNrm;
-                    f32 ylen = 1.0f / std::tanf(cone);
-
-                    normal.x = pos.x;
-                    normal.y = pos.y;
-                    normal.z *=
-                        ylen * std::sqrtf(pos.x * pos.x + pos.y * pos.y);
-                }
-            }
-
-            EmissionSub(pos, normal, pEmitter, pManager, life, lifeRnd, pSpace);
         }
+
+        math::VEC3 p;
+        math::VEC3 normal(0.0f, 0.0f, 0.0f);
+
+        if (y >= 0.0f && y >= std::fabs(x) && y >= std::fabs(z)) {
+            normal.y = 1.0f;
+        } else if (y < 0.0f && -y >= std::fabs(x) && -y >= std::fabs(z)) {
+            normal.y = -1.0f;
+        } else if (x >= 0.0f && x >= std::fabs(y) && x >= std::fabs(z)) {
+            normal.x = 1.0f;
+        } else if (x < 0.0f && -x >= std::fabs(y) && -x >= std::fabs(z)) {
+            normal.x = -1.0f;
+        } else if (z >= 0.0f) {
+            normal.z = 1.0f;
+        } else {
+            normal.z = -1.0f;
+        }
+
+        p.x = x * outerX;
+        p.y = y * outerY;
+        p.z = z * outerZ;
+
+        if (diffusionNormal != 0.0f) {
+            f32 distance;
+
+            if (normal.x != 0.0f) {
+                distance = MAX(std::fabs(p.y), std::fabs(p.z));
+
+                f32 cone = distance * diffusionNormal;
+                f32 ylen = math::FInv(std::tanf(cone));
+
+                normal.x *= ylen * math::FSqrt(p.y * p.y + p.z * p.z);
+                normal.y = p.y;
+                normal.z = p.z;
+            } else if (normal.y != 0.0f) {
+                distance = MAX(std::fabs(p.x), std::fabs(p.z));
+
+                f32 cone = distance * diffusionNormal;
+                f32 ylen = math::FInv(std::tanf(cone));
+
+                normal.x = p.x;
+                normal.y *= ylen * math::FSqrt(p.x * p.x + p.z * p.z);
+                normal.z = p.z;
+            } else {
+                distance = MAX(std::fabs(p.x), std::fabs(p.y));
+
+                f32 cone = distance * diffusionNormal;
+                f32 ylen = math::FInv(std::tanf(cone));
+
+                normal.x = p.x;
+                normal.y = p.y;
+                normal.z *= ylen * math::FSqrt(p.x * p.x + p.y * p.y);
+            }
+        }
+
+        EmissionSub(p, normal, em, pm, aPtclLife, aPtclLifeRnd, space);
     }
 }
 

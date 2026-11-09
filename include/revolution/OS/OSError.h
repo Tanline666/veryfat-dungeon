@@ -1,12 +1,12 @@
 #ifndef RVL_SDK_OS_ERROR_H
 #define RVL_SDK_OS_ERROR_H
 #include <types.h>
+
+#include <revolution/OS/OSContext.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-// Forward declarations
-typedef struct OSContext OSContext;
 
 #define OS_ERROR(...) OSPanic(__FILE__, __LINE__, __VA_ARGS__)
 

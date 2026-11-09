@@ -55,6 +55,7 @@ u32 AXFXChorusExpGetMemSize(const AXFX_CHORUS_EXP* fx);
 BOOL AXFXChorusExpInit(AXFX_CHORUS_EXP* fx);
 void AXFXChorusExpShutdown(AXFX_CHORUS_EXP* fx);
 BOOL AXFXChorusExpSettings(AXFX_CHORUS_EXP* fx);
+BOOL AXFXChorusExpSettingsUpdate(AXFX_CHORUS_EXP* fx);
 void AXFXChorusExpCallback(AXFX_BUFFERUPDATE* update, AXFX_CHORUS_EXP* fx);
 
 #ifdef __cplusplus

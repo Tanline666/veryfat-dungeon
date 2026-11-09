@@ -11,6 +11,9 @@
 extern "C" {
 #endif
 
+//! From AxfxImpl::Alloc assertion
+#define MEM_HEAP_INVALID_HANDLE NULL
+
 typedef enum {
     MEM_HEAP_OPT_CLEAR_ALLOC = (1 << 0),
     MEM_HEAP_OPT_DEBUG_FILL = (1 << 1),

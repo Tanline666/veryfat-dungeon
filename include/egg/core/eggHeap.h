@@ -3,7 +3,7 @@
 #include <egg/types_egg.h>
 
 #include <egg/core/eggDisposer.h>
-#include <egg/prim.h>
+#include <egg/prim/eggBitFlag.h>
 
 #include <nw4r/ut.h>
 

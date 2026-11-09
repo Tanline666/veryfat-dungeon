@@ -15,6 +15,7 @@ class RPSysParticleManager : public nw4r::ef::ParticleManager {
 public:
     /**
      * \~english @brief Constructor
+     * \~japanese @brief コンストラクタ
      */
     RPSysParticleManager();
 

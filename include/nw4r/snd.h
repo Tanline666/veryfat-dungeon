@@ -70,6 +70,7 @@
 #include <nw4r/snd/snd_Util.h>
 #include <nw4r/snd/snd_Voice.h>
 #include <nw4r/snd/snd_VoiceManager.h>
+#include <nw4r/snd/snd_WaveArchive.h>
 #include <nw4r/snd/snd_WaveFile.h>
 #include <nw4r/snd/snd_WaveSound.h>
 #include <nw4r/snd/snd_WaveSoundHandle.h>

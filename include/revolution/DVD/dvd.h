@@ -1,6 +1,9 @@
 #ifndef RVL_SDK_DVD_H
 #define RVL_SDK_DVD_H
 #include <types.h>
+
+#include <revolution/OS/OSAlarm.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -12,7 +15,6 @@ extern "C" {
 // Forward declarations
 typedef struct DVDCommandBlock DVDCommandBlock;
 typedef struct DVDFileInfo DVDFileInfo;
-typedef struct OSAlarm OSAlarm;
 
 typedef enum {
     DVD_RESULT_COVER_CLOSED = -4,
@@ -60,7 +62,7 @@ typedef struct DVDDiskID {
     u32 gcMagic;     // at 0x1C
 } DVDDiskID;
 
-typedef struct DVDCommandBlock {
+struct DVDCommandBlock {
     DVDCommandBlock* next;       // at 0x0
     DVDCommandBlock* prev;       // at 0x4
     u32 command;                 // at 0x8
@@ -73,7 +75,7 @@ typedef struct DVDCommandBlock {
     DVDDiskID* id;               // at 0x24
     DVDCommandCallback callback; // at 0x28
     void* userData;              // at 0x2C
-} DVDCommandBlock;
+};
 
 typedef struct DVDDriveInfo {
     u16 revision;    // at 0x0
@@ -82,12 +84,12 @@ typedef struct DVDDriveInfo {
     char padding[32 - 0x8];
 } DVDDriveInfo;
 
-typedef struct DVDFileInfo {
+struct DVDFileInfo {
     DVDCommandBlock block;     // at 0x0
     u32 offset;                // at 0x30
     u32 size;                  // at 0x34
     DVDAsyncCallback callback; // at 0x38
-} DVDFileInfo;
+};
 
 extern volatile u32 __DVDLayoutFormat;
 

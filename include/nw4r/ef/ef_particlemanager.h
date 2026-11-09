@@ -74,8 +74,11 @@ public:
     ~ParticleManager();
 
     virtual void SendClosing(); // at 0x8
+
+protected:
     virtual void DestroyFunc(); // at 0xC
 
+public:
     virtual bool Initialize(Emitter* pParent,
                             EmitterResource* pResource); // at 0x10
 
@@ -145,7 +148,10 @@ public:
     }
 
     void SetMtxDirty() {
-        mMtxDirty = true;
+        mMtxDirty = TRUE;
+        if (smMtxInvId == GetObjectIdx()) {
+            smMtxInvId = -1;
+        }
     }
 
     static void ModifierTravFunc_SetSimpleLightType(void* pObject,

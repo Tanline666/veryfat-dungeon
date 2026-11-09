@@ -22,9 +22,9 @@ struct FrameBufferInfo {
     u32 frameSize;   //!< \~english Frame buffer size \~japanese
                      //!< フレームバッファの大きさ \~ // at 0x4
     u16 frameWidth;  //!< \~english Frame buffer width in pixels \~japanese
-                     //!< ピクセル単位のフレームバッファの幅 \~ // at 0x8
+                     //!< ピクセル単位でのフレームバッファの幅 \~ // at 0x8
     u16 frameHeight; //!< \~english Frame buffer height in pixels \~japanese
-                     //!< ピクセル単位のフレームバッファの高さ \~ // at 0xA
+                     //!< ピクセル単位でのフレームバッファの高さ \~ // at 0xA
     u16 frameRow;    //!< \~ // at 0xC
     u16 reserved;    //!< \~japanese 予約済み \~ // at 0xE
 };

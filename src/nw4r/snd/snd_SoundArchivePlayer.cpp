@@ -256,8 +256,8 @@ bool SoundArchivePlayer::CreateGroupAddressTable(const SoundArchive* pArchive,
     mGroupTable->count = pArchive->GetGroupCount();
 
     for (int i = 0; i < mGroupTable->count; i++) {
-        mGroupTable->items[i].address = NULL;
-        mGroupTable->items[i].waveDataAddress = NULL;
+        mGroupTable->item[i].address = NULL;
+        mGroupTable->item[i].waveDataAddress = NULL;
     }
 
     return true;
@@ -463,7 +463,7 @@ const void* SoundArchivePlayer::GetGroupAddress(u32 id) const {
         return NULL;
     }
 
-    return mGroupTable->items[id].address;
+    return mGroupTable->item[id].address;
 }
 
 void SoundArchivePlayer::SetGroupAddress(u32 id, const void* pAddr) {
@@ -472,7 +472,7 @@ void SoundArchivePlayer::SetGroupAddress(u32 id, const void* pAddr) {
     }
 
     // @bug Index not validated
-    mGroupTable->items[id].address = pAddr;
+    mGroupTable->item[id].address = pAddr;
 }
 
 const void* SoundArchivePlayer::GetGroupWaveDataAddress(u32 id) const {
@@ -484,7 +484,7 @@ const void* SoundArchivePlayer::GetGroupWaveDataAddress(u32 id) const {
         return NULL;
     }
 
-    return mGroupTable->items[id].waveDataAddress;
+    return mGroupTable->item[id].waveDataAddress;
 }
 
 void SoundArchivePlayer::SetGroupWaveDataAddress(u32 id, const void* pAddr) {
@@ -493,7 +493,7 @@ void SoundArchivePlayer::SetGroupWaveDataAddress(u32 id, const void* pAddr) {
     }
 
     // @bug Index not validated
-    mGroupTable->items[id].waveDataAddress = pAddr;
+    mGroupTable->item[id].waveDataAddress = pAddr;
 }
 
 SoundStartable::StartResult
@@ -881,10 +881,10 @@ void SoundArchivePlayer::InvalidateData(const void* pStart, const void* pEnd) {
     }
 
     for (int i = 0; i < mGroupTable->count; i++) {
-        const void* pAddr = mGroupTable->items[i].address;
+        const void* pAddr = mGroupTable->item[i].address;
 
         if (pStart <= pAddr && pAddr <= pEnd) {
-            mGroupTable->items[i].address = NULL;
+            mGroupTable->item[i].address = NULL;
         }
     }
 }
@@ -896,10 +896,10 @@ void SoundArchivePlayer::InvalidateWaveData(const void* pStart,
     }
 
     for (int i = 0; i < mGroupTable->count; i++) {
-        const void* pAddr = mGroupTable->items[i].waveDataAddress;
+        const void* pAddr = mGroupTable->item[i].waveDataAddress;
 
         if (pStart <= pAddr && pAddr <= pEnd) {
-            mGroupTable->items[i].waveDataAddress = NULL;
+            mGroupTable->item[i].waveDataAddress = NULL;
         }
     }
 }

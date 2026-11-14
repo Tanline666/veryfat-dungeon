@@ -43,6 +43,7 @@ public:
                                 u32 workSize);
 
     static void ShutdownSoundSystem();
+    static bool IsInitializedSoundSystem();
     static void WaitForResetReady();
 
     static void PrepareReset() {
@@ -77,6 +78,7 @@ public:
 
 private:
     static detail::TaskThread sTaskThread;
+    static int sMaxVoices;
 };
 
 } // namespace snd

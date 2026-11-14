@@ -40,10 +40,10 @@ public:
 
     void SetBiquadFilter(int type, f32 value);
     int GetBiquadFilterType() const {
-        return mBiquadFilterType;
+        return mBiquadType;
     }
     f32 GetBiquadFilterValue() const {
-        return mBiquadFilterValue;
+        return mBiquadValue;
     }
 
     int detail_GetOutputLine() const;
@@ -52,11 +52,11 @@ public:
         return mOutputLineFlag;
     }
 
-    void detail_InsertSoundList(detail::BasicSound* pSound);
-    void detail_RemoveSoundList(detail::BasicSound* pSound);
+    void InsertSoundList(detail::BasicSound* pSound);
+    void RemoveSoundList(detail::BasicSound* pSound);
 
-    void detail_InsertPriorityList(detail::BasicSound* pSound);
-    void detail_RemovePriorityList(detail::BasicSound* pSound);
+    void InsertPriorityList(detail::BasicSound* sound);
+    void RemovePriorityList(detail::BasicSound* pSound);
 
     void detail_SortPriorityList(detail::BasicSound* pSound);
     void detail_SortPriorityList();
@@ -88,6 +88,7 @@ public:
     void SetPlayableSoundCount(int count);
     void detail_SetPlayableSoundLimit(int limit);
 
+    bool detail_CanPlaySound(int startPriority);
     bool CheckPlayableSoundCount(int startPriority,
                                  detail::ExternalSoundPlayer* pExtPlayer);
 
@@ -124,30 +125,31 @@ public:
         return mFxSend[bus];
     }
 
+    bool detail_AppendSound(detail::BasicSound* sound);
     void detail_RemoveSound(detail::BasicSound* sound);
 
 private:
-    detail::BasicSound* detail_GetLowestPrioritySound() {
+    detail::BasicSound* GetLowestPrioritySound() {
         // @bug UB when the list is empty
         return &mPriorityList.GetFront();
     }
 
-    detail::BasicSoundPlayerPlayList mSoundList;    // at 0x0
-    detail::BasicSoundPlayerPrioList mPriorityList; // at 0xC
-    detail::PlayerHeapList mHeapList;               // at 0x18
+    detail::BasicSoundPlayerPlayList mSoundList;    //!< // at 0x0
+    detail::BasicSoundPlayerPrioList mPriorityList; //!< // at 0xC
+    detail::PlayerHeapList mHeapList;               //!< // at 0x18
 
-    u16 mPlayableCount; // at 0x24
-    u16 mPlayableLimit; // at 0x26
+    int mPlayableCount; //!< // at 0x24
+    int mPlayableLimit; //!< // at 0x28
 
-    f32 mVolume;                                // at 0x28
-    f32 mLpfFreq;                               // at 0x2C
-    int mOutputLineFlag;                        // at 0x30
-    f32 mMainOutVolume;                         // at 0x34
-    int mBiquadFilterType;                      // at 0x38
-    int mBiquadFilterValue;                     // at 0x3C
-    f32 mRemoteOutVolume[WPAD_MAX_CONTROLLERS]; // at 0x40
-    f32 mMainSend;                              // at 0x50
-    f32 mFxSend[AUX_BUS_NUM];                   // at 0x54
+    f32 mVolume;                                //!< // at 0x2C
+    f32 mLpfFreq;                               //!< // at 0x30
+    int mOutputLineFlag;                        //!< // at 0x34
+    f32 mMainOutVolume;                         //!< // at 0x38
+    int mBiquadType;                            //!< // at 0x3C
+    f32 mBiquadValue;                           //!< // at 0x40
+    f32 mRemoteOutVolume[WPAD_MAX_CONTROLLERS]; //!< // at 0x44
+    f32 mMainSend;                              //!< // at 0x54
+    f32 mFxSend[AUX_BUS_NUM];                   //!< // at 0x58
 };
 
 } // namespace snd

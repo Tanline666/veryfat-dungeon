@@ -30,7 +30,6 @@ Heap::Heap(MEMiHeapHead* pHeapHandle)
 
     NW4R_UT_LIST_INIT(mDisposerList, Disposer);
 
-#line 63
     EGG_ASSERT_MSG(sIsHeapListInitialized, "Please call Heap::initialize()");
 
     OSLockMutex(&sRootMutex);

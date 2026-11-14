@@ -15,57 +15,57 @@
  ******************************************************************************/
 
 /**
- * \~english @brief Configurable value interpolation
+ * @~english @brief Configurable value interpolation
  */
 class RPSndMoveValueF32 {
 public:
     /**
-     * \~english @brief Move value callback
+     * @~english @brief Move value callback
      *
-     * \~english @param value Current move value
-     * \~english @param pUserData Callback user argument
+     * @~english @param value Current move value
+     * @~english @param pUserData Callback user argument
      */
     typedef void (*Callback)(f32 value, void* pUserData);
 
 public:
     /**
-     * \~english @brief Constructor
+     * @~english @brief Constructor
      */
     RPSndMoveValueF32();
 
     /**
-     * \~english @brief Begins interpolation of this value
+     * @~english @brief Begins interpolation of this value
      *
-     * \~english @param target Interpolation target
-     * \~english @param frame Interpolation duration
+     * @~english @param target Interpolation target
+     * @~english @param frame Interpolation duration
      */
     void moveValue(f32 target, u32 frame);
 
     /**
-     * \~english @brief Updates the interpolation state
+     * @~english @brief Updates the interpolation state
      *
-     * \~english @return Whether interpolation is ongoing
+     * @~english @return Whether interpolation is ongoing
      */
     virtual bool update(); // at 0x8
 
     /**
-     * \~english @brief Updates the interpolation state
+     * @~english @brief Updates the interpolation state
      * \~ @note This is used to call update with an instance of the base class
-     * \~english @return Whether interpolation is ongoing
+     * @~english @return Whether interpolation is ongoing
      */
     bool doUpdate() {
         return update();
     }
 
     /**
-     * \~english @brief Gets the number of remaining interpolation frames
+     * @~english @brief Gets the number of remaining interpolation frames
      */
     u32 getFrame() const {
         return mFrame;
     }
 
     /**
-     * \~english @brief Accesses the current value
+     * @~english @brief Accesses the current value
      */
     f32 getValue() const {
         return mValue;
@@ -94,7 +94,7 @@ protected:
  ******************************************************************************/
 
 /**
- * \~english @brief Move parameter linked-list item
+ * @~english @brief Move parameter linked-list item
  */
 class RPSndMoveParamLink {
 public:
@@ -109,12 +109,12 @@ public:
  ******************************************************************************/
 
 /**
- * \~english @brief Sound parameter interpolation
+ * @~english @brief Sound parameter interpolation
  */
 class RPSndMoveParam : public RPSndMoveParamLink, public RPSndMoveValueF32 {
 public:
     /**
-     * \~english @brief Move parameter type
+     * @~english @brief Move parameter type
      */
     enum ParamCategory {
         ParamCategory_SoundPitch,  //!< Controls pitch of the attached sound
@@ -125,17 +125,17 @@ public:
 
 public:
     /**
-     * \~english @brief Constructor
+     * @~english @brief Constructor
      *
-     * \~english @param category Sound parameter category
-     * \~english @param rHandle Sound handle
+     * @~english @param category Sound parameter category
+     * @~english @param rHandle Sound handle
      */
     RPSndMoveParam(ParamCategory category, nw4r::snd::SoundHandle& rHandle);
 
     /**
-     * \~english @brief Updates the interpolation state
+     * @~english @brief Updates the interpolation state
      *
-     * \~english @return Whether interpolation is ongoing
+     * @~english @return Whether interpolation is ongoing
      */
     virtual bool update(); // at 0x8
 
@@ -155,12 +155,12 @@ private:
  ******************************************************************************/
 
 /**
- * \~english @brief Move parameter manager
+ * @~english @brief Move parameter manager
  */
 class RPSndMoveParamMgr {
 public:
     /**
-     * \~english @brief Updates the state of all move parameters
+     * @~english @brief Updates the state of all move parameters
      */
     static void update();
 

@@ -817,10 +817,10 @@ void RFLiDrawQuad(f32 x, f32 y, f32 width, f32 height, f32 rotZ,
     s16 s0;
     s16 s1;
 
-    PSMTXIdentity(pos);
+    MTXIdentity(pos);
     PSMTXScaleApply(pos, pos, width, height, 1.0f);
     PSMTXRotRad(rot, 'z', (M_PI / 180.0f) * rotZ);
-    PSMTXConcat(rot, pos, pos);
+    MTXConcat(rot, pos, pos);
     PSMTXScaleApply(pos, pos, RFLi_TEX_SCALE_X, RFLi_TEX_SCALE_Y, 1.0f);
     PSMTXTransApply(pos, pos, x, y, 0.0f);
 

@@ -6,6 +6,8 @@ extern "C" {
 #endif
 
 typedef f32 Mtx[3][4];
+//! Inferred from Pane::LoadMtx() in TFP2 DWARF
+typedef f32 (*MtxPtr)[4];
 typedef f32 Mtx44[4][4];
 
 typedef struct Vec {

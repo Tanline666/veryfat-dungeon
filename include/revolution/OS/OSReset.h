@@ -41,10 +41,10 @@ void OSShutdownSystem(void);
 void OSReturnToMenu(void);
 u32 OSGetResetCode(void);
 /**
- * \~english @deprecated Resets the console. Superseded by OSRestart,
+ * @~english @deprecated Resets the console. Superseded by OSRestart,
  * OSRebootSystem, and OSReturnToMenu. Because of this, it halts the system if
  * called.
- * \~japanese @deprecated 本体をリセットする。OSRestart、OSRebootSystem、
+ * @~japanese @deprecated 本体をリセットする。OSRestart、OSRebootSystem、
  * OSReturnToMenuに取って代われたから、この関数を呼び出したら本体が止まる。
  *
  * \~ @param arg0 Dummy

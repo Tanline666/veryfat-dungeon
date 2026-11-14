@@ -11,7 +11,7 @@
 class RPSysAppMiiManager;
 
 /**
- * \~english @brief Middle database generation parameters
+ * @~english @brief Middle database generation parameters
  */
 class RPSysMiddleDBGenInfo {
 private:
@@ -32,97 +32,97 @@ private:
 
 public:
     /**
-     * \~english @brief Constructor
+     * @~english @brief Constructor
      */
     RPSysMiddleDBGenInfo();
 
     /**
-     * \~english @brief Destructor
+     * @~english @brief Destructor
      */
     virtual ~RPSysMiddleDBGenInfo(); // at 0x8
 
     /**
-     * \~english @brief Gets the type of the middle database
+     * @~english @brief Gets the type of the middle database
      */
     RFLMiddleDBType GetType() const {
         return mType;
     }
 
     /**
-     * \~english @brief Sets the type of the middle database
+     * @~english @brief Sets the type of the middle database
      *
-     * \~english @param type Middle database type
+     * @~english @param type Middle database type
      */
     void SetType(RFLMiddleDBType type) {
         mType = type;
     }
 
     /**
-     * \~english @brief Gets the size of the middle database
+     * @~english @brief Gets the size of the middle database
      */
     u16 GetSize() const {
         return mSize;
     }
 
     /**
-     * \~english @brief Sets the size of the middle database
+     * @~english @brief Sets the size of the middle database
      *
-     * \~english @param size New size
+     * @~english @param size New size
      */
     void SetSize(u16 size) {
         mSize = size;
     }
 
     /**
-     * \~english @brief Gets the gender mask for random/hidden generation
+     * @~english @brief Gets the gender mask for random/hidden generation
      */
     RFLSex GetGenderMask() const {
         return mGenderMask;
     }
 
     /**
-     * \~english @brief Sets the gender mask for random/hidden generation
+     * @~english @brief Sets the gender mask for random/hidden generation
      *
-     * \~english @param sex New gender mask
+     * @~english @param sex New gender mask
      */
     void SetGenderMask(RFLSex sex) {
         mGenderMask = sex;
     }
 
     /**
-     * \~english @brief Gets the age mask for random/hidden generation
+     * @~english @brief Gets the age mask for random/hidden generation
      */
     RFLAge GetAgeMask() const {
         return mAgeMask;
     }
 
     /**
-     * \~english @brief Sets the age mask for random/hidden generation
+     * @~english @brief Sets the age mask for random/hidden generation
      *
-     * \~english @param age New age mask
+     * @~english @param age New age mask
      */
     void SetAgeMask(RFLAge age) {
         mAgeMask = age;
     }
 
     /**
-     * \~english @brief Gets the race mask for random/hidden generation
+     * @~english @brief Gets the race mask for random/hidden generation
      */
     RFLRace GetRaceMask() const {
         return mRaceMask;
     }
 
     /**
-     * \~english @brief Sets the race mask for random/hidden generation
+     * @~english @brief Sets the race mask for random/hidden generation
      *
-     * \~english @param race New race mask
+     * @~english @param race New race mask
      */
     void SetRaceMask(RFLRace race) {
         mRaceMask = race;
     }
 
     /**
-     * \~english @brief Gets the application Mii manager
+     * @~english @brief Gets the application Mii manager
      * @details The Mii manager is the data source for RFLMiddleDBType_UserSet.
      */
     RPSysAppMiiManager* GetMiiManager() const {
@@ -130,7 +130,7 @@ public:
     }
 
     /**
-     * \~english @brief Sets the application Mii manager
+     * @~english @brief Sets the application Mii manager
      * @details The Mii manager is the data source for RFLMiddleDBType_UserSet.
      */
     void SetMiiManager(RPSysAppMiiManager* pMiiManager) {

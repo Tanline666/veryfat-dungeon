@@ -141,13 +141,13 @@ public:
 
     const ut::Rect GetPaneRect() const;
     /**
-     * \~english @deprecated Gets the pane's local coordinate rectangle.
+     * @~english @deprecated Gets the pane's local coordinate rectangle.
      * Superseded by the no-variable version.
-     * \~japanese @deprecated ペインのローカル座標軸での矩形を取得する。
+     * @~japanese @deprecated ペインのローカル座標軸での矩形を取得する。
      * 引数なし版に取って代わられた。
      *
-     * \~english @param rInfo Dummy variable
-     * \~japanese @param rInfo ダミー引数
+     * @~english @param rInfo Dummy variable
+     * @~japanese @param rInfo ダミー引数
      */
     const ut::Rect GetPaneRect(const DrawInfo& rInfo) const;
 

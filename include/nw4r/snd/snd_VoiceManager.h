@@ -18,7 +18,7 @@ public:
 public:
     static VoiceManager& GetInstance();
 
-    u32 GetRequiredMemSize();
+    u32 GetRequiredMemSize(int voiceCount);
 
     void Setup(void* pBuffer, u32 size);
     void Shutdown();

@@ -10,16 +10,16 @@ extern "C" {
 #endif
 
 /**
- * \~english @brief Gets current MSR value.
- * \~japanese @brief 現在MSR値を取得する。
+ * @~english @brief Gets current MSR value.
+ * @~japanese @brief 現在MSR値を取得する。
  */
 u32 PPCMfmsr(void);
 /**
- * \~english @brief Sets MSR value.
- * \~japanese @brief MSR値を設定する。
+ * @~english @brief Sets MSR value.
+ * @~japanese @brief MSR値を設定する。
  *
- * \~english @param val New MSR value
- * \~japanese @param val 新しいMSR値
+ * @~english @param val New MSR value
+ * @~japanese @param val 新しいMSR値
  */
 void PPCMtmsr(u32 val);
 
@@ -33,8 +33,8 @@ void PPCMtdec(u32 val);
 
 void PPCSync(void);
 /**
- * \~english @brief Halts system by looping indefinitely.
- * \~japanese @brief 無限のループをしてシステムを止まる。
+ * @~english @brief Halts system by looping indefinitely.
+ * @~japanese @brief 無限のループをしてシステムを止まる。
  */
 void PPCHalt(void);
 

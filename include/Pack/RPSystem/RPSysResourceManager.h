@@ -16,14 +16,14 @@
 class RPSysFile;
 
 /**
- * \~english @brief Resource cache manager
+ * @~english @brief Resource cache manager
  */
 class RPSysResourceManager {
     RP_SINGLETON_DECL(RPSysResourceManager);
 
 public:
     /**
-     * \~english @brief Resource list type
+     * @~english @brief Resource list type
      */
     enum EList {
         EList_FileCache, //!< Cached, compressed files
@@ -34,207 +34,207 @@ public:
 
 public:
     /**
-     * \~english @brief Gets the path to the common asset folder for the
+     * @~english @brief Gets the path to the common asset folder for the
      * specified scene
      *
-     * \~english @param[out] pBuffer Path output buffer
-     * \~english @param maxlen Output buffer size
-     * \~english @param id Scene ID (defaults to the current scene)
+     * @~english @param[out] pBuffer Path output buffer
+     * @~english @param maxlen Output buffer size
+     * @~english @param id Scene ID (defaults to the current scene)
      */
     void GetGameCommonPath(char* pBuffer, u32 maxlen, s32 id = -1);
 
     /**
-     * \~english @brief Loads the common asset archive for the specified scene
+     * @~english @brief Loads the common asset archive for the specified scene
      *
-     * \~english @param id Scene ID (defaults to the current scene)
-     * \~english @param pHeap Heap to use for allocations (defaults to the
+     * @~english @param id Scene ID (defaults to the current scene)
+     * @~english @param pHeap Heap to use for allocations (defaults to the
      * current heap)
      */
     static EGG::Archive* LoadGameCommonArchive(s32 id = -1,
                                                EGG::Heap* pHeap = NULL);
 
     /**
-     * \~english @brief Gets the path to the local asset folder for the
+     * @~english @brief Gets the path to the local asset folder for the
      * specified scene
      *
-     * \~english @param[out] pBuffer Path output buffer
-     * \~english @param maxlen Output buffer size
-     * \~english @param id Scene ID (defaults to the current scene)
+     * @~english @param[out] pBuffer Path output buffer
+     * @~english @param maxlen Output buffer size
+     * @~english @param id Scene ID (defaults to the current scene)
      */
     void GetGameLocalPath(char* pBuffer, u32 maxlen, s32 id = -1);
 
     /**
-     * \~english @brief Loads the local asset archive for the specified scene
+     * @~english @brief Loads the local asset archive for the specified scene
      *
-     * \~english @param id Scene ID (defaults to the current scene)
-     * \~english @param pHeap Heap to use for allocations (defaults to the
+     * @~english @param id Scene ID (defaults to the current scene)
+     * @~english @param pHeap Heap to use for allocations (defaults to the
      * current heap)
      */
     static EGG::Archive* LoadGameLocalArchive(s32 id = -1,
                                               EGG::Heap* pHeap = NULL);
 
     /**
-     * \~english @brief Gets the path to the stage asset folder for the
+     * @~english @brief Gets the path to the stage asset folder for the
      * specified scene
      *
-     * \~english @param[out] pBuffer Path output buffer
-     * \~english @param maxlen Output buffer size
-     * \~english @param id Scene ID (defaults to the current scene)
+     * @~english @param[out] pBuffer Path output buffer
+     * @~english @param maxlen Output buffer size
+     * @~english @param id Scene ID (defaults to the current scene)
      */
     void GetGameStagePath(char* pBuffer, u32 maxlen, s32 id = -1);
 
     /**
-     * \~english @brief Loads the specified archive from the current scene's
+     * @~english @brief Loads the specified archive from the current scene's
      * stage assets
      *
-     * \~english @param pName Archive name
+     * @~english @param pName Archive name
      */
     static EGG::Archive* LoadGameStageArchive(const char* pName);
 
     /**
-     * \~english @brief Gets the specified file from the provided archive
+     * @~english @brief Gets the specified file from the provided archive
      *
-     * \~english @param pArchive Archive containing the file
-     * \~english @param pName File name
-     * \~english @param[out] pSize Size of the specified file
+     * @~english @param pArchive Archive containing the file
+     * @~english @param pName File name
+     * @~english @param[out] pSize Size of the specified file
      */
     static void* GetFileFromArchive(EGG::Archive* pArchive, const char* pName,
                                     u32* pSize = NULL);
 
     /**
-     * \~english @brief Gets the specified file from the message archive
+     * @~english @brief Gets the specified file from the message archive
      *
-     * \~english @param pName Message file name
+     * @~english @param pName Message file name
      */
     static void* GetMessageResource(const char* pName);
 
     /**
-     * \~english @brief Tests whether a file exists at the specified path
+     * @~english @brief Tests whether a file exists at the specified path
      *
-     * \~english @param pPath Path to examine
+     * @~english @param pPath Path to examine
      */
     bool IsExist(const char* pPath);
 
     /**
-     * \~english @brief Removes a file from the list of decompressed files
+     * @~english @brief Removes a file from the list of decompressed files
      * \~ @note RPSysFile automatically removes itself when it is destroyed.
      *
-     * \~english @param pFile File to remove
+     * @~english @param pFile File to remove
      */
     void RemoveFromFileList(RPSysFile* pFile);
 
     /**
-     * \~english @brief Loads all archives and other assets with static lifetime
+     * @~english @brief Loads all archives and other assets with static lifetime
      */
     void LoadStaticArchives();
 
     /**
-     * \~english @brief Loads the specified file and adds it to the resource
+     * @~english @brief Loads the specified file and adds it to the resource
      * cache
      * @details If the file has already been cached, this function does nothing.
      *
-     * \~english @param pPath File path
-     * \~english @param list List that the file should be moved to
-     * \~english @param pHeap Heap to use for allocations
+     * @~english @param pPath File path
+     * @~english @param list List that the file should be moved to
+     * @~english @param pHeap Heap to use for allocations
      */
     void LoadCachedFile(const char* pPath, EList list, EGG::Heap* pHeap);
 
     /**
-     * \~english @brief Loads all archives designated for cached access
+     * @~english @brief Loads all archives designated for cached access
      */
     void LoadCacheArchives();
 
     /**
-     * \~english @brief Loads the archive containing all kokeshi assets
+     * @~english @brief Loads the archive containing all kokeshi assets
      */
     void LoadKokeshiArchive();
 
     /**
-     * \~english @brief Gets the path to the common sound folder
+     * @~english @brief Gets the path to the common sound folder
      *
-     * \~english @param[out] pBuffer Path output buffer
-     * \~english @param maxlen Output buffer size
+     * @~english @param[out] pBuffer Path output buffer
+     * @~english @param maxlen Output buffer size
      */
     void GetStaticSoundCommonPath(char* pBuffer, u32 maxlen);
 
     /**
-     * \~english @brief Gets the path to the local sound folder
+     * @~english @brief Gets the path to the local sound folder
      *
-     * \~english @param[out] pBuffer Path output buffer
-     * \~english @param maxlen Output buffer size
+     * @~english @param[out] pBuffer Path output buffer
+     * @~english @param maxlen Output buffer size
      */
     void GetStaticSoundLocalPath(char* pBuffer, u32 maxlen);
 
     /**
-     * \~english @brief Gets the path to the common sound folder for the
+     * @~english @brief Gets the path to the common sound folder for the
      * specified scene
      *
-     * \~english @param[out] pBuffer Path output buffer
-     * \~english @param maxlen Output buffer size
-     * \~english @param id Scene ID (defaults to the current scene)
+     * @~english @param[out] pBuffer Path output buffer
+     * @~english @param maxlen Output buffer size
+     * @~english @param id Scene ID (defaults to the current scene)
      */
     void GetGameSoundCommonPath(char* pBuffer, u32 maxlen, s32 id = -1);
 
     /**
-     * \~english @brief Gets the path to the local sound folder for the
+     * @~english @brief Gets the path to the local sound folder for the
      * specified scene
      *
-     * \~english @param[out] pBuffer Path output buffer
-     * \~english @param maxlen Output buffer size
-     * \~english @param id Scene ID (defaults to the current scene)
+     * @~english @param[out] pBuffer Path output buffer
+     * @~english @param maxlen Output buffer size
+     * @~english @param id Scene ID (defaults to the current scene)
      */
     void GetGameSoundLocalPath(char* pBuffer, u32 maxlen, s32 id = -1);
 
     /**
-     * \~english @brief Loads the local archive in the specified static asset
+     * @~english @brief Loads the local archive in the specified static asset
      * directory
      *
-     * \~english @param pStaticDir Static asset directory
+     * @~english @param pStaticDir Static asset directory
      */
     EGG::Archive* LoadStaticLocalArchive(const char* pStaticDir)
         DECOMP_DONT_INLINE;
 
     /**
-     * \~english @brief Loads the common archive in the specified static asset
+     * @~english @brief Loads the common archive in the specified static asset
      * directory
      *
-     * \~english @param pStaticDir Static asset directory
+     * @~english @param pStaticDir Static asset directory
      */
     EGG::Archive* LoadStaticCommonArchive(const char* pPath);
 
     /**
-     * \~english @brief Loads the archive containing all message data
+     * @~english @brief Loads the archive containing all message data
      */
     void LoadMessageArchive();
 
     /**
-     * \~english @brief Loads the archive containing all font data
+     * @~english @brief Loads the archive containing all font data
      */
     void LoadFontArchive();
 
     /**
-     * \~english @brief Gets the archive containing all kokeshi assets
+     * @~english @brief Gets the archive containing all kokeshi assets
      */
     EGG::Archive* GetKokeshiArchive() const {
         return mpKokeshiArchive;
     }
 
     /**
-     * \~english @brief Gets the archive containing all message data
+     * @~english @brief Gets the archive containing all message data
      */
     EGG::Archive* GetMessageArchive() const {
         return mpMessageArchive;
     }
 
     /**
-     * \~english @brief Gets the archive containing all font data
+     * @~english @brief Gets the archive containing all font data
      */
     EGG::Archive* GetFontArchive() const {
         return mpFontArchive;
     }
 
     /**
-     * \~english @brief Gets the archive containing static common assets for
+     * @~english @brief Gets the archive containing static common assets for
      * this pack
      */
     EGG::Archive* GetStaticCommonArchive() const {
@@ -242,7 +242,7 @@ public:
     }
 
     /**
-     * \~english @brief Gets the archive containing static locale assets for
+     * @~english @brief Gets the archive containing static locale assets for
      * this pack
      */
     EGG::Archive* GetStaticLocalArchive() const {
@@ -250,7 +250,7 @@ public:
     }
 
     /**
-     * \~english @brief Gets the archive containing static layout assets for
+     * @~english @brief Gets the archive containing static layout assets for
      * this pack
      */
     EGG::Archive* GetStaticLayoutArchive() const {
@@ -258,7 +258,7 @@ public:
     }
 
     /**
-     * \~english @brief Gets the extra handle for opening files outside the DVD
+     * @~english @brief Gets the extra handle for opening files outside the DVD
      */
     void* GetMultiHandle() {
         return &mpMultiHandle;
@@ -266,58 +266,58 @@ public:
 
 private:
     /**
-     * \~english @brief Loads the specified file from the DVD, decompressing its
+     * @~english @brief Loads the specified file from the DVD, decompressing its
      * contents if applicable
      *
-     * \~english @param pPath File path
-     * \~english @param pHeap Heap to use for allocations
-     * \~english @return Raw file contents
+     * @~english @param pPath File path
+     * @~english @param pHeap Heap to use for allocations
+     * @~english @return Raw file contents
      */
     u8* LoadCompressed(const char* pPath, EGG::Heap* pHeap);
 
     /**
-     * \~english @brief Loads the specified file from the DVD
+     * @~english @brief Loads the specified file from the DVD
      *
-     * \~english @param pPath Path to the file
-     * \~english @param pHeap Heap to use for allocations
-     * \~english @param allocDir Direction of heap allocations
-     * \~english @param[out] pSize Size of the specified file
+     * @~english @param pPath Path to the file
+     * @~english @param pHeap Heap to use for allocations
+     * @~english @param allocDir Direction of heap allocations
+     * @~english @param[out] pSize Size of the specified file
      */
     u8* LoadFromDVD(const char* pPath, EGG::Heap* pHeap,
                     EGG::DvdRipper::EAllocDirection allocDir,
                     s32* pSize = NULL);
 
     /**
-     * \~english @brief Searches the specified resource list for the provided
+     * @~english @brief Searches the specified resource list for the provided
      * filepath
      *
-     * \~english @param pPath File path
-     * \~english @param list Resource list
+     * @~english @param pPath File path
+     * @~english @param list Resource list
      */
     RPSysFile* FindFile(const char* pPath, EList list) const;
 
     /**
-     * \~english @brief Creates a new entry in the specified resource list
+     * @~english @brief Creates a new entry in the specified resource list
      *
-     * \~english @param pPath File path
-     * \~english @param list Resource list
-     * \~english @param size File size
-     * \~english @param pData File data
-     * \~english @param pHeap Heap to use for allocations
+     * @~english @param pPath File path
+     * @~english @param list Resource list
+     * @~english @param size File size
+     * @~english @param pData File data
+     * @~english @param pHeap Heap to use for allocations
      */
     void MakeFile(const char* pPath, EList list, s32 size, const void* pData,
                   EGG::Heap* pHeap);
 
     /**
-     * \~english @brief Decompresses the contents of the specified data
+     * @~english @brief Decompresses the contents of the specified data
      * @details If the data is not compressed, this function returns the
      * original file contents
      *
-     * \~english @param pData File data
-     * \~english @param size Data size
-     * \~english @param[out] pExpandSize The data size after decompression
-     * \~english @param pHeap Heap to use for allocations
-     * \~english @return Decompressed data
+     * @~english @param pData File data
+     * @~english @param size Data size
+     * @~english @param[out] pExpandSize The data size after decompression
+     * @~english @param pHeap Heap to use for allocations
+     * @~english @return Decompressed data
      */
     u8* ExpandCompressed(u8* pData, s32 size, s32* pExpandSize,
                          EGG::Heap* pHeap) const;

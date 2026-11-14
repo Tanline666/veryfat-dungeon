@@ -15,7 +15,7 @@ class RPSysLytAnmObj;
 class RPSysLytTextBox;
 
 /**
- * \~english @brief Library that handles pause menu layout.
+ * @~english @brief Library that handles pause menu layout.
  */
 
 class RPSysPauseMenu {

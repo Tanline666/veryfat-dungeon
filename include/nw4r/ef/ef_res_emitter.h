@@ -270,13 +270,13 @@ struct EmitterDesc {
 };
 
 /**
- * \~english @brief Struct that manages emitter resources.
- * \~japanese @brief エミッタのリソースを管理するストラクト。
+ * @~english @brief Struct that manages emitter resources.
+ * @~japanese @brief エミッタのリソースを管理するストラクト。
  */
 struct EmitterResource {
 private:
-    char* name; //!< \~english Emitter name \~japanese エミッタ名 \~ // at 0x0
-    u32 headersize; //!< \~english Size of file header \~japanese
+    char* name; //!< @~english Emitter name @~japanese エミッタ名 \~ // at 0x0
+    u32 headersize; //!< @~english Size of file header @~japanese
                     //!< ファイルヘッダのサイズ \~ // at 0x4
 
 public:

@@ -307,6 +307,7 @@ nw4r/g3d/g3d_anmchr.cpp:
 	.text       start:0x80042030 end:0x8004404C
 	.rodata     start:0x8068A8E0 end:0x8068A92C
 	.data       start:0x80708EB0 end:0x80709010
+	.sdata2     start:0x80817F90 end:0x80817FA8
 
 nw4r/g3d/g3d_anmshp.cpp:
 	.text       start:0x80044050 end:0x8004583C
@@ -364,6 +365,21 @@ nw4r/g3d/g3d_calcview.cpp:
 nw4r/g3d/g3d_dcc.cpp:
 	.text       start:0x8004CF40 end:0x8004D024
 
+nw4r/g3d/g3d_workmem.cpp:
+	.text       start:0x8004D030 end:0x8004D08C
+	.bss        start:0x80777180 end:0x8078F180
+
+nw4r/g3d/g3d_calcworld.cpp:
+	.text       start:0x8004D090 end:0x8004DB7C
+	.data       start:0x80709188 end:0x80709198
+	.sdata      start:0x80813B90 end:0x80813B98
+	.sdata2     start:0x80818038 end:0x80818040
+
+nw4r/g3d/g3d_draw.cpp:
+	.text       start:0x8004DB80 end:0x8004FA20
+	.sdata      start:0x80813B98 end:0x80813BA0
+	.sdata2     start:0x80818040 end:0x8081804C
+
 nw4r/g3d/g3d_camera.cpp:
 	.text       start:0x8004FA20 end:0x8005091C
 	.sdata2     start:0x80818050 end:0x80818080
@@ -388,10 +404,28 @@ nw4r/g3d/g3d_scnobj.cpp:
 	.sbss       start:0x80816120 end:0x80816124
 	.sdata2     start:0x808180D0 end:0x808180D8
 
+nw4r/g3d/g3d_scnroot.cpp:
+	.text       start:0x80054AB0 end:0x8005653C
+	.rodata     start:0x8068B258 end:0x8068B268
+	.data       start:0x80709290 end:0x80709300
+	.sdata      start:0x80813BA0 end:0x80813BB0
+	.sdata2     start:0x808180D8 end:0x808180DC
+
 nw4r/g3d/g3d_scnmdl.cpp:
 	.text       start:0x80058640 end:0x8005AFEC
 	.rodata     start:0x8068B280 end:0x8068B28C
 	.data       start:0x80709358 end:0x807093A0
+
+nw4r/g3d/g3d_init.cpp:
+	.text       start:0x8005C100 end:0x8005C1F8
+	.data       start:0x80709448 end:0x80709490
+	.sdata      start:0x80813BE8 end:0x80813BEC
+
+nw4r/g3d/g3d_scnproc.cpp:
+	.text       start:0x8005C200 end:0x8005C500
+	.rodata     start:0x8068B2B8 end:0x8068B2C8
+	.data       start:0x80709490 end:0x807094C4
+	.sdata2     start:0x808180E8 end:0x808180EC
 
 nw4r/g3d/g3d_fog.cpp:
 	.text       start:0x8005C500 end:0x8005C670
@@ -548,6 +582,9 @@ nw4r/snd/snd_FxChorus.cpp:
 	.text       start:0x80075F70 end:0x8007640C
 	.data       start:0x8070A450 end:0x8070A474
 
+nw4r/snd/snd_InstancePool.cpp:
+	.text       start:0x80079160 end:0x80079448
+
 nw4r/snd/snd_MemorySoundArchive.cpp:
 	.text       start:0x80079690 end:0x80079B40
 	.data       start:0x8070A590 end:0x8070A610
@@ -571,6 +608,11 @@ nw4r/snd/snd_SeqFile.cpp:
 nw4r/snd/snd_SeqPlayer.cpp:
 	.text       start:0x8007C8B0 end:0x8007E078
 
+nw4r/snd/snd_SeqSound.cpp:
+	.text       start:0x8007E080 end:0x8007E95C
+	.ctors      start:0x80688CF8 end:0x80688CFC
+	.data       start:0x8070A980 end:0x8070A9D0
+
 nw4r/snd/snd_SeqSoundHandle.cpp:
 	.text       start:0x8007E960 end:0x8007EA98
 
@@ -578,8 +620,13 @@ nw4r/snd/snd_SeqTrack.cpp:
 	.text       start:0x8007EAA0 end:0x8007FF18
 	.data       start:0x8070A9D0 end:0x8070A9E0
 
+nw4r/snd/snd_SoundActor.cpp:
+	.text       start:0x80081700 end:0x80081918
+	.data       start:0x8070AA68 end:0x8070AA84
+	.sdata2     start:0x80818558 end:0x80818560
+
 nw4r/snd/snd_SoundArchive.cpp:
-	.text       start:0x80081920 end:0x80082020
+	.text       start:0x80081920 end:0x8008201C
 	.data       start:0x8070AA88 end:0x8070AAA8
 
 nw4r/snd/snd_SoundArchivePlayer.cpp:
@@ -591,6 +638,23 @@ nw4r/snd/snd_SoundHandle.cpp:
 nw4r/snd/snd_SoundHeap.cpp:
 	.text       start:0x800864F0 end:0x800867F8
 	.data       start:0x8070AAF8 end:0x8070AB08
+
+nw4r/snd/snd_SoundPlayer.cpp:
+	.text       start:0x80086800 end:0x80087410
+	.bss        start:0x8078F940 end:0x8078FF60
+	.sbss       start:0x808161C0 end:0x808161C8
+	.sdata2     start:0x80818570 end:0x80818578
+
+nw4r/snd/snd_SoundStartable.cpp:
+	.text       start:0x80087410 end:0x80087538
+
+nw4r/snd/snd_SoundSystem.cpp:
+	.text       start:0x80087540 end:0x80087918
+	.ctors      start:0x80688D00 end:0x80688D04
+	.data       start:0x8070AB08 end:0x8070AB50
+	.bss        start:0x8078FF60 end:0x807A5880
+	.sdata      start:0x80813C18 end:0x80813C1C
+	.sbss       start:0x808161C8 end:0x808161D0
 
 nw4r/ut/ut_list.cpp:
 	.text       start:0x80091BD0 end:0x80091E80
@@ -1029,6 +1093,7 @@ revolution/MEM/mem_allocator.c:
 
 revolution/MTX/mtx.c:
 	.text       start:0x8013CB20 end:0x8013D930
+	.sdata      start:0x80813F18 end:0x80813F20
 
 revolution/NAND/NANDOpenClose.c:
 	.text       start:0x8013F4F0 end:0x80140350

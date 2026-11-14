@@ -13,71 +13,71 @@ typedef struct ConsoleHead ConsoleHead;
 typedef detail::ConsoleHead* ConsoleHandle;
 
 /**
- * \~english @brief Outputs a message to the assertion console
+ * @~english @brief Outputs a message to the assertion console
  * and halts the program when specified.
- * \~japanese @brief アサート用のコンソールへメッセージを出力し、
+ * @~japanese @brief アサート用のコンソールへメッセージを出力し、
  * プログラムをそう指定した場合に止まる。
  *
- * \~english @param pFile Source file name
- * \~japanese @param pFile ソースファイル名
- * \~english @param line Line number of assertion
- * \~japanese @param line アサートのライン番号
- * \~english @param pFmt Formatted string
- * \~japanese @param pFmt 書式文字列
- * \~english @param vList Variable argument list
- * \~japanese @param vList 可変引数リスト
- * \~english @param halt Specifies whether to halt system after
+ * @~english @param pFile Source file name
+ * @~japanese @param pFile ソースファイル名
+ * @~english @param line Line number of assertion
+ * @~japanese @param line アサートのライン番号
+ * @~english @param pFmt Formatted string
+ * @~japanese @param pFmt 書式文字列
+ * @~english @param vList Variable argument list
+ * @~japanese @param vList 可変引数リスト
+ * @~english @param halt Specifies whether to halt system after
  * execution (default is TRUE)
- * \~japanese @param halt 実行後にシステムを止まるかどうかを指定する
+ * @~japanese @param halt 実行後にシステムを止まるかどうかを指定する
  * （デフォルトはTRUE）
  *
- * \~english @note When called through Panic, the system always halts.
- * \~japanese @note Panicで呼び出す時には、システムが常に止まる。
+ * @~english @note When called through Panic, the system always halts.
+ * @~japanese @note Panicで呼び出す時には、システムが常に止まる。
  */
 void VPanic(const char* pFile, int line, const char* pFmt, va_list vList,
             bool halt = TRUE);
 /**
- * \~english @brief Outputs a message to the assertion console
+ * @~english @brief Outputs a message to the assertion console
  * and halts the program.
- * \~japanese @brief アサート用のコンソールへメッセージを出力し、
+ * @~japanese @brief アサート用のコンソールへメッセージを出力し、
  * プログラムを止まる。
  *
- * \~english @param pFile Source file name
- * \~japanese @param pFile ソースファイル名
- * \~english @param line Line number of assertion
- * \~japanese @param line アサートのライン番号
- * \~english @param pFmt Formatted string
- * \~japanese @param pFmt 書式文字列
- * \~english @param ... Individual variable arguments
- * \~japanese @param ... 個別の可変引数
+ * @~english @param pFile Source file name
+ * @~japanese @param pFile ソースファイル名
+ * @~english @param line Line number of assertion
+ * @~japanese @param line アサートのライン番号
+ * @~english @param pFmt Formatted string
+ * @~japanese @param pFmt 書式文字列
+ * @~english @param ... Individual variable arguments
+ * @~japanese @param ... 個別の可変引数
  */
 void Panic(const char* pFile, int line, const char* pFmt, ...);
 /**
- * \~english @brief Outputs a warning message to the assertion console.
- * \~japanese @brief アサート用のコンソールへワーニングメッセージを出力する。
+ * @~english @brief Outputs a warning message to the assertion console.
+ * @~japanese @brief アサート用のコンソールへワーニングメッセージを出力する。
  *
- * \~english @param pFile Source file name
- * \~japanese @param pFile ソースファイル名
- * \~english @param line Line number of warning
- * \~japanese @param line ワーニングのライン番号
- * \~english @param pFmt Formatted string
- * \~japanese @param pFmt 書式文字列
- * \~english @param vList Variable argument list
- * \~japanese @param vList 可変引数リスト
+ * @~english @param pFile Source file name
+ * @~japanese @param pFile ソースファイル名
+ * @~english @param line Line number of warning
+ * @~japanese @param line ワーニングのライン番号
+ * @~english @param pFmt Formatted string
+ * @~japanese @param pFmt 書式文字列
+ * @~english @param vList Variable argument list
+ * @~japanese @param vList 可変引数リスト
  */
 void VWarning(const char* pFile, int line, const char* pFmt, va_list vlist);
 /**
- * \~english @brief Outputs a warning message to the assertion console.
- * \~japanese @brief アサート用のコンソールへワーニングメッセージを出力する。
+ * @~english @brief Outputs a warning message to the assertion console.
+ * @~japanese @brief アサート用のコンソールへワーニングメッセージを出力する。
  *
- * \~english @param pFile Source file name
- * \~japanese @param pFile ソースファイル名
- * \~english @param line Line number of warning
- * \~japanese @param line ワーニングのライン番号
- * \~english @param pFmt Formatted string
- * \~japanese @param pFmt 書式文字列
- * \~english @param ... Individual variable arguments
- * \~japanese @param ... 個別の可変引数
+ * @~english @param pFile Source file name
+ * @~japanese @param pFile ソースファイル名
+ * @~english @param line Line number of warning
+ * @~japanese @param line ワーニングのライン番号
+ * @~english @param pFmt Formatted string
+ * @~japanese @param pFmt 書式文字列
+ * @~english @param ... Individual variable arguments
+ * @~japanese @param ... 個別の可変引数
  */
 void Warning(const char* pFile, int line, const char* pFmt, ...);
 
@@ -113,12 +113,49 @@ bool Assertion_SetAutoWarning(bool enable);
     NW4R_ASSERTMSG((exp) >= (min), (line),                                     \
                    #exp " is out of bounds(%d)\n%d <= " #exp                   \
                         " not satisfied.",                                     \
-                   static_cast<int>(exp), static_cast<int>(min))
+                   (exp), (min))
+#endif
+
+#ifndef NW4R_FMIN_ASSERT
+#define NW4R_FMIN_ASSERT(exp, min, line)                                       \
+    NW4R_ASSERTMSG((exp) >= (min), (line),                                     \
+                   #exp " is out of bounds(%f)\n%f <= " #exp                   \
+                        " not satisfied.",                                     \
+                   (exp), (min))
+#endif
+
+#ifndef NW4R_MAX_ASSERT
+#define NW4R_MAX_ASSERT(exp, max, line)                                        \
+    NW4R_ASSERTMSG((exp) <= (max), (line),                                     \
+                   #exp " is out of bounds(%d)\n" #exp                         \
+                        " <= %d not satisfied.",                               \
+                   (exp), (max))
+#endif
+
+#ifndef NW4R_MINMAX_ASSERT
+#define NW4R_MINMAX_ASSERT(exp, min, max, line)                                \
+    NW4R_ASSERTMSG((exp) >= (min) && (exp) <= (max), line,                     \
+                   #exp " is out of bounds(%d)\n%d <= " #exp                   \
+                        " <= %d not satisfied.",                               \
+                   exp, min, max)
+#endif
+
+#ifndef NW4R_INTERNAL_ERROR
+#define NW4R_INTERNAL_ERROR(line, ...)                                         \
+    NW4R_ASSERTMSG(FALSE, line, "NW4R Internal error\n" __VA_ARGS__)
 #endif
 
 #ifndef NW4R_ANY_TO_PTR
 #define NW4R_ANY_TO_PTR(ptr)                                                   \
     reinterpret_cast<u32>(reinterpret_cast<const void*>(ptr))
+#endif
+
+#ifndef NW4R_ALIGN_ASSERT
+#define NW4R_ALIGN_ASSERT(exp, align, line)                                    \
+    NW4R_ASSERTMSG((NW4R_ANY_TO_PTR_VALUE(exp) & ((align) - 1)) == 0, (line),  \
+                   "NW4R:Alignment Error(0x%x)\n" #exp                         \
+                   " must be aligned to %d bytes boundary.",                   \
+                   exp, align)
 #endif
 
 #ifndef NW4R_POINTER_ASSERT
@@ -133,6 +170,14 @@ bool Assertion_SetAutoWarning(bool enable);
                    line,                                                       \
                    "NW4R:Pointer Error\n" #exp "(=%p) is not valid pointer.",  \
                    (exp))
+#endif
+
+#ifndef NW4R_FLOAT_ASSERT
+#define NW4R_FLOAT_ASSERT(exp, line)                                           \
+    NW4R_ASSERTMSG((isfinite(exp) && !isnan(exp)), line,                       \
+                   "NW4R:Floating Point Value Error(%f)\n" #exp                \
+                   "is infinite or nan.",                                      \
+                   exp)
 #endif
 
 #ifndef NW4R_WARNING

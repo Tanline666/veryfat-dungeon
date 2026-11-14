@@ -6,20 +6,20 @@ namespace nw4r {
 namespace ut {
 
 /**
- * \~english @brief Bidirectional list structure.
- * \~japanese @brief 双方向リストのストラクト。
+ * @~english @brief Bidirectional list structure.
+ * @~japanese @brief 双方向リストのストラクト。
  */
 struct List {
-    void* headObject; //!< \~english Pointer to the object linked to the start
-                      //!< of the list \~japanese
+    void* headObject; //!< @~english Pointer to the object linked to the start
+                      //!< of the list @~japanese
                       //!< リストの先頭に繋がれているオブジェクトへのポインタ \~
                       //!< // at 0x0
-    void* tailObject; //!< \~english Pointer to the object linked to the start
-                      //!< of the list \~japanese
+    void* tailObject; //!< @~english Pointer to the object linked to the end
+                      //!< of the list @~japanese
                       //!< リストの後尾に繋がれているオブジェクトへのポインタ \~
                       //!< // at 0x4
-    u16 numObjects;   //!< \~english Number of linked objects in the list
-                    //!< \~japanese リストに繋げれているオブジェクトの個数 \~ //
+    u16 numObjects;   //!< @~english Number of linked objects in the list
+                    //!< @~japanese リストに繋げれているオブジェクトの個数 \~ //
                     //!< at 0x8
     u16 offset; //!< \~ // at 0xA
 };
@@ -30,52 +30,129 @@ struct Link {
 };
 
 /**
- * \~english @brief Initializes a specified List object.
- * \~japanese @brief 指定のListオブジェクトを初期化する。
+ * @~english @brief Initializes the specified List object.
+ * @~japanese @brief 指定されたListオブジェクトを初期化する。
  *
- * \~english @param pList Pointer to List object.
- * \~japanese @param pList Listオブジェクトへのポインタ
- * @param offset
+ * @~english @param list Pointer to List object
+ * @~japanese @param list Listオブジェクトへのポインタ
+ * @~english @param offset Offset of the Link object within the List
+ * @~japanese @param offset List内でのLinkオブジェクトのオフセット
  */
-void List_Init(List* pList, u16 offset);
+void List_Init(List* list, u16 offset);
 
-void List_Append(List* pList, void* pObject);
-void List_Prepend(List* pList, void* pObject);
+/**
+ * @~english @brief Inserts an object at the end of the list.
+ * @~japanese @brief リストの後尾にオブジェクトを挿入する。
+ *
+ * @~english @param list Pointer to List object
+ * @~japanese @param list Listオブジェクトへのポインタ
+ * @~english @param object Pointer to the object to be inserted
+ * @~japanese @param object 挿入したいオブジェクトへのポインタ
+ */
+void List_Append(List* list, void* object);
+/**
+ * @~english @brief Inserts an object at the start of the list.
+ * @~japanese @brief リストの先頭にオブジェクトを挿入する。
+ *
+ * @~english @param list Pointer to List object
+ * @~japanese @param list Listオブジェクトへのポインタ
+ * @~english @param object Pointer to the object to be inserted
+ * @~japanese @param object 挿入したいオブジェクトへのポインタ
+ */
+void List_Prepend(List* list, void* object);
 
-void List_Insert(List* pList, void* pTarget, void* pObject);
-void List_Remove(List* pList, void* pObject);
+/**
+ * @~english @brief Inserts an object in front of the target.
+ * @~japanese @brief オブジェクトをtargetの前に挿入する。
+ *
+ * @~english @param list Pointer to List object
+ * @~japanese @param list Listオブジェクトへのポインタ
+ * @~english @param target Pointer to the object in the specified location
+ * @~japanese @param target 挿入したい位置にあるオブジェクトへのポインタ
+ * @~english @param object Pointer to the object to be inserted
+ * @~japanese @param object 挿入したいオブジェクトへのポインタ
+ */
+void List_Insert(List* list, void* target, void* object);
+/**
+ * @~english @brief Deletes the specified object from the list.
+ * @~japanese @brief 指定されたオブジェクトをリストから削除する。
+ *
+ * @~english @param list Pointer to List object
+ * @~japanese @param list Listオブジェクトへのポインタ
+ * @~english @param object Pointer to the object to be deleted
+ * @~japanese @param 削除したいオブジェクトへのポインタ
+ */
+void List_Remove(List* list, void* object);
 
-void* List_GetNext(const List* pList, const void* pObject);
-inline const void* List_GetNextConst(const List* pList, const void* pObject) {
-    return List_GetNext(pList, pObject);
+/**
+ * @~english @brief Gets the next object following the specified object.
+ * @~japanese @brief 指定したオブジェクトの次にオブジェクトを取得する。
+ *
+ * @~english @param list Pointer to List object
+ * @~japanese @param list Listオブジェクトへのポインタ
+ * @~english @param object Pointer to the specified object
+ * @~japanese @param object 指定したオブジェクトへのポインタ
+ * @~english @return If object is NULL, headObject is returned
+ * @~japanese @return objectがNULLであれば、headObjectを返す
+ */
+void* List_GetNext(const List* list, const void* object);
+inline const void* List_GetNextConst(const List* list, const void* object) {
+    return List_GetNext(list, object);
 }
 
-void* List_GetPrev(const List* pList, const void* pObject);
-inline const void* List_GetPrevConst(const List* pList, const void* pObject) {
-    return List_GetPrev(pList, pObject);
+/**
+ * @~english @brief Gets the object behind the specified object.
+ * @~japanese @brief 指定したオブジェクトの後ろにオブジェクトを取得する。
+ *
+ * @~english @param list Pointer to List object
+ * @~japanese @param list Listオブジェクトへのポインタ
+ * @~english @param object Pointer to the specified object
+ * @~japanese @param object 指定したオブジェクトへのポインタ
+ * @~english @return If object is NULL, tailObject is returned
+ * @~japanese @return objectがNULLであれば、tailObjectを返す
+ */
+void* List_GetPrev(const List* list, const void* object);
+inline const void* List_GetPrevConst(const List* list, const void* object) {
+    return List_GetPrev(list, object);
 }
 
-void* List_GetNth(const List* pList, u16 n);
-inline const void* List_GetNthConst(const List* pList, u16 n) {
-    return List_GetNth(pList, n);
+/**
+ * @~english @brief Gets the Nth object in the list.
+ * @~japanese @brief リストのN番目のオブジェクトを取得する。
+ *
+ * @~english @param list Pointer to List object
+ * @~japanese @param list Listオブジェクトへのポインタ
+ * @~english @param index Index number of the object
+ * @~japanese @param index オブジェクトのインデックス番号
+ */
+void* List_GetNth(const List* list, u16 index);
+inline const void* List_GetNthConst(const List* list, u16 index) {
+    return List_GetNth(list, index);
 }
 
-inline void* List_GetFirst(const List* pList) {
-    return List_GetNext(pList, NULL);
+/**
+ * @~english @brief Gets headObject.
+ * @~japanese @brief headObjectを取得する。
+ *
+ * @~english @param list Pointer to List object
+ * @~japanese @param list Listオブジェクトへのポインタ
+ */
+inline void* List_GetFirst(const List* list) {
+    return List_GetNext(list, NULL);
 }
-inline const void* List_GetFirstConst(const List* pList) {
-    return List_GetFirst(pList);
+inline const void* List_GetFirstConst(const List* list) {
+    return List_GetFirst(list);
 }
 
-inline void* List_GetLast(const List* pList) {
-    return List_GetPrev(pList, NULL);
+inline void* List_GetLast(const List* list) {
+    return List_GetPrev(list, NULL);
 }
-inline const void* List_GetLastConst(const List* pList) {
-    return List_GetLast(pList);
+inline const void* List_GetLastConst(const List* list) {
+    return List_GetLast(list);
 }
 
-inline u16 List_GetSize(const List* pList) {
-    return pList->numObjects;
+inline u16 List_GetSize(const List* list) {
+    return list->numObjects;
 }
 
 /******************************************************************************
@@ -84,35 +161,35 @@ inline u16 List_GetSize(const List* pList) {
  *
  ******************************************************************************/
 /**
- * Declares a member Link.
+ * @brief Declares a member Link.
  */
 #define NW4R_UT_LIST_LINK_DECL() nw4r::ut::Link link
 
 /**
- * Initializes a List object for use with the specified type.
+ * @brief Initializes a List object for use with the specified type.
  *
- * \~english @param LIST Reference to list
- * \~english @param T List element type
+ * @~english @param LIST Reference to list
+ * @~english @param T List element type
  */
 #define NW4R_UT_LIST_INIT(LIST, T)                                             \
     nw4r::ut::List_Init(&(LIST), offsetof(T, link))
 
 /**
- * Gets the underlying Link within the specified object.
+ * @brief Gets the underlying Link within the specified object.
  *
- * \~english @param LIST Reference to list
- * \~english @param OBJ Pointer to list object
+ * @~english @param LIST Reference to list
+ * @~english @param OBJ Pointer to list object
  */
 #define NW4R_UT_LIST_GET_LINK(LIST, OBJ)                                       \
     reinterpret_cast<nw4r::ut::Link*>((u8*)(OBJ) + (LIST).offset)
 
 /**
- * List for-each macro.
+ * @brief List for-each macro.
  *
- * \~english @param TYPE Element type
- * \~english @param NAME Element name
- * \~english @param LIST Reference to list
- * \~english @param ... Statement(s) to execute
+ * @~english @param TYPE Element type
+ * @~english @param NAME Element name
+ * @~english @param LIST Reference to list
+ * @~english @param ... Statement(s) to execute
  */
 #define NW4R_UT_LIST_FOREACH(TYPE, NAME, LIST, ...)                            \
     {                                                                          \
@@ -126,12 +203,12 @@ inline u16 List_GetSize(const List* pList) {
     }
 
 /**
- * List for-each macro (reverse order).
+ * @brief List for-each macro (reverse order).
  *
- * \~english @param TYPE Element type
- * \~english @param NAME Element name
- * \~english @param LIST Reference to list
- * \~english @param ... Statement(s) to execute
+ * @~english @param TYPE Element type
+ * @~english @param NAME Element name
+ * @~english @param LIST Reference to list
+ * @~english @param ... Statement(s) to execute
  */
 #define NW4R_UT_LIST_FOREACH_REV(TYPE, NAME, LIST, ...)                        \
     {                                                                          \
@@ -145,12 +222,12 @@ inline u16 List_GetSize(const List* pList) {
     }
 
 /**
- * List for-each macro, with robust iteration.
+ * @brief List for-each macro, with robust iteration.
  *
- * \~english @param TYPE Element type
- * \~english @param NAME Element name
- * \~english @param LIST Reference to list
- * \~english @param ... Statement(s) to execute
+ * @~english @param TYPE Element type
+ * @~english @param NAME Element name
+ * @~english @param LIST Reference to list
+ * @~english @param ... Statement(s) to execute
  */
 #define NW4R_UT_LIST_FOREACH_SAFE(TYPE, NAME, LIST, ...)                       \
     {                                                                          \

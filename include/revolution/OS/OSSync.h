@@ -10,8 +10,8 @@ extern "C" {
 #endif
 
 /**
- * \~english @brief Registers the system call handler.
- * \~japanese @brief システムコールハンドラを登録する。
+ * @~english @brief Registers the system call handler.
+ * @~japanese @brief システムコールハンドラを登録する。
  */
 void __OSInitSystemCall(void);
 

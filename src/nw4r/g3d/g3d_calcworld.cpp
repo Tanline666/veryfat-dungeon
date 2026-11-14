@@ -269,6 +269,37 @@ void CalcSkinning(math::MTX34* pModelMtxArray, u32* pModelMtxAttribArray,
         }
     }
 
+    ResMdlInfo mdlInfo = mdl.GetResMdlInfo();
+    switch (mdlInfo.GetEnvelopeMatrixMode()) {
+    case ResMdlInfoDataTypedef::EVPMATRIXMODE_NORMAL:
+        return;
+    case ResMdlInfoDataTypedef::EVPMATRIXMODE_APPROX: {
+        u32 numWeighted =
+            mdlInfo.GetNumPosNrmMtx() - mdl.GetResNodeNumEntries();
+        u32 end = mdlInfo.GetNumViewMtx();
+        u32 begin = end - numWeighted;
+        for (u32 i = begin; i < end; ++i) {
+            pModelMtxAttribArray[i] |=
+                (detail::WorldMtxAttr::ATTR_ALL_S_UNIFORM |
+                 detail::WorldMtxAttr::ATTR_S_UNIFORM);
+        }
+        return;
+    }
+    case ResMdlInfoDataTypedef::EVPMATRIXMODE_EXACT: {
+        u32 numWeighted =
+            mdlInfo.GetNumPosNrmMtx() - mdl.GetResNodeNumEntries();
+        u32 end = mdlInfo.GetNumViewMtx();
+        u32 begin = end - numWeighted;
+        for (u32 i = begin; i < end; ++i) {
+            pModelMtxAttribArray[i] &=
+                ~detail::WorldMtxAttr::ATTR_ALL_S_UNIFORM;
+        }
+        return;
+    }
+    default:
+        NW4R_ASSERTMSG(FALSE, 476, "EnvelopeMatrixMode is invalid.\n");
+    }
+
 #undef pWeightCmd
 #undef pWeightEntry
 #undef pEvpMtxCmd

@@ -3,16 +3,16 @@
 #include <revolution/GX.h>
 
 /**
- * \~english @brief Work buffer for string formatting
+ * @~english @brief Work buffer for string formatting
  */
 wchar_t RPSysLytTextBox::sTextBuffer[TEXT_BUFFER_SIZE];
 
 /**
- * \~english @brief Sets a formatted string to the textbox
+ * @~english @brief Sets a formatted string to the textbox
  *
- * \~english @param pFmt Format string
- * \~english @param argc Number of format arguments
- * \~english @param ... Format arguments
+ * @~english @param pFmt Format string
+ * @~english @param argc Number of format arguments
+ * @~english @param ... Format arguments
  */
 void RPSysLytTextBox::setText(const wchar_t* pFmt, int argc, ...) {
     std::va_list list;
@@ -24,11 +24,11 @@ void RPSysLytTextBox::setText(const wchar_t* pFmt, int argc, ...) {
 }
 
 /**
- * \~english @brief Sets a formatted string to the textbox
+ * @~english @brief Sets a formatted string to the textbox
  *
- * \~english @param pFmt Format string
- * \~english @param argc Number of format arguments
- * \~english @param argv Format arguments
+ * @~english @param pFmt Format string
+ * @~english @param argc Number of format arguments
+ * @~english @param argv Format arguments
  */
 void RPSysLytTextBox::setText(const wchar_t* pFmt, int argc, va_list argv) {
     int written = 0;
@@ -41,13 +41,13 @@ void RPSysLytTextBox::setText(const wchar_t* pFmt, int argc, va_list argv) {
 }
 
 /**
- * \~english @brief Sets a formatted message to the textbox
+ * @~english @brief Sets a formatted message to the textbox
  *
- * \~english @param pMessage Message holder
- * \~english @param group Group ID
- * \~english @param idx Message index
- * \~english @param argc Number of format arguments
- * \~english @param ... Format arguments
+ * @~english @param pMessage Message holder
+ * @~english @param group Group ID
+ * @~english @param idx Message index
+ * @~english @param argc Number of format arguments
+ * @~english @param ... Format arguments
  */
 void RPSysLytTextBox::setMessage(RPSysMessage* pMessage, u32 group, u32 idx,
                                  int argc, ...) {
@@ -60,13 +60,13 @@ void RPSysLytTextBox::setMessage(RPSysMessage* pMessage, u32 group, u32 idx,
 }
 
 /**
- * \~english @brief Sets a formatted message to the textbox
+ * @~english @brief Sets a formatted message to the textbox
  *
- * \~english @param pMessage Message holder
- * \~english @param group Group ID
- * \~english @param idx Message index
- * \~english @param argc Number of format arguments
- * \~english @param argv Format arguments
+ * @~english @param pMessage Message holder
+ * @~english @param group Group ID
+ * @~english @param idx Message index
+ * @~english @param argc Number of format arguments
+ * @~english @param argv Format arguments
  */
 void RPSysLytTextBox::setMessage(RPSysMessage* pMessage, u32 group, u32 idx,
                                  int argc, va_list argv) {
@@ -81,9 +81,9 @@ void RPSysLytTextBox::setMessage(RPSysMessage* pMessage, u32 group, u32 idx,
 }
 
 /**
- * \~english @brief Sets the horizontal scale of the font
+ * @~english @brief Sets the horizontal scale of the font
  *
- * \~english @param scale New horizontal scale
+ * @~english @param scale New horizontal scale
  */
 void RPSysLytTextBox::setScaleX(f32 scale) {
     nw4r::lyt::Size fontSize;
@@ -95,14 +95,14 @@ void RPSysLytTextBox::setScaleX(f32 scale) {
 }
 
 /**
- * \~english @brief Sets a string to the textbox
+ * @~english @brief Sets a string to the textbox
  * @details This function also applies the attributes from the specified
  * message.
  *
- * \~english @param pMessage Message holder
- * \~english @param group Group ID
- * \~english @param idx Message index
- * \~english @param pText New text
+ * @~english @param pMessage Message holder
+ * @~english @param group Group ID
+ * @~english @param idx Message index
+ * @~english @param pText New text
  */
 void RPSysLytTextBox::setMessage(RPSysMessage* pMessage, u32 group, u32 idx,
                                  const wchar_t* pText) {
@@ -119,9 +119,9 @@ void RPSysLytTextBox::setMessage(RPSysMessage* pMessage, u32 group, u32 idx,
 }
 
 /**
- * \~english @brief Copies the front color from the specified textbox
+ * @~english @brief Copies the front color from the specified textbox
  *
- * \~english @param rOther Textbox to copy from
+ * @~english @param rOther Textbox to copy from
  */
 void RPSysLytTextBox::copyFontColor(const RPSysLytTextBox& rOther) {
     nw4r::lyt::Material* pDst = mpMaterial;

@@ -78,8 +78,8 @@ public:
         INPUT_COMMAND_MAX
     };
 
-    //! \~english Typo
-    //! \~japanese タイプミス
+    //! @~english Typo
+    //! @~japanese タイプミス
     struct ConfirmInputtingData {
         wchar_t inputChar; //!< at 0x0
         u16 letterMode;    //!< at 0x4

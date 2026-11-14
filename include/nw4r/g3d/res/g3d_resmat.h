@@ -24,11 +24,11 @@ class ResMdl;
  *
  ******************************************************************************/
 struct ResGenModeData {
-    u8 nTexGens;         // at 0x0
-    u8 nChans;           // at 0x1
-    u8 nTevs;            // at 0x2
-    u8 nInds;            // at 0x3
-    GXCullMode cullMode; // at 0x4
+    u8 nTexGens;         //!< // at 0x0
+    u8 nChans;           //!< // at 0x1
+    u8 nTevs;            //!< // at 0x2
+    u8 nInds;            //!< // at 0x3
+    GXCullMode cullMode; //!< // at 0x4
 };
 
 class ResGenMode : public ResCommon<ResGenModeData> {
@@ -87,12 +87,12 @@ struct ResMatMiscData {
         NUM_OF_INDIRECT_METHOD,
     };
 
-    GXBool zCompLoc;                       // at 0x0
-    s8 light_set_idx;                      // at 0x1
-    s8 fog_idx;                            // at 0x2
-    u8 PADDING_0x3;                        // at 0x3
-    u8 indirect_method[GX_ITM_2 + 1];      // at 0x4
-    s8 normal_map_ref_light[GX_ITM_2 + 1]; // at 0x8
+    GXBool zCompLoc;                       //!< // at 0x0
+    s8 light_set_idx;                      //!< // at 0x1
+    s8 fog_idx;                            //!< // at 0x2
+    u8 PADDING_0x3;                        //!< // at 0x3
+    u8 indirect_method[GX_ITM_2 + 1];      //!< // at 0x4
+    s8 normal_map_ref_light[GX_ITM_2 + 1]; //!< // at 0x8
 };
 
 class ResMatMisc : public ResCommon<ResMatMiscData> {
@@ -120,8 +120,8 @@ public:
 struct ResTexCoordGenDL {
     union {
         struct {
-            u8 texCoordGen[GX_MAX_TEXCOORD][GX_XF_CMD_SZ * 2]; // at 0x0
-            u8 PADDING_0x90[0xA0 - 0x90];                      // at 0x90
+            u8 texCoordGen[GX_MAX_TEXCOORD][GX_XF_CMD_SZ * 2]; //!< // at 0x0
+            u8 PADDING_0x90[0xA0 - 0x90];                      //!< // at 0x90
         } dl;
 
         u8 data[0xA0];
@@ -154,8 +154,8 @@ public:
  *
  ******************************************************************************/
 struct ResTexObjData {
-    u32 flagUsedTexMapID;           // at 0x0
-    GXTexObj texObj[GX_MAX_TEXMAP]; // at 0x4
+    u32 flagUsedTexMapID;           //!< // at 0x0
+    GXTexObj texObj[GX_MAX_TEXMAP]; //!< // at 0x4
 };
 
 class ResTexObj : public ResCommon<ResTexObjData> {
@@ -181,8 +181,8 @@ public:
  *
  ******************************************************************************/
 struct ResTlutObjData {
-    u32 flagUsedTlutID;                     // at 0x0
-    GXTlutObj tlutObj[GX_TLUT8 - GX_TLUT0]; // at 0x4
+    u32 flagUsedTlutID;                     //!< // at 0x0
+    GXTlutObj tlutObj[GX_TLUT8 - GX_TLUT0]; //!< // at 0x4
 };
 
 class ResTlutObj : public ResCommon<ResTlutObjData> {
@@ -212,20 +212,20 @@ struct TexMtxEffect : TexSrtTypedef {
         FLAG_IDENT = (1 << 0),
     };
 
-    s8 ref_camera;          // at 0x0
-    s8 ref_light;           // at 0x1
-    u8 map_mode;            // at 0x2
-    u8 misc_flag;           // at 0x3
-    math::_MTX34 effectMtx; // at 0x4
+    s8 ref_camera;          //!< // at 0x0
+    s8 ref_light;           //!< // at 0x1
+    u8 map_mode;            //!< // at 0x2
+    u8 misc_flag;           //!< // at 0x3
+    math::_MTX34 effectMtx; //!< // at 0x4
 };
 
 struct ResTexSrtData : TexSrtTypedef {
     static const int NUM_OF_TEXTURE = 8;
 
-    u32 flag;                            // at 0x0
-    TexMatrixMode texMtxMode;            // at 0x4
-    TexSrt texSrt[NUM_OF_TEXTURE];       // at 0x8
-    TexMtxEffect effect[NUM_OF_TEXTURE]; // at 0xA8
+    u32 flag;                            //!< // at 0x0
+    TexMatrixMode texMtxMode;            //!< // at 0x4
+    TexSrt texSrt[NUM_OF_TEXTURE];       //!< // at 0x8
+    TexMtxEffect effect[NUM_OF_TEXTURE]; //!< // at 0xA8
 };
 
 class ResTexSrt : public ResCommon<ResTexSrtData> {
@@ -285,15 +285,15 @@ struct Chan {
         FLAG_CTRL_ALPHA_ENABLE = (1 << 5),
     };
 
-    u32 flag;           // at 0x0
-    GXColor matColor;   // at 0x4
-    GXColor ambColor;   // at 0x8
-    u32 paramChanCtrlC; // at 0xC
-    u32 paramChanCtrlA; // at 0x10
+    u32 flag;           //!< // at 0x0
+    GXColor matColor;   //!< // at 0x4
+    GXColor ambColor;   //!< // at 0x8
+    u32 paramChanCtrlC; //!< // at 0xC
+    u32 paramChanCtrlA; //!< // at 0x10
 };
 
 struct ResChanData {
-    Chan chan[2]; // at 0x0
+    Chan chan[2]; //!< // at 0x0
 };
 
 class ResMatChan : public ResCommon<ResChanData> {
@@ -326,14 +326,14 @@ public:
 struct ResPixDL {
     union {
         struct {
-            u8 alphaCompare[GX_BP_CMD_SZ];  // at 0x0
-            u8 zMode[GX_BP_CMD_SZ];         // at 0x5
-            u8 blendMode[GX_BP_CMD_SZ * 2]; // at 0xA
-            u8 setDstAlpha[GX_BP_CMD_SZ];   // at 0x14
-            u8 PADDING_0x19[32 - 0x19];     // at 0x19
+            u8 alphaCompare[GX_BP_CMD_SZ];  //!< // at 0x0
+            u8 zMode[GX_BP_CMD_SZ];         //!< // at 0x5
+            u8 blendMode[GX_BP_CMD_SZ * 2]; //!< // at 0xA
+            u8 setDstAlpha[GX_BP_CMD_SZ];   //!< // at 0x14
+            u8 PADDING_0x19[32 - 0x19];     //!< // at 0x19
         } dl;
 
-        u8 data[32]; // at 0x0
+        u8 data[32]; //!< // at 0x0
     };
 };
 
@@ -375,10 +375,11 @@ public:
 struct ResTevColorDL {
     union {
         struct {
-            u8 tevColor[GX_MAX_TEVREG - GX_TEVREG0][GX_BP_CMD_SZ * 4]; // at 0x0
-            u8 PADDING_0x3C[64 - 0x3C];                    // at 0x3C
-            u8 tevKColor[GX_MAX_KCOLOR][GX_BP_CMD_SZ * 2]; // at 0x40
-            u8 PADDING_0x68[128 - 0x68];                   // at 0x68
+            u8 tevColor[GX_MAX_TEVREG - GX_TEVREG0]
+                       [GX_BP_CMD_SZ * 4];                 //!< // at 0x0
+            u8 PADDING_0x3C[64 - 0x3C];                    //!< // at 0x3C
+            u8 tevKColor[GX_MAX_KCOLOR][GX_BP_CMD_SZ * 2]; //!< // at 0x40
+            u8 PADDING_0x68[128 - 0x68];                   //!< // at 0x68
         } dl;
 
         u8 data[128];
@@ -416,15 +417,15 @@ public:
 struct ResIndMtxAndScaleDL {
     union {
         struct {
-            u8 indTexCoordScale[2][GX_BP_CMD_SZ]; // at 0x0
-            u8 indTexMtx0[GX_BP_CMD_SZ * 3];      // at 0xA
-            u8 PADDING_0x19[32 - 0x19];           // at 0x19
-            u8 indTexMtx1[GX_BP_CMD_SZ * 3];      // at 0x20
-            u8 indTexMtx2[GX_BP_CMD_SZ * 3];      // at 0x2F
-            u8 PADDING_0x3E[64 - 0x3E];           // at 0x3E
+            u8 indTexCoordScale[2][GX_BP_CMD_SZ]; //!< // at 0x0
+            u8 indTexMtx0[GX_BP_CMD_SZ * 3];      //!< // at 0xA
+            u8 PADDING_0x19[32 - 0x19];           //!< // at 0x19
+            u8 indTexMtx1[GX_BP_CMD_SZ * 3];      //!< // at 0x20
+            u8 indTexMtx2[GX_BP_CMD_SZ * 3];      //!< // at 0x2F
+            u8 PADDING_0x3E[64 - 0x3E];           //!< // at 0x3E
         } dl;
 
-        u8 data[64]; // at 0x0
+        u8 data[64]; //!< // at 0x0
     };
 };
 
@@ -451,22 +452,22 @@ public:
  *
  ******************************************************************************/
 struct ResTexPlttInfoData {
-    s32 nameTex;            // at 0x0
-    s32 namePltt;           // at 0x4
-    ResTexData* pTexData;   // at 0x8
-    ResPlttData* pPlttData; // at 0xC
-    GXTexMapID mapID;       // at 0x10
-    GXTlut tlutID;          // at 0x14
-    GXTexWrapMode wrap_s;   // at 0x18
-    GXTexWrapMode wrap_t;   // at 0x1C
-    GXTexFilter min_filt;   // at 0x20
-    GXTexFilter mag_filt;   // at 0x24
-    f32 lod_bias;           // at 0x28
-    GXAnisotropy max_aniso; // at 0x2C
-    bool bias_clamp;        // at 0x30
-    bool do_edge_lod;       // at 0x31
-    u8 PADDING_0x32;        // at 0x32
-    u8 PADDING_0x33;        // at 0x33
+    s32 nameTex;            //!< // at 0x0
+    s32 namePltt;           //!< // at 0x4
+    ResTexData* pTexData;   //!< // at 0x8
+    ResPlttData* pPlttData; //!< // at 0xC
+    GXTexMapID mapID;       //!< // at 0x10
+    GXTlut tlutID;          //!< // at 0x14
+    GXTexWrapMode wrap_s;   //!< // at 0x18
+    GXTexWrapMode wrap_t;   //!< // at 0x1C
+    GXTexFilter min_filt;   //!< // at 0x20
+    GXTexFilter mag_filt;   //!< // at 0x24
+    f32 lod_bias;           //!< // at 0x28
+    GXAnisotropy max_aniso; //!< // at 0x2C
+    bool bias_clamp;        //!< // at 0x30
+    bool do_edge_lod;       //!< // at 0x31
+    u8 PADDING_0x32;        //!< // at 0x32
+    u8 PADDING_0x33;        //!< // at 0x33
 };
 
 class ResTexPlttInfo : public ResCommon<ResTexPlttInfoData> {
@@ -539,13 +540,13 @@ private:
  *
  ******************************************************************************/
 struct OffsetPair {
-    s32 toMat;         // at 0x0
-    s32 toTexPlttInfo; // at 0x4
+    s32 toMat;         //!< // at 0x0
+    s32 toTexPlttInfo; //!< // at 0x4
 };
 
 struct ResTexPlttInfoOffsetData {
-    u32 numOffset;     // at 0x0
-    OffsetPair vec[1]; // at 0x4
+    u32 numOffset;     //!< // at 0x0
+    OffsetPair vec[1]; //!< // at 0x4
 };
 
 class ResTexPlttInfoOffset : public ResCommon<ResTexPlttInfoOffsetData> {
@@ -567,29 +568,30 @@ public:
  *
  ******************************************************************************/
 struct ResMatDLData {
-    ResPixDL dlPix;                       // at 0x0
-    ResTevColorDL dlTevColor;             // at 0x20
-    ResIndMtxAndScaleDL dlIndMtxAndScale; // at 0xA0
-    ResTexCoordGenDL dlTexCoordGen;       // at 0xE0
+    ResPixDL dlPix;                       //!< // at 0x0
+    ResTevColorDL dlTevColor;             //!< // at 0x20
+    ResIndMtxAndScaleDL dlIndMtxAndScale; //!< // at 0xA0
+    ResTexCoordGenDL dlTexCoordGen;       //!< // at 0xE0
 };
 
 struct ResMatData {
-    u32 size;                   // at 0x0
-    s32 toResMdlData;           // at 0x4
-    s32 name;                   // at 0x8
-    u32 id;                     // at 0xC
-    u32 flag;                   // at 0x10
-    ResGenModeData genMode;     // at 0x14
-    ResMatMiscData misc;        // at 0x1C
-    s32 toResTevData;           // at 0x28
-    u32 numResTexPlttInfo;      // at 0x2C
-    s32 toResTexPlttInfo;       // at 0x30
-    s32 toResUserData;          // at 0x34
-    s32 toResMatDLData;         // at 0x38
-    ResTexObjData texObjData;   // at 0x3C
-    ResTlutObjData tlutObjData; // at 0x140
-    ResTexSrtData texSrtData;   // at 0x1A4
-    ResChanData chan;           // at 0x3EC
+    u32 size;                   //!< // at 0x0
+    s32 toResMdlData;           //!< // at 0x4
+    s32 name;                   //!< // at 0x8
+    u32 id;                     //!< // at 0xC
+    u32 flag;                   //!< // at 0x10
+    ResGenModeData genMode;     //!< // at 0x14
+    ResMatMiscData misc;        //!< // at 0x1C
+    s32 toResTevData;           //!< // at 0x28
+    u32 numResTexPlttInfo;      //!< // at 0x2C
+    s32 toResTexPlttInfo;       //!< // at 0x30
+    s32 toResMatFurData;        //!< // at 0x34
+    s32 toResUserData;          //!< // at 0x38
+    s32 toResMatDLData;         //!< // at 0x3C
+    ResTexObjData texObjData;   //!< // at 0x40
+    ResTlutObjData tlutObjData; //!< // at 0x144
+    ResTexSrtData texSrtData;   //!< // at 0x1A8
+    ResChanData chan;           //!< // at 0x3F0
 };
 
 class ResMat : public ResCommon<ResMatData> {

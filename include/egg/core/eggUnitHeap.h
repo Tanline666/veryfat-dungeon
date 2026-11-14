@@ -9,7 +9,7 @@ namespace EGG {
 
 class Allocator;
 
-class UnitHeap : Heap {
+class UnitHeap : public Heap {
 public:
     UnitHeap(MEMiHeapHead* heapHead) : Heap(heapHead) {}
     static UnitHeap* create(void* block, u32 size, u32 unit_size, s32 align,

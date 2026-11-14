@@ -5,10 +5,10 @@ namespace ut {
 namespace {
 
 class LCImpl {
-public:
+private:
     class Lock_ {
     public:
-        Lock_(LCImpl& rImpl) : mMutex(rImpl.mMutex) {
+        Lock_(LCImpl& impl) : mMutex(impl.mMutex) {
             OSLockMutex(&mMutex);
         }
         ~Lock_() {
@@ -19,86 +19,108 @@ public:
         OSMutex& mMutex; // at 0x0
     };
 
+    bool IsEnabled() const {
+        return mEnabled;
+    }
+
 public:
-    LCImpl() : mIsEnabled(false) {
+    LCImpl() : mEnabled(FALSE) {
         OSInitMutex(&mMutex);
     }
 
     void Enable() {
         Lock_ lock(*this);
 
-        if (!mIsEnabled) {
+        if (!mEnabled) {
             LCEnable();
-            mIsEnabled = true;
+            mEnabled = TRUE;
         }
     }
 
     void Disable() {
         Lock_ lock(*this);
 
-        if (mIsEnabled) {
+        if (mEnabled) {
             LC::QueueWaitEx(0);
             LCDisable();
-            mIsEnabled = false;
+            mEnabled = FALSE;
         }
     }
 
     bool Lock() {
         OSLockMutex(&mMutex);
 
-        if (mIsEnabled) {
+        if (mEnabled) {
             LC::QueueWaitEx(0);
-            return true;
+            return TRUE;
         }
 
         OSUnlockMutex(&mMutex);
-        return false;
+        return FALSE;
     }
 
     void Unlock() {
+        NW4R_ASSERT(mEnabled, 89);
         LC::QueueWaitEx(0);
         OSUnlockMutex(&mMutex);
     }
 
+    void LoadBlocks(void* destTag, void* srcAddr, u32 numBlocks) {
+#if defined(DEBUG)
+        Lock_ lock(*this);
+        NW4R_ASSERT(IsEnabled(), 98);
+#endif
+        LCLoadBlocks(destTag, srcAddr, numBlocks);
+    }
+
+    void StoreBlocks(void* destAddr, void* srcTag, u32 numBlocks) {
+#if defined(DEBUG)
+        Lock_ lock(*this);
+        NW4R_ASSERT(IsEnabled(), 116);
+#endif
+        LCStoreBlocks(destAddr, srcTag, numBlocks);
+    }
+
+    u32 StoreData(void* destAddr, void* srcAddr, u32 nBytes) {
+        return LCStoreData(destAddr, srcAddr, nBytes);
+    }
+
 private:
-    bool mIsEnabled;        // at 0x0
-    mutable OSMutex mMutex; // at 0x4
+    bool mEnabled;  // at 0x0
+    OSMutex mMutex; // at 0x4
 };
 
 static LCImpl sLCImpl;
 
 } // namespace
 
-namespace LC {
-
-void Enable() {
+void LC::Enable() {
     sLCImpl.Enable();
 }
 
-void Disable() {
+void LC::Disable() {
     sLCImpl.Disable();
 }
 
-bool Lock() {
+bool LC::Lock() {
     return sLCImpl.Lock();
 }
 
-void Unlock() {
+void LC::Unlock() {
     sLCImpl.Unlock();
 }
 
-void LoadBlocks(void* pDst, void* pSrc, u32 blocks) {
-    LCLoadBlocks(pDst, pSrc, blocks);
+void LC::LoadBlocks(void* pDst, void* pSrc, u32 blocks) {
+    sLCImpl.LoadBlocks(pDst, pSrc, blocks);
 }
 
-void StoreBlocks(void* pDst, void* pSrc, u32 blocks) {
-    LCStoreBlocks(pDst, pSrc, blocks);
+void LC::StoreBlocks(void* pDst, void* pSrc, u32 blocks) {
+    sLCImpl.StoreBlocks(pDst, pSrc, blocks);
 }
 
-void StoreData(void* pDst, void* pSrc, u32 size) {
-    LCStoreData(pDst, pSrc, size);
+u32 LC::StoreData(void* pDst, void* pSrc, u32 size) {
+    return sLCImpl.StoreData(pDst, pSrc, size);
 }
 
-} // namespace LC
 } // namespace ut
 } // namespace nw4r

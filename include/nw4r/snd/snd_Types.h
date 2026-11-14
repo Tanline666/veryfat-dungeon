@@ -167,7 +167,7 @@ enum NoteOffType { NOTE_OFF_TYPE_RELEASE = 0, NOTE_OFF_TYPE_IGNORE = 1 };
 struct WaveInfo {
 
     struct ChannelParam {
-        const void* pDataAddr;         // at 0x0
+        const void* dataAddr;          // at 0x0
         AdpcmParam adpcmParam;         // at 0x4
         AdpcmLoopParam adpcmLoopParam; // at 0x2C
     };

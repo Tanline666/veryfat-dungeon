@@ -48,33 +48,33 @@ public:
     static const u16 SUPPORTED_FILE_VERSION_MAX = NW4R_VERSION(1, 0);
 
     /**
-     * \~english @brief Constructor
-     * \~japanese @brief コンストラクタ
+     * @~english @brief Constructor
+     * @~japanese @brief コンストラクタ
      *
-     * \~english @param waveArc Pointer to WaveArchive file
-     * \~japanese @param waveArc WaveArchiveファイルへのポインタ
+     * @~english @param waveArc Pointer to WaveArchive file
+     * @~japanese @param waveArc WaveArchiveファイルへのポインタ
      */
     WaveArchiveReader(const void* waveArc);
 
     /**
-     * \~english @brief Gets the specified WaveFile from a WaveArchive.
-     * \~japanese @brief 指定のWaveFileをWaveArchiveから取得する。
+     * @~english @brief Gets the specified WaveFile from a WaveArchive.
+     * @~japanese @brief 指定のWaveFileをWaveArchiveから取得する。
      *
      * @param index
-     * \~english @return WaveFile header
-     * \~japanese @return WaveFileのヘッダ
+     * @~english @return WaveFile header
+     * @~japanese @return WaveFileのヘッダ
      */
     const WaveFile::FileHeader* GetWaveFile(int index) const;
 
 private:
     /**
-     * \~english @brief Checks the WaveArchive header to make sure it is valid.
-     * \~japanese @brief WaveArchiveヘッダが有効かどうかを調べる。
+     * @~english @brief Checks the WaveArchive header to make sure it is valid.
+     * @~japanese @brief WaveArchiveヘッダが有効かどうかを調べる。
      *
-     * \~english @param waveArc Pointer to WaveArchive file
-     * \~japanese @param waveArc WaveArchiveファイルへのポインタ
-     * \~english @return TRUE if valid
-     * \~japanese @return 有効であればTRUE
+     * @~english @param waveArc Pointer to WaveArchive file
+     * @~japanese @param waveArc WaveArchiveファイルへのポインタ
+     * @~english @return TRUE if valid
+     * @~japanese @return 有効であればTRUE
      */
     bool VerifyFileHeader(const void* waveArc);
 

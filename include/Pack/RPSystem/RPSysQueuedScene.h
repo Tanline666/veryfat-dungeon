@@ -10,24 +10,24 @@ class RPSysQueuedScene {
 
 public:
     /**
-     * \~english @deprecated Sets the next scene to the current one. No longer
+     * @~english @deprecated Sets the next scene to the current one. No longer
      * used as the singleton does not have a heap, so the constructor takes its
      * place.
-     * \~japanese @deprecated 次のシーンを現在のシーンに設定する。
+     * @~japanese @deprecated 次のシーンを現在のシーンに設定する。
      * Singletonのヒープがなくなったから、この関数をコンストラクタと取り替えてる。
      */
     void reset();
 
     /**
-     * \~english @brief Gets the ID of the next scene.
-     * \~japanese @brief 次のシーンのIDを取得する。
+     * @~english @brief Gets the ID of the next scene.
+     * @~japanese @brief 次のシーンのIDを取得する。
      */
     s32 getNextSceneID() const {
         return mNextSceneID;
     }
     /**
-     * \~english @brief Sets the ID of the next scene.
-     * \~japanese @brief 次のシーンのIDを設定する。
+     * @~english @brief Sets the ID of the next scene.
+     * @~japanese @brief 次のシーンのIDを設定する。
      */
     void setNextSceneID(s32 id) {
         mNextSceneID = id;

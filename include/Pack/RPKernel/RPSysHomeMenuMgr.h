@@ -12,34 +12,34 @@
 //! @{
 
 /**
- * \~english @brief HOME Menu manager
+ * @~english @brief HOME Menu manager
  */
 class RPSysHomeMenuMgr {
     RP_SINGLETON_DECL_EX(RPSysHomeMenuMgr);
 
 public:
     /**
-     * \~english @brief Icon when HOME Menu is disabled
+     * @~english @brief Icon when HOME Menu is disabled
      */
     class BanIcon {
     public:
         /**
-         * \~english @brief Constructor
+         * @~english @brief Constructor
          */
         BanIcon();
 
         /**
-         * \~english @brief Updates this icon's state
+         * @~english @brief Updates this icon's state
          */
         void calc();
 
         /**
-         * \~english @brief Renders this icon's state
+         * @~english @brief Renders this icon's state
          */
         void draw();
 
         /**
-         * \~english @brief Resets this icon's state
+         * @~english @brief Resets this icon's state
          */
         void clear() {
             mState = EState_Hide;
@@ -48,7 +48,7 @@ public:
         }
 
         /**
-         * \~english @brief Enables this icon
+         * @~english @brief Enables this icon
          */
         void switchOn() {
             mState = EState_FadeIn;
@@ -57,16 +57,16 @@ public:
         }
 
         /**
-         * \~english @brief Tests whether this icon is visible
+         * @~english @brief Tests whether this icon is visible
          */
         bool isDisp() const {
             return mState != EState_Hide;
         }
 
         /**
-         * \~english @brief Attaches a texture to this icon
+         * @~english @brief Attaches a texture to this icon
          *
-         * \~english @param pTexture Icon texture
+         * @~english @param pTexture Icon texture
          */
         void setTexture(const EGG::ResTIMG* pTexture) {
             mpTexture = pTexture;
@@ -74,7 +74,7 @@ public:
 
     private:
         /**
-         * \~english @brief State machine state
+         * @~english @brief State machine state
          */
         enum EState {
             EState_Hide,    //!< Icon is not displaying
@@ -102,7 +102,7 @@ public:
     };
 
     /**
-     * \~english @brief HOME Menu state
+     * @~english @brief HOME Menu state
      */
     enum EMenuState {
         EMenuState_End,   //!< Menu is closing
@@ -113,48 +113,48 @@ public:
 
 public:
     /**
-     * \~english @brief Initializes this manager's state
+     * @~english @brief Initializes this manager's state
      */
     void init();
 
     /**
-     * \~english @brief Initializes the HBM library
+     * @~english @brief Initializes the HBM library
      */
     void initHomeButtonInfo();
 
     /**
-     * \~english @brief Performs a soft reset
+     * @~english @brief Performs a soft reset
      *
-     * \~english @return Whether HBM will perform the reset
+     * @~english @return Whether HBM will perform the reset
      */
     bool softReset();
 
     /**
-     * \~english @brief Updates this manager's state
+     * @~english @brief Updates this manager's state
      */
     void update();
 
     /**
-     * \~english @brief Renders the HOME Menu if it is visible
+     * @~english @brief Renders the HOME Menu if it is visible
      */
     void draw();
 
     /**
-     * \~english @brief Renders the ban icon if it is visible
+     * @~english @brief Renders the ban icon if it is visible
      */
     void drawBanIcon();
 
     /**
-     * \~english @brief Toggles whether the HOME Menu is disabled
+     * @~english @brief Toggles whether the HOME Menu is disabled
      *
-     * \~english @param disable Whether to disable the menu
+     * @~english @param disable Whether to disable the menu
      */
     void disable(bool disable) {
         mIsDisabled = disable;
     }
 
     /**
-     * \~english @brief Tests whether the HOME Menu is currently active
+     * @~english @brief Tests whether the HOME Menu is currently active
      */
     bool isActive() const {
         return mIsActive;
@@ -168,21 +168,21 @@ private:
 
 private:
     /**
-     * \~english @brief HBM library sound callback
+     * @~english @brief HBM library sound callback
      *
-     * \~english @param event HBM event
-     * \~english @param arg Event argument
-     * \~english @return Whether this callback handled the playback for HBM
+     * @~english @param event HBM event
+     * @~english @param arg Event argument
+     * @~english @return Whether this callback handled the playback for HBM
      */
     static BOOL soundCallback(int event, int arg);
 
     /**
-     * \~english @brief Checks whether the HOME Menu should be opened
+     * @~english @brief Checks whether the HOME Menu should be opened
      */
     void checkMenuStart();
 
     /**
-     * \~english @brief Checks whether the HOME Menu should be closed
+     * @~english @brief Checks whether the HOME Menu should be closed
      */
     void checkMenuEnd();
 

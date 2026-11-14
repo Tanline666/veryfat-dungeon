@@ -25,7 +25,7 @@ struct RPSysPlayerOldData {
 };
 
 /**
- * \~english @brief Player manager
+ * @~english @brief Player manager
  */
 class RPSysPlayerMgr {
     RP_SINGLETON_DECL_EX(RPSysPlayerMgr);
@@ -37,145 +37,145 @@ public:
 
 public:
     /**
-     * \~english @brief Resets the old data to a default state
+     * @~english @brief Resets the old data to a default state
      */
     void resetOldData();
 
     /**
-     * \~english @brief Gets the player at the specified index
+     * @~english @brief Gets the player at the specified index
      *
-     * \~english @param idx Player index
+     * @~english @param idx Player index
      */
     const RPSysPlayer& getPlayer(s32 idx) const;
 
     /**
-     * \~english @brief Gets the remote channel associated with the specified
+     * @~english @brief Gets the remote channel associated with the specified
      * player
      *
-     * \~english @param idx Player index
+     * @~english @param idx Player index
      */
     u8 getChannel(s32 idx) const;
 
     /**
-     * \~english @brief Gets the speaker flag required to play sounds through
+     * @~english @brief Gets the speaker flag required to play sounds through
      * the specified player's remote
      *
-     * \~english @param player Player index
+     * @~english @param player Player index
      */
     u32 getSpeakerFlag(s32 player) const;
 
     /**
-     * \~english @brief Writes the save data for all players
+     * @~english @brief Writes the save data for all players
      */
     void saveAllData();
 
     /**
-     * \~english @brief Tests whether the specified player has completed the A+B
+     * @~english @brief Tests whether the specified player has completed the A+B
      * check
      *
-     * \~english @param player Player index
+     * @~english @param player Player index
      */
     bool isABPress(s32 player) const;
 
     /**
-     * \~english @brief Sets that the specified player has completed the A+B
+     * @~english @brief Sets that the specified player has completed the A+B
      * check
      *
-     * \~english @param player Player index
+     * @~english @param player Player index
      */
     void setABPress(s32 player);
 
     /**
-     * \~english @brief Resets the manager state
+     * @~english @brief Resets the manager state
      */
     void reset();
 
     /**
-     * \~english @brief Gets the configured number of players
+     * @~english @brief Gets the configured number of players
      */
     s32 getPlayerNum() const {
         return mPlayerNum;
     }
 
     /**
-     * \~english @brief Sets the number of players
+     * @~english @brief Sets the number of players
      *
-     * \~english @param num Player count
+     * @~english @param num Player count
      */
     void setPlayerNum(s32 num);
 
     /**
-     * \~english @brief Gets the number of controllers
+     * @~english @brief Gets the number of controllers
      */
     s32 getRemoteNum() const {
         return mRemoteNum;
     }
 
     /**
-     * \~english @brief Sets the number of controllers
+     * @~english @brief Sets the number of controllers
      *
-     * \~english @param num Controller count
+     * @~english @param num Controller count
      */
     void setRemoteNum(s32 num);
 
     /**
-     * \~english @brief Tests whether the old data configuration for the current
+     * @~english @brief Tests whether the old data configuration for the current
      * player count is usable
      */
     bool isValidOldData();
 
     /**
-     * \~english @brief Gets the old data configuration for the specified player
+     * @~english @brief Gets the old data configuration for the specified player
      *
-     * \~english @param[out] pDataSrc Mii data source
-     * \~english @param[out] pIndex Mii database index
-     * \~english @param idx Player index
+     * @~english @param[out] pDataSrc Mii data source
+     * @~english @param[out] pIndex Mii database index
+     * @~english @param idx Player index
      */
     void getOldData(s8* pDataSrc, u16* pIndex, s32 idx);
 
     /**
-     * \~english @brief Tests whether the old data configuration for the
+     * @~english @brief Tests whether the old data configuration for the
      * specified player describes a Mii from a controller database
      *
-     * \~english @param idx Player index
+     * @~english @param idx Player index
      */
     bool isCtrlOldData(s32 idx);
 
     /**
-     * \~english @brief Updates the old data configuration for the current
+     * @~english @brief Updates the old data configuration for the current
      * player count
      */
     void calcOldData();
 
     /**
-     * \~english @brief Loads the old data configuration from the save file
+     * @~english @brief Loads the old data configuration from the save file
      */
     void loadOldData();
 
     /**
-     * \~english @brief Writes the old data configuration to the save file
+     * @~english @brief Writes the old data configuration to the save file
      */
     void saveOldData();
 
     /**
-     * \~english @brief Loads the save data for the specified player
+     * @~english @brief Loads the save data for the specified player
      *
-     * \~english @param idx Player index
+     * @~english @param idx Player index
      */
     void loadData(s32 idx);
 
     /**
-     * \~english @brief Loads the save data for all players
+     * @~english @brief Loads the save data for all players
      */
     void loadAllData();
 
     /**
-     * \~english @brief Sets the Mii avatar associated with the specified player
+     * @~english @brief Sets the Mii avatar associated with the specified player
      *
-     * \~english @param dataSrc Mii data source
-     * \~english @param index Mii database index
-     * \~english @param rCreateID Mii create ID
-     * \~english @param idx Player index
+     * @~english @param dataSrc Mii data source
+     * @~english @param index Mii database index
+     * @~english @param rCreateID Mii create ID
+     * @~english @param idx Player index
      */
     void setAvatar(s8 dataSrc, u16 index, const RFLCreateID& rCreateID,
                    s32 idx);

@@ -218,6 +218,65 @@ void FRUSTUM::Set(f32 t, f32 b, f32 l, f32 r, f32 n, f32 f,
     // clang-format on
 }
 
+f32 DistSqPoint3ToLine3(const VEC3* P, const LINE3* L, f32* t) {
+    //! Source for variable names: Challenge Me Word Puzzles
+    f32 distSq;
+
+    VEC3 LP;
+    f32 t_ = VEC3Dot(&L->d, VEC3Sub(&LP, P, &L->P));
+
+    VEC3 PP;
+    VEC3Add(&PP, &L->P, VEC3Scale(&PP, &L->d, t_));
+
+    VEC3 PP_P;
+    VEC3Sub(&PP_P, P, &PP);
+    distSq = VEC3LenSq(&PP_P);
+
+    if (t) {
+        *t = t_;
+    }
+
+    return distSq;
+}
+
+f32 DistSqPoint3ToSegment3(const VEC3* P, const SEGMENT3* S, f32* t) {
+    //! Source for variable names: Challenge Me Word Puzzles
+    f32 distSq;
+    f32 t_;
+    LINE3 L;
+    L.Set(S);
+
+    f32 P0P1 = FSqrt((S->P0 - S->P1).LenSq());
+    distSq = DistSqPoint3ToLine3(P, &L, &t_);
+
+    if (t_ < 0.0f) {
+
+        if (t) {
+            *t = NULL;
+        }
+
+        VEC3 vec;
+        VEC3Sub(&vec, P, &S->P0);
+        distSq = VEC3LenSq(&vec);
+
+    } else if (t_ > P0P1) {
+        if (t) {
+            *t = 1.0f;
+        }
+
+        VEC3 vec;
+        VEC3Sub(&vec, P, &S->P1);
+        distSq = VEC3LenSq(&vec);
+
+    } else {
+        if (t) {
+            *t = t_ / P0P1;
+        }
+    }
+
+    return distSq;
+}
+
 bool IntersectionAABB(const AABB* pA, const AABB* pB) {
     if (pA->min.x > pB->max.x || pB->min.x > pA->max.x ||
         pA->min.y > pB->max.y || pB->min.y > pA->max.y ||

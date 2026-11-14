@@ -9,32 +9,32 @@
 class RPGrpModel;
 
 /**
- * \~english @brief Model transformation recorder
+ * @~english @brief Model transformation recorder
  */
 class RPGrpModelRecord {
 public:
     /**
-     * \~english @brief Constructor
+     * @~english @brief Constructor
      *
-     * \~english @param flags Bound type flags
-     * \~english @param pModel Owner model
+     * @~english @param flags Bound type flags
+     * @~english @param pModel Owner model
      */
     RPGrpModelRecord(u16 frames, RPGrpModel* pModel);
 
     /**
-     * \~english @brief Destructor
+     * @~english @brief Destructor
      */
     virtual ~RPGrpModelRecord() {} // at 0x8
 
     /**
-     * \~english @brief Clears the recorded data
+     * @~english @brief Clears the recorded data
      */
     void Clear();
 
     /**
-     * \~english @brief Records the current frame
+     * @~english @brief Records the current frame
      *
-     * \~english @param pModel Model to record
+     * @~english @param pModel Model to record
      */
     void Calc(RPGrpModel* pModel);
 

@@ -50,8 +50,8 @@ enum TextureLayer {
 };
 
 /**
- * \~english @brief Enum that evaluates effect status.
- * \~japanese @brief エフェクトの状態を評価するenum。
+ * @~english @brief Enum that evaluates effect status.
+ * @~japanese @brief エフェクトの状態を評価するenum。
  */
 enum EvaluateStatus {
     NW4R_EF_ES_WAIT,
@@ -61,8 +61,8 @@ enum EvaluateStatus {
 };
 
 /**
- * \~english @brief Effect calculation options.
- * \~japanese @brief エフェクトの計算オプション。
+ * @~english @brief Effect calculation options.
+ * @~japanese @brief エフェクトの計算オプション。
  */
 enum CalcOption {
     CALC_TYPE_NORMAL,

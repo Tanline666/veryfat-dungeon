@@ -3,10 +3,10 @@
 #include <revolution/GX.h>
 
 /**
- * \~english @brief Applies the specified player material color
+ * @~english @brief Applies the specified player material color
  * @details The color is applied to TEV color register 1
  *
- * \~english @param idx Player index
+ * @~english @param idx Player index
  */
 void RPSysLytPicture::applyPlayerColor(u32 idx) {
     nw4r::lyt::Material* pMaterial = GetMaterial();
@@ -18,7 +18,7 @@ void RPSysLytPicture::applyPlayerColor(u32 idx) {
 }
 
 /**
- * \~english @brief Applies the CPU player material color
+ * @~english @brief Applies the CPU player material color
  * @details The color is applied to TEV color register 1
  */
 void RPSysLytPicture::applyCpuColor() {

@@ -5,7 +5,6 @@
 #include <nw4r/snd/snd_BasicSound.h>
 #include <nw4r/snd/snd_SeqPlayer.h>
 #include <nw4r/snd/snd_Task.h>
-
 #include <nw4r/ut.h>
 
 #include <revolution/OS.h>
@@ -31,26 +30,27 @@ public:
     NW4R_UT_RTTI_DECL(SeqSound);
 
 public:
-    explicit SeqSound(SoundInstanceManager<SeqSound>* pManager);
+    SeqSound(SoundInstanceManager<SeqSound>* manager, int priority,
+             int ambientPriority);
 
-    virtual void Shutdown(); // at 0x28
+    virtual void Shutdown(); //!< at 0x28
     virtual bool IsPrepared() const {
         return mPreparedFlag;
-    } // at 0x2C
+    } //!< at 0x2C
 
-    virtual void SetPlayerPriority(int priority); // at 0x4C
+    virtual void SetPlayerPriority(int priority); //!< at 0x4C
 
-    virtual bool IsAttachedTempSpecialHandle(); // at 0x5C
-    virtual void DetachTempSpecialHandle();     // at 0x60
+    virtual bool IsAttachedTempSpecialHandle(); //!< at 0x5C
+    virtual void DetachTempSpecialHandle();     //!< at 0x60
 
-    virtual void InitParam(); // at 0x64
+    virtual void InitParam(); //!< at 0x64
 
     virtual BasicPlayer& GetBasicPlayer() {
         return mSeqPlayer;
-    } // at 0x68
+    } //!< at 0x68
     virtual const BasicPlayer& GetBasicPlayer() const {
         return mSeqPlayer;
-    } // at 0x6C
+    } //!< at 0x6C
 
     SeqPlayer::SetupResult Setup(SeqTrackAllocator* pAllocator,
                                  u32 allocTrackFlags, int voices,
@@ -91,15 +91,15 @@ private:
     struct SeqLoadTask : public Task {
         SeqLoadTask();
 
-        virtual void Execute();  // at 0xC
-        virtual void Cancel();   // at 0x10
-        virtual void OnCancel(); // at 0x14
+        virtual void Execute();  //!< at 0xC
+        virtual void Cancel();   //!< at 0x10
+        virtual void OnCancel(); //!< at 0x14
 
-        ut::FileStream* fileStream; // at 0x10
-        void* buffer;               // at 0x14
-        int bufferSize;             // at 0x18
-        SeqLoadCallback callback;   // at 0x1C
-        SeqSound* callbackData;     // at 0x20
+        ut::FileStream* fileStream; //!< at 0x10
+        void* buffer;               //!< at 0x14
+        int bufferSize;             //!< at 0x18
+        SeqLoadCallback callback;   //!< at 0x1C
+        SeqSound* callbackData;     //!< at 0x20
     };
 
     static const int FILE_STREAM_BUFFER_SIZE = 512;
@@ -111,22 +111,21 @@ private:
                                           void* pCallbackArg);
 
 private:
-    SeqPlayer mSeqPlayer;                     // at 0xD8
-    SeqSoundHandle* mTempSpecialHandle;       // at 0x1F4
-    SoundInstanceManager<SeqSound>* mManager; // at 0x1F8
+    SeqPlayer mSeqPlayer;                     //!< at 0x110
+    SeqSoundHandle* mTempSpecialHandle;       //!< at 0x274
+    SoundInstanceManager<SeqSound>* mManager; //!< at 0x278
 
-    s32 mSeqOffset;                         // at 0x1FC
-    SeqPlayer::OffsetType mStartOffsetType; // at 0x200
-    int mStartOffset;                       // at 0x204
+    s32 mSeqOffset;                         //!< at 0x27C
+    SeqPlayer::OffsetType mStartOffsetType; //!< at 0x280
+    int mStartOffset;                       //!< at 0x284
 
-    bool mLoadingFlag;           // at 0x208
-    volatile bool mPreparedFlag; // at 0x209
+    volatile bool mLoadingFlag;  //!< at 0x288
+    volatile bool mPreparedFlag; //!< at 0x289
 
-    ut::FileStream* mFileStream;                     // at 0x20C
-    char mFileStreamBuffer[FILE_STREAM_BUFFER_SIZE]; // at 0x210
+    ut::FileStream* mFileStream;                     //!< at 0x28C
+    char mFileStreamBuffer[FILE_STREAM_BUFFER_SIZE]; //!< at 0x290
 
-    SeqLoadTask mSeqLoadTask; // at 0x410
-    mutable OSMutex mMutex;   // at 0x434
+    SeqLoadTask mSeqLoadTask; //!< at 0x490
 };
 
 } // namespace detail

@@ -7,7 +7,7 @@
 RP_SINGLETON_IMPL_EX(RPSysPlayerMgr);
 
 /**
- * \~english @brief Resets the old data to a default state
+ * @~english @brief Resets the old data to a default state
  */
 void RPSysPlayerMgr::resetOldData() {
     for (int i = 0; i < OLD_DATA_LEN; i++) {
@@ -23,28 +23,28 @@ void RPSysPlayerMgr::resetOldData() {
 }
 
 /**
- * \~english @brief Gets the player at the specified index
+ * @~english @brief Gets the player at the specified index
  *
- * \~english @param idx Player index
+ * @~english @param idx Player index
  */
 const RPSysPlayer& RPSysPlayerMgr::getPlayer(s32 idx) const {
     return mpPlayers[idx];
 }
 
 /**
- * \~english @brief Gets the remote channel associated with the specified player
+ * @~english @brief Gets the remote channel associated with the specified player
  *
- * \~english @param idx Player index
+ * @~english @param idx Player index
  */
 u8 RPSysPlayerMgr::getChannel(s32 idx) const {
     return mpPlayers[idx].getChannel();
 }
 
 /**
- * \~english @brief Gets the speaker flag required to play sounds through the
+ * @~english @brief Gets the speaker flag required to play sounds through the
  * specified player's remote
  *
- * \~english @param player Player index
+ * @~english @param player Player index
  */
 u32 RPSysPlayerMgr::getSpeakerFlag(s32 player) const {
     // TODO(kiwi) Uses something from RPSysCoreController
@@ -73,26 +73,26 @@ u32 RPSysPlayerMgr::getSpeakerFlag(s32 player) const {
 }
 
 /**
- * \~english @brief Tests whether the specified player has completed the A+B
+ * @~english @brief Tests whether the specified player has completed the A+B
  * check
  *
- * \~english @param player Player index
+ * @~english @param player Player index
  */
 bool RPSysPlayerMgr::isABPress(s32 player) const {
     return mFlags & 1 << static_cast<u8>(player);
 }
 
 /**
- * \~english @brief Sets that the specified player has completed the A+B check
+ * @~english @brief Sets that the specified player has completed the A+B check
  *
- * \~english @param player Player index
+ * @~english @param player Player index
  */
 void RPSysPlayerMgr::setABPress(s32 player) {
     mFlags |= 1 << static_cast<u8>(player);
 }
 
 /**
- * \~english @brief Resets the manager state
+ * @~english @brief Resets the manager state
  */
 void RPSysPlayerMgr::reset() {
     mPlayerNum = 0;
@@ -104,18 +104,18 @@ void RPSysPlayerMgr::reset() {
 }
 
 /**
- * \~english @brief Sets the number of players
+ * @~english @brief Sets the number of players
  *
- * \~english @param num Player count
+ * @~english @param num Player count
  */
 void RPSysPlayerMgr::setPlayerNum(s32 num) {
     mPlayerNum = num;
 }
 
 /**
- * \~english @brief Sets the number of controllers
+ * @~english @brief Sets the number of controllers
  *
- * \~english @param num Controller count
+ * @~english @param num Controller count
  */
 void RPSysPlayerMgr::setRemoteNum(s32 num) {
     mRemoteNum = num < mPlayerNum ? num : mPlayerNum;
@@ -131,7 +131,7 @@ void RPSysPlayerMgr::setRemoteNum(s32 num) {
 }
 
 /**
- * \~english @brief Tests whether the old data configuration for the current
+ * @~english @brief Tests whether the old data configuration for the current
  * player count is usable
  */
 bool RPSysPlayerMgr::isValidOldData() {
@@ -189,11 +189,11 @@ bool RPSysPlayerMgr::isValidOldData() {
 }
 
 /**
- * \~english @brief Gets the old data configuration for the current player count
+ * @~english @brief Gets the old data configuration for the current player count
  *
- * \~english @param[out] pDataSrc Mii data source
- * \~english @param[out] pIndex Mii database index
- * \~english @param idx Player index
+ * @~english @param[out] pDataSrc Mii data source
+ * @~english @param[out] pIndex Mii database index
+ * @~english @param idx Player index
  */
 void RPSysPlayerMgr::getOldData(s8* pDataSrc, u16* pIndex, s32 idx) {
     s32 rel2Abs[RP_MAX_PLAYERS] = {
@@ -213,10 +213,10 @@ void RPSysPlayerMgr::getOldData(s8* pDataSrc, u16* pIndex, s32 idx) {
 }
 
 /**
- * \~english @brief Tests whether the old data configuration for the specified
+ * @~english @brief Tests whether the old data configuration for the specified
  * player describes a Mii from a controller database
  *
- * \~english @param idx Player index
+ * @~english @param idx Player index
  */
 bool RPSysPlayerMgr::isCtrlOldData(s32 idx) {
     s32 rel2Abs[RP_MAX_PLAYERS] = {
@@ -242,7 +242,7 @@ bool RPSysPlayerMgr::isCtrlOldData(s32 idx) {
 }
 
 /**
- * \~english @brief Updates the old data configuration for the current player
+ * @~english @brief Updates the old data configuration for the current player
  * count
  */
 void RPSysPlayerMgr::calcOldData() {
@@ -270,12 +270,12 @@ void RPSysPlayerMgr::calcOldData() {
 }
 
 /**
- * \~english @brief Sets the Mii avatar associated with the specified player
+ * @~english @brief Sets the Mii avatar associated with the specified player
  *
- * \~english @param dataSrc Mii data source
- * \~english @param index Mii database index
- * \~english @param rCreateID Mii create ID
- * \~english @param idx Player index
+ * @~english @param dataSrc Mii data source
+ * @~english @param index Mii database index
+ * @~english @param rCreateID Mii create ID
+ * @~english @param idx Player index
  */
 void RPSysPlayerMgr::setAvatar(s8 dataSrc, u16 index,
                                const RFLCreateID& rCreateID, s32 idx) {
@@ -284,9 +284,9 @@ void RPSysPlayerMgr::setAvatar(s8 dataSrc, u16 index,
 }
 
 /**
- * \~english @brief Constructor
+ * @~english @brief Constructor
  *
- * \~english @param pHeap Parent heap
+ * @~english @param pHeap Parent heap
  */
 RPSysPlayerMgr::RPSysPlayerMgr(EGG::Heap* pHeap)
     : mpParentHeap(pHeap),
@@ -316,6 +316,6 @@ RPSysPlayerMgr::RPSysPlayerMgr(EGG::Heap* pHeap)
 }
 
 /**
- * \~english @brief Destructor
+ * @~english @brief Destructor
  */
 RPSysPlayerMgr::~RPSysPlayerMgr() {}

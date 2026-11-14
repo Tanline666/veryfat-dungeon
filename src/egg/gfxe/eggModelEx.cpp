@@ -224,7 +224,6 @@ void ModelEx::setVisible(bool enable) {
 }
 
 void ModelEx::calcWorld(nw4r::math::MTX34* pWorldMtxArray) const {
-#line 440
     EGG_ASSERT(pWorldMtxArray != NULL);
 
     static const char* BYTE_CODE_CALC = "NodeTree";

@@ -7,7 +7,7 @@ RP_SINGLETON_IMPL_EX(RPSysSceneCreator);
 #define RP_MAIN_SCENE_DIR "RPHealthMainScene/"
 
 /**
- * \~english @brief Information about every Pack Project scene
+ * @~english @brief Information about every Pack Project scene
  */
 const RPSysSceneCreator::SceneAttr RPSysSceneCreator::SCENE_ATTR_TABLE[] = {
     // clang-format off
@@ -75,18 +75,18 @@ const RPSysSceneCreator::SceneAttr RPSysSceneCreator::SCENE_ATTR_TABLE[] = {
 };
 
 /**
- * \~english @brief Constructor
+ * @~english @brief Constructor
  *
- * \~english @param pHeap Parent heap
+ * @~english @param pHeap Parent heap
  */
 RPSysSceneCreator::RPSysSceneCreator(EGG::Heap* pHeap)
     : mpParentHeap(pHeap), mPrevSceneID(-1) {}
 
 /**
- * \~english @brief Gets the index of the specified scene's entry in the table
+ * @~english @brief Gets the index of the specified scene's entry in the table
  *
- * \~english @param id Scene ID
- * \~english @return Entry index, or -1 if not found
+ * @~english @param id Scene ID
+ * @~english @return Entry index, or -1 if not found
  */
 s32 RPSysSceneCreator::getEntryIndex(ESceneID id) {
     for (s32 i = 0; i < ARRAY_SIZE(SCENE_ATTR_TABLE); i++) {
@@ -99,25 +99,20 @@ s32 RPSysSceneCreator::getEntryIndex(ESceneID id) {
 }
 
 /**
- * \~english @brief Requests a scene change after fading out
+ * @~english @brief Requests a scene change after fading out
  * @details A scene id of -1 will select the current scene.
  *
- * \~english @param id New scene ID
- * \~english @param reconfigure Whether to fully reconfigure the scene
- * \~english @return Success
+ * @~english @param id New scene ID
+ * @~english @param reconfigure Whether to fully reconfigure the scene
+ * @~english @return Success
  */
-bool RPSysSceneCreator::changeSceneAfterFade(s32 id, bool reconfigure) {
+bool RPSysSceneCreator::changeSceneAfterFade(s32 id) {
     bool success = false;
 
     if (RP_GET_INSTANCE(RPSysSceneMgr)->isTaskFinished()) {
         int current = RP_GET_INSTANCE(RPSysSceneMgr)->getCurrentSceneID();
 
-        if (reconfigure) {
-            id = current;
-        }
-
-        success = RP_GET_INSTANCE(RPSysSceneMgr)
-                      ->changeNextSceneAfterFade(id, reconfigure);
+        success = RP_GET_INSTANCE(RPSysSceneMgr)->changeNextSceneAfterFade(id);
 
         if (success && current >= 0) {
             // Fade out audio before switching sound archives
@@ -136,18 +131,18 @@ bool RPSysSceneCreator::changeSceneAfterFade(s32 id, bool reconfigure) {
 }
 
 /**
- * \~english @brief Changes to the title scene
+ * @~english @brief Changes to the title scene
  *
- * \~english @return Success
+ * @~english @return Success
  */
 bool RPSysSceneCreator::changeSoftReset() {
     return changeSceneAfterFade(ESceneID_RPHealthPlayerSelectScene);
 }
 
 /**
- * \~english @brief Destroys the specified scene
+ * @~english @brief Destroys the specified scene
  *
- * \~english @param id Scene ID
+ * @~english @param id Scene ID
  */
 void RPSysSceneCreator::destroy(s32 /* id */) {
     if (RP_GET_INSTANCE(RPSysSceneMgr)->isApplicationEndReserved()) {
@@ -156,9 +151,9 @@ void RPSysSceneCreator::destroy(s32 /* id */) {
 }
 
 /**
- * \~english @brief Gets the specified scene's exit type
+ * @~english @brief Gets the specified scene's exit type
  *
- * \~english @param id Scene ID
+ * @~english @param id Scene ID
  */
 RPSysSceneCreator::EExitType RPSysSceneCreator::getExitType(s32 id) {
     s32 index = getEntryIndex(static_cast<ESceneID>(id));
@@ -174,9 +169,9 @@ RPSysSceneCreator::EExitType RPSysSceneCreator::getExitType(s32 id) {
 }
 
 /**
- * \~english @brief Gets the specified scene's audio type
+ * @~english @brief Gets the specified scene's audio type
  *
- * \~english @param id Scene ID
+ * @~english @param id Scene ID
  */
 RPSysSceneCreator::EAudioType RPSysSceneCreator::getAudioType(s32 id) {
     s32 index = getEntryIndex(static_cast<ESceneID>(id));
@@ -192,10 +187,10 @@ RPSysSceneCreator::EAudioType RPSysSceneCreator::getAudioType(s32 id) {
 }
 
 /**
- * \~english @brief Gets the specified scene's resource directory
+ * @~english @brief Gets the specified scene's resource directory
  * @details A scene id of -1 will select the current scene.
  *
- * \~english @param id Scene ID
+ * @~english @param id Scene ID
  */
 const char* RPSysSceneCreator::getResDirName(s32 id) {
     if (id < 0) {
@@ -215,9 +210,9 @@ const char* RPSysSceneCreator::getResDirName(s32 id) {
 }
 
 /**
- * \~english @brief Gets the specified scene's creation type
+ * @~english @brief Gets the specified scene's creation type
  *
- * \~english @param id Scene ID
+ * @~english @param id Scene ID
  */
 RPSysSceneCreator::ECreateType RPSysSceneCreator::getCreateType(s32 id) {
     s32 index = getEntryIndex(static_cast<ESceneID>(id));
@@ -234,9 +229,9 @@ RPSysSceneCreator::ECreateType RPSysSceneCreator::getCreateType(s32 id) {
 
 #if defined(PACK_SPORTS)
 /**
- * \~english @brief Creates the specified Sports Pack scene
+ * @~english @brief Creates the specified Sports Pack scene
  *
- * \~english @param id Scene ID
+ * @~english @param id Scene ID
  */
 RPSysScene* RPSysSceneCreator::createSportsScene(s32 id) {
     switch (id) {
@@ -297,9 +292,9 @@ RPSysScene* RPSysSceneCreator::createSportsScene(s32 id) {
 
 #if defined(PACK_PARTY)
 /**
- * \~english @brief Creates the specified Party Pack scene
+ * @~english @brief Creates the specified Party Pack scene
  *
- * \~english @param id Scene ID
+ * @~english @param id Scene ID
  */
 RPSysScene* RPSysSceneCreator::createPartyScene(s32 id) {
     switch (id) {
@@ -359,6 +354,6 @@ RPSysScene* RPSysSceneCreator::createPartyScene(s32 id) {
 #endif
 
 /**
- * \~english @brief Destructor
+ * @~english @brief Destructor
  */
 RPSysSceneCreator::~RPSysSceneCreator() {}

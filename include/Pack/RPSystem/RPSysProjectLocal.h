@@ -11,14 +11,14 @@
 //! @{
 
 /**
- * \~english @brief Runtime project localization
+ * @~english @brief Runtime project localization
  */
 class RPSysProjectLocal {
     RP_SINGLETON_DECL(RPSysProjectLocal);
 
 public:
     /**
-     * \~english @brief Game region
+     * @~english @brief Game region
      */
     enum ERegion {
         ERegion_NTSC_J, //!< Japan
@@ -28,7 +28,7 @@ public:
     };
 
     /**
-     * \~english @brief World area
+     * @~english @brief World area
      */
     enum EArea {
         EArea_England,
@@ -47,7 +47,7 @@ public:
     };
 
     /**
-     * \~english @brief Target framerate
+     * @~english @brief Target framerate
      */
     enum EFrameRate {
         EFrameRate_60Hz, //!< NTSC/PAL60 (60Hz)
@@ -55,7 +55,7 @@ public:
     };
 
     /**
-     * \~english @brief Storage device
+     * @~english @brief Storage device
      */
     enum EStorage {
         //! Sound archives are read from the DVD as needed
@@ -68,57 +68,57 @@ public:
 
 public:
     /**
-     * \~english @brief Appends the locale directory to the given path
+     * @~english @brief Appends the locale directory to the given path
      *
-     * \~english @param pPath Path to append to
-     * \~english @param pSuffix Optional suffix to append after the locale
+     * @~english @param pPath Path to append to
+     * @~english @param pSuffix Optional suffix to append after the locale
      */
     void appendLocalDirectory(char* pPath, const char* pSuffix = "");
 
     /**
-     * \~english @brief Sets the current locale
+     * @~english @brief Sets the current locale
      *
-     * \~english @param locale Locale area
+     * @~english @param locale Locale area
      */
     void setLocale(EArea locale);
 
     /**
-     * \~english @brief Sets the current language
+     * @~english @brief Sets the current language
      *
-     * \~english @param lang Language area
+     * @~english @param lang Language area
      */
     void setLanguage(EArea lang);
 
     /**
-     * \~english @brief Gets the current game region
+     * @~english @brief Gets the current game region
      */
     ERegion getRegion() const {
         return mRegion;
     }
 
     /**
-     * \~english @brief Gets the current game locale
+     * @~english @brief Gets the current game locale
      */
     EArea getLocale() const {
         return mLocale;
     }
 
     /**
-     * \~english @brief Gets the current game language
+     * @~english @brief Gets the current game language
      */
     EArea getLanguage() const {
         return mLanguage;
     }
 
     /**
-     * \~english @brief Gets the target framerate
+     * @~english @brief Gets the target framerate
      */
     EFrameRate getFrameRate() const {
         return mFrameRate;
     }
 
     /**
-     * \~english @brief Gets the storage device where sound data is located
+     * @~english @brief Gets the storage device where sound data is located
      */
     EStorage getSoundStorage() const {
         return mSoundStorage;

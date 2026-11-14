@@ -13,14 +13,14 @@
 class RPSysScene;
 
 /**
- * \~english @brief Pack Project scene factory
+ * @~english @brief Pack Project scene factory
  */
 class RPSysSceneCreator : public EGG::SceneCreator {
     RP_SINGLETON_DECL_EX(RPSysSceneCreator);
 
 public:
     /**
-     * \~english @brief Pack Project scene ID
+     * @~english @brief Pack Project scene ID
      */
     //! Below names are tentative
     enum ESceneID {
@@ -93,7 +93,7 @@ public:
     };
 
     /**
-     * \~english @brief Scene create type
+     * @~english @brief Scene create type
      */
     enum ECreateType {
         ECreateType_Standard, //!< Overwrite outgoing scene
@@ -102,7 +102,7 @@ public:
     };
 
     /**
-     * \~english @brief Scene exit type
+     * @~english @brief Scene exit type
      */
     enum EExitType {
         EExitType_Standard, //!< Incoming scene overwrites this scene
@@ -113,7 +113,7 @@ public:
     };
 
     /**
-     * \~english @brief Scene audio type
+     * @~english @brief Scene audio type
      */
     enum EAudioType {
         EAudioType_Scene,  //!< Use the scene's sound archive
@@ -121,7 +121,7 @@ public:
     };
 
     /**
-     * \~english @brief Sport ID
+     * @~english @brief Sport ID
      */
     enum ESportID {
         ESportID_Bsb, //!< Baseball
@@ -134,7 +134,7 @@ public:
     };
 
     /**
-     * \~english @brief Scene attributes
+     * @~english @brief Scene attributes
      */
     struct SceneAttr {
         //! Scene ID
@@ -155,97 +155,95 @@ public:
 
 public:
     /**
-     * \~english @brief Creates the specified scene
+     * @~english @brief Creates the specified scene
      *
-     * \~english @param id Scene ID
+     * @~english @param id Scene ID
      */
     virtual EGG::Scene* create(s32 id); // at 0x8
 
     /**
-     * \~english @brief Destroys the specified scene
+     * @~english @brief Destroys the specified scene
      *
-     * \~english @param id Scene ID
+     * @~english @param id Scene ID
      */
     virtual void destroy(s32 id); // at 0xC
 
     /**
-     * \~english @brief Requests a scene change after fading out
+     * @~english @brief Requests a scene change after fading out
      * @details A scene id of -1 will select the current scene.
      *
-     * \~english @param id New scene ID
-     * \~english @param reconfigure Whether to fully reconfigure the scene
-     * \~english @return Success
+     * @~english @param id New scene ID
+     * @~english @return Success
      */
-    bool changeSceneAfterFade(s32 id, bool reconfigure = false)
-        DECOMP_DONT_INLINE;
+    bool changeSceneAfterFade(s32 id) DECOMP_DONT_INLINE;
 
     /**
-     * \~english @brief Changes to the title scene
+     * @~english @brief Changes to the title scene
      *
-     * \~english @return Success
+     * @~english @return Success
      */
     bool changeSoftReset();
 
     /**
-     * \~english @brief Gets the specified scene's resource directory
+     * @~english @brief Gets the specified scene's resource directory
      * @details A scene id of -1 will select the current scene.
      *
-     * \~english @param id Scene ID
+     * @~english @param id Scene ID
      */
     const char* getResDirName(s32 id = -1);
 
     /**
-     * \~english @brief Gets the specified scene's sport ID
+     * @~english @brief Gets the specified scene's sport ID
      * @details A scene id of -1 will select the current scene.
      * \~ @note If no sport corresponds to the scene, this function returns -1.
      *
-     * \~english @param id Scene ID
+     * @~english @param id Scene ID
      */
     s32 getSportID(s32 id = -1);
 
     /**
-     * \~english @brief Gets the specified sport's scene ID
+     * @~english @brief Gets the specified sport's scene ID
      * \~ @note If no scene corresponds to the sport, this function returns -1.
      *
-     * \~english @param sport Sport ID
+     * @~english @param sport Sport ID
      */
     s32 getSceneID(ESportID sport);
 
     /**
-     * \~english @brief Gets the specified scene's creation type
+     * @~english @brief Gets the specified scene's creation type
      *
-     * \~english @param id Scene ID
+     * @~english @param id Scene ID
      */
     ECreateType getCreateType(s32 id);
 
     /**
-     * \~english @brief Gets the specified scene's exit type
+     * @~english @brief Gets the specified scene's exit type
      *
-     * \~english @param id Scene ID
+     * @~english @param id Scene ID
      */
     EExitType getExitType(s32 id);
 
     /**
-     * \~english @brief Gets the specified scene's audio type
+     * @~english @brief Gets the specified scene's audio type
      *
-     * \~english @param id Scene ID
+     * @~english @param id Scene ID
      */
     EAudioType getAudioType(s32 id);
 
 private:
     /**
-     * \~english @brief Gets the index of the specified scene's entry in the
+     * @~english @brief Gets the index of the specified scene's entry in the
      * table
      *
-     * \~english @param id Scene ID
-     * \~english @return Entry index, or -1 if not found
+     * @~english @param id Scene ID
+     * @~english @return Entry index, or -1 if not found
      */
     s32 getEntryIndex(ESceneID id);
 
     /**
-     * \~english @brief Creates the specified Health Pack scene
+     * @~english @brief Creates the specified Health Pack scene
      *
-     * \~english @param id Scene ID
+     * @~english @param id Scene ID
      */
     RPSysScene* createFitScene(s32 id) DECOMP_DONT_INLINE;
 

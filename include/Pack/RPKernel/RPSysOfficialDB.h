@@ -10,7 +10,7 @@
 //! @{
 
 /**
- * \~english @brief NAND Mii database accessor
+ * @~english @brief NAND Mii database accessor
  */
 class RPSysOfficialDB {
 private:
@@ -19,50 +19,50 @@ private:
 
 public:
     /**
-     * \~english @brief Constructor
+     * @~english @brief Constructor
      */
     RPSysOfficialDB();
 
     /**
-     * \~english @brief Destructor
+     * @~english @brief Destructor
      */
     virtual ~RPSysOfficialDB(); // at 0x8
 
     /**
-     * \~english @brief Finds the index holding the Mii with the specified
+     * @~english @brief Finds the index holding the Mii with the specified
      * create ID
      *
-     * \~english @param pCreateID Mii create ID
-     * \~english @return Database index, or -1 if not found
+     * @~english @param pCreateID Mii create ID
+     * @~english @return Database index, or -1 if not found
      */
     s16 GetIndexFromCreateID(const RFLCreateID* pCreateID);
 
     /**
-     * \~english @brief Resets the database to the latest states
+     * @~english @brief Resets the database to the latest states
      */
     void Reset();
 
     u16 GetOfficialDBValidNum();
 
     /**
-     * \~english @brief Gets the number of valid Miis in the database
+     * @~english @brief Gets the number of valid Miis in the database
      */
     u16 GetValidNum();
 
     /**
-     * \~english @brief Gets the state of the specified database index
+     * @~english @brief Gets the state of the specified database index
      *
-     * \~english @param index Database index
+     * @~english @param index Database index
      */
     RPSysKokeshiManager::OfficialDBState GetState(u16 index) {
         return mStates[index];
     }
 
     /**
-     * \~english @brief Sets the state of the specified database index
+     * @~english @brief Sets the state of the specified database index
      *
-     * \~english @param index Database index
-     * \~english @param state New state
+     * @~english @param index Database index
+     * @~english @param state New state
      */
     void SetState(u16 index, RPSysKokeshiManager::OfficialDBState state) {
         mStates[index] = state;

@@ -9,33 +9,33 @@
 //! @{
 
 /**
- * \~english @brief Sound utilities
+ * @~english @brief Sound utilities
  */
 class RPSndUtility {
 public:
     /**
-     * \~english @brief Sets the panning of the sound handle to match the DPD
+     * @~english @brief Sets the panning of the sound handle to match the DPD
      * position
      *
-     * \~english @param rHandle Sound handle
-     * \~english @param rDpdPos DPD position
-     * \~english @param scale Panning scale
-     * \~english @return Success
+     * @~english @param rHandle Sound handle
+     * @~english @param rDpdPos DPD position
+     * @~english @param scale Panning scale
+     * @~english @return Success
      */
     static bool setHandleDpdPan(nw4r::snd::SoundHandle& rHandle,
                                 const nw4r::math::VEC2& rDpdPos, f32 scale);
 
     /**
-     * \~english @brief Gets the active sound archive player
+     * @~english @brief Gets the active sound archive player
      */
     static nw4r::snd::SoundArchivePlayer* getPlayer() {
         return spSoundArchivePlayer;
     }
 
     /**
-     * \~english @brief Sets the active sound archive player
+     * @~english @brief Sets the active sound archive player
      *
-     * \~english @param pPlayer Sound archive player
+     * @~english @param pPlayer Sound archive player
      */
     static void setPlayer(nw4r::snd::SoundArchivePlayer* pPlayer) {
         spSoundArchivePlayer = pPlayer;

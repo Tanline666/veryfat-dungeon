@@ -59,6 +59,10 @@ void AIStartDMA(void) {
     DSP_HW_REGS[DSP_AI_DMA_CSR] |= DSP_AI_DMA_CSR_PLAY;
 }
 
+BOOL AICheckInit(void) {
+    return __AI_init_flag;
+}
+
 u32 AIGetDMABytesLeft(void) {
     return (DSP_HW_REGS[DSP_AI_DMA_BYTES_LEFT] & 0x7FFF) * 32;
 }

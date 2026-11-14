@@ -130,8 +130,8 @@ struct InstInfo {
 };
 
 /**
- * \~english @brief Class for reading BankFile objects.
- * \~japanese @brief BankFileオブジェクトを読み込むためのクラス。
+ * @~english @brief Class for reading BankFile objects.
+ * @~japanese @brief BankFileオブジェクトを読み込むためのクラス。
  */
 class BankFileReader {
 public:

@@ -8,12 +8,12 @@
 //! @{
 
 /**
- * \~english @brief Model material miscellaneous settings
+ * @~english @brief Model material miscellaneous settings
  */
 class RPGrpModelMisc : public EGG::IBinary<RPGrpModelMisc> {
 public:
     /**
-     * \~english @brief Material target
+     * @~english @brief Material target
      */
     struct MatTarget {
         char name[32]; // at 0x0
@@ -22,7 +22,7 @@ public:
     };
 
     /**
-     * \~english @brief Main binary file structure
+     * @~english @brief Main binary file structure
      */
     struct BinData {
         u16 targetNum;       // at 0x10
@@ -30,30 +30,30 @@ public:
     };
 
     /**
-     * \~english @brief Deserializes this object from a binary file
+     * @~english @brief Deserializes this object from a binary file
      *
-     * \~english @param rBinary Binary file contents
+     * @~english @param rBinary Binary file contents
      */
     virtual void SetBinaryInner(const Bin& /* rBinary */) override { // at 0x8
         // Stubbed out in revision 1
     }
 
     /**
-     * \~english @brief Serializes this object to a binary file
+     * @~english @brief Serializes this object to a binary file
      *
-     * \~english @param[out] pBinary Binary file contents
+     * @~english @param[out] pBinary Binary file contents
      */
     virtual void GetBinaryInner(Bin* /* pBinary */) const override { // at 0xC
         // Stubbed out in revision 1
     }
 
     /**
-     * \~english @brief Gets the binary signature of this object
+     * @~english @brief Gets the binary signature of this object
      */
     virtual const char* GetBinaryType() const override;
 
     /**
-     * \~english @brief Gets the binary version of this object
+     * @~english @brief Gets the binary version of this object
      */
     virtual u8 GetVersion() const override {
         return VERSION;

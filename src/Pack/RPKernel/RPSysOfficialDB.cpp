@@ -3,7 +3,7 @@
 #include <RVLFaceLib.h>
 
 /**
- * \~english @brief Constructor
+ * @~english @brief Constructor
  */
 RPSysOfficialDB::RPSysOfficialDB() {
     for (u16 i = 0; i < ARRAY_SIZE(mStates); i++) {
@@ -12,15 +12,15 @@ RPSysOfficialDB::RPSysOfficialDB() {
 }
 
 /**
- * \~english @brief Destructor
+ * @~english @brief Destructor
  */
 RPSysOfficialDB::~RPSysOfficialDB() {}
 
 /**
- * \~english @brief Finds the index holding the Mii with the specified create ID
+ * @~english @brief Finds the index holding the Mii with the specified create ID
  *
- * \~english @param pCreateID Mii create ID
- * \~english @return Database index, or -1 if not found
+ * @~english @param pCreateID Mii create ID
+ * @~english @return Database index, or -1 if not found
  */
 s16 RPSysOfficialDB::GetIndexFromCreateID(const RFLCreateID* pCreateID) {
     u16 index = 0;
@@ -32,7 +32,7 @@ s16 RPSysOfficialDB::GetIndexFromCreateID(const RFLCreateID* pCreateID) {
 }
 
 /**
- * \~english @brief Resets the database to the latest states
+ * @~english @brief Resets the database to the latest states
  */
 void RPSysOfficialDB::Reset() {
     for (u16 i = 0; i < ARRAY_SIZE(mStates); i++) {
@@ -49,7 +49,7 @@ u16 RPSysOfficialDB::GetOfficialDBValidNum() {
 }
 
 /**
- * \~english @brief Gets the number of valid Miis in the database
+ * @~english @brief Gets the number of valid Miis in the database
  */
 u16 RPSysOfficialDB::GetValidNum() {
     u16 num = 0;

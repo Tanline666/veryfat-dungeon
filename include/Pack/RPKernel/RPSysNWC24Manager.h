@@ -11,7 +11,7 @@
 class RPSysAvatar;
 
 /**
- * \~english @brief WiiConnect24 library manager
+ * @~english @brief WiiConnect24 library manager
  */
 class RPSysNWC24Manager {
 protected:
@@ -22,34 +22,34 @@ protected:
 
 public:
     /**
-     * \~english @brief Suspends the WiiConnect24 scheduler so the library can
+     * @~english @brief Suspends the WiiConnect24 scheduler so the library can
      * be opened
      */
     static void initialize();
 
     /**
-     * \~english @brief Constructor
+     * @~english @brief Constructor
      *
-     * \~english @param pHeap Heap to use for allocations
+     * @~english @param pHeap Heap to use for allocations
      */
     explicit RPSysNWC24Manager(EGG::Heap* pHeap);
 
     /**
-     * \~english @brief Destructor
+     * @~english @brief Destructor
      */
     virtual ~RPSysNWC24Manager(); // at 0x8
 
     /**
-     * \~english @brief Attempts to commit a message to the Wii Message Board
+     * @~english @brief Attempts to commit a message to the Wii Message Board
      *
-     * \~english @param pWork Library work buffer
-     * \~english @param pAltName Mail letter alt name
-     * \~english @param pMsg Mail letter message (can be a format string)
-     * \~english @param date Mail letter send date
-     * \~english @param pAvatar Mii avatar to include
-     * \~english @param argc Number of message format arguments
-     * \~english @param argv Message format arguments
-     * \~english @return Success
+     * @~english @param pWork Library work buffer
+     * @~english @param pAltName Mail letter alt name
+     * @~english @param pMsg Mail letter message (can be a format string)
+     * @~english @param date Mail letter send date
+     * @~english @param pAvatar Mii avatar to include
+     * @~english @param argc Number of message format arguments
+     * @~english @param argv Message format arguments
+     * @~english @return Success
      */
     bool commitMail(const wchar_t* pAltName, const wchar_t* pMsg, RPTime16 date,
                     const RPSysAvatar* pAvatar, int argc, va_list argv);
@@ -60,14 +60,14 @@ private:
 
 private:
     /**
-     * \~english @brief Attempts to open the WiiConnect24 library for use
+     * @~english @brief Attempts to open the WiiConnect24 library for use
      *
-     * \~english @return Success
+     * @~english @return Success
      */
     bool openLib() DECOMP_DONT_INLINE;
 
     /**
-     * \~english @brief Closes the WiiConnect24 library
+     * @~english @brief Closes the WiiConnect24 library
      */
     void closeLib();
 

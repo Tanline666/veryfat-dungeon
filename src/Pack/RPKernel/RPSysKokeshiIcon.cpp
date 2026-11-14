@@ -10,7 +10,7 @@
 #include <revolution/MTX.h>
 
 /**
- * \~english @brief Lightmap texture file names
+ * @~english @brief Lightmap texture file names
  */
 const char* RPSysKokeshiIcon::LIGHT_TEXTURE_FILE_NAMES[ELightMap_Max] = {
     "lm_0.bti",
@@ -18,9 +18,9 @@ const char* RPSysKokeshiIcon::LIGHT_TEXTURE_FILE_NAMES[ELightMap_Max] = {
 };
 
 /**
- * \~english @brief Constructor
+ * @~english @brief Constructor
  *
- * \~english @param pGenInfo Mii generation parameters
+ * @~english @param pGenInfo Mii generation parameters
  */
 RPSysKokeshiIcon::RPSysKokeshiIcon(const RPSysKokeshiGenInfo* pGenInfo)
     : RPSysAvatar(pGenInfo) {
@@ -29,14 +29,14 @@ RPSysKokeshiIcon::RPSysKokeshiIcon(const RPSysKokeshiGenInfo* pGenInfo)
 }
 
 /**
- * \~english @brief Destructor
+ * @~english @brief Destructor
  */
 RPSysKokeshiIcon::~RPSysKokeshiIcon() {}
 
 /**
- * \~english @brief Loads the assets necessary for this avatar
+ * @~english @brief Loads the assets necessary for this avatar
  *
- * \~english @param pOverloadInfo Overload parameters
+ * @~english @param pOverloadInfo Overload parameters
  */
 void RPSysKokeshiIcon::LoadResource(
     const RPSysKokeshiOverloadInfo* pOverloadInfo) {
@@ -45,9 +45,9 @@ void RPSysKokeshiIcon::LoadResource(
 }
 
 /**
- * \~english @brief Configures a model for use with icon rendering
+ * @~english @brief Configures a model for use with icon rendering
  *
- * \~english @param pModel Mii model
+ * @~english @param pModel Mii model
  */
 void RPSysKokeshiIcon::SetupModel(RPGrpModel* pModel) {
     RPSysResourceManager* pResourceManager =
@@ -80,11 +80,11 @@ void RPSysKokeshiIcon::SetupModel(RPGrpModel* pModel) {
 }
 
 /**
- * \~english @brief Creates a cap texture for icon rendering
+ * @~english @brief Creates a cap texture for icon rendering
  *
- * \~english @param width Texture width
- * \~english @param height Texture height
- * \~english @param format Texture format
+ * @~english @param width Texture width
+ * @~english @param height Texture height
+ * @~english @param format Texture format
  */
 void RPSysKokeshiIcon::InitCapTexture(u16 width, u16 height, GXTexFmt format) {
     mpCapTexture = new EGG::CapTexture(width, height, format);
@@ -98,26 +98,26 @@ void RPSysKokeshiIcon::InitCapTexture(u16 width, u16 height, GXTexFmt format) {
 }
 
 /**
- * \~english @brief Gets the texture created for this icon
+ * @~english @brief Gets the texture created for this icon
  */
 EGG::ResTIMG* RPSysKokeshiIcon::GetResTIMG() {
     return mpCapTexture->getResTIMG();
 }
 
 /**
- * \~english @brief Applies all lightmap textures to this avatar
+ * @~english @brief Applies all lightmap textures to this avatar
  *
- * \~english @param drawScene Draw scene index
+ * @~english @param drawScene Draw scene index
  */
 void RPSysKokeshiIcon::ApplyLightTexture(u8 /* drawScene */) {}
 
 /**
- * \~english @brief Configures a NW4R camera to capture view this icon's model
+ * @~english @brief Configures a NW4R camera to capture view this icon's model
  *
- * \~english @param cam G3D camera
- * \~english @param width Texture width
- * \~english @param height Texture heigth
- * \~english @param view Icon viewpoint
+ * @~english @param cam G3D camera
+ * @~english @param width Texture width
+ * @~english @param height Texture heigth
+ * @~english @param view Icon viewpoint
  */
 void RPSysKokeshiIcon::SetupCamera(nw4r::g3d::Camera cam, u16 width, u16 height,
                                    RPSysKokeshiManager::IconView view) {
@@ -181,7 +181,7 @@ void RPSysKokeshiIcon::SetupCamera(nw4r::g3d::Camera cam, u16 width, u16 height,
 }
 
 /**
- * \~english @brief Prepares the GP rendering state
+ * @~english @brief Prepares the GP rendering state
  */
 void RPSysKokeshiIcon::BeginMakeTexture() const {
     GXSetAlphaCompare(GX_GREATER, 0, GX_AOP_OR, GX_NEVER, 0);
@@ -201,17 +201,17 @@ void RPSysKokeshiIcon::BeginMakeTexture() const {
 }
 
 /**
- * \~english @brief Renders this icon and captures it to a texture
+ * @~english @brief Renders this icon and captures it to a texture
  *
- * \~english @param pModel Mii model
- * \~english @param rLocation Mii storage location
- * \~english @param pAllocator Memory allocator
- * \~english @param width Texture width
- * \~english @param height Texture height
- * \~english @param format Texture format
- * \~english @param bgType Background color type
- * \~english @param bgColor Background color (for RFLIconBG_Direct)
- * \~english @param view Icon viewpoint
+ * @~english @param pModel Mii model
+ * @~english @param rLocation Mii storage location
+ * @~english @param pAllocator Memory allocator
+ * @~english @param width Texture width
+ * @~english @param height Texture height
+ * @~english @param format Texture format
+ * @~english @param bgType Background color type
+ * @~english @param bgColor Background color (for RFLIconBG_Direct)
+ * @~english @param view Icon viewpoint
  */
 void RPSysKokeshiIcon::MakeTexture(RPGrpModel* pModel,
                                    const RPSysKokeshiLocation& rLocation,
@@ -277,14 +277,14 @@ void RPSysKokeshiIcon::MakeTexture(RPGrpModel* pModel,
 }
 
 /**
- * \~english @brief Finalizes the GP rendering state
+ * @~english @brief Finalizes the GP rendering state
  */
 void RPSysKokeshiIcon::EndMakeTexture() const {
     GXDrawDone();
 }
 
 /**
- * \~english @brief Renders an outline in the icon around the Mii's face
+ * @~english @brief Renders an outline in the icon around the Mii's face
  */
 void RPSysKokeshiIcon::MakeEdge() {
     nw4r::math::MTX34 proj;
@@ -557,14 +557,14 @@ void RPSysKokeshiIcon::MakeEdge() {
 }
 
 /**
- * \~english @brief Applies the background color to the icon texture
+ * @~english @brief Applies the background color to the icon texture
  *
- * \~english @param rLocation Mii storage location
- * \~english @param width Texture width
- * \~english @param height Texture height
- * \~english @param format Texture format
- * \~english @param bgType Background color type
- * \~english @param bgColor Background color (for RFLIconBG_Direct)
+ * @~english @param rLocation Mii storage location
+ * @~english @param width Texture width
+ * @~english @param height Texture height
+ * @~english @param format Texture format
+ * @~english @param bgType Background color type
+ * @~english @param bgColor Background color (for RFLIconBG_Direct)
  */
 void RPSysKokeshiIcon::ModifyBgColor(const RPSysKokeshiLocation& rLocation,
                                      u16 width, u16 height, GXTexFmt format,
@@ -609,7 +609,7 @@ void RPSysKokeshiIcon::ModifyBgColor(const RPSysKokeshiLocation& rLocation,
 }
 
 /**
- * \~english @brief Handles post-constructor initialization
+ * @~english @brief Handles post-constructor initialization
  */
 void RPSysKokeshiIcon::Construct() {
     RPSysAvatar::Construct();

@@ -3,7 +3,7 @@
 #include <revolution/OS.h>
 
 /**
- * \~english @brief Constructor
+ * @~english @brief Constructor
  */
 RPSysSaveData::RPSysSaveData()
     : mpSportsSystemData(NULL),
@@ -29,7 +29,7 @@ RPSysSaveData::RPSysSaveData()
 }
 
 /**
- * \~english @brief Resets the save data state
+ * @~english @brief Resets the save data state
  */
 void RPSysSaveData::reset() {
 #if defined(PACK_SPORTS)
@@ -48,7 +48,7 @@ void RPSysSaveData::reset() {
 }
 
 /**
- * \~english @brief Tests whether an error occurred while reading the save file
+ * @~english @brief Tests whether an error occurred while reading the save file
  * @typo
  */
 bool RPSysSaveData::isErrorOccured() const {
@@ -56,10 +56,10 @@ bool RPSysSaveData::isErrorOccured() const {
 }
 
 /**
- * \~english @brief Deserializes this object from the specified stream
+ * @~english @brief Deserializes this object from the specified stream
  *
- * \~english @param rStrm Memory stream
- * \~english @param pRawSave Raw save data
+ * @~english @param rStrm Memory stream
+ * @~english @param pRawSave Raw save data
  */
 void RPSysSaveData::read(EGG::RamStream& rStrm, const void* pRawSave) {
     mFlags.makeAllZero();
@@ -94,7 +94,7 @@ void RPSysSaveData::read(EGG::RamStream& rStrm, const void* pRawSave) {
 }
 
 /**
- * \~english @brief Gets the size of the current pack's save file, in bytes
+ * @~english @brief Gets the size of the current pack's save file, in bytes
  */
 u32 RPSysSaveData::getSaveFileSize() {
 #if defined(PACK_SPORTS)
@@ -105,11 +105,11 @@ u32 RPSysSaveData::getSaveFileSize() {
 }
 
 /**
- * \~english @brief Calculates a checksum of the specified data
+ * @~english @brief Calculates a checksum of the specified data
  *
- * \~english @param pData Data buffer
- * \~english @param size Buffer size
- * \~english @return 32-bit checksum
+ * @~english @param pData Data buffer
+ * @~english @param size Buffer size
+ * @~english @return 32-bit checksum
  */
 u32 RPSysSaveData::calcCrc(const void* pData, u32 size) {
     u16 sum = 0;

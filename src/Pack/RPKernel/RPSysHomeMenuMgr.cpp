@@ -29,13 +29,13 @@ RP_SINGLETON_IMPL_EX(RPSysHomeMenuMgr);
 #define BANICON_SIZE 28.0f
 
 /**
- * \~english @brief Constructor
+ * @~english @brief Constructor
  */
 RPSysHomeMenuMgr::BanIcon::BanIcon()
     : mpTexture(NULL), mState(EState_Hide), mTimer(0), mAlpha(0) {}
 
 /**
- * \~english @brief Updates this icon's state
+ * @~english @brief Updates this icon's state
  */
 void RPSysHomeMenuMgr::BanIcon::calc() {
     switch (mState) {
@@ -76,7 +76,7 @@ void RPSysHomeMenuMgr::BanIcon::calc() {
 }
 
 /**
- * \~english @brief Renders this icon's state
+ * @~english @brief Renders this icon's state
  */
 void RPSysHomeMenuMgr::BanIcon::draw() {
     GXColor color;
@@ -122,21 +122,21 @@ void RPSysHomeMenuMgr::BanIcon::draw() {
  ******************************************************************************/
 
 /**
- * \~english @brief HOME Menu sound archive manager
+ * @~english @brief HOME Menu sound archive manager
  */
 RPSndHomeMenuArcMgr* RPSysHomeMenuMgr::spHomeMenuArcMgr = NULL;
 
 /**
- * \~english @brief Sound archive heap size
+ * @~english @brief Sound archive heap size
  */
 u32 RPSysHomeMenuMgr::sSoundHeapSize = 0x7D000;
 
 /**
- * \~english @brief HBM library sound callback
+ * @~english @brief HBM library sound callback
  *
- * \~english @param event HBM event
- * \~english @param arg Event argument
- * \~english @return Whether this callback handled the playback for HBM
+ * @~english @param event HBM event
+ * @~english @param arg Event argument
+ * @~english @return Whether this callback handled the playback for HBM
  */
 BOOL RPSysHomeMenuMgr::soundCallback(int event, int arg) {
     switch (event) {
@@ -152,9 +152,9 @@ BOOL RPSysHomeMenuMgr::soundCallback(int event, int arg) {
 }
 
 /**
- * \~english @brief Constructor
+ * @~english @brief Constructor
  *
- * \~english @param pHeap Parent heap
+ * @~english @param pHeap Parent heap
  */
 RPSysHomeMenuMgr::RPSysHomeMenuMgr(EGG::Heap* pHeap) : mpParentHeap(pHeap) {
     mIsInitialized = false;
@@ -196,12 +196,12 @@ RPSysHomeMenuMgr::RPSysHomeMenuMgr(EGG::Heap* pHeap) : mpParentHeap(pHeap) {
 }
 
 /**
- * \~english @brief Destructor
+ * @~english @brief Destructor
  */
 RPSysHomeMenuMgr::~RPSysHomeMenuMgr() {}
 
 /**
- * \~english @brief Initializes this manager's state
+ * @~english @brief Initializes this manager's state
  */
 void RPSysHomeMenuMgr::init() {
     mIsDisabled = false;
@@ -218,7 +218,7 @@ void RPSysHomeMenuMgr::init() {
 }
 
 /**
- * \~english @brief Initializes the HBM library
+ * @~english @brief Initializes the HBM library
  */
 void RPSysHomeMenuMgr::initHomeButtonInfo() {
     // TODO(kiwi) Inline?
@@ -337,7 +337,7 @@ void RPSysHomeMenuMgr::initHomeButtonInfo() {
 }
 
 /**
- * \~english @brief Checks whether the HOME Menu should be opened
+ * @~english @brief Checks whether the HOME Menu should be opened
  */
 void RPSysHomeMenuMgr::checkMenuStart() {
     bool pressedBtn = false;
@@ -384,7 +384,7 @@ void RPSysHomeMenuMgr::checkMenuStart() {
 }
 
 /**
- * \~english @brief Checks whether the HOME Menu should be closed
+ * @~english @brief Checks whether the HOME Menu should be closed
  */
 void RPSysHomeMenuMgr::checkMenuEnd() {
     mIsVisible = true;
@@ -445,9 +445,9 @@ void RPSysHomeMenuMgr::checkMenuEnd() {
 }
 
 /**
- * \~english @brief Performs a soft reset
+ * @~english @brief Performs a soft reset
  *
- * \~english @return Whether HBM will perform the reset
+ * @~english @return Whether HBM will perform the reset
  */
 bool RPSysHomeMenuMgr::softReset() {
     if (mIsActive && !mIsSoftReset) {
@@ -460,7 +460,7 @@ bool RPSysHomeMenuMgr::softReset() {
 }
 
 /**
- * \~english @brief Updates this manager's state
+ * @~english @brief Updates this manager's state
  */
 void RPSysHomeMenuMgr::update() {
     f32 current = RPGrpScreen::GetSizeXMax();
@@ -569,7 +569,7 @@ void RPSysHomeMenuMgr::update() {
 }
 
 /**
- * \~english @brief Renders the HOME Menu if it is visible
+ * @~english @brief Renders the HOME Menu if it is visible
  */
 void RPSysHomeMenuMgr::draw() {
     if (!mIsInitialized) {
@@ -582,7 +582,7 @@ void RPSysHomeMenuMgr::draw() {
 }
 
 /**
- * \~english @brief Renders the ban icon if it is visible
+ * @~english @brief Renders the ban icon if it is visible
  */
 void RPSysHomeMenuMgr::drawBanIcon() {
     if (!mIsInitialized) {

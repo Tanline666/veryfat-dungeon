@@ -2,6 +2,8 @@
 #define EGG_CORE_SYSTEM_H
 #include <egg/types_egg.h>
 
+#include <revolution/GX.h>
+
 namespace EGG {
 
 // Forward declarations
@@ -15,8 +17,10 @@ class XfbManager;
 
 class ConfigurationData {
 public:
-    explicit ConfigurationData(u32 systemHeapSize)
-        : mSystemHeapSize(systemHeapSize) {}
+    explicit ConfigurationData()
+        : mSystemHeapSize(0x177000),
+          mGraphicsFifoSize(0x80000),
+          mRenderMode(NULL) {}
 
     virtual Video* getVideo() = 0;              // at 0x8
     virtual Heap* getSystemHeap() = 0;          // at 0xC
@@ -42,21 +46,21 @@ public:
     }
 
 private:
-    void* mMem1Start;     // at 0x4
-    void* mMem1End;       // at 0x8
-    void* mMem2Start;     // at 0xC
-    void* mMem2End;       // at 0x10
-    u32 mMemorySize;      // at 0x14
-    Heap* mRootHeapMem1;  // at 0x18
-    Heap* mRootHeapMem2;  // at 0x1C
-    Heap* mRootHeapDebug; // at 0x20
-
-protected:
+    void* mMem1Start;      // at 0x4
+    void* mMem1End;        // at 0x8
+    void* mMem2Start;      // at 0xC
+    void* mMem2End;        // at 0x10
+    u32 mMemorySize;       // at 0x14
+    Heap* mRootHeapMem1;   // at 0x18
+    Heap* mRootHeapMem2;   // at 0x1C
+    Heap* mRootHeapDebug;  // at 0x20
     Heap* mSystemHeap;     // at 0x24
     Thread* mParentThread; // at 0x28
     void* mCodeStart;      // at 0x2C
     void* mCodeEnd;        // at 0x30
     u32 mSystemHeapSize;   // at 0x34
+    u32 mGraphicsFifoSize;
+    GXRenderModeObj* mRenderMode;
 };
 
 class BaseSystem {

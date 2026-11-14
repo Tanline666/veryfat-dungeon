@@ -63,7 +63,7 @@ void DvdSoundArchive::Close() {
     Shutdown();
 }
 
-ut::FileStream* DvdSoundArchive::OpenStream(void* pBuffer, int size, u32 offset,
+ut::FileStream* DvdSoundArchive::OpenStream(void* buffer, int size, u32 begin,
                                             u32 length) const {
     if (!mOpen) {
         return NULL;
@@ -73,7 +73,7 @@ ut::FileStream* DvdSoundArchive::OpenStream(void* pBuffer, int size, u32 offset,
         return NULL;
     }
 
-    return new (pBuffer) DvdFileStream(&mFileInfo, offset, length);
+    return new (buffer) DvdFileStream(&mFileInfo, begin, length);
 }
 
 ut::FileStream* DvdSoundArchive::OpenExtStream(void* pBuffer, int size,
@@ -158,22 +158,20 @@ bool DvdSoundArchive::LoadLabelStringData(void* pBuffer, u32 size) {
     return TRUE;
 }
 
-DvdSoundArchive::DvdFileStream::DvdFileStream(const DVDFileInfo* pFileInfo,
-                                              u32 offset, u32 size)
-    : DvdLockedFileStream(pFileInfo, FALSE), mOffset(offset), mSize(size) {
-    if (mSize == 0) {
-        mSize = ut::DvdFileStream::GetSize();
-    }
+DvdSoundArchive::DvdFileStream::DvdFileStream(s32 entrynum, u32 offset,
+                                              u32 size)
+    : DvdLockedFileStream(entrynum), mOffset(offset), mSize(size) {
+
+    NW4R_ASSERT(mSize <= ut::DvdLockedFileStream::GetSize(), 325);
 
     ut::DvdFileStream::Seek(mOffset, SEEK_ORIGIN_BEG);
 }
 
-DvdSoundArchive::DvdFileStream::DvdFileStream(s32 entrynum, u32 offset,
-                                              u32 size)
-    : DvdLockedFileStream(entrynum), mOffset(offset), mSize(size) {
-    if (mSize == 0) {
-        mSize = ut::DvdFileStream::GetSize();
-    }
+DvdSoundArchive::DvdFileStream::DvdFileStream(const DVDFileInfo* pFileInfo,
+                                              u32 offset, u32 size)
+    : DvdLockedFileStream(pFileInfo, FALSE), mOffset(offset), mSize(size) {
+
+    NW4R_ASSERT(mSize <= ut::DvdLockedFileStream::GetSize(), 335);
 
     ut::DvdFileStream::Seek(mOffset, SEEK_ORIGIN_BEG);
 }

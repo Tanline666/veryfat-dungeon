@@ -17,8 +17,8 @@ struct EmitterInheritSetting;
 struct TextureData;
 
 /**
- * \~english @brief ParticleParameter resources.
- * \~japanese @brief ParticleParameterのリソース。
+ * @~english @brief ParticleParameter resources.
+ * @~japanese @brief ParticleParameterのリソース。
  */
 struct ParticleParameterDesc {
     GXColor mColor[COLOR_LAYER_MAX][COLOR_IDX_MAX]; // at 0x0
@@ -39,8 +39,8 @@ struct ParticleParameterDesc {
 };
 
 /**
- * \~english @brief Parameters for the Particle class.
- * \~japanese @brief Particleクラスのパラメータ。
+ * @~english @brief Parameters for the Particle class.
+ * @~japanese @brief Particleクラスのパラメータ。
  */
 class ParticleParameter {
 public:
@@ -69,8 +69,8 @@ public:
 };
 
 /**
- * \~english @brief Class that represents a single particle.
- * \~japanese @brief 1つのパーティクル（粒子）を表現するクラス。
+ * @~english @brief Class that represents a single particle.
+ * @~japanese @brief 1つのパーティクル（粒子）を表現するクラス。
  */
 class Particle : public ReferencedObject {
     friend class ParticleManager;
@@ -87,13 +87,13 @@ public:
 
 public:
     /**
-     * \~english @brief Constructor
-     * \~japanese @brief コンストラクタ
+     * @~english @brief Constructor
+     * @~japanese @brief コンストラクタ
      */
     Particle();
     /**
-     * \~english @brief Destructor
-     * \~japanese @brief デストラクタ
+     * @~english @brief Destructor
+     * @~japanese @brief デストラクタ
      */
     ~Particle();
 

@@ -16,7 +16,7 @@
 //! @{
 
 /**
- * \~english @brief Pack Project configuration data. Derives from
+ * @~english @brief Pack Project configuration data. Derives from
  * EGG::ConfigurationData.
  */
 
@@ -76,206 +76,210 @@ protected:
 };
 
 /**
- * \~english @brief Pack Project engine system
+ * @~english @brief Pack Project engine system
  */
 class RPSysSystem {
     friend class RPSysConfigData;
 
 public:
     /**
-     * \~english @brief Gets this class's singleton instance.
-     * \~japanese @brief このクラスのSingletonインスタンスを取得する。
+     * @~english @brief Gets this class's singleton instance.
+     * @~japanese @brief このクラスのSingletonインスタンスを取得する。
      */
     static RPSysSystem* instance() {
         return spInstance;
     }
 
     /**
-     * \~english @brief Auto-detects the screen's aspect ratio.
-     * \~japanese @brief 画面のアスペクト比を自動検出する。
+     * @~english @brief Auto-detects the screen's aspect ratio.
+     * @~japanese @brief 画面のアスペクト比を自動検出する。
      */
     static void setupTVMode();
     /**
-     * \~english @brief Auto-detects the render mode and progressive setting.
-     * \~japanese @brief
+     * @~english @brief Auto-detects the render mode and progressive setting.
+     * @~japanese @brief
      * レンダーモードとプログレッシブモードの設定を自動検出する。
      */
     static void setupRenderMode();
 
     /**
-     * \~english @brief Initializes the RP engine and its core components.
-     * \~japanese @brief RPエンジンとの核心部分の初期化を行う。
+     * @~english @brief Initializes the RP engine and its core components.
+     * @~japanese @brief RPエンジンとの核心部分の初期化を行う。
      */
     static void initialize();
 
     /**
-     * \~english @brief Creates this class's singleton instance.
-     * \~japanese @brief このクラスのSingletonインスタンスを作成する。
+     * @~english @brief Creates this class's singleton instance.
+     * @~japanese @brief このクラスのSingletonインスタンスを作成する。
      */
     static void create();
 
     /**
-     * \~english @brief Gets the width of the frame buffer in pixels.
-     * \~japanese @brief ピクセル単位でフレームバッファの幅を取得する。
+     * @~english @brief Gets the width of the frame buffer in pixels.
+     * @~japanese @brief ピクセル単位でのフレームバッファの幅を取得する。
      */
     u16 getFBWidth() const;
     /**
-     * \~english @brief Gets the height of the frame buffer in pixels.
-     * \~japanese @brief ピクセル単位でフレームバッファの高さを取得する。
+     * @~english @brief Gets the height of the frame buffer in pixels.
+     * @~japanese @brief ピクセル単位でのフレームバッファの高さを取得する。
      */
     u16 getFBHeight() const;
 
     /**
-     * \~english @brief Loads the build timestamp from the disc.
-     * \~japanese @brief ディスクからビルドタイムスタンプを読み込む。
+     * @~english @brief Loads the build timestamp from the disc.
+     * @~japanese @brief ディスクからビルドタイムスタンプを読み込む。
      */
     void createTimeStamp();
     /**
-     * \~english @brief Creates a work buffer for the effect manager
+     * @~english @brief Creates a work buffer for the effect manager
      */
     void createEffectWork();
     /**
-     * \~english @brief Creates the engine's core components using the system
+     * @~english @brief Creates the engine's core components using the system
      * heap.
-     * \~japanese @brief システムヒープでエンジンの核心部分を作成する。
+     * @~japanese @brief システムヒープでエンジンの核心部分を作成する。
      */
     void createFromSystemHeap();
 
     /**
-     * \~english @brief Prepares the engine for the first frame
+     * @~english @brief Prepares the engine for the first frame
      */
     void setup();
     /**
-     * \~english @brief Enters the engine's main loop.
-     * \~japanese @brief エンジンのメインループに入る。
+     * @~english @brief Enters the engine's main loop.
+     * @~japanese @brief エンジンのメインループに入る。
      */
     void mainLoop();
 
     /**
-     * \~english @brief Gets the ID of the boot scene
+     * @~english @brief Gets the ID of the boot scene
      */
     RPSysSceneCreator::ESceneID getBootScene();
 
     EGG::Heap* getCurrentHeap();
 
     /**
-     * \~english @brief Gets the current clock time represented as a 32-bit
+     * @~english @brief Gets the current clock time represented as a 32-bit
      * calendar time
      */
     RPTime32 getCalendarTime32();
     /**
-     * \~english @brief Gets the current clock time represented as a 16-bit
+     * @~english @brief Gets the current clock time represented as a 16-bit
      * calendar time
      */
     RPTime16 getCalendarTime16();
 
     /**
-     * \~english @brief Splits the 32-bit calendar time into parts.
-     * \~japanese @brief 32ビット型の暦時間を分ける。
-     * \~english @note If no input time is specified, this function operates on
+     * @~english @brief Splits the 32-bit calendar time into parts.
+     * @~japanese @brief 32ビット型の暦時間を分ける。
+     * @~english @note If no input time is specified, this function operates on
      * the current clock time.
-     * \~japanese @note 入力時間が指定しない場合は、関数が現在の時間を使う。
+     * @~japanese @note 入力時間が指定しない場合は、関数が現在の時間を使う。
      *
-     * \~english @param pTime32 Input time
-     * \~japanese @param pTime32 入力時間
-     * \~english @param rWDay Day of the week
-     * \~japanese @param rWDay 曜日
-     * \~english @param rYear Year
-     * \~japanese @param rYear 年
-     * \~english @param rMon Month (one-indexed)
-     * \~japanese @param rMon 月間 (1オリジン)
-     * \~english @param rMDay Day of the month
-     * \~japanese @param rMDay 月間の一日
-     * \~english @param rHour Hour
-     * \~japanese @param rHour 時間
+     * @~english @param pTime32 Input time
+     * @~japanese @param pTime32 入力時間
+     * @~english @param rWDay Day of the week
+     * @~japanese @param rWDay 曜日
+     * @~english @param rYear Year
+     * @~japanese @param rYear 年
+     * @~english @param rMon Month (one-indexed)
+     * @~japanese @param rMon 月間 (1オリジン)
+     * @~english @param rMDay Day of the month
+     * @~japanese @param rMDay 月間の一日
+     * @~english @param rHour Hour
+     * @~japanese @param rHour 時間
      */
     void getCalendarTime(const RPTime32* pTime32, u32& rWDay, u32& rYear,
                          u32& rMon, u32& rMDay, u32& rHour);
 
     /**
-     * \~english @brief Splits the 16-bit calendar time into parts.
-     * \~japanese @brief 16ビット型の暦時間を分ける。
-     * \~english @note If no input time is specified, this function operates on
+     * @~english @brief Splits the 16-bit calendar time into parts.
+     * @~japanese @brief 16ビット型の暦時間を分ける。
+     * @~english @note If no input time is specified, this function operates on
      * the current clock time.
-     * \~japanese @note 入力時間が指定しない場合は、関数が現在の時間を使う。
+     * @~japanese @note 入力時間が指定しない場合は、関数が現在の時間を使う。
      *
-     * \~english @param pTime16 Input time
-     * \~japanese @param pTime16 入力時間
-     * \~english @param rYear Year
-     * \~japanese @param rYear 年
-     * \~english @param rMon Month (one-indexed)
-     * \~japanese @param rMon 月間 (1オリジン)
-     * \~english @param rMDay Day of the month
-     * \~japanese @param rMDay 月間の一日
+     * @~english @param pTime16 Input time
+     * @~japanese @param pTime16 入力時間
+     * @~english @param rYear Year
+     * @~japanese @param rYear 年
+     * @~english @param rMon Month (one-indexed)
+     * @~japanese @param rMon 月間 (1オリジン)
+     * @~english @param rMDay Day of the month
+     * @~japanese @param rMDay 月間の一日
      */
     void getCalendarTime(const RPTime16* pTime16, u32& rYear, u32& rMon,
                          u32& rMDay);
 
     /**
-     * \~english @brief Shuts down the engine and exits the application
-     * \~english @details Depending on the instructions from the scene manager,
+     * @~english @brief Shuts down the engine and exits the application
+     * @~english @details Depending on the instructions from the scene manager,
      * this will either exit to the system menu or shutdown the console.
      */
     void systemShutDown();
 
     /**
-     * \~english @brief Updates the system state while loading resources.
-     * \~japanese @brief リソースを読み込む時にシステム状態を更新する。
+     * @~english @brief Updates the system state while loading resources.
+     * @~japanese @brief リソースを読み込む時にシステム状態を更新する。
      */
     void loadFrameWork();
 
     /**
-     * \~english @brief Gets the number of ticks per frame.
-     * \~japanese @brief フレーム毎のチックを取得する。
+     * @~english @brief Gets the number of ticks per frame.
+     * @~japanese @brief フレーム毎のチックを取得する。
      */
     u8 getFrameRate() const;
     /**
-     * \~english @brief Gets the modify ratio of the display
+     * @~english @brief Gets the modify ratio of the display
      */
     f32 getModifyRatio() const;
 
+    static EGG::Heap* createHeap(EGG::Heap* pParentHeap,
+                                 EGG::Heap::EHeapKind heapKind, u32 size,
+                                 u16 opt, u32 unitSize);
+
     /**
-     * \~english @brief Sets the background clear color of the EFB
+     * @~english @brief Sets the background clear color of the EFB
      *
-     * \~english @param color Clear color
+     * @~english @param color Clear color
      */
     void setDisplayClearColor(nw4r::ut::Color color);
 
     /**
-     * \~english @brief Destroys the specified heap
+     * @~english @brief Destroys the specified heap
      *
-     * \~english @param pHeap Heap to destroy
+     * @~english @param pHeap Heap to destroy
      */
     void destroyHeap(EGG::Heap* pHeap);
 
     /**
-     * \~english @brief Allocates memory from the specified heap
+     * @~english @brief Allocates memory from the specified heap
      *
-     * \~english @param pHeap Heap to allocate from
-     * \~english @param size Amount of memory required
-     * \~english @param align Required byte-alignment
-     * \~english @return void* Allocated memory block
+     * @~english @param pHeap Heap to allocate from
+     * @~english @param size Amount of memory required
+     * @~english @param align Required byte-alignment
+     * @~english @return void* Allocated memory block
      */
     void* alloc(EGG::Heap* pHeap, u32 size, s32 align = 4) {
         return EGG::Heap::alloc(size, align, pHeap);
     }
 
     /**
-     * \~english @brief Frees memory to the specified heap
+     * @~english @brief Frees memory to the specified heap
      *
-     * \~english @param pHeap Heap to free to
-     * \~english @param pBlock Memory block to free
+     * @~english @param pHeap Heap to free to
+     * @~english @param pBlock Memory block to free
      */
     void free(EGG::Heap* pHeap, void* pBlock) {
         return EGG::Heap::free(pBlock, pHeap);
     }
 
     /**
-     * \~english @brief Initializes the load count to zero frames
+     * @~english @brief Initializes the load count to zero frames
      */
     void startLoadCount();
     /**
-     * \~english @brief Tests whether the current load count is over five
+     * @~english @brief Tests whether the current load count is over five
      * seconds (600f)
      */
     bool isLoadCountEnd() const;
@@ -285,64 +289,64 @@ public:
     void returnToMenu();
 
     /**
-     * \~english @brief Turns on/off screen dimming
+     * @~english @brief Turns on/off screen dimming
      * \~ @note If "Screen Saver Mode" is disabled, dimming is always OFF.
      *
-     * \~english @param dim Whether to dim the screen
+     * @~english @param dim Whether to dim the screen
      */
     void setDimming(BOOL dim);
 
     /**
-     * \~english @brief Gets the heap for the resource manager
+     * @~english @brief Gets the heap for the resource manager
      */
     EGG::Heap* getResourceHeap() const {
         return mpResourceHeap;
     }
 
     /**
-     * \~english @brief Sets how many minutes it will take until
+     * @~english @brief Sets how many minutes it will take until
      * the remote powers off when left idle
      *
-     * \~english @param time Minutes
+     * @~english @param time Minutes
      */
     void setAutoSleepTime(u8 time);
 
     /**
-     * \~english @brief Gets the thread for asynchronous NAND operations
+     * @~english @brief Gets the thread for asynchronous NAND operations
      */
     EGG::TaskThread* getNandThread();
     /**
-     * \~english @brief Gets the thread for asynchronous disc operations
+     * @~english @brief Gets the thread for asynchronous disc operations
      */
     EGG::TaskThread* getDvdThread();
     /**
-     * \~english @brief Gets the thread for asynchronous WiiConnect24 operations
+     * @~english @brief Gets the thread for asynchronous WiiConnect24 operations
      */
     EGG::TaskThread* getWc24Thread();
 
     /**
-     * \~english @brief Gets the task-end thread message for asynchronous NAND
+     * @~english @brief Gets the task-end thread message for asynchronous NAND
      * operations
      */
     OSMessage getNandEndMessage() const;
     /**
-     * \~english @brief Gets the task-end thread message for asynchronous disc
+     * @~english @brief Gets the task-end thread message for asynchronous disc
      * operations
      */
     OSMessage getDvdEndMessage() const;
 
     /**
-     * \~english @brief Gets the Pack Project build information
+     * @~english @brief Gets the Pack Project build information
      */
     const char* getTimeStampString();
 
     /**
-     * \~english @brief Auto-detects project locale settings
+     * @~english @brief Auto-detects project locale settings
      */
     void setupLocalSettings();
 
     /**
-     * \~english @brief Blocks the main thread until it is safe to change the
+     * @~english @brief Blocks the main thread until it is safe to change the
      * render mode
      * @details Waits for either 100 frames or 1.6 seconds to pass.
      *
@@ -354,45 +358,46 @@ public:
     void waitRenderModeChange();
 
     /**
-     * \~english @brief Installs reset and shutdown callbacks to the OS
+     * @~english @brief Installs reset and shutdown callbacks to the OS
      */
     void setCallBack();
 
 private:
     /**
-     * \~english @brief Constructor
+     * @~english @brief Constructor
      */
     RPSysSystem();
     /**
-     * \~english @brief Destructor
+     * @~english @brief Destructor
      */
     virtual ~RPSysSystem(); // at 0x8
 
     /**
-     * \~english @brief OS reset callback
+     * @~english @brief OS reset callback
      */
     static void softResetCallBack();
     /**
-     * \~english @brief OS shutdown callback
+     * @~english @brief OS shutdown callback
      */
     static void shutdownSystemCallBack();
 
 private:
     //! Heap used by the resource manager
     EGG::Heap* mpResourceHeap; // at 0x4
-    //! Heap reserving memory in the MEM1 region
-    EGG::Heap* mpReserveHeap; // at 0x8
-    //! Heap used for error handling when other heaps are exhausted
-    EGG::Heap* mpAssertHeap; // at 0xC
+    //! Heap for rendering graphics
+    EGG::Heap* mpRenderHeap; // at 0x8
+    //! Unknown
+    EGG::Heap* mpUnkHeap; // at 0xC
     //! @unused
     EGG::Heap* mpDebugHeap; // at 0x10
-
-    //! Backup of the EGG current heap while it is changed
-    EGG::Heap* mpCurrentHeap; // at 0x14
-    u32 mUNK_0x18;
+    //! Heap reserving memory in the MEM1 region
+    EGG::Heap* mpReserveHeap; // at 0x14
+    //! Heap used for error handling when other heaps are exhausted
+    EGG::Heap* mpAssertHeap; //!< // at 0x18
     u32 mUNK_0x1C;
     u32 mUNK_0x20;
-    u32 mUNK_0x24;
+    //! Backup of the EGG current heap while it is changed
+    EGG::Heap* mpCurrentHeap;
     //! Mutex to guard changing the current heap
     OSMutex mCurrentHeapMutex; // at 0x28
 

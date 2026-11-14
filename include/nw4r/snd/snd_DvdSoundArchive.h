@@ -63,8 +63,16 @@ private:
 
 class DvdSoundArchive::DvdFileStream : public ut::DvdLockedFileStream {
 public:
-    DvdFileStream(const DVDFileInfo* pFileInfo, u32 offset, u32 size);
-    DvdFileStream(s32 entrynum, u32 offset, u32 size);
+    /**
+     * @~english @brief Constructor
+     * @~japanese @brief コンストラクタ
+     *
+     * @param entryNum
+     * @param offset
+     * @param size
+     */
+    DvdFileStream(s32 entryNum, u32 offset, u32 size);
+    DvdFileStream(const DVDFileInfo* fileInfo, u32 offset, u32 size);
 
     virtual s32 Read(void* pDst, u32 size);    // at 0x14
     virtual void Seek(s32 offset, u32 origin); // at 0x44

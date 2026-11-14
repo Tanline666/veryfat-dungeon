@@ -24,8 +24,8 @@ public:
     AnmObjChr(MEMAllocator* pAllocator, u16* pBindingBuf, int numBinding);
     virtual void G3dProc(u32 task, u32 param, void* pInfo) = 0; // at 0xC
     /**
-     * \~english @brief Destructor
-     * \~japanese @brief デストラクタ
+     * @~english @brief Destructor
+     * @~japanese @brief デストラクタ
      */
     virtual ~AnmObjChr() {} // at 0x10
 
@@ -43,15 +43,15 @@ public:
                                           u32 idx) = 0; // at 0x38
 
     /**
-     * \~english @brief Dummy function.
-     * \~japanese @brief ダミー関数。
+     * @~english @brief Dummy function.
+     * @~japanese @brief ダミー関数。
      *
-     * \~english @param idx Dummy argument
-     * \~japanese @param idx ダミー引数
-     * \~english @param pObj Dummy argument
-     * \~japanese @param pObj ダミー引数
-     * \~english @return Always NULL
-     * \~japanese @return 常にNULL
+     * @~english @param idx Dummy argument
+     * @~japanese @param idx ダミー引数
+     * @~english @param pObj Dummy argument
+     * @~japanese @param pObj ダミー引数
+     * @~english @return Always NULL
+     * @~japanese @return 常にNULL
      */
     virtual AnmObjChrRes* Attach(int idx, AnmObjChrRes* pObj); // at 0x3C
     virtual AnmObjChrRes* Detach(int idx);                     // at 0x40

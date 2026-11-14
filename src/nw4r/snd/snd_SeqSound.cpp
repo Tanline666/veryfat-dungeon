@@ -7,16 +7,15 @@ namespace detail {
 
 NW4R_UT_RTTI_DEF_DERIVED(SeqSound, BasicSound);
 
-SeqSound::SeqSound(SoundInstanceManager<SeqSound>* pManager)
-    // TODO(kiwi) Fakematch
-    : mTempSpecialHandle(reinterpret_cast<SeqSoundHandle*>(
-          mPreparedFlag = mLoadingFlag = false)),
-      mManager(pManager),
-      mStartOffset(0),
-      mFileStream(NULL) {
-
-    OSInitMutex(&mMutex);
-}
+SeqSound::SeqSound(SoundInstanceManager<SeqSound>* manager, int priority,
+                   int ambientPriority)
+    : BasicSound(priority, ambientPriority),
+      mTempSpecialHandle(NULL),
+      mManager(manager),
+      mFileStream(NULL),
+      mLoadingFlag(FALSE),
+      mPreparedFlag(FALSE),
+      mStartOffset(0) {}
 
 void SeqSound::InitParam() {
     BasicSound::InitParam();

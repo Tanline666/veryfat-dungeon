@@ -14,15 +14,15 @@ namespace nw4r {
 namespace g3d {
 
 struct ResAnmScnInfoData {
-    u16 numFrame;                 // at 0x0
-    u16 numSpecularLight;         // at 0x2
-    AnmPolicy policy;             // at 0x4
-    u16 numResLightSetData;       // at 0x8
-    u16 numResAnmAmbLightData;    // at 0xA
-    u16 numResAnmLightData;       // at 0xC
-    u16 numResAnmFogData;         // at 0xE
-    u16 numResAnmCameraData;      // at 0x10
-    u8 PADDING_0x12[0x14 - 0x12]; // at 0x12
+    u16 numFrame;              // at 0x0
+    u16 numSpecularLight;      // at 0x2
+    AnmPolicy policy;          // at 0x4
+    u16 numResLightSetData;    // at 0x8
+    u16 numResAnmAmbLightData; // at 0xA
+    u16 numResAnmLightData;    // at 0xC
+    u16 numResAnmFogData;      // at 0xE
+    u16 numResAnmCameraData;   // at 0x10
+    u8 padding_[0x14 - 0x12];  // at 0x12
 };
 
 struct ResAnmScnData {

@@ -171,10 +171,10 @@ template <typename TObj> void Layout::DeleteObj(TObj* pObj) {
 namespace {
 
 /**
- * \~english @brief Creates the specified object.
- * \~japanese @brief 指定のオブジェクトを作成する。
- * \~english @deprecated Superseded by Layout::NewObj.
- * \~japanese @deprecated Layout::NewObjに取って代わられた。
+ * @~english @brief Creates the specified object.
+ * @~japanese @brief 指定のオブジェクトを作成する。
+ * @~english @deprecated Superseded by Layout::NewObj.
+ * @~japanese @deprecated Layout::NewObjに取って代わられた。
  */
 template <typename TObj> TObj* CreateObject() {
     void* pBuffer = Layout::AllocMemory(sizeof(TObj));

@@ -254,13 +254,13 @@ void Pane::CalculateMtx(const DrawInfo& rInfo) {
     PSMTXScale(mtx2, scale.x, scale.y, 1.0f);
 
     PSMTXRotRad(rotateMtx, 'x', NW4R_MATH_DEG_TO_RAD(mRotate.x));
-    PSMTXConcat(rotateMtx, mtx2, mtx1);
+    MTXConcat(rotateMtx, mtx2, mtx1);
 
     PSMTXRotRad(rotateMtx, 'y', NW4R_MATH_DEG_TO_RAD(mRotate.y));
-    PSMTXConcat(rotateMtx, mtx1, mtx2);
+    MTXConcat(rotateMtx, mtx1, mtx2);
 
     PSMTXRotRad(rotateMtx, 'z', NW4R_MATH_DEG_TO_RAD(mRotate.z));
-    PSMTXConcat(rotateMtx, mtx2, mtx1);
+    MTXConcat(rotateMtx, mtx2, mtx1);
 
     PSMTXTransApply(mtx1, mMtx, mTranslate.x, mTranslate.y, mTranslate.z);
 

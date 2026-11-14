@@ -6,9 +6,9 @@ extern "C" {
 #endif
 
 /**
- * \~english @brief For including FDLIBM declarations without also including its
+ * @~english @brief For including FDLIBM declarations without also including its
  * many macros.
- * \~japanese @brief
+ * @~japanese @brief
  * FDLIBMマクロを除き、FDLIBMの宣言を引き続くためのヘダーです。
  */
 

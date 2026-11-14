@@ -21,10 +21,10 @@ BOOL make_crc_table(void) {
 
     crc_ptr = crc_table;
     crc_0 = 0;
-    //! \~english TFP2 uses two for loops.
-    //! \~english But the compiler unrolled the second one here???
-    //! \~japanese TFP2では、2つのforループを使いますけど、
-    //! \~japanese WFPにコンパイラが2つ目のループを広げさせた！？
+    //! @~english TFP2 uses two for loops.
+    //! @~english But the compiler unrolled the second one here???
+    //! @~japanese TFP2では、2つのforループを使いますけど、
+    //! @~japanese WFPにコンパイラが2つ目のループを広げさせた！？
     for (i = 256; i != 0; --i) {
         crc_1 = crc_0 >> 1;
         if (crc_0 & 1) {

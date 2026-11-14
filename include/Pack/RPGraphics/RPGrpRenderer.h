@@ -13,7 +13,7 @@ class RPGrpScreen;
 class RPGrpView;
 
 /**
- * \~english @brief Rendering engine
+ * @~english @brief Rendering engine
  */
 class RPGrpRenderer {
 public:
@@ -22,14 +22,14 @@ public:
 
 public:
     /**
-     * \~english @brief Gets the currently active manager instance
+     * @~english @brief Gets the currently active manager instance
      */
     static RPGrpRenderer* GetCurrent() {
         return spCurrent;
     }
 
     /**
-     * \~english @brief Gets the view currently being rendered to
+     * @~english @brief Gets the view currently being rendered to
      */
     static RPGrpView* GetCurrentView() {
         return spCurrentView;
@@ -40,7 +40,7 @@ public:
     }
 
     /**
-     * \~english @brief Gets the screen currently being rendered to
+     * @~english @brief Gets the screen currently being rendered to
      */
     static RPGrpScreen* GetCurrentScreen() {
         return spCurrentScreen;
@@ -52,6 +52,8 @@ public:
     static void StartDebugDraw();
 
     static RPGrpRenderer* Construct(EGG::Allocator* pAllocator, u16 id);
+
+    void CalculateTexCopyBackground();
 
     void Rendering();
     void Destruct();

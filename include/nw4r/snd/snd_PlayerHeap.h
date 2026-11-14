@@ -16,25 +16,41 @@ class BasicSound;
 
 namespace detail {
 
-class PlayerHeap : public SoundHeap {
+class PlayerHeap : public SoundMemoryAllocatable {
 public:
     PlayerHeap() : mSound(NULL), mPlayer(NULL) {}
-    virtual ~PlayerHeap() {} // at 0x8
+    virtual ~PlayerHeap() {} //!< // at 0x8
 
-    void SetSound(BasicSound* pSound) {
-        mSound = pSound;
+    virtual void* Alloc(u32 size); //!< // at 0xC
+
+    void AttachSoundPlayer(SoundPlayer* player) {
+        mPlayer = player;
     }
 
-    void SetSoundPlayer(SoundPlayer* pPlayer) {
-        mPlayer = pPlayer;
+    void AttachSound(BasicSound* sound);
+    void DetachSound(BasicSound* sound);
+
+    bool Create(void* startAddress, u32 size);
+    void Destroy();
+
+    void Clear();
+
+    bool IsValid() const {
+        return mAllocAddress != NULL;
     }
 
-public:
-    NW4R_UT_LINKLIST_NODE_DECL(); // at 0x2C
+    u32 GetFreeSize() const;
 
 private:
-    BasicSound* mSound;   // at 0x34
-    SoundPlayer* mPlayer; // at 0x38
+    BasicSound* mSound;   //!< // at 0x4
+    SoundPlayer* mPlayer; //!< // at 0x8
+
+    void* mStartAddress; //!< // at 0xC
+    void* mEndAddress;   //!< // at 0x10
+    void* mAllocAddress; //!< // at 0x14
+
+public:
+    NW4R_UT_LINKLIST_NODE_DECL(); //!< // at 0x18
 };
 
 NW4R_UT_LINKLIST_TYPEDEF_DECL(PlayerHeap);

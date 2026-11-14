@@ -12,95 +12,95 @@
 //! @{
 
 /**
- * \~english @brief Effect creator
+ * @~english @brief Effect creator
  */
 class RPSysEffectCreator : public EGG::Disposer {
 public:
     /**
-     * \~english @brief Constructor
+     * @~english @brief Constructor
      *
-     * \~english @param drawScene Effect draw scene
+     * @~english @param drawScene Effect draw scene
      */
     explicit RPSysEffectCreator(u32 drawScene);
 
     /**
-     * \~english @brief Destructor
+     * @~english @brief Destructor
      */
     virtual ~RPSysEffectCreator(); // at 0x8
 
     /**
-     * \~english @brief Attaches new effect resource files
+     * @~english @brief Attaches new effect resource files
      *
-     * \~english @param pEffectProject Binary effect data project (.BREFF)
-     * \~english @param pTextureProject Binary effect texture project (.BREFT)
+     * @~english @param pEffectProject Binary effect data project (.BREFF)
+     * @~english @param pTextureProject Binary effect texture project (.BREFT)
      */
     void setEffectResource(void* pEffectProject, void* pTextureProject);
 
     /**
-     * \~english @brief Releases the attached effect resource files
+     * @~english @brief Releases the attached effect resource files
      */
     void resetEffectResource();
 
     /**
-     * \~english @brief Creates the effect system for slow-motion effects
+     * @~english @brief Creates the effect system for slow-motion effects
      */
     void createSlowSystem();
 
     /**
-     * \~english @brief Sets the frame rate of the slow-motion system
+     * @~english @brief Sets the frame rate of the slow-motion system
      *
-     * \~english @param frameRate Frame rate (0, 1)
+     * @~english @param frameRate Frame rate (0, 1)
      */
     void setFrameRate(f32 frameRate);
 
     /**
-     * \~english @brief Tests whether the slow-motion effect system exists
+     * @~english @brief Tests whether the slow-motion effect system exists
      */
     bool isSlowSystem() const;
 
     /**
-     * \~english @brief Tests whether effects are currently updating in slow
+     * @~english @brief Tests whether effects are currently updating in slow
      * motion
      */
     bool isSlowEffect() const;
 
     /**
-     * \~english @brief Kills all effects owned by this creator
+     * @~english @brief Kills all effects owned by this creator
      */
     void stopAllEffect();
 
     /**
-     * \~english @brief Creates an instance of the specified effect
+     * @~english @brief Creates an instance of the specified effect
      *
-     * \~english @param pName Effect name
-     * \~english @param drawGroup Effect draw group
+     * @~english @param pName Effect name
+     * @~english @param drawGroup Effect draw group
      */
     nw4r::ef::Effect* createEffect(const char* pName, u32 drawGroup);
 
     /**
-     * \~english @brief Updates all effects owned by this creator
+     * @~english @brief Updates all effects owned by this creator
      */
     void update();
 
     /**
-     * \~english @brief Draws the specified set of effects
+     * @~english @brief Draws the specified set of effects
      *
-     * \~english @param rDrawInfo Graphics configuration
-     * \~english @param drawGroup Effect draw group
-     * \~english @param drawScene Effect draw scene
+     * @~english @param rDrawInfo Graphics configuration
+     * @~english @param drawGroup Effect draw group
+     * @~english @param drawScene Effect draw scene
      */
     void draw(const nw4r::ef::DrawInfo& rDrawInfo, u32 drawGroup,
               u32 drawScene);
 
     /**
-     * \~english @brief Tests whether this creator has resource files attached
+     * @~english @brief Tests whether this creator has resource files attached
      */
     bool isActive() const {
         return mpEffectProject != NULL && mpTextureProject != NULL;
     }
 
     /**
-     * \~english @brief Accesses the attached effect texture project
+     * @~english @brief Accesses the attached effect texture project
      */
     nw4r::ef::TextureProject* getTextureProject() const {
         return mpTextureProject;
@@ -108,7 +108,7 @@ public:
 
 private:
     /**
-     * \~english @brief Save buffer index
+     * @~english @brief Save buffer index
      */
     enum ESaveBuffer {
         ESaveBuffer_1st, //!< First of the two alternating buffers

@@ -12,39 +12,39 @@ public:
     DrawStripeStrategy();
 
     /**
-     * \~english @brief Renders a specified ParticleManager.
-     * \~japanese @brief 指定のParticleManagerを描画する。
+     * @~english @brief Renders a specified ParticleManager.
+     * @~japanese @brief 指定のParticleManagerを描画する。
      *
-     * \~english @param rInfo Reference to rendering information
-     * \~japanese @param rInfo 描画情報への参照
-     * \~english @param pManager Pointer to ParticleManager object
-     * \~japanese @param pManager ParticleManagerオブジェクトへのポインタ
+     * @~english @param rInfo Reference to rendering information
+     * @~japanese @param rInfo 描画情報への参照
+     * @~english @param pManager Pointer to ParticleManager object
+     * @~japanese @param pManager ParticleManagerオブジェクトへのポインタ
      */
     virtual void Draw(const DrawInfo& rInfo,
                       ParticleManager* pManager); //!< at 0xC
 
 protected:
     struct Trigonometric {
-        f32 sin; //!< \~english Sine \~japanese 正弦 \~ // at 0x0
-        f32 cos; //!< \~english Cosine \~japanese 余弦 \~ // at 0x4
+        f32 sin; //!< @~english Sine @~japanese 正弦 \~ // at 0x0
+        f32 cos; //!< @~english Cosine @~japanese 余弦 \~ // at 0x4
     };
 
     struct AheadContextStripe : public AheadContext {
         math::VEC3
-            mEmitterAxisX; //!< \~english Emitter x-axis in the ParticleManager
-                           //!< coordinate system \~japanese
+            mEmitterAxisX; //!< @~english Emitter x-axis in the ParticleManager
+                           //!< coordinate system @~japanese
                            //!< ParticleManager座標系におけるエミッタX軸 \~ //
                            //!< at 0xBC
         math::VEC3
-            mScreenAxisZ; //!< \~english Screen z-axis in the ParticleManager
-                          //!< coordinate system \~japanese
+            mScreenAxisZ; //!< @~english Screen z-axis in the ParticleManager
+                          //!< coordinate system @~japanese
                           //!< ParticleManager座標系におけるスクリーンZ軸 \~ //
                           //!< at 0xC8
         const Trigonometric* mpTrigonometric; //!< at 0xD4
 
         /**
-         * \~english @brief Constructor
-         * \~japanese @brief コンストラクタ
+         * @~english @brief Constructor
+         * @~japanese @brief コンストラクタ
          *
          * @param rMtx
          * @param pPM
@@ -53,8 +53,8 @@ protected:
     };
 
     /**
-     * \~english @brief Function typedef that initializes context.
-     * \~japanese @brief コンテキストを初期化する関数のtypedef。
+     * @~english @brief Function typedef that initializes context.
+     * @~japanese @brief コンテキストを初期化する関数のtypedef。
      */
     typedef void (*InitAheadFunc)(AheadContextStripe* pContext,
                                   const math::MTX34& rMtx,
@@ -76,8 +76,8 @@ private:
     GetCalcAheadFunc(ParticleManager* pManager); //!< at 0x18
 
     /**
-     * \~english @brief Initializes graphics.
-     * \~japanese @brief グラフィックスを初期化する。
+     * @~english @brief Initializes graphics.
+     * @~japanese @brief グラフィックスを初期化する。
      *
      * @param rDrawInfo
      * @param pManager

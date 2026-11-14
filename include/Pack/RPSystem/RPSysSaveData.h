@@ -14,7 +14,7 @@ class RPSportsPlayerData;
 class RPSportsSystemData;
 
 /**
- * \~english @brief Pack Project save data
+ * @~english @brief Pack Project save data
  */
 class RPSysSaveData {
 public:
@@ -23,41 +23,41 @@ public:
 
 public:
     /**
-     * \~english @brief Constructor
+     * @~english @brief Constructor
      */
     RPSysSaveData();
 
     /**
-     * \~english @brief Resets the save data state
+     * @~english @brief Resets the save data state
      */
     void reset();
 
     /**
-     * \~english @brief Tests whether an error occurred while reading the save
+     * @~english @brief Tests whether an error occurred while reading the save
      * file.
-     * \~japanese セーブファイルを読む時にエラーが発生したかどうかテストする。
-     * \~english @note Might be deprecated or inlined.
-     * \~japanese @note 非推奨になったかインラインされる可能性がある。
+     * @~japanese セーブファイルを読む時にエラーが発生したかどうかテストする。
+     * @~english @note Might be deprecated or inlined.
+     * @~japanese @note 非推奨になったかインラインされる可能性がある。
      */
     bool isErrorOccured() const;
 
     /**
-     * \~english @brief Deserializes this object from the specified stream
+     * @~english @brief Deserializes this object from the specified stream
      *
-     * \~english @param rStrm Memory stream
-     * \~english @param pRawSave Raw save data
+     * @~english @param rStrm Memory stream
+     * @~english @param pRawSave Raw save data
      */
     void read(EGG::RamStream& rStrm, const void* pRawSave);
     /**
-     * \~english @brief Serializes this object to the specified stream
+     * @~english @brief Serializes this object to the specified stream
      *
-     * \~english @param rStrm Memory stream
-     * \~english @param pRawSave Raw save data
+     * @~english @param rStrm Memory stream
+     * @~english @param pRawSave Raw save data
      */
     void write(EGG::RamStream& rStrm, const void* pRawSave) const;
 
     /**
-     * \~english @brief Gets the size of the current pack's save file, in bytes
+     * @~english @brief Gets the size of the current pack's save file, in bytes
      */
     static u32 getSaveFileSize();
 
@@ -80,11 +80,11 @@ private:
 
 private:
     /**
-     * \~english @brief Calculates a checksum of the specified data
+     * @~english @brief Calculates a checksum of the specified data
      *
-     * \~english @param pData Data buffer
-     * \~english @param size Buffer size
-     * \~english @return 32-bit checksum
+     * @~english @param pData Data buffer
+     * @~english @param size Buffer size
+     * @~english @return 32-bit checksum
      */
     static u32 calcCrc(const void* pData, u32 size);
 

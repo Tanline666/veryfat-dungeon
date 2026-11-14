@@ -6,8 +6,8 @@
 #include <nw4r/g3d/res/g3d_resmdl.h>
 #include <nw4r/g3d/res/g3d_resnode.h>
 #include <nw4r/g3d/res/g3d_resshp.h>
-
 #include <nw4r/math.h>
+
 
 namespace nw4r {
 namespace g3d {
@@ -24,6 +24,7 @@ G3DState::IndMtxOp* GetIndMtxOp(ResMat mat, ResNode node, ResShp shp);
 } // namespace detail
 
 struct DrawResMdlReplacement {
+    u32 flag;
     u8* visArray;                               // at 0x0
     ResTexObjData* texObjDataArray;             // at 0x4
     ResTlutObjData* tlutObjDataArray;           // at 0x8

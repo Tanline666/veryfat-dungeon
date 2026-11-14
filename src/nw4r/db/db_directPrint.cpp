@@ -327,8 +327,8 @@ static void DrawCharToXfb_(int posh, int posv, int code) {
         for (int cnth = 0; cnth < 6 * wH; cnth += 2) {
             u16 pixColor;
 
-            //! \~english Get the even bits...
-            //! \~japanese 偶数ビットを取得し・・・
+            //! @~english Get the even bits...
+            //! @~japanese 偶数ビットを取得し・・・
             pixColor =
                 (u16)(((fontBits & 0x40000000) ? sFrameBufferColor.colorY256
                                                : 0) |
@@ -344,8 +344,8 @@ static void DrawCharToXfb_(int posh, int posv, int code) {
             }
             pixel++;
 
-            //! \~english Then the odd ones.
-            //! \~japanese 奇数ビットも取得します。
+            //! @~english Then the odd ones.
+            //! @~japanese 奇数ビットも取得します。
             pixColor =
                 (u16)(((fontBits & 0x20000000) ? sFrameBufferColor.colorY256
                                                : 0) |
@@ -397,8 +397,8 @@ void* DirectPrint_SetupFB(const GXRenderModeObj* rmode) {
     frameMemory = VIGetCurrentFrameBuffer();
     if (!frameMemory) {
         if (rmode == NULL) {
-            //! \~english @bug Undefined behaviour when TV format is DEBUG
-            //! \~japanese @bug テレビフォーマットはDEBUGの場合には未定義の動作
+            //! @~english @bug Undefined behaviour when TV format is DEBUG
+            //! @~japanese @bug テレビフォーマットはDEBUGの場合には未定義の動作
             switch (u32 tv = VIGetTvFormat()) {
             case VI_TVFORMAT_NTSC:
                 rmode = &GXNtsc480IntDf;

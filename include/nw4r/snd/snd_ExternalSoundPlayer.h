@@ -23,9 +23,6 @@ public:
         return mSoundList.GetSize();
     }
 
-    f32 detail_GetVolume() const {
-        return mVolume;
-    }
     BasicSound* GetLowestPrioritySound();
 
     void AppendSound(BasicSound* pSound);
@@ -59,10 +56,11 @@ public:
         return pFunc;
     }
 
+    void DetachSoundActorAll(SoundActor* actor);
+
 private:
     BasicSoundExtPlayList mSoundList; // at 0x0
     u16 mPlayableCount;               // at 0xC
-    f32 mVolume;                      // at 0x10
 };
 
 } // namespace detail

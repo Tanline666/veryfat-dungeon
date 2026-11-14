@@ -16,14 +16,14 @@
 class RPSysEffect;
 
 /**
- * \~english @brief Cursor draw manager
+ * @~english @brief Cursor draw manager
  */
 class RPSysCursorDrawMgr : public IRPSysHostIOSocket {
     RP_SINGLETON_DECL_EX(RPSysCursorDrawMgr);
 
 public:
     /**
-     * \~english @brief Player slot index
+     * @~english @brief Player slot index
      */
     enum EPlayer {
         EPlayer_P1, //!< Player 1
@@ -35,7 +35,7 @@ public:
     };
 
     /**
-     * \~english @brief DPD cursor type
+     * @~english @brief DPD cursor type
      */
     enum ECursorType {
         ECursorType_Invalid, //!< DPD flag is invalid
@@ -45,104 +45,104 @@ public:
 
 public:
     /**
-     * \~english @brief Pushes a new DPD cursor configuration to the stack
+     * @~english @brief Pushes a new DPD cursor configuration to the stack
      */
     void startDpdCheck();
 
     /**
-     * \~english @brief Pops the top DPD cursor configuration from the stack
+     * @~english @brief Pops the top DPD cursor configuration from the stack
      */
     void finishDpdCheck();
 
     /**
-     * \~english @brief Creates the active (main player) cursor
+     * @~english @brief Creates the active (main player) cursor
      */
     void createActiveCursor();
 
     /**
-     * \~english @brief Fades away the active (main player) cursor
+     * @~english @brief Fades away the active (main player) cursor
      */
     void fadeActiveCursor();
 
     /**
-     * \~english @brief Gets the screen position of the active (main player)
+     * @~english @brief Gets the screen position of the active (main player)
      * cursor
      */
     const EGG::Vector2f& getActiveCursorPos() const;
 
     /**
-     * \~english @brief Gets the DPD cursor type of the active (main player)
+     * @~english @brief Gets the DPD cursor type of the active (main player)
      * cursor
      */
     ECursorType getActiveCursorType() const;
 
     /**
-     * \~english @brief Gets the player index of the active (main player) cursor
+     * @~english @brief Gets the player index of the active (main player) cursor
      *
-     * \~english @return Player slot index, or -1 if no such cursor exists
+     * @~english @return Player slot index, or -1 if no such cursor exists
      */
     s32 getActiveCursorPlayer() const;
 
     /**
-     * \~english @brief Creates the cursor for the specified player
+     * @~english @brief Creates the cursor for the specified player
      *
-     * \~english @param player Player slot index
+     * @~english @param player Player slot index
      */
     void createPlayerCursor(EPlayer player) DECOMP_DONT_INLINE;
 
     /**
-     * \~english @brief Moves the specified player cursor outside the screen
+     * @~english @brief Moves the specified player cursor outside the screen
      *
-     * \~english @param player Player slot index
+     * @~english @param player Player slot index
      */
     void setPlayerCursorOutOfScreen(EPlayer player);
 
     /**
-     * \~english @brief Gets the position of the specified player cursor
+     * @~english @brief Gets the position of the specified player cursor
      *
-     * \~english @param player Player slot index
+     * @~english @param player Player slot index
      */
     const EGG::Vector2f& getPlayerCursorPos(EPlayer player) const;
 
     /**
-     * \~english @brief Gets the controller channel used by the specified player
+     * @~english @brief Gets the controller channel used by the specified player
      * cursor
      *
-     * \~english @param player Player slot index
-     * \~english @return Controller channel, or -1 if no such cursor exists
+     * @~english @param player Player slot index
+     * @~english @return Controller channel, or -1 if no such cursor exists
      */
     s32 getPlayerCursorChannel(EPlayer player) const;
 
     /**
-     * \~english @brief Forces a player cursor to the specified screen position
+     * @~english @brief Forces a player cursor to the specified screen position
      *
-     * \~english @param rPos New cursor position
-     * \~english @param player Player slot index
-     * \~english @param clearHorizon Whether to reset the cursor horizon to zero
+     * @~english @param rPos New cursor position
+     * @~english @param player Player slot index
+     * @~english @param clearHorizon Whether to reset the cursor horizon to zero
      */
     void setPlayerCursorPos(const EGG::Vector2f& rPos, EPlayer player,
                             bool clearHorizon);
 
     /**
-     * \~english @brief Clears this manager's state
+     * @~english @brief Clears this manager's state
      */
     void init();
 
     /**
-     * \~english @brief Performs logic that must occur before the scene is
+     * @~english @brief Performs logic that must occur before the scene is
      * updated
      */
     void preUpdate();
 
     /**
-     * \~english @brief Performs logic that must occur after the scene is
+     * @~english @brief Performs logic that must occur after the scene is
      * updated
      */
     void postUpdate();
 
 private:
     /**
-     * \~english @brief Cursor flags
+     * @~english @brief Cursor flags
      */
     enum {
         EFlag_ActiveCursorEnable,
@@ -165,65 +165,65 @@ private:
 
 private:
     /**
-     * \~english @brief Pushes the current controller parameter set to the stack
+     * @~english @brief Pushes the current controller parameter set to the stack
      */
     void stackControllerSetting();
 
     /**
-     * \~english @brief Pops the top controller parameter set from the stack
+     * @~english @brief Pops the top controller parameter set from the stack
      */
     void popControllerSetting();
 
     /**
-     * \~english @brief Performs pre-update logic for the active (main player)
+     * @~english @brief Performs pre-update logic for the active (main player)
      * cursor
      */
     void preUpdateActive();
 
     /**
-     * \~english @brief Performs pre-update logic for player cursors
+     * @~english @brief Performs pre-update logic for player cursors
      */
     void preUpdatePlayer();
 
     /**
-     * \~english @brief Performs post-update logic for the active (main player)
+     * @~english @brief Performs post-update logic for the active (main player)
      * cursor
      */
     void postUpdateActive();
 
     /**
-     * \~english @brief Performs post-update logic for player cursors
+     * @~english @brief Performs post-update logic for player cursors
      */
     void postUpdatePlayer();
 
     /**
-     * \~english @brief Configures the effect draw settings of the specified
+     * @~english @brief Configures the effect draw settings of the specified
      * cursor
      *
-     * \~english @param cursor Cursor index
-     * \~english @param visible Whether the cursor should be visible
-     * \~english @param enabled Whether the cursor should be enabled (not faded)
+     * @~english @param cursor Cursor index
+     * @~english @param visible Whether the cursor should be visible
+     * @~english @param enabled Whether the cursor should be enabled (not faded)
      */
     void drawCursor(s32 cursor, bool visible, bool enabled);
 
     /**
-     * \~english @brief Updates the specified cursor to match the latest DPD
+     * @~english @brief Updates the specified cursor to match the latest DPD
      * data
      *
-     * \~english @param cursor Cursor index
-     * \~english @param player Player index
+     * @~english @param cursor Cursor index
+     * @~english @param player Player index
      */
     void updateCursor(s32 cursor, s32 player);
 
     /**
-     * \~english @brief Tests whether the active cursor exists
+     * @~english @brief Tests whether the active cursor exists
      */
     bool checkActiveCursorEnable() const {
         return mCursorFlagStack[0].onBit(EFlag_ActiveCursorEnable);
     }
 
     /**
-     * \~english @brief Tests whether any player cursor exists
+     * @~english @brief Tests whether any player cursor exists
      */
     bool checkPlayerCursorEnable() {
         return mCursorFlagStack[0] &
@@ -232,17 +232,17 @@ private:
     }
 
     /**
-     * \~english @brief Tests whether the active cursor is in a valid state
+     * @~english @brief Tests whether the active cursor is in a valid state
      */
     bool getActiveCursorValid() const {
         return mCursorFlagStack[0] & 1 << EFlag_ActiveCursorValid;
     }
 
     /**
-     * \~english @brief Tests whether the specified player cursor is in a valid
+     * @~english @brief Tests whether the specified player cursor is in a valid
      * state
      *
-     * \~english @param player Player slot index
+     * @~english @param player Player slot index
      */
     bool getPlayerCursorValid(EPlayer player) const {
         return mCursorFlagStack[0].onBit(EFlag_Player1CursorValid + player);

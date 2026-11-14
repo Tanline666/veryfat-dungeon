@@ -94,19 +94,67 @@ ResTev ScnMdl::CopiedMatAccess::GetResTev(bool markDirty) {
     return ResTev(NULL);
 }
 
+ResTexObj ScnMdl::CopiedMatAccess::GetResTexObjEx() {
+    if (mpScnMdl) {
+        if (mTexObj.IsValid()) {
+            return mTexObj;
+        }
+        return mpScnMdl->GetResMdl().GetResMat(mMatID).GetResTexObj();
+    }
+    return ResTexObj(NULL);
+}
+
 ResTexSrt ScnMdl::CopiedMatAccess::GetResTexSrtEx() {
-    if (mpScnMdl != NULL) {
+    if (mpScnMdl) {
         if (mTexSrt.IsValid()) {
             return mTexSrt;
         }
-
         return mpScnMdl->GetResMdl().GetResMat(mMatID).GetResTexSrt();
     }
-
     return ResTexSrt(NULL);
 }
 
-ScnMdl::CopiedMatAccess::CopiedMatAccess(ScnMdl* pScnMdl, u32 id)
+ResMatChan ScnMdl::CopiedMatAccess::GetResMatChanEx() {
+    if (mpScnMdl) {
+        if (mChan.IsValid()) {
+            return mChan;
+        }
+        return mpScnMdl->GetResMdl().GetResMat(mMatID).GetResMatChan();
+    }
+    return ResMatChan(NULL);
+}
+
+ResGenMode ScnMdl::CopiedMatAccess::GetResGenModeEx() {
+    if (mpScnMdl) {
+        if (mGenMode.IsValid())
+            return mGenMode;
+
+        return mpScnMdl->GetResMdl().GetResMat(mMatID).GetResGenMode();
+    }
+    return ResGenMode(NULL);
+}
+
+ResMatPix ScnMdl::CopiedMatAccess::GetResMatPixEx() {
+    if (mpScnMdl) {
+        if (mPix.IsValid())
+            return mPix;
+
+        return mpScnMdl->GetResMdl().GetResMat(mMatID).GetResMatPix();
+    }
+    return ResMatPix(NULL);
+}
+
+ResMatTevColor ScnMdl::CopiedMatAccess::GetResMatTevColorEx() {
+    if (mpScnMdl) {
+        if (mTevColor.IsValid())
+            return mTevColor;
+
+        return mpScnMdl->GetResMdl().GetResMat(mMatID).GetResMatTevColor();
+    }
+    return ResMatTevColor(NULL);
+}
+
+ScnMdl::CopiedMatAccess::CopiedMatAccess(ScnMdl* pObj, u32 id)
     : mTexObj(NULL),
       mTlutObj(NULL),
       mTexSrt(NULL),
@@ -119,11 +167,11 @@ ScnMdl::CopiedMatAccess::CopiedMatAccess(ScnMdl* pScnMdl, u32 id)
       mTexCoordGen(NULL),
       mTev(NULL) {
 
-    if (pScnMdl != NULL && pScnMdl->GetResMdl().GetResMat(id).IsValid()) {
-        mpScnMdl = pScnMdl;
+    if (pObj != NULL && pObj->GetResMdl().GetResMat(id).IsValid()) {
+        mpScnMdl = pObj;
         mMatID = id;
 
-        DrawResMdlReplacement& rReplacement = pScnMdl->mReplacement;
+        DrawResMdlReplacement& rReplacement = pObj->mReplacement;
 
         if (rReplacement.texObjDataArray != NULL) {
             mTexObj = ResTexObj(&rReplacement.texObjDataArray[id]);
@@ -246,13 +294,13 @@ bool ScnMdl::CopiedVisAccess::SetVisibilityEx(bool visible) {
     return false;
 }
 
-ScnMdl::CopiedVisAccess::CopiedVisAccess(ScnMdl* pScnMdl, u32 id) {
-    if (pScnMdl != NULL && pScnMdl->GetResMdl().GetResNode(id).IsValid()) {
-        mpScnMdl = pScnMdl;
+ScnMdl::CopiedVisAccess::CopiedVisAccess(ScnMdl* pObj, u32 id) {
+    if (pObj != NULL && pObj->GetResMdl().GetResNode(id).IsValid()) {
+        mpScnMdl = pObj;
         mNodeID = id;
 
-        if (pScnMdl->mReplacement.visArray != NULL) {
-            mpVis = &pScnMdl->mReplacement.visArray[id];
+        if (pObj->mReplacement.visArray != NULL) {
+            mpVis = &pObj->mReplacement.visArray[id];
         } else {
             mpVis = NULL;
         }
@@ -268,60 +316,60 @@ ScnMdl::CopiedVisAccess::CopiedVisAccess(ScnMdl* pScnMdl, u32 id) {
  * ScnMdl
  *
  ******************************************************************************/
-ScnMdl* ScnMdl::Construct(MEMAllocator* pAllocator, u32* pSize, ResMdl mdl,
-                          u32 bufferOption, int numView) {
+ScnMdl* ScnMdl::Construct(MEMAllocator* pHeap, u32* pSize, ResMdl mdl,
+                          u32 bufferOption, int nView) {
 
     if (!mdl.IsValid()) {
         return NULL;
     }
 
-    if (numView == 0) {
-        numView = 1;
-    } else if (numView > VIEW_MAX) {
-        numView = VIEW_MAX;
+    if (nView == 0) {
+        nView = 1;
+    } else if (nView > VIEW_MAX) {
+        nView = VIEW_MAX;
     }
 
-    ScnMdl* pScnMdl = NULL;
+    ScnMdl* pObj = NULL;
 
-    u32 worldMtxNum = mdl.GetResMdlInfo().GetNumPosNrmMtx();
-    u32 viewMtxNum = mdl.GetResMdlInfo().GetNumViewMtx();
-    u32 matNum = mdl.GetResMatNumEntries();
-    u32 nodeNum = mdl.GetResNodeNumEntries();
+    u32 numWorldMtx = mdl.GetResMdlInfo().GetNumPosNrmMtx();
+    u32 numViewMtx = mdl.GetResMdlInfo().GetNumViewMtx();
+    u32 numMat = mdl.GetResMatNumEntries();
+    u32 numNode = mdl.GetResNodeNumEntries();
 
-    u32 scnMdlSize = sizeof(ScnMdl);
-    u32 worldMtxArraySize = worldMtxNum * sizeof(math::MTX34);
-    u32 worldMtxAttribArraySize = worldMtxNum * sizeof(u32);
+    u32 sizeScnMdl = sizeof(ScnMdl);
+    u32 sizeWorldMtxArray = numWorldMtx * sizeof(math::MTX34);
+    u32 sizeWorldMtxAttribArray = numWorldMtx * sizeof(u32);
 
-    u32 viewPosMtxArrayUnitSize = viewMtxNum * sizeof(math::MTX34);
-    u32 viewPosMtxArraySize = numView * align32(viewPosMtxArrayUnitSize);
+    u32 sizeViewPosMtxArrayUnit = numViewMtx * sizeof(math::MTX34);
+    u32 sizeViewPosMtxArray = nView * align32(sizeViewPosMtxArrayUnit);
 
-    u32 viewNrmMtxArrayUnitSize = viewMtxNum * sizeof(math::MTX33);
-    u32 viewNrmMtxArraySize = mdl.GetResMdlInfo().ref().need_nrm_mtx_array
-                                  ? numView * align32(viewNrmMtxArrayUnitSize)
+    u32 sizeViewNrmMtxArrayUnit = numViewMtx * sizeof(math::MTX33);
+    u32 sizeViewNrmMtxArray = mdl.GetResMdlInfo().ref().need_nrm_mtx_array
+                                  ? nView * align32(sizeViewNrmMtxArrayUnit)
                                   : 0;
 
-    u32 viewTexMtxArrayUnitSize = viewPosMtxArrayUnitSize;
+    u32 viewTexMtxArrayUnitSize = sizeViewPosMtxArrayUnit;
 
     // TODO(kiwi) Fakematch
-    u32 viewTexMtxArraySize = mdl.ref().info.need_tex_mtx_array
-                                  ? numView * align32(viewTexMtxArrayUnitSize)
+    u32 sizeViewTexMtxArray = mdl.ref().info.need_tex_mtx_array
+                                  ? nView * align32(viewTexMtxArrayUnitSize)
                                   : 0;
 
-    u32 matBufferDirtyFlagSize = matNum * sizeof(u32);
+    u32 matBufferDirtyFlagSize = numMat * sizeof(u32);
 
     // clang-format off
-    u32 resTexObjSize         = (bufferOption & BUFFER_RESTEXOBJ)         ? matNum  * sizeof(ResTexObjData)        : 0;
-    u32 resTlutObjSize        = (bufferOption & BUFFER_RESTLUTOBJ)        ? matNum  * sizeof(ResTlutObjData)       : 0;
-    u32 resTexSrtSize         = (bufferOption & BUFFER_RESTEXSRT)         ? matNum  * sizeof(ResTexSrtData)        : 0;
-    u32 resChanSize           = (bufferOption & BUFFER_RESCHAN)           ? matNum  * sizeof(ResChanData)          : 0;
-    u32 resGenModeSize        = (bufferOption & BUFFER_RESGENMODE)        ? matNum  * sizeof(ResGenModeData)       : 0;
-    u32 resMatMiscSize        = (bufferOption & BUFFER_RESMATMISC)        ? matNum  * sizeof(ResMatMiscData)       : 0;
-    u32 visSize               = (bufferOption & BUFFER_RESANMVIS)         ? nodeNum * sizeof(u8)                   : 0;
-    u32 resPixSize            = (bufferOption & BUFFER_RESMATPIX)         ? matNum  * sizeof(ResPixDL)             : 0;
-    u32 resTevColorSize       = (bufferOption & BUFFER_RESTEVCOLOR)       ? matNum  * sizeof(ResTevColorDL)        : 0;
-    u32 resIndMtxAndScaleSize = (bufferOption & BUFFER_RESMATINDMTXSCALE) ? matNum  * sizeof(ResIndMtxAndScaleDL)  : 0;
-    u32 resTexCoordGenSize    = (bufferOption & BUFFER_RESMATTEXCOORDGEN) ? matNum  * sizeof(ResTexCoordGenDL)     : 0;
-    u32 resTevSize            = (bufferOption & BUFFER_RESTEV)            ? matNum  * sizeof(ResTevData)           : 0;
+    u32 resTexObjSize         = (bufferOption & BUFFER_RESTEXOBJ)         ? numMat  * sizeof(ResTexObjData)        : 0;
+    u32 resTlutObjSize        = (bufferOption & BUFFER_RESTLUTOBJ)        ? numMat  * sizeof(ResTlutObjData)       : 0;
+    u32 resTexSrtSize         = (bufferOption & BUFFER_RESTEXSRT)         ? numMat  * sizeof(ResTexSrtData)        : 0;
+    u32 resChanSize           = (bufferOption & BUFFER_RESCHAN)           ? numMat  * sizeof(ResChanData)          : 0;
+    u32 resGenModeSize        = (bufferOption & BUFFER_RESGENMODE)        ? numMat  * sizeof(ResGenModeData)       : 0;
+    u32 resMatMiscSize        = (bufferOption & BUFFER_RESMATMISC)        ? numMat  * sizeof(ResMatMiscData)       : 0;
+    u32 visSize               = (bufferOption & BUFFER_RESANMVIS)         ? numNode * sizeof(u8)                   : 0;
+    u32 resPixSize            = (bufferOption & BUFFER_RESMATPIX)         ? numMat  * sizeof(ResPixDL)             : 0;
+    u32 resTevColorSize       = (bufferOption & BUFFER_RESTEVCOLOR)       ? numMat  * sizeof(ResTevColorDL)        : 0;
+    u32 resIndMtxAndScaleSize = (bufferOption & BUFFER_RESMATINDMTXSCALE) ? numMat  * sizeof(ResIndMtxAndScaleDL)  : 0;
+    u32 resTexCoordGenSize    = (bufferOption & BUFFER_RESMATTEXCOORDGEN) ? numMat  * sizeof(ResTexCoordGenDL)     : 0;
+    u32 resTevSize            = (bufferOption & BUFFER_RESTEV)            ? numMat  * sizeof(ResTevData)           : 0;
     // clang-format on
 
     u32 vtxPosTableSize = 0;
@@ -379,7 +427,7 @@ ScnMdl* ScnMdl::Construct(MEMAllocator* pAllocator, u32* pSize, ResMdl mdl,
     }
 
     u32 vtxClrTableSize = 0;
-    u32 vtxClrBufferSize = 0;
+    u32 sizeVtxClrBuffer = 0;
 
     if (bufferOption & BUFFER_RESVTXCLR) {
         u32 vtxClrNum = mdl.GetResVtxClrNumEntries();
@@ -401,19 +449,19 @@ ScnMdl* ScnMdl::Construct(MEMAllocator* pAllocator, u32* pSize, ResMdl mdl,
             }
 
             if (j != shpNum) {
-                vtxClrBufferSize += align32(clr.GetSize());
+                sizeVtxClrBuffer += align32(clr.GetSize());
             }
         }
     }
 
     // clang-format off
-    u32 worldMtxArrayOfs       = align32(scnMdlSize);
-    u32 worldMtxAttribArrayOfs = align32(worldMtxArrayOfs + worldMtxArraySize);
-    u32 viewPosMtxArrayOfs     = align32(worldMtxAttribArrayOfs + worldMtxAttribArraySize);
-    u32 viewNrmMtxArrayOfs     = align32(viewPosMtxArrayOfs + viewPosMtxArraySize);
-    u32 viewTexMtxArrayOfs     = align32(viewNrmMtxArrayOfs + viewNrmMtxArraySize);
-    u32 matBufferDirtyFlagOfs  = align4(viewTexMtxArrayOfs + viewTexMtxArraySize);
-    u32 resTexObjOfs           = align32(matBufferDirtyFlagOfs + matBufferDirtyFlagSize);
+    u32 ofsWorldMtxArray       = align32(sizeScnMdl);
+    u32 ofsWorldMtxAttribArray = align32(ofsWorldMtxArray + sizeWorldMtxArray);
+    u32 ofsViewPosMtxArray     = align32(ofsWorldMtxAttribArray + sizeWorldMtxAttribArray);
+    u32 ofsViewNrmMtxArray     = align32(ofsViewPosMtxArray + sizeViewPosMtxArray);
+    u32 ofsViewTexMtxArray     = align32(ofsViewNrmMtxArray + sizeViewNrmMtxArray);
+    u32 ofsMatBufferDirtyFlag  = align4(ofsViewTexMtxArray + sizeViewTexMtxArray);
+    u32 resTexObjOfs           = align32(ofsMatBufferDirtyFlag + matBufferDirtyFlagSize);
     u32 resTlutObjOfs          = align4(resTexObjOfs + resTexObjSize);
     u32 resTexSrtOfs           = align4(resTlutObjOfs + resTlutObjSize);
     u32 resChanOfs             = align4(resTexSrtOfs + resTexSrtSize);
@@ -433,41 +481,47 @@ ScnMdl* ScnMdl::Construct(MEMAllocator* pAllocator, u32* pSize, ResMdl mdl,
 
     u32 vtxPosBufferOfs = align32(vtxClrTableOfs + vtxClrTableSize);
     u32 vtxNrmBufferOfs = align32(vtxPosBufferOfs + vtxPosBufferSize);
-    u32 vtxClrBufferOfs = align32(vtxNrmBufferOfs + vtxNrmBufferSize);
+    u32 ofsVtxClrBuffer = align32(vtxNrmBufferOfs + vtxNrmBufferSize);
 
-    u32 size = align32(vtxClrBufferOfs + vtxClrBufferSize);
+    u32 size = align32(ofsVtxClrBuffer + sizeVtxClrBuffer);
     if (pSize != NULL) {
+        NW4R_POINTER_ASSERT(pSize, 802);
         *pSize = size;
     }
 
-    if (pAllocator != NULL) {
-        u8* pBuffer = reinterpret_cast<u8*>(Alloc(pAllocator, size));
-        if (pBuffer == NULL) {
+    if (pHeap != NULL) {
+        u8* buf = reinterpret_cast<u8*>(Alloc(pHeap, size));
+        if (buf == NULL) {
             return NULL;
         }
 
         // clang-format off
-        DrawResMdlReplacement replacement;
-        
-        replacement.visArray              = visSize               != 0 ? reinterpret_cast<u8*>(pBuffer + visOfs)                                : NULL;
-        replacement.texObjDataArray       = resTexObjSize         != 0 ? reinterpret_cast<ResTexObjData*>(pBuffer + resTexObjOfs)               : NULL;
-        replacement.tlutObjDataArray      = resTlutObjSize        != 0 ? reinterpret_cast<ResTlutObjData*>(pBuffer + resTlutObjOfs)             : NULL;
-        replacement.texSrtDataArray       = resTexSrtSize         != 0 ? reinterpret_cast<ResTexSrtData*>(pBuffer + resTexSrtOfs)               : NULL;
-        replacement.chanDataArray         = resChanSize           != 0 ? reinterpret_cast<ResChanData*>(pBuffer + resChanOfs)                   : NULL;
-        replacement.genModeDataArray      = resGenModeSize        != 0 ? reinterpret_cast<ResGenModeData*>(pBuffer + resGenModeOfs)             : NULL;
-        replacement.matMiscDataArray      = resMatMiscSize        != 0 ? reinterpret_cast<ResMatMiscData*>(pBuffer + resMatMiscOfs)             : NULL;
-        replacement.pixDLArray            = resPixSize            != 0 ? reinterpret_cast<ResPixDL*>(pBuffer + resPixOfs)                       : NULL;
-        replacement.tevColorDLArray       = resTevColorSize       != 0 ? reinterpret_cast<ResTevColorDL*>(pBuffer + resTevColorOfs)             : NULL;
-        replacement.indMtxAndScaleDLArray = resIndMtxAndScaleSize != 0 ? reinterpret_cast<ResIndMtxAndScaleDL*>(pBuffer + resIndMtxAndScaleOfs) : NULL;
-        replacement.texCoordGenDLArray    = resTexCoordGenSize    != 0 ? reinterpret_cast<ResTexCoordGenDL*>(pBuffer + resTexCoordGenOfs)       : NULL;
-        replacement.tevDataArray          = resTevSize            != 0 ? reinterpret_cast<ResTevData*>(pBuffer + resTevOfs)                     : NULL;
+        DrawResMdlReplacement rep;
 
-        replacement.vtxPosTable = vtxPosTableSize != 0 ? reinterpret_cast<ResVtxPosData**>(pBuffer + vtxPosTableOfs) : NULL;
-        replacement.vtxNrmTable = vtxNrmTableSize != 0 ? reinterpret_cast<ResVtxNrmData**>(pBuffer + vtxNrmTableOfs) : NULL;
-        replacement.vtxClrTable = vtxClrTableSize != 0 ? reinterpret_cast<ResVtxClrData**>(pBuffer + vtxClrTableOfs) : NULL;
+        rep.flag = NULL;
+        if (!(bufferOption & ALWAYS_BUFFER_ANMSHP)) {
+            rep.flag |= 1;
+        }
+        
+        rep.visArray              = visSize               != 0 ? reinterpret_cast<u8*>(buf + visOfs)                                : NULL;
+        rep.texObjDataArray       = resTexObjSize         != 0 ? reinterpret_cast<ResTexObjData*>(buf + resTexObjOfs)               : NULL;
+        rep.tlutObjDataArray      = resTlutObjSize        != 0 ? reinterpret_cast<ResTlutObjData*>(buf + resTlutObjOfs)             : NULL;
+        rep.texSrtDataArray       = resTexSrtSize         != 0 ? reinterpret_cast<ResTexSrtData*>(buf + resTexSrtOfs)               : NULL;
+        rep.chanDataArray         = resChanSize           != 0 ? reinterpret_cast<ResChanData*>(buf + resChanOfs)                   : NULL;
+        rep.genModeDataArray      = resGenModeSize        != 0 ? reinterpret_cast<ResGenModeData*>(buf + resGenModeOfs)             : NULL;
+        rep.matMiscDataArray      = resMatMiscSize        != 0 ? reinterpret_cast<ResMatMiscData*>(buf + resMatMiscOfs)             : NULL;
+        rep.pixDLArray            = resPixSize            != 0 ? reinterpret_cast<ResPixDL*>(buf + resPixOfs)                       : NULL;
+        rep.tevColorDLArray       = resTevColorSize       != 0 ? reinterpret_cast<ResTevColorDL*>(buf + resTevColorOfs)             : NULL;
+        rep.indMtxAndScaleDLArray = resIndMtxAndScaleSize != 0 ? reinterpret_cast<ResIndMtxAndScaleDL*>(buf + resIndMtxAndScaleOfs) : NULL;
+        rep.texCoordGenDLArray    = resTexCoordGenSize    != 0 ? reinterpret_cast<ResTexCoordGenDL*>(buf + resTexCoordGenOfs)       : NULL;
+        rep.tevDataArray          = resTevSize            != 0 ? reinterpret_cast<ResTevData*>(buf + resTevOfs)                     : NULL;
+
+        rep.vtxPosTable = vtxPosTableSize != 0 ? reinterpret_cast<ResVtxPosData**>(buf + vtxPosTableOfs) : NULL;
+        rep.vtxNrmTable = vtxNrmTableSize != 0 ? reinterpret_cast<ResVtxNrmData**>(buf + vtxNrmTableOfs) : NULL;
+        rep.vtxClrTable = vtxClrTableSize != 0 ? reinterpret_cast<ResVtxClrData**>(buf + vtxClrTableOfs) : NULL;
         // clang-format on
 
-        if (replacement.vtxPosTable != NULL) {
+        if (rep.vtxPosTable != NULL) {
             u32 vtxPosNum = mdl.GetResVtxPosNumEntries();
             u32 shpNum = mdl.GetResShpNumEntries();
 
@@ -486,18 +540,18 @@ ScnMdl* ScnMdl::Construct(MEMAllocator* pAllocator, u32* pSize, ResMdl mdl,
                 }
 
                 if (j != shpNum) {
-                    replacement.vtxPosTable[i] =
-                        reinterpret_cast<ResVtxPosData*>(pBuffer + ofs);
+                    rep.vtxPosTable[i] =
+                        reinterpret_cast<ResVtxPosData*>(buf + ofs);
 
                     ofs += align32(pos.GetSize());
-                    pos.CopyTo(replacement.vtxPosTable[i]);
+                    pos.CopyTo(rep.vtxPosTable[i]);
                 } else {
-                    replacement.vtxPosTable[i] = pos.ptr();
+                    rep.vtxPosTable[i] = pos.ptr();
                 }
             }
         }
 
-        if (replacement.vtxNrmTable != NULL) {
+        if (rep.vtxNrmTable != NULL) {
             u32 vtxNrmNum = mdl.GetResVtxNrmNumEntries();
             u32 shpNum = mdl.GetResShpNumEntries();
 
@@ -516,22 +570,22 @@ ScnMdl* ScnMdl::Construct(MEMAllocator* pAllocator, u32* pSize, ResMdl mdl,
                 }
 
                 if (j != shpNum) {
-                    replacement.vtxNrmTable[i] =
-                        reinterpret_cast<ResVtxNrmData*>(pBuffer + ofs);
+                    rep.vtxNrmTable[i] =
+                        reinterpret_cast<ResVtxNrmData*>(buf + ofs);
 
                     ofs += align32(nrm.GetSize());
-                    nrm.CopyTo(replacement.vtxNrmTable[i]);
+                    nrm.CopyTo(rep.vtxNrmTable[i]);
                 } else {
-                    replacement.vtxNrmTable[i] = nrm.ptr();
+                    rep.vtxNrmTable[i] = nrm.ptr();
                 }
             }
         }
 
-        if (replacement.vtxClrTable != NULL) {
+        if (rep.vtxClrTable != NULL) {
             u32 vtxClrNum = mdl.GetResVtxClrNumEntries();
             u32 shpNum = mdl.GetResShpNumEntries();
 
-            u32 ofs = vtxClrBufferOfs;
+            u32 ofs = ofsVtxClrBuffer;
 
             for (u32 i = 0; i < vtxClrNum; i++) {
                 u32 j;
@@ -547,36 +601,42 @@ ScnMdl* ScnMdl::Construct(MEMAllocator* pAllocator, u32* pSize, ResMdl mdl,
                 }
 
                 if (j != shpNum) {
-                    replacement.vtxClrTable[i] =
-                        reinterpret_cast<ResVtxClrData*>(pBuffer + ofs);
+                    rep.vtxClrTable[i] =
+                        reinterpret_cast<ResVtxClrData*>(buf + ofs);
 
                     ofs += align32(clr.GetSize());
-                    clr.CopyTo(replacement.vtxClrTable[i]);
+                    clr.CopyTo(rep.vtxClrTable[i]);
                 } else {
-                    replacement.vtxClrTable[i] = clr.ptr();
+                    rep.vtxClrTable[i] = clr.ptr();
                 }
             }
         }
 
+        u32 replacementFlag = NULL;
+        if (bufferOption & ALWAYS_BUFFER_ANMSHP) {
+            replacementFlag |= 1;
+        }
+
         // clang-format off
-        pScnMdl = new (pBuffer) ScnMdl(
-            pAllocator,
+        pObj = new (buf) ScnMdl(
+            pHeap,
             mdl,
-            reinterpret_cast<math::MTX34*>(pBuffer + worldMtxArrayOfs),
-            reinterpret_cast<u32*>(pBuffer + worldMtxAttribArrayOfs),
-            reinterpret_cast<math::MTX34*>(pBuffer + viewPosMtxArrayOfs),
-            viewNrmMtxArraySize != 0 ? reinterpret_cast<math::MTX33*>(pBuffer + viewNrmMtxArrayOfs) : NULL,
-            viewTexMtxArraySize != 0 ? reinterpret_cast<math::MTX34*>(pBuffer + viewTexMtxArrayOfs) : NULL,
-            numView,
-            viewMtxNum,
-            &replacement,
-            reinterpret_cast<u32*>(pBuffer + matBufferDirtyFlagOfs));
+            reinterpret_cast<math::MTX34*>(buf + ofsWorldMtxArray),
+            reinterpret_cast<u32*>(buf + ofsWorldMtxAttribArray),
+            reinterpret_cast<math::MTX34*>(buf + ofsViewPosMtxArray),
+            sizeViewNrmMtxArray != 0 ? reinterpret_cast<math::MTX33*>(buf + ofsViewNrmMtxArray) : NULL,
+            sizeViewTexMtxArray != 0 ? reinterpret_cast<math::MTX34*>(buf + ofsViewTexMtxArray) : NULL,
+            nView,
+            numViewMtx,
+            &rep,
+            reinterpret_cast<u32*>(buf + ofsMatBufferDirtyFlag), 
+            replacementFlag);
         // clang-format off
 
-        pScnMdl->InitBuffer();
+        pObj->InitBuffer();
     }
 
-    return pScnMdl;
+    return pObj;
 }
 
 void ScnMdl::ScnMdl_G3DPROC_CALC_WORLD(u32 param, const math::MTX34* pParent) {
@@ -604,9 +664,9 @@ void ScnMdl::ScnMdl_G3DPROC_CALC_MAT(u32 param, void* pInfo) {
     CheckCallback_CALC_MAT(CALLBACK_TIMING_A, param, pInfo);
 
     ResMdl mdl = GetResMdl();
-    u32 matNum = mdl.GetResMatNumEntries();
+    u32 numMat = mdl.GetResMatNumEntries();
 
-    for (u32 i = 0; i < matNum; i++) {
+    for (u32 i = 0; i < numMat; i++) {
         ResMat mat = mdl.GetResMat(i);
 
         if (IsMatBufferDirty(i, BUFFER_RESTEXOBJ)) {
@@ -631,6 +691,26 @@ void ScnMdl::ScnMdl_G3DPROC_CALC_MAT(u32 param, void* pInfo) {
 
         if (IsMatBufferDirty(i, BUFFER_RESTEVCOLOR)) {
             CleanMatBuffer(i, BUFFER_RESTEVCOLOR);
+        }
+
+        if (IsMatBufferDirty(i, BUFFER_RESGENMODE)) {
+            CleanMatBuffer(i, BUFFER_RESGENMODE);
+        }
+
+        if (IsMatBufferDirty(i, BUFFER_RESMATMISC)) {
+            CleanMatBuffer(i, BUFFER_RESMATMISC);
+        }
+
+        if (IsMatBufferDirty(i, BUFFER_RESMATPIX)) {
+            CleanMatBuffer(i, BUFFER_RESMATPIX);
+        }
+
+        if (IsMatBufferDirty(i, BUFFER_RESMATTEXCOORDGEN)) {
+            CleanMatBuffer(i, BUFFER_RESMATTEXCOORDGEN);
+        }
+
+        if (IsMatBufferDirty(i, BUFFER_RESTEV)) {
+            CleanMatBuffer(i, BUFFER_RESTEV);
         }
 
         if (GetAnmObjTexPat() != NULL && GetAnmObjTexPat()->TestExistence(i)) {
@@ -847,13 +927,13 @@ bool ScnMdl::GetScnObjOption(u32 option, u32* pValue) const {
 void ScnMdl::InitBuffer() {
     ResMdl mdl = GetResMdl();
 
-    u32 matNum = mdl.GetResMatNumEntries();
-    u32 nodeNum = mdl.GetResNodeNumEntries();
+    u32 numMat = mdl.GetResMatNumEntries();
+    u32 numNode = mdl.GetResNodeNumEntries();
 
     u32 i;
 
     if (mReplacement.visArray != NULL) {
-        for (i = 0; i < nodeNum; i++) {
+        for (i = 0; i < numNode; i++) {
             if (mdl.GetResNode(i).IsVisible()) {
                 mReplacement.visArray[i] = true;
             } else {
@@ -862,7 +942,7 @@ void ScnMdl::InitBuffer() {
         }
     }
 
-    for (i = 0; i < matNum; i++) {
+    for (i = 0; i < numMat; i++) {
         ResMat mat = mdl.GetResMat(i);
         mpMatBufferDirtyFlag[i] = 0;
 
@@ -994,10 +1074,10 @@ void ScnMdl::CleanMatBuffer(u32 idx, u32 option) {
 
 void ScnMdl::CleanVisBuffer() {
     ResMdl mdl = GetResMdl();
-    u32 nodeNum = mdl.GetResNodeNumEntries();
+    u32 numNode = mdl.GetResNodeNumEntries();
 
     if (mReplacement.visArray != NULL) {
-        for (u32 i = 0; i < nodeNum; i++) {
+        for (u32 i = 0; i < numNode; i++) {
             if (mdl.GetResNode(i).IsVisible()) {
                 mReplacement.visArray[i] = true;
             } else {
@@ -1009,14 +1089,14 @@ void ScnMdl::CleanVisBuffer() {
     mFlagVisBuffer &= ~VISBUFFER_DIRTY;
 }
 
-bool ScnMdl::SetAnmObj(AnmObj* pObj, AnmObjType type) {
-    if (pObj != NULL && pObj->GetParent() == NULL) {
-        if (type == ANMOBJTYPE_SHP || type == ANMOBJTYPE_NOT_SPECIFIED) {
-            AnmObjShp* pShp = DynamicCast<AnmObjShp>(pObj);
+bool ScnMdl::SetAnmObj(AnmObj* p, AnmObjType tp) {
+    if (p != NULL && p->GetParent() == NULL) {
+        if (tp == ANMOBJTYPE_SHP || tp == ANMOBJTYPE_NOT_SPECIFIED) {
+            AnmObjShp* pShp = DynamicCast<AnmObjShp>(p);
 
             if (pShp != NULL) {
                 if (!pShp->IsBound()) {
-                    return false;
+                    return FALSE;
                 }
 
                 if (mpAnmObjShp != NULL) {
@@ -1025,31 +1105,37 @@ bool ScnMdl::SetAnmObj(AnmObj* pObj, AnmObjType type) {
 
                 mpAnmObjShp = pShp;
                 pShp->G3dProc(G3DPROC_ATTACH_PARENT, 0, this);
+                mReplacement.flag &= ~1;
 
-                return true;
+                return TRUE;
             } else {
-                if (type == ANMOBJTYPE_NOT_SPECIFIED) {
-                    return ScnMdlSimple::SetAnmObj(pObj, type);
+                if (tp == ANMOBJTYPE_NOT_SPECIFIED) {
+                    return ScnMdlSimple::SetAnmObj(p, tp);
                 }
 
-                return false;
+                return FALSE;
             }
         } else {
-            return ScnMdlSimple::SetAnmObj(pObj, type);
+            return ScnMdlSimple::SetAnmObj(p, tp);
         }
     }
 
-    return false;
+    return FALSE;
 }
 
-bool ScnMdl::RemoveAnmObj(AnmObj* pObj) {
-    if (pObj == NULL) {
+bool ScnMdl::RemoveAnmObj(AnmObj* p) {
+    if (p == NULL) {
         return NULL;
     }
 
-    if (pObj == mpAnmObjShp) {
+    if (p == mpAnmObjShp) {
         mpAnmObjShp->G3dProc(G3DPROC_DETACH_PARENT, 0, this);
         mpAnmObjShp = NULL;
+
+        if (!(mReplacementFlag & 1)) {
+            mReplacement.flag |= 1;
+            return TRUE;
+        }
 
         if (mReplacement.vtxPosTable != NULL) {
             u32 vtxPosNum = GetResMdl().GetResVtxPosNumEntries();
@@ -1090,7 +1176,7 @@ bool ScnMdl::RemoveAnmObj(AnmObj* pObj) {
         return true;
     }
 
-    return ScnMdlSimple::RemoveAnmObj(pObj);
+    return ScnMdlSimple::RemoveAnmObj(p);
 }
 
 AnmObj* ScnMdl::RemoveAnmObj(AnmObjType type) {
@@ -1119,18 +1205,19 @@ const AnmObj* ScnMdl::GetAnmObj(AnmObjType type) const {
     return ScnMdlSimple::GetAnmObj(type);
 }
 
-ScnMdl::ScnMdl(MEMAllocator* pAllocator, ResMdl mdl,
+ScnMdl::ScnMdl(MEMAllocator* pHeap, ResMdl mdl,
                math::MTX34* pWorldMtxArray, u32* pWorldMtxAttribArray,
                math::MTX34* pViewPosMtxArray, math::MTX33* pViewNrmMtxArray,
-               math::MTX34* pViewTexMtxArray, int numView, int numViewMtx,
-               DrawResMdlReplacement* pReplacement, u32* pMatBufferDirtyFlag)
-    : ScnMdlSimple(pAllocator, mdl, pWorldMtxArray, pWorldMtxAttribArray,
+               math::MTX34* pViewTexMtxArray, int nView, int numViewMtx,
+               DrawResMdlReplacement* pReplacement, u32* pMatBufferDirtyFlag, u32 replacementFlag)
+    : ScnMdlSimple(pHeap, mdl, pWorldMtxArray, pWorldMtxAttribArray,
                    pViewPosMtxArray, pViewNrmMtxArray, pViewTexMtxArray,
-                   numView, numViewMtx),
+                   nView, numViewMtx),
       mpAnmObjShp(NULL),
       mFlagVisBuffer(NULL),
       mpMatBufferDirtyFlag(pMatBufferDirtyFlag),
-      mReplacement(*pReplacement) {}
+      mReplacement(*pReplacement), 
+      mReplacementFlag(replacementFlag) {}
 
 ScnMdl::~ScnMdl() {
     if (mpAnmObjShp != NULL) {

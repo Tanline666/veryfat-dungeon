@@ -11,41 +11,41 @@ namespace nw4r {
 namespace db {
 
 /**
- * \~english @brief Output displays for debugging consoles.
- * \~japanese @brief デバッグコンソールの出力表示。
+ * @~english @brief Output displays for debugging consoles.
+ * @~japanese @brief デバッグコンソールの出力表示。
  */
 enum ConsoleOutputType {
-    CONSOLE_OUTPUT_NONE,     //!< \~english No output \~japanese 出力しない
-    CONSOLE_OUTPUT_DISPLAY,  //!< \~english TV screen \~japanese テレビ画面
-    CONSOLE_OUTPUT_TERMINAL, //!< \~english Terminal \~japanese ターミナル
-    CONSOLE_OUTPUT_ALL,      //!< \~english TV and terminal \~japanese
+    CONSOLE_OUTPUT_NONE,     //!< @~english No output @~japanese 出力しない
+    CONSOLE_OUTPUT_DISPLAY,  //!< @~english TV screen @~japanese テレビ画面
+    CONSOLE_OUTPUT_TERMINAL, //!< @~english Terminal @~japanese ターミナル
+    CONSOLE_OUTPUT_ALL,      //!< @~english TV and terminal @~japanese
                              //!< テレビとターミナル
 };
 
 namespace detail {
-//! \~english Forward declaration required for ConsoleHandle
-//! \~japanese ConsoleHandleの必要な前方宣言
+//! @~english Forward declaration required for ConsoleHandle
+//! @~japanese ConsoleHandleの必要な前方宣言
 typedef struct ConsoleHead ConsoleHead;
 } // namespace detail
 
 /**
- * \~english @brief Pointer to detail::ConsoleHead.
- * \~japanese @brief detail::ConsoleHeadへのポインタ。
+ * @~english @brief Pointer to detail::ConsoleHead.
+ * @~japanese @brief detail::ConsoleHeadへのポインタ。
  */
 typedef nw4r::db::detail::ConsoleHead* ConsoleHandle;
 
 namespace detail {
 
 /**
- * \~english @brief Struct that defines debugging output consoles.
- * \~japanese @brief デバッグの出力コンソールを定義するストラクト。
+ * @~english @brief Struct that defines debugging output consoles.
+ * @~japanese @brief デバッグの出力コンソールを定義するストラクト。
  */
 struct ConsoleHead {
     u8* textBuf;    //!< // at 0x0
-    u16 width;      //!< \~english Character width per line \~japanese
+    u16 width;      //!< @~english Character width per line @~japanese
                     //!< 1行あたりの文字幅 \~ // at 0x4
     u16 height;     //!< // at 0x6
-    u16 prio;       //!< \~english Console display priority \~japanese
+    u16 prio;       //!< @~english Console display priority @~japanese
                     //!< コンソールの表示優先度 \~ // at 0x8
     u16 attr;       //!< // at 0xA
     u16 firstPrint; //!< // at 0xC
@@ -67,31 +67,31 @@ struct ConsoleHead {
 void Console_DrawDirect(ConsoleHandle console);
 
 /**
- * \~english @brief Prints strings to the console via the specified
+ * @~english @brief Prints strings to the console via the specified
  * ConsoleOutputType.
- * \~japanese @brief ConsoleOutputTypeを通じてコンソールへ文字列をプリントする。
+ * @~japanese @brief ConsoleOutputTypeを通じてコンソールへ文字列をプリントする。
  *
  * @param type
- * \~english @param console Console handle
- * \~japanese @param console コンソールのハンドル
- * \~english @param pFmt Formatted string
- * \~japanese @param pFmt 書式文字列
- * \~english @param vList Variable argument list
- * \~japanese @param vList 可変引数リスト
+ * @~english @param console Console handle
+ * @~japanese @param console コンソールのハンドル
+ * @~english @param pFmt Formatted string
+ * @~japanese @param pFmt 書式文字列
+ * @~english @param vList Variable argument list
+ * @~japanese @param vList 可変引数リスト
  */
 void Console_VFPrintf(ConsoleOutputType type, ConsoleHandle console,
                       const char* fmt, std::va_list vList);
 
 /**
- * \~english @brief Prints strings to both TV and terminal.
- * \~japanese @brief テレビもターミナルに文字列をプリントする。
+ * @~english @brief Prints strings to both TV and terminal.
+ * @~japanese @brief テレビもターミナルに文字列をプリントする。
  *
- * \~english @param console Console handle
- * \~japanese @param console コンソールのハンドル
- * \~english @param pFmt Formatted string
- * \~japanese @param pFmt 書式文字列
- * \~english @param vList Variable argument list
- * \~japanese @param vList 可変引数リスト
+ * @~english @param console Console handle
+ * @~japanese @param console コンソールのハンドル
+ * @~english @param pFmt Formatted string
+ * @~japanese @param pFmt 書式文字列
+ * @~english @param vList Variable argument list
+ * @~japanese @param vList 可変引数リスト
  */
 inline void Console_VPrintf(ConsoleHandle console, const char* pFmt,
                             va_list vList) {
@@ -99,15 +99,15 @@ inline void Console_VPrintf(ConsoleHandle console, const char* pFmt,
 }
 
 /**
- * \~english @brief Prints strings to both TV and terminal.
- * \~japanese @brief テレビもターミナルに文字列をプリントする。
+ * @~english @brief Prints strings to both TV and terminal.
+ * @~japanese @brief テレビもターミナルに文字列をプリントする。
  *
- * \~english @param console Console handle
- * \~japanese @param console コンソールのハンドル
- * \~english @param pFmt Formatted string
- * \~japanese @param pFmt 書式文字列
- * \~english @param ... Individual variable arguments
- * \~japanese @param ... 個別の可変引数
+ * @~english @param console Console handle
+ * @~japanese @param console コンソールのハンドル
+ * @~english @param pFmt Formatted string
+ * @~japanese @param pFmt 書式文字列
+ * @~english @param ... Individual variable arguments
+ * @~japanese @param ... 個別の可変引数
  */
 void Console_Printf(ConsoleHandle console, const char* pFmt, ...);
 
@@ -146,32 +146,32 @@ inline s32 Console_ShowLatestLine(ConsoleHandle console) {
 }
 
 /**
- * \~english @brief Creates a console.
- * \~japanese @brief コンソールを作成する。
+ * @~english @brief Creates a console.
+ * @~japanese @brief コンソールを作成する。
  *
- * \~english @param pBuffer Buffer of the console to be created
- * \~japanese @param pBuffer 作成するコンソールのバッファ
- * \~english @param width Width of the console to be created
- * \~japanese @param width 作成するコンソールの幅
+ * @~english @param pBuffer Buffer of the console to be created
+ * @~japanese @param pBuffer 作成するコンソールのバッファ
+ * @~english @param width Width of the console to be created
+ * @~japanese @param width 作成するコンソールの幅
  * @param height
  * @param viewHeight
- * \~english @param prio Console display priority
- * \~japanese @param prio コンソールの表示優先度
+ * @~english @param prio Console display priority
+ * @~japanese @param prio コンソールの表示優先度
  * @param attr
- * \~english @return The created console's handle
- * \~japanese @return 作成したコンソールのハンドル
+ * @~english @return The created console's handle
+ * @~japanese @return 作成したコンソールのハンドル
  */
 ConsoleHandle Console_Create(void* pBuffer, u16 width, u16 height,
                              u16 viewHeight, u16 prio, u16 attr);
 
 /**
- * \~english @brief Destroys the specified console.
- * \~japanese @brief 指定のコンソールを破棄する。
+ * @~english @brief Destroys the specified console.
+ * @~japanese @brief 指定のコンソールを破棄する。
  *
- * \~english @param console Specified console handle
- * \~japanese @param console 指定のコンソールハンドル
- * \~english @return Pointer to the destroyed console's buffer
- * \~japanese @return 破棄したコンソールのバッファへのポインタ
+ * @~english @param console Specified console handle
+ * @~japanese @param console 指定のコンソールハンドル
+ * @~english @return Pointer to the destroyed console's buffer
+ * @~japanese @return 破棄したコンソールのバッファへのポインタ
  */
 void* Console_Destroy(ConsoleHandle console);
 

@@ -133,8 +133,8 @@ public:
         return ref().info.numMaterial;
     }
     /**
-     * \~english @brief Gets animation replay policy.
-     * \~japanese @brief アニメ再生ポリシーを取得する。
+     * @~english @brief Gets animation replay policy.
+     * @~japanese @brief アニメ再生ポリシーを取得する。
      */
     AnmPolicy GetAnmPolicy() const {
         return ref().info.policy;

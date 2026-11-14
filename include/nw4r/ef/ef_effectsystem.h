@@ -18,8 +18,8 @@ class EmitFormBuilder;
 class MemoryManagerBase;
 
 /**
- * \~english @brief Class that manages all effects.
- * \~japanese @brief 全てのエフェクトを管理するクラス。
+ * @~english @brief Class that manages all effects.
+ * @~japanese @brief 全てのエフェクトを管理するクラス。
  */
 class EffectSystem {
 private:
@@ -53,17 +53,17 @@ public:
     bool Closing(Effect* target);
 
     /**
-     * \~english @brief Creates an effect.
-     * \~japanese @brief エフェクトを作成する。
+     * @~english @brief Creates an effect.
+     * @~japanese @brief エフェクトを作成する。
      *
-     * \~english @param pName Effect name
-     * \~japanese @param pName エフェクト名
-     * \~english @param groupID Effect group ID
-     * \~japanese @param groupID エフェクトのグループID
-     * \~english @param calcRemain Elapsed frames
-     * \~japanese @param calcRemain 経過したフレーム
-     * \~english @return Pointer to created effect
-     * \~japanese @return 作成したエフェクトへのポインタ
+     * @~english @param pName Effect name
+     * @~japanese @param pName エフェクト名
+     * @~english @param groupID Effect group ID
+     * @~japanese @param groupID エフェクトのグループID
+     * @~english @param calcRemain Elapsed frames
+     * @~japanese @param calcRemain 経過したフレーム
+     * @~english @return Pointer to created effect
+     * @~japanese @return 作成したエフェクトへのポインタ
      */
     Effect* CreateEffect(const char* pName, u32 groupID, u16 calcRemain);
     Effect* CreateEffect(EmitterResource* pResource, u32 groupID,
@@ -75,8 +75,8 @@ public:
     u32 RetireParticleAll(u32 groupID);
 
     /**
-     * \~english @brief Animates registered groups of effects.
-     * \~japanese @brief エフェクトの指定されたグループをアニメートする。
+     * @~english @brief Animates registered groups of effects.
+     * @~japanese @brief エフェクトの指定されたグループをアニメートする。
      *
      * @param groupID
      * @param option

@@ -19,9 +19,9 @@ static void* MemDeallocCallbackArg = NULL;
 RP_SINGLETON_IMPL_EX(RPSndAudioMgr);
 
 /**
- * \~english @brief Constructor
+ * @~english @brief Constructor
  *
- * \~english @param pHeap Parent heap
+ * @~english @param pHeap Parent heap
  */
 RPSndAudioMgr::RPSndAudioMgr(EGG::Heap* pHeap) : mpParentHeap(pHeap) {
     mSoundHeapLevel = 1;
@@ -44,30 +44,30 @@ RPSndAudioMgr::RPSndAudioMgr(EGG::Heap* pHeap) : mpParentHeap(pHeap) {
 }
 
 /**
- * \~english @brief Destructor
+ * @~english @brief Destructor
  */
 RPSndAudioMgr::~RPSndAudioMgr() {}
 
 /**
- * \~english @brief Callback for sound heap deallocation
+ * @~english @brief Callback for sound heap deallocation
  *
- * \~english @param pBuffer Memory block buffer
- * \~english @param size Buffer size
- * \~english @param pCallbackArg Callback user argument
+ * @~english @param pBuffer Memory block buffer
+ * @~english @param size Buffer size
+ * @~english @param pCallbackArg Callback user argument
  */
 static void MemDeallocCallback(void* /* pBuffer */, u32 /* size */,
                                void* /* pCallbackArg */) {}
 
 /**
- * \~english @brief MemDeallocCallback user argument
+ * @~english @brief MemDeallocCallback user argument
  */
 
 static u32 DAT_804bf648 = 0;
 
 /**
- * \~english @brief Initializes the audio manager state
+ * @~english @brief Initializes the audio manager state
  *
- * \~english @param pArg Audio system configuration
+ * @~english @param pArg Audio system configuration
  */
 void RPSndAudioMgr::initialize(Arg* pArg) {
     ExpAudioMgrArg* pArgExp = static_cast<ExpAudioMgrArg*>(pArg);
@@ -129,13 +129,13 @@ void RPSndAudioMgr::initialize(Arg* pArg) {
 }
 
 /**
- * \~english @brief Attempts to open the specified sound archive, using storage
+ * @~english @brief Attempts to open the specified sound archive, using storage
  * settings from the project locale
  *
- * \~english @param pPath Sound archive path
- * \~english @param pHeap Sound heap
- * \~english @param pMultiHandle Multi handle for special storage types
- * \~english @return Archive player
+ * @~english @param pPath Sound archive path
+ * @~english @param pHeap Sound heap
+ * @~english @param pMultiHandle Multi handle for special storage types
+ * @~english @return Archive player
  */
 nw4r::snd::SoundArchivePlayer*
 RPSndAudioMgr::openArchiveRP(const char* pPath, nw4r::snd::SoundHeap* pHeap,
@@ -207,13 +207,13 @@ RPSndAudioMgr::openArchiveRP(const char* pPath, nw4r::snd::SoundHeap* pHeap,
 }
 
 /**
- * \~english @brief Attempts to open and prepare the specified sound archive
+ * @~english @brief Attempts to open and prepare the specified sound archive
  *
- * \~english @param pPath Sound archive path
- * \~english @param staticPath Whether the archive path is relative to the
+ * @~english @param pPath Sound archive path
+ * @~english @param staticPath Whether the archive path is relative to the
  * static resource directory
- * \~english @param pHeap Sound heap
- * \~english @return Archive player
+ * @~english @param pHeap Sound heap
+ * @~english @return Archive player
  */
 nw4r::snd::SoundArchivePlayer*
 RPSndAudioMgr::attachArchive(const char* pPath, bool staticPath,
@@ -258,7 +258,7 @@ RPSndAudioMgr::attachArchive(const char* pPath, bool staticPath,
 }
 
 /**
- * \~english @brief Updates the state of the audio manager
+ * @~english @brief Updates the state of the audio manager
  */
 void RPSndAudioMgr::calc() {
     if (mShutDownStatusRP == SHUTDOWN_STATUS_QUEUED) {
@@ -388,7 +388,7 @@ void RPSndAudioMgr::calc() {
 }
 
 /**
- * \~english @brief Configures the audio system for title scenes
+ * @~english @brief Configures the audio system for title scenes
  */
 void RPSndAudioMgr::configureTitle() {
     if (mState == EState_MiniGame) {
@@ -406,7 +406,7 @@ void RPSndAudioMgr::configureTitle() {
 }
 
 /**
- * \~english @brief Configures the audio system for scenes without BGM
+ * @~english @brief Configures the audio system for scenes without BGM
  */
 void RPSndAudioMgr::configureNoBgm() {
     for (u32 i = 0; i < getPlayer().GetSoundPlayerCount(); i++) {
@@ -422,9 +422,9 @@ void RPSndAudioMgr::configureNoBgm() {
 }
 
 /**
- * \~english @brief Configures the audio system for game scenes
+ * @~english @brief Configures the audio system for game scenes
  *
- * \~english @param cameraNum 3D audio camera count
+ * @~english @param cameraNum 3D audio camera count
  */
 void RPSndAudioMgr::configureMiniGame(s32 cameraNum) {
     if (mState == EState_Title || mState == EState_NoBgm) {
@@ -439,9 +439,9 @@ void RPSndAudioMgr::configureMiniGame(s32 cameraNum) {
 }
 
 /**
- * \~english @brief Fades out all audio in the specified number of frames
+ * @~english @brief Fades out all audio in the specified number of frames
  *
- * \~english @param frames Fade out length
+ * @~english @param frames Fade out length
  */
 void RPSndAudioMgr::fadeOutAllSound(u16 frames) {
     RPSysSceneCreator::EPackID pack =
@@ -459,7 +459,7 @@ void RPSndAudioMgr::fadeOutAllSound(u16 frames) {
 }
 
 /**
- * \~english @brief Applies the fade out for game Retry buttons
+ * @~english @brief Applies the fade out for game Retry buttons
  */
 void RPSndAudioMgr::setAutoFadeOnRetry() {
     for (u32 i = 0; i < getPlayer().GetSoundPlayerCount(); i++) {
@@ -474,7 +474,7 @@ void RPSndAudioMgr::setAutoFadeOnRetry() {
 }
 
 /**
- * \~english @brief Prepares the audio system for a scene change
+ * @~english @brief Prepares the audio system for a scene change
  */
 void RPSndAudioMgr::changeScene() {
     exitAudio();
@@ -482,7 +482,7 @@ void RPSndAudioMgr::changeScene() {
 }
 
 /**
- * \~english @brief Resets the audio system configuration
+ * @~english @brief Resets the audio system configuration
  */
 void RPSndAudioMgr::exitAudio() {
     for (u32 i = 0; i < getPlayer().GetSoundPlayerCount(); i++) {
@@ -510,10 +510,10 @@ void RPSndAudioMgr::exitAudio() {
 }
 
 /**
- * \~english @brief Attempts to restore the specified sound heap state
+ * @~english @brief Attempts to restore the specified sound heap state
  *
- * \~english @param id State ID
- * \~english @return Success
+ * @~english @param id State ID
+ * @~english @return Success
  */
 bool RPSndAudioMgr::loadState(s32 id) {
     nw4r::snd::SoundHeap* pHeap = &getSoundHeap();
@@ -529,22 +529,22 @@ bool RPSndAudioMgr::loadState(s32 id) {
 }
 
 /**
- * \~english @brief Attempts to start the specified sound
+ * @~english @brief Attempts to start the specified sound
  *
- * \~english @param pHandle Sound handle
- * \~english @param id Sound ID
- * \~english @return Success
+ * @~english @param pHandle Sound handle
+ * @~english @param id Sound ID
+ * @~english @return Success
  */
 bool RPSndAudioMgr::startSound(nw4r::snd::SoundHandle* pHandle, u32 id) {
     return getPlayer().StartSound(pHandle, id);
 }
 
 /**
- * \~english @brief Attempts to start the specified sound
+ * @~english @brief Attempts to start the specified sound
  *
- * \~english @param pHandle Sound handle
- * \~english @param id Sound ID
- * \~english @return Success
+ * @~english @param pHandle Sound handle
+ * @~english @param id Sound ID
+ * @~english @return Success
  */
 bool RPSndAudioMgr::startSound(nw4r::snd::SoundHandle* pHandle,
                                unsigned int id) {
@@ -552,11 +552,11 @@ bool RPSndAudioMgr::startSound(nw4r::snd::SoundHandle* pHandle,
 }
 
 /**
- * \~english @brief Attempts to start the specified sound
+ * @~english @brief Attempts to start the specified sound
  *
- * \~english @param pHandle Sound handle
- * \~english @param pName Sound name
- * \~english @return Success
+ * @~english @param pHandle Sound handle
+ * @~english @param pName Sound name
+ * @~english @return Success
  */
 bool RPSndAudioMgr::startSound(nw4r::snd::SoundHandle* pHandle,
                                const char* pName) {
@@ -565,17 +565,17 @@ bool RPSndAudioMgr::startSound(nw4r::snd::SoundHandle* pHandle,
 }
 
 /**
- * \~english @brief Sets the volume of all sound players
+ * @~english @brief Sets the volume of all sound players
  *
- * \~english @param volume New volume
- * \~english @param frames Interpolation time
+ * @~english @param volume New volume
+ * @~english @param frames Interpolation time
  */
 void RPSndAudioMgr::setArcVolume(f32 volume, u32 frames) {
     mArcVolume.moveValue(volume, frames);
 }
 
 /**
- * \~english @brief Resets the volume of all sound players
+ * @~english @brief Resets the volume of all sound players
  */
 void RPSndAudioMgr::resetArcVolume() {
     setArcVolume(1.0f, 0);
@@ -586,27 +586,27 @@ void RPSndAudioMgr::resetArcVolume() {
 }
 
 /**
- * \~english @brief Sets the volume of the current BGM
+ * @~english @brief Sets the volume of the current BGM
  *
- * \~english @param volume New volume
- * \~english @param frames Interpolation time
+ * @~english @param volume New volume
+ * @~english @param frames Interpolation time
  */
 void RPSndAudioMgr::setBgmVolume(f32 volume, int frames) {
     mHandleBgm.SetVolume(volume, frames);
 }
 
 /**
- * \~english @brief Sets the volume of the current stream
+ * @~english @brief Sets the volume of the current stream
  *
- * \~english @param volume New volume
- * \~english @param frames Interpolation time
+ * @~english @param volume New volume
+ * @~english @param frames Interpolation time
  */
 void RPSndAudioMgr::setStreamVolume(f32 volume, int frames) {
     mHandleStream.SetVolume(volume, frames);
 }
 
 /**
- * \~english @brief Gets the position of the current stream, in seconds
+ * @~english @brief Gets the position of the current stream, in seconds
  */
 u32 RPSndAudioMgr::getStreamPlaySecond() {
     if (mHandleStream.IsAttachedSound()) {
@@ -617,13 +617,13 @@ u32 RPSndAudioMgr::getStreamPlaySecond() {
 }
 
 /**
- * \~english @brief Attempts to start a cursor sound effect
+ * @~english @brief Attempts to start a cursor sound effect
  *
- * \~english @param pName Sound name
- * \~english @param rDpdPos Cursor DPD/IR position
- * \~english @param pan Sound pan
- * \~english @param playerFlag Player output line flag
- * \~english @return Success
+ * @~english @param pName Sound name
+ * @~english @param rDpdPos Cursor DPD/IR position
+ * @~english @param pan Sound pan
+ * @~english @param playerFlag Player output line flag
+ * @~english @return Success
  */
 bool RPSndAudioMgr::startPointCursorSe(const char* pName,
                                        const nw4r::math::VEC2& rDpdPos, f32 pan,
@@ -639,12 +639,12 @@ bool RPSndAudioMgr::startPointCursorSe(const char* pName,
 }
 
 /**
- * \~english @brief Attempts to start a pause sound effect
+ * @~english @brief Attempts to start a pause sound effect
  *
- * \~english @param pNameRemote Remote speaker sound name
- * \~english @param pNameTV TV speaker sound name
- * \~english @param waitForDpd Whether to wait until the controller reconnects
- * \~english @param player Player whose remote speaker should be used
+ * @~english @param pNameRemote Remote speaker sound name
+ * @~english @param pNameTV TV speaker sound name
+ * @~english @param waitForDpd Whether to wait until the controller reconnects
+ * @~english @param player Player whose remote speaker should be used
  */
 void RPSndAudioMgr::startPauseSe(const char* pNameRemote, const char* pNameTV,
                                  bool waitForDpd, s32 player) {
@@ -666,7 +666,7 @@ void RPSndAudioMgr::startPauseSe(const char* pNameRemote, const char* pNameTV,
 }
 
 /**
- * \~english @brief Applies the default audio effect configuration
+ * @~english @brief Applies the default audio effect configuration
  */
 void RPSndAudioMgr::setDefaultFx() {
     RPSysSceneCreator::EPackID pack =
@@ -718,13 +718,13 @@ void RPSndAudioMgr::setDefaultFx() {
 }
 
 /**
- * \~english @brief Attempts to load the specified sound group
+ * @~english @brief Attempts to load the specified sound group
  *
- * \~english @param id Group ID
- * \~english @param pHeap Sound heap to use for allocations
- * \~english @param blockSize Read block size (zero tries to read it all at
+ * @~english @param id Group ID
+ * @~english @param pHeap Sound heap to use for allocations
+ * @~english @param blockSize Read block size (zero tries to read it all at
  * once)
- * \~english @return Success
+ * @~english @return Success
  */
 bool RPSndAudioMgr::loadGroup(unsigned int id,
                               nw4r::snd::SoundHeap* /* pHeap */,
@@ -739,13 +739,13 @@ bool RPSndAudioMgr::loadGroup(unsigned int id,
 }
 
 /**
- * \~english @brief Attempts to load the specified sound group
+ * @~english @brief Attempts to load the specified sound group
  *
- * \~english @param id Group ID
- * \~english @param pHeap Sound heap to use for allocations
- * \~english @param blockSize Read block size (zero tries to read it all at
+ * @~english @param id Group ID
+ * @~english @param pHeap Sound heap to use for allocations
+ * @~english @param blockSize Read block size (zero tries to read it all at
  * once)
- * \~english @return Success
+ * @~english @return Success
  */
 bool RPSndAudioMgr::loadGroup(int id, nw4r::snd::SoundHeap* /* pHeap */,
                               u32 /* blockSize */) {
@@ -759,13 +759,13 @@ bool RPSndAudioMgr::loadGroup(int id, nw4r::snd::SoundHeap* /* pHeap */,
 }
 
 /**
- * \~english @brief Attempts to load the specified sound group
+ * @~english @brief Attempts to load the specified sound group
  *
- * \~english @param pName Group name
- * \~english @param pHeap Sound heap to use for allocations
- * \~english @param blockSize Read block size (zero tries to read it all at
+ * @~english @param pName Group name
+ * @~english @param pHeap Sound heap to use for allocations
+ * @~english @param blockSize Read block size (zero tries to read it all at
  * once)
- * \~english @return Success
+ * @~english @return Success
  */
 bool RPSndAudioMgr::loadGroup(const char* pName,
                               nw4r::snd::SoundHeap* /* pHeap */,
@@ -781,10 +781,10 @@ bool RPSndAudioMgr::loadGroup(const char* pName,
 }
 
 /**
- * \~english @brief Configures the specified remote speaker(s) for the current
+ * @~english @brief Configures the specified remote speaker(s) for the current
  * system sound effect
  *
- * \~english @param playerFlag Player output line flags
+ * @~english @param playerFlag Player output line flags
  */
 void RPSndAudioMgr::setRemote(u32 playerFlag) {
     if (!mHandleSystemSe.IsAttachedSound()) {
@@ -808,7 +808,7 @@ void RPSndAudioMgr::setRemote(u32 playerFlag) {
 }
 
 /**
- * \~english @brief Prepares the audio system for entering the home button menu
+ * @~english @brief Prepares the audio system for entering the home button menu
  */
 void RPSndAudioMgr::enterMenu() {
     if (mFlags == 0) {
@@ -835,7 +835,7 @@ void RPSndAudioMgr::enterMenu() {
 }
 
 /**
- * \~english @brief Prepares the audio system for returning from the home button
+ * @~english @brief Prepares the audio system for returning from the home button
  * menu
  */
 void RPSndAudioMgr::exitMenu() {
@@ -874,7 +874,7 @@ void RPSndAudioMgr::exitMenu() {
 }
 
 /**
- * \~english @brief Prepares the audio system for entering the pause menu
+ * @~english @brief Prepares the audio system for entering the pause menu
  */
 void RPSndAudioMgr::enterPause() {
     if (testFlag(EFlag_IsPause)) {
@@ -899,7 +899,7 @@ void RPSndAudioMgr::enterPause() {
 }
 
 /**
- * \~english @brief Prepares the audio system for returning from the pause menu
+ * @~english @brief Prepares the audio system for returning from the pause menu
  */
 void RPSndAudioMgr::exitPause() {
     if (!testFlag(EFlag_IsPause)) {
@@ -926,7 +926,7 @@ void RPSndAudioMgr::exitPause() {
 }
 
 /**
- * \~english @brief Pauses the audio system when a DVD error occurs
+ * @~english @brief Pauses the audio system when a DVD error occurs
  */
 void RPSndAudioMgr::onDvdError() {
     if (mFlags == 0) {
@@ -945,7 +945,7 @@ void RPSndAudioMgr::onDvdError() {
 }
 
 /**
- * \~english @brief Resumes the audio system after a DVD error
+ * @~english @brief Resumes the audio system after a DVD error
  */
 void RPSndAudioMgr::exitDvdError() {
     clearFlag(EFlag_IsDvdError);
@@ -964,7 +964,7 @@ void RPSndAudioMgr::exitDvdError() {
 }
 
 /**
- * \~english @brief Stops all sounds when exiting the scene from the pause menu
+ * @~english @brief Stops all sounds when exiting the scene from the pause menu
  */
 void RPSndAudioMgr::stopAllSoundOnPauseOff() {
     for (u32 i = 0; i < getPlayer().GetSoundPlayerCount(); i++) {
@@ -979,9 +979,9 @@ void RPSndAudioMgr::stopAllSoundOnPauseOff() {
 }
 
 /**
- * \~english @brief Requests the audio system to shutdown
+ * @~english @brief Requests the audio system to shutdown
  *
- * \~english @param frames Time to fade out the master volume
+ * @~english @param frames Time to fade out the master volume
  */
 void RPSndAudioMgr::shutdownSystem(int frames) {
     mShutDownStatusRP = SHUTDOWN_STATUS_QUEUED;
@@ -989,9 +989,9 @@ void RPSndAudioMgr::shutdownSystem(int frames) {
 }
 
 /**
- * \~english @brief Requests the audio system to reset
+ * @~english @brief Requests the audio system to reset
  *
- * \~english @param frames Time to fade out the archive volume
+ * @~english @param frames Time to fade out the archive volume
  */
 void RPSndAudioMgr::resetSystem(int frames) {
     setArcVolume(0.0f, frames);
@@ -1000,10 +1000,10 @@ void RPSndAudioMgr::resetSystem(int frames) {
 }
 
 /**
- * \~english @brief Attempts to start the specified fanfare sound effect
+ * @~english @brief Attempts to start the specified fanfare sound effect
  *
- * \~english @param id Sound ID
- * \~english @return Success
+ * @~english @param id Sound ID
+ * @~english @return Success
  */
 bool RPSndAudioMgr::startFanfare(u32 id) {
     const char* pName = getSoundArchive().GetSoundLabelString(id);
@@ -1011,10 +1011,10 @@ bool RPSndAudioMgr::startFanfare(u32 id) {
 }
 
 /**
- * \~english @brief Attempts to start the specified fanfare sound effect
+ * @~english @brief Attempts to start the specified fanfare sound effect
  *
- * \~english @param pName Sound name
- * \~english @return Success
+ * @~english @param pName Sound name
+ * @~english @return Success
  */
 bool RPSndAudioMgr::startFanfare(const char* pName) {
     if (mIsDisableFanfare) {
@@ -1054,10 +1054,10 @@ bool RPSndAudioMgr::startFanfare(const char* pName) {
 }
 
 /**
- * \~english @brief Gets the user parameters attached to the specified sound
+ * @~english @brief Gets the user parameters attached to the specified sound
  *
- * \~english @param rArchive Sound archive
- * \~english @param id Sound ID
+ * @~english @param rArchive Sound archive
+ * @~english @param id Sound ID
  */
 u32 RPSndAudioMgr::getUserParam(const nw4r::snd::SoundArchive& rArchive,
                                 u32 id) {
@@ -1065,9 +1065,9 @@ u32 RPSndAudioMgr::getUserParam(const nw4r::snd::SoundArchive& rArchive,
 }
 
 /**
- * \~english @brief Sets the output mode of the audio system
+ * @~english @brief Sets the output mode of the audio system
  *
- * \~english @param confMode Sound mode from the SYSCONF
+ * @~english @param confMode Sound mode from the SYSCONF
  */
 void RPSndAudioMgr::setOutputMode(u8 confMode) {
     nw4r::snd::OutputMode outputMode = nw4r::snd::OUTPUT_MODE_STEREO;

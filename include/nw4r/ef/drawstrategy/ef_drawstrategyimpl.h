@@ -50,8 +50,8 @@ public:
         } mNoDesign;                 // at 0xB0
 
         /**
-         * \~english @brief Constructor
-         * \~japanese @brief コンストラクタ
+         * @~english @brief Constructor
+         * @~japanese @brief コンストラクタ
          *
          * @param rViewMtx
          * @param pManager
@@ -127,8 +127,8 @@ public:
 
 public:
     /**
-     * \~english @brief Constructor
-     * \~japanese @brief コンストラクタ
+     * @~english @brief Constructor
+     * @~japanese @brief コンストラクタ
      */
     DrawStrategyImpl();
 

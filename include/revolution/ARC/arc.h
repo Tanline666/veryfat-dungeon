@@ -42,17 +42,17 @@ typedef struct ARCDirEntry {
 } ARCDirEntry;
 
 /**
- * \~english @brief Opens a specified archive and initializes the given
+ * @~english @brief Opens a specified archive and initializes the given
  * archive handle.
- * \~japanese @brief 指定のアーカイブをオープンして、指定のアーカイブ
+ * @~japanese @brief 指定のアーカイブをオープンして、指定のアーカイブ
  * ハンドルを初期化する。
  *
- * \~english @param arcStart Pointer to start address of archive
- * \~japanese @param arcStart アーカイブの開始アドレスへのポインタ
- * \~english @param handle Pointer to archive handle
- * \~japanese @param handle アーカイブハンドルへのポインタ
- * \~english @return TRUE if successful
- * \~japanese @return 成功すればTRUE
+ * @~english @param arcStart Pointer to start address of archive
+ * @~japanese @param arcStart アーカイブの開始アドレスへのポインタ
+ * @~english @param handle Pointer to archive handle
+ * @~japanese @param handle アーカイブハンドルへのポインタ
+ * @~english @return TRUE if successful
+ * @~japanese @return 成功すればTRUE
  */
 BOOL ARCInitHandle(void* arcStart, ARCHandle* handle);
 BOOL ARCOpen(ARCHandle* handle, const char* fileName, ARCFileInfo* af);

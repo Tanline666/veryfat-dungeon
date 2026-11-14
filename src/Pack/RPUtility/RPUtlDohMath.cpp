@@ -3,11 +3,11 @@
 #include <egg/math.h>
 
 /**
- * \~english @brief Sets the specified local axis of the input matrix
+ * @~english @brief Sets the specified local axis of the input matrix
  *
- * \~english @param pMtx Matrix
- * \~english @param axis Axis index
- * \~english @param pBase Base vector
+ * @~english @param pMtx Matrix
+ * @~english @param axis Axis index
+ * @~english @param pBase Base vector
  */
 void RPUtlDohMath::MTX34SetBase(nw4r::math::MTX34* pMtx, AxisType axis,
                                 const nw4r::math::VEC3* pBase) {
@@ -19,12 +19,12 @@ void RPUtlDohMath::MTX34SetBase(nw4r::math::MTX34* pMtx, AxisType axis,
 }
 
 /**
- * \~english @brief Constructs a right-handed orthonormal basis from the local
+ * @~english @brief Constructs a right-handed orthonormal basis from the local
  * axes of the specified matrix
  *
- * \~english @param[out] pOut Output matrix
- * \~english @param pIn Input matrix
- * \~english @param order Axis priority order
+ * @~english @param[out] pOut Output matrix
+ * @~english @param pIn Input matrix
+ * @~english @param order Axis priority order
  */
 void RPUtlDohMath::MTX34Normalize(nw4r::math::MTX34* pOut,
                                   const nw4r::math::MTX34* pIn,
@@ -120,15 +120,15 @@ void RPUtlDohMath::MTX34Normalize(nw4r::math::MTX34* pOut,
 }
 
 /**
- * \~english @brief Calculates a bend point between two endpoints
+ * @~english @brief Calculates a bend point between two endpoints
  *
- * \~english @param[out] pMidPoint Bend point
- * \~english @param[out] pDistance Distance between the endpoints
- * \~english @param rBendDir Bend direction vector
- * \~english @param rPointA Endpoint A
- * \~english @param rPointB Endpoint B
- * \~english @param lengthA Length of the segment from A to the bend joint
- * \~english @param lengthB Length of the segment from the bend joint to B
+ * @~english @param[out] pMidPoint Bend point
+ * @~english @param[out] pDistance Distance between the endpoints
+ * @~english @param rBendDir Bend direction vector
+ * @~english @param rPointA Endpoint A
+ * @~english @param rPointB Endpoint B
+ * @~english @param lengthA Length of the segment from A to the bend joint
+ * @~english @param lengthB Length of the segment from the bend joint to B
  */
 void RPUtlDohMath::GetMidPoint(nw4r::math::VEC3* pMidPoint, f32* pDistance,
                                const nw4r::math::VEC3& rBendDir,
@@ -182,48 +182,45 @@ void RPUtlDohMath::GetMidPoint(nw4r::math::VEC3* pMidPoint, f32* pDistance,
 }
 
 /**
- * \~english @brief Zero vector (3D)
+ * @~english @brief Zero vector (3D)
  */
 const nw4r::math::VEC3 RPUtlDohMath::VEC3_ZERO(0.0f, 0.0f, 0.0f);
 
 /**
- * \~english @brief Zero vector (2D)
+ * @~english @brief Zero vector (2D)
  */
 const nw4r::math::VEC2 RPUtlDohMath::VEC2_ZERO(0.0f, 0.0f);
 
 /**
- * \~english @brief Positive X-axis unit vector
+ * @~english @brief Positive X-axis unit vector
  */
 const nw4r::math::VEC3 RPUtlDohMath::AXIS_XP(1.0f, 0.0f, 0.0f);
 
 /**
- * \~english @brief Negative X-axis unit vector
+ * @~english @brief Negative X-axis unit vector
  */
 const nw4r::math::VEC3 RPUtlDohMath::AXIS_XN(-1.0f, 0.0f, 0.0f);
 
 /**
- * \~english @brief Positive Y-axis unit vector
+ * @~english @brief Positive Y-axis unit vector
  */
 const nw4r::math::VEC3 RPUtlDohMath::AXIS_YP(0.0f, 1.0f, 0.0f);
 
 /**
- * \~english @brief Negative Y-axis unit vector
+ * @~english @brief Negative Y-axis unit vector
  */
 const nw4r::math::VEC3 RPUtlDohMath::AXIS_YN(0.0f, -1.0f, 0.0f);
 
 /**
- * \~english @brief Positive Z-axis unit vector
+ * @~english @brief Positive Z-axis unit vector
  */
 const nw4r::math::VEC3 RPUtlDohMath::AXIS_ZP(0.0f, 0.0f, 1.0f);
 
 /**
- * \~english @brief Negative Z-axis unit vector
+ * @~english @brief Negative Z-axis unit vector
  */
 const nw4r::math::VEC3 RPUtlDohMath::AXIS_ZN(0.0f, 0.0f, -1.0f);
 
-/**
- * \~english @brief 3x4 identity matrix
- */
 const nw4r::math::MTX34 RPUtlDohMath::MTX34_IDENT( //
     1.0f, 0.0f, 0.0f, 0.0f,                        //
     0.0f, 1.0f, 0.0f, 0.0f,                        //
@@ -231,7 +228,7 @@ const nw4r::math::MTX34 RPUtlDohMath::MTX34_IDENT( //
 );
 
 /**
- * \~english @brief 3x3 identity matrix
+ * @~english @brief 3x3 identity matrix
  */
 const nw4r::math::MTX33 RPUtlDohMath::MTX33_IDENT( //
     1.0f, 0.0f, 0.0f,                              //
@@ -240,13 +237,13 @@ const nw4r::math::MTX33 RPUtlDohMath::MTX33_IDENT( //
 );
 
 /**
- * \~english @brief Identity quaternion
+ * @~english @brief Identity quaternion
  */
 const nw4r::math::QUAT RPUtlDohMath::QUAT_IDENT(0.0f, 0.0f, 0.0f, 1.0f);
 
 /**
- * \~english @brief Float close to zero for tolerance checks
- * \~english @note Same as JGeometry's epsilon
- * \~japanese @note JGeometryのエプシロンと同じ
+ * @~english @brief Float close to zero for tolerance checks
+ * @~english @note Same as JGeometry's epsilon
+ * @~japanese @note JGeometryのエプシロンと同じ
  */
 const f32 RPUtlDohMath::FLOAT_EPSILON = 32.0f * FLT_EPSILON;

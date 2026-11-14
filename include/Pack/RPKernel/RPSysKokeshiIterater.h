@@ -8,9 +8,9 @@
 //! @{
 
 /**
- * \~english @brief Mii data source iterator
- * \~english @note typo
- * \~japanese @note タイプミス
+ * @~english @brief Mii data source iterator
+ * @~english @note typo
+ * @~japanese @note タイプミス
  */
 class RPSysKokeshiIterater {
 private:
@@ -23,31 +23,31 @@ private:
 
 public:
     /**
-     * \~english @brief Constructor
+     * @~english @brief Constructor
      *
-     * \~english @param src Mii data source to view
+     * @~english @param src Mii data source to view
      */
     explicit RPSysKokeshiIterater(RFLDataSource src);
 
     /**
-     * \~english @brief Destructor
+     * @~english @brief Destructor
      */
     virtual ~RPSysKokeshiIterater(); // at 0x8
 
     /**
-     * \~english @brief Moves the iterator back to the start
+     * @~english @brief Moves the iterator back to the start
      */
     void Reset();
 
     /**
-     * \~english @brief Advances the iterator to the next Mii
+     * @~english @brief Advances the iterator to the next Mii
      *
-     * \~english @return Whether the iterator is valid
+     * @~english @return Whether the iterator is valid
      */
     bool Update();
 
     /**
-     * \~english @brief Gets the current database index
+     * @~english @brief Gets the current database index
      */
     u16 GetIndex() const {
         return mIndex;
@@ -55,9 +55,9 @@ public:
 
 private:
     /**
-     * \~english @brief Advances the iterator one index
+     * @~english @brief Advances the iterator one index
      *
-     * \~english @return Whether the iterator is valid
+     * @~english @return Whether the iterator is valid
      */
     bool Increment();
 };

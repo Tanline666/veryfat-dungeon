@@ -38,6 +38,20 @@ typedef struct OSCalendarTime {
     s32 usec;  // at 0x24
 } OSCalendarTime;
 
+/**
+ * @~english @brief Gets the current date and time.
+ * @~japanese @brief 現在の日時を取得する。
+ *
+ * @~english @details The Wii uses January 1, 2000, as its epoch: internally,
+ * the time is represented as the amount of ticks (in Hz) that have passed since
+ * that epoch. It does not return a readable time on its own.
+ * @~japanese @details Wiiが2000年1月1日をエポックとなります。内部的に、日時が
+ * そのエポックから（Hz単位での）経過したチックと表現される。独りでに読みやすい
+ * 日時を返さない。
+ *
+ * @~english @return Current date and time in Hz
+ * @~japanese @return Hz単位での現在の日時
+ */
 s64 OSGetTime(void);
 u32 OSGetTick(void);
 

@@ -22,8 +22,8 @@ public:
     virtual bool eof() = 0;                     // at 0x14
 
 /**
- * \~english @brief Helper for declaring stream functions for primitive types
- * \~japanese @brief プリミティブタイプのストリーム関数を宣言するヘルパー
+ * @~english @brief Helper for declaring stream functions for primitive types
+ * @~japanese @brief プリミティブタイプのストリーム関数を宣言するヘルパー
  */
 #define TYPE_FUNC_DECL(T)                                                      \
     T read_##T();                                                              \

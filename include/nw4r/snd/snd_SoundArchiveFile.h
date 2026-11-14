@@ -190,11 +190,10 @@ static const int HEADER_AREA_SIZE = ROUND_UP(sizeof(Header), 32) + 40;
 
 } // namespace SoundArchiveFile
 
-/******************************************************************************
- *
- * SoundArchiveFileReader
- *
- ******************************************************************************/
+/**
+ * @~english @brief Class for reading sound archive files.
+ * @~japanese @brief サウンドアーカイブファイルを読み込むクラス。
+ */
 class SoundArchiveFileReader {
 public:
     static const u32 SIGNATURE = FOURCC('R', 'S', 'A', 'R');
@@ -226,6 +225,7 @@ public:
     u32 GetSoundStringId(u32 id) const;
     u32 GetPlayerCount() const;
     u32 GetGroupCount() const;
+    u32 GetFileCount() const;
 
     const char* GetSoundLabelString(u32 id) const;
     u32 GetSoundUserParam(u32 id) const;

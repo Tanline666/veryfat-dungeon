@@ -13,8 +13,8 @@ namespace ef {
 struct EmitterResource;
 
 /**
- * \~english @brief Struct that represents the binary data in a BREFF file.
- * \~japanese @brief
+ * @~english @brief Struct that represents the binary data in a BREFF file.
+ * @~japanese @brief
  * BREFFファイルに格納されているバイナリデータを表現するストラクト。
  */
 struct EffectProject {
@@ -26,8 +26,8 @@ struct EffectProject {
 };
 
 /**
- * \~english @brief Struct that represents the binary data in a BREFT file.
- * \~japanese @brief
+ * @~english @brief Struct that represents the binary data in a BREFT file.
+ * @~japanese @brief
  * BREFTファイルに格納されているバイナリデータを表現するストラクト。
  */
 struct TextureProject {
@@ -39,8 +39,8 @@ struct TextureProject {
 };
 
 /**
- * \~english @brief Class that manages binary effect data files.
- * \~japanese @brief エフェクトのバイナリデータファイルを管理するクラス。
+ * @~english @brief Class that manages binary effect data files.
+ * @~japanese @brief エフェクトのバイナリデータファイルを管理するクラス。
  */
 class Resource {
 private:
@@ -84,8 +84,8 @@ public:
 
 private:
     /**
-     * \~english @brief Constructor
-     * \~japanese @brief コンストラクタ
+     * @~english @brief Constructor
+     * @~japanese @brief コンストラクタ
      */
     Resource();
 

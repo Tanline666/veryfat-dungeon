@@ -56,29 +56,29 @@ namespace nw4r {
 namespace g3d {
 
 /**
- * \~english @brief Basic class template for resource accessors.
- * \~japanese @brief リソースアクセサの基底クラステンプレート。
+ * @~english @brief Basic class template for resource accessors.
+ * @~japanese @brief リソースアクセサの基底クラステンプレート。
  *
- * \~english @tparam T Resource data struct
- * \~japanese @tparam T リソースデータストラクト
+ * @~english @tparam T Resource data struct
+ * @~japanese @tparam T リソースデータストラクト
  */
 template <typename T> class ResCommon {
 public:
     /**
-     * \~english @brief Constructor
-     * \~japanese @brief コンストラクタ
+     * @~english @brief Constructor
+     * @~japanese @brief コンストラクタ
      *
-     * \~english @param pData Pointer to binary resource data
-     * \~japanese @param pData バイナリリソースデータへのポインタ
+     * @~english @param pData Pointer to binary resource data
+     * @~japanese @param pData バイナリリソースデータへのポインタ
      */
     explicit ResCommon(void* pData) : mpData(static_cast<T*>(pData)) {}
 
     /**
-     * \~english @brief Constructor
-     * \~japanese @brief コンストラクタ
+     * @~english @brief Constructor
+     * @~japanese @brief コンストラクタ
      *
-     * \~english @param pData Pointer to constant binary resource data
-     * \~japanese @param pData 定数のバイナリリソースデータへのポインタ
+     * @~english @param pData Pointer to constant binary resource data
+     * @~japanese @param pData 定数のバイナリリソースデータへのポインタ
      */
     explicit ResCommon(const void* pData)
         : mpData(static_cast<const T*>(pData)) {}
@@ -88,30 +88,30 @@ public:
     }
 
     /**
-     * \~english @brief Gets a pointer to mpData.
-     * \~japanese @brief mpDataへのポインタを取得する。
+     * @~english @brief Gets a pointer to mpData.
+     * @~japanese @brief mpDataへのポインタを取得する。
      */
     T* ptr() {
         return mpData;
     }
     /**
-     * \~english @brief Gets a constant pointer to mpData.
-     * \~japanese @brief mpDataへの定数のポインタを取得する。
+     * @~english @brief Gets a constant pointer to mpData.
+     * @~japanese @brief mpDataへの定数のポインタを取得する。
      */
     const T* ptr() const {
         return mpData;
     }
 
     /**
-     * \~english @brief Gets a reference to mpData.
-     * \~japanese @brief mpDataへの参照を取得する。
+     * @~english @brief Gets a reference to mpData.
+     * @~japanese @brief mpDataへの参照を取得する。
      */
     T& ref() {
         return *mpData;
     }
     /**
-     * \~english @brief Gets a constant reference to mpData.
-     * \~japanese @brief mpDataへの定数の参照を取得する。
+     * @~english @brief Gets a constant reference to mpData.
+     * @~japanese @brief mpDataへの定数の参照を取得する。
      */
     const T& ref() const {
         return *mpData;
@@ -163,13 +163,13 @@ public:
     }
 
 private:
-    T* mpData; //!< \~english Binary resource data \~japanese
+    T* mpData; //!< @~english Binary resource data @~japanese
                //!< バイナリリソースデータ \~ // at 0x0
 };
 
 /**
- * \~english @brief Data block header for resource data structures.
- * \~japanese @brief リソースデータの構造体のデータブロックヘッダ。
+ * @~english @brief Data block header for resource data structures.
+ * @~japanese @brief リソースデータの構造体のデータブロックヘッダ。
  */
 struct ResBlockHeaderData {
     char kind[4]; //!< at 0x0
@@ -177,10 +177,10 @@ struct ResBlockHeaderData {
 };
 
 /**
- * \~english @brief Name resource data structure.
- * \~japanese @brief リソース名前データの構造体。
- * \~english @note Max length is 27 characters.
- * \~japanese @note 最大全長は27文字。
+ * @~english @brief Name resource data structure.
+ * @~japanese @brief リソース名前データの構造体。
+ * @~english @note Max length is 27 characters.
+ * @~japanese @note 最大全長は27文字。
  */
 struct ResNameData27 {
     u32 len;                    //!< at 0x0
@@ -188,8 +188,8 @@ struct ResNameData27 {
 };
 
 /**
- * \~english @brief Resource name data structure.
- * \~japanese @brief リソース名前データの構造体。
+ * @~english @brief Resource name data structure.
+ * @~japanese @brief リソース名前データの構造体。
  */
 struct ResNameData {
     u32 len;     //!< at 0x0
@@ -197,43 +197,43 @@ struct ResNameData {
 };
 
 /**
- * \~english @brief Class for accessing resource name data.
- * \~japanese @brief リソース名前データをアクセスするためのクラス。
+ * @~english @brief Accessor class for resource name data.
+ * @~japanese @brief リソース名前データのアクセサクラス。
  */
 class ResName : public ResCommon<const ResNameData> {
 public:
     /**
-     * \~english @brief Constructor
-     * \~japanese @brief コンストラクタ
+     * @~english @brief Constructor
+     * @~japanese @brief コンストラクタ
      *
      * @param pData
      */
     explicit ResName(const void* pData) : ResCommon(pData) {}
 
     /**
-     * \~english @brief Gets the string length of a name.
-     * \~japanese @brief 名前の文字列の長さを取得する。
+     * @~english @brief Gets the string length of a name.
+     * @~japanese @brief 名前の文字列の長さを取得する。
      */
     u32 GetLength() const {
         return ref().len;
     }
 
     /**
-     * \~english @brief Gets the pointer to a name's string.
-     * \~japanese @brief 名前の文字列へのポインタを取得する。
+     * @~english @brief Gets the pointer to a name's string.
+     * @~japanese @brief 名前の文字列へのポインタを取得する。
      */
     const char* GetName() const {
         return ref().str;
     }
 
     /**
-     * \~english @brief Checks if two ResName objects are the same.
-     * \~japanese @brief 2つのResNameオブジェクトが同じかどうか判定する。
+     * @~english @brief Checks if two ResName objects are the same.
+     * @~japanese @brief 2つのResNameオブジェクトが同じかどうか判定する。
      *
-     * \~english @param rhs Right side of operator
-     * \~japanese @param rhs オペレータの右辺
-     * \~english @return TRUE if equal
-     * \~japanese @return 同じならTRUE
+     * @~english @param rhs Right side of operator
+     * @~japanese @param rhs オペレータの右辺
+     * @~english @return TRUE if equal
+     * @~japanese @return 同じならTRUE
      */
     bool operator==(const ResName rhs) const;
 };

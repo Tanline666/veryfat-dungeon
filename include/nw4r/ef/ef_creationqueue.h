@@ -9,8 +9,8 @@ namespace nw4r {
 namespace ef {
 
 /**
- * \~english @brief Effects creation queue.
- * \~japanese @brief エフェクトの生成キュー。
+ * @~english @brief Effects creation queue.
+ * @~japanese @brief エフェクトの生成キュー。
  */
 class CreationQueue {
 public:
@@ -18,8 +18,8 @@ public:
 
 private:
     /**
-     * \~english @brief Effect creation queue data.
-     * \~japanese @brief エフェクトの生成キューのデータ。
+     * @~english @brief Effect creation queue data.
+     * @~japanese @brief エフェクトの生成キューのデータ。
      */
     struct CreationQueueData {
         enum OPTION {
@@ -27,32 +27,32 @@ private:
             OPTION_USE_VELOCITY = 1 << 1,
         };
 
-        u8 mType;  //!< \~english Effect type \~japanese エフェクト型 \~ // at
+        u8 mType;  //!< @~english Effect type @~japanese エフェクト型 \~ // at
                    //!< 0x0
-        u8 mFlags; //!< \~english Effect flags (represented with OPTION enum)
-                   //!< \~japanese エフェクトのフラグ (OPTIONのenumで表現) \~ //
+        u8 mFlags; //!< @~english Effect flags (represented with OPTION enum)
+                   //!< @~japanese エフェクトのフラグ (OPTIONのenumで表現) \~ //
                    //!< at 0x1
-        u16 mCalcRemain; //!< \~english Elapsed frames \~japanese
+        u16 mCalcRemain; //!< @~english Elapsed frames @~japanese
                          //!< 経過したフレーム \~ // at 0x2
         EmitterInheritSetting mInheritSetting; //!< // at 0x4
         Particle* mReferenceParticle;          //!< // at 0x10
         EmitterResource*
-            mEmitterResource; //!< \~english Pointer to EmitterResource object
-                              //!< \~japanese
+            mEmitterResource; //!< @~english Pointer to EmitterResource object
+                              //!< @~japanese
                               //!< EmitterResourceオブジェクトへのポインタ // at
                               //!< 0x14
         math::VEC3
-            mPosition; //!< \~english Effect position when generated
-                       //!< \~japanese 発生時のエフェクト位置 \~ // at 0x18
-        math::VEC3 mVelocity; //!< \~english Initial velocity of effect
-                              //!< \~japanese エフェクトの初速度 \~ // at 0x24
+            mPosition; //!< @~english Effect position when generated
+                       //!< @~japanese 発生時のエフェクト位置 \~ // at 0x18
+        math::VEC3 mVelocity; //!< @~english Initial velocity of effect
+                              //!< @~japanese エフェクトの初速度 \~ // at 0x24
     };
 
 private:
     /**
-     * \~english @brief Upper limit on the amount of child effects that can be
+     * @~english @brief Upper limit on the amount of child effects that can be
      * created during a single process loop.
-     * \~japanese @brief 一回の処理で生成可能なチャイルドエフェクトの上限。
+     * @~japanese @brief 一回の処理で生成可能なチャイルドエフェクトの上限。
      */
     static const int QUEUE_SIZE =
         MAX(NW4R_EF_MAX_PARTICLE, NW4R_EF_MAX_EMITTER);
@@ -63,8 +63,8 @@ private:
 
 public:
     /**
-     * \~english @brief Constructor
-     * \~japanese @brief コンストラクタ
+     * @~english @brief Constructor
+     * @~japanese @brief コンストラクタ
      */
     CreationQueue();
 

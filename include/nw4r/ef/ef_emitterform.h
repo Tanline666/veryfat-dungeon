@@ -12,14 +12,14 @@ class Emitter;
 class ParticleManager;
 
 /**
- * \~english @brief Basic class for emitter shapes.
- * \~japanese @brief エミッタ形状の基底クラス。
+ * @~english @brief Basic class for emitter shapes.
+ * @~japanese @brief エミッタ形状の基底クラス。
  */
 class EmitterForm {
 public:
     /**
-     * \~english @brief Constructor
-     * \~japanese @brief コンストラクタ
+     * @~english @brief Constructor
+     * @~japanese @brief コンストラクタ
      */
     EmitterForm() {}
 

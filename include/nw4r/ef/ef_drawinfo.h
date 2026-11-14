@@ -30,8 +30,8 @@ private:
 
 public:
     /**
-     * \~english @brief Constructor
-     * \~japanese @brief コンストラクタ
+     * @~english @brief Constructor
+     * @~japanese @brief コンストラクタ
      */
     explicit DrawInfo() {
         math::MTX34Identity(&mViewMtx);

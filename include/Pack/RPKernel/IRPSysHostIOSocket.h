@@ -6,43 +6,43 @@
 //! @{
 
 /**
- * \~english @brief Host I/O socket
+ * @~english @brief Host I/O socket
  */
 class IRPSysHostIOSocket {
 public:
     /**
-     * \~english @brief Constructor
+     * @~english @brief Constructor
      *
-     * \~english @param pName Socket name
-     * \~english @param ... Format string arguments
+     * @~english @param pName Socket name
+     * @~english @param ... Format string arguments
      */
     IRPSysHostIOSocket(const char* pName, ...);
     /**
-     * \~english @brief Constructor
+     * @~english @brief Constructor
      */
     IRPSysHostIOSocket();
 
     /**
-     * \~english @brief Destructor
-     * \~japanese @brief デストラクタ
+     * @~english @brief Destructor
+     * @~japanese @brief デストラクタ
      */
     ~IRPSysHostIOSocket();
 
     /**
-     * \~english @brief Handles property events from the host
+     * @~english @brief Handles property events from the host
      */
     virtual void ListenPropertyEvent() { // at 0xC
         // Stubbed for release
     }
 
     /**
-     * \~english @brief Generates UI control messages for the host
+     * @~english @brief Generates UI control messages for the host
      */
     virtual void GenMessage() { // at 0x10
         // Stubbed for release
     }
 
-    void SetName(const char* pName);
+    void SetName(const char* pName, ...);
 
 private:
     char mName[24]; //!< at 0x4?

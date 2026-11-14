@@ -46,8 +46,8 @@ void RPSysSystem::initialize() {
                                                   sConfigData.mMem2End);
     sConfigData.mRootHeapMem2 = EGG::ExpHeap::create(pMem2Lo, heapSizeMem2);
     sConfigData.mRootHeapDebug = NULL; // unlike initMemory, this is hardcoded
-    sConfigData.mSystemHeap = EGG::ExpHeap::create(
-        sConfigData.mSystemHeapSize, sConfigData.mRootHeapMem1, 0);
+    sConfigData.mSystemHeap = EGG::ExpHeap::create(sConfigData.mSystemHeapSize,
+                                                   sConfigData.mRootHeapMem1);
     sConfigData.mSystemHeap->becomeCurrentHeap();
     EGG::GraphicsFifo::create(0x80000u, NULL);
     setupTVMode();
@@ -73,16 +73,56 @@ void RPSysSystem::create() {
 }
 
 void RPSysSystem::setup() {
-    mpResourceHeap = EGG::ExpHeap::create(sConfigData.mRootHeapMem1, 0);
+    mpResourceHeap =
+        EGG::ExpHeap::create(8126464, sConfigData.mRootHeapMem1, 0);
+
+    u32 renderSize = 19870516;
+    if ((u32)sRenderModeFormat == RPSysRenderMode::EFormat_Pal50) {
+        renderSize = 19608372;
+    }
+
+    mpRenderHeap =
+        EGG::ExpHeap::create(renderSize, sConfigData.mRootHeapMem2, 0);
+    mpUnkHeap = EGG::ExpHeap::create(3607101, sConfigData.mRootHeapMem2, 0);
+    mpDebugHeap = EGG::ExpHeap::create(10485760, sConfigData.mRootHeapMem2, 0);
+    //! opt for mpReserveHeap is a literal
+    mpReserveHeap = EGG::ExpHeap::create(2097152, sConfigData.mRootHeapMem1, 1);
+
+    mpAssertHeap = EGG::ExpHeap::create(256, sConfigData.mRootHeapMem2, 0);
+    mpAssertHeap->enableAllocation();
+
+    createFromSystemHeap();
+    OSLockMutex(&mCurrentHeapMutex);
+    mpCurrentHeap = EGG::Heap::getCurrentHeap();
+    mpDebugHeap->becomeCurrentHeap();
+
+    mpCurrentHeap->becomeCurrentHeap();
+    mpCurrentHeap = NULL;
+    OSUnlockMutex(&mCurrentHeapMutex);
+
+    OSLockMutex(&mCurrentHeapMutex);
+    mpCurrentHeap = EGG::Heap::getCurrentHeap();
+    mpUnkHeap->becomeCurrentHeap();
     //! PLACEHOLDER
-    mpReserveHeap = EGG::ExpHeap::create(sConfigData.mRootHeapMem2, 0);
-    mpAssertHeap = EGG::ExpHeap::create(sConfigData.mRootHeapMem2, 0);
-    mpDebugHeap = EGG::ExpHeap::create(sConfigData.mRootHeapMem2, 0);
-    //! size for mpCurrentHeap is a literal
-    mpCurrentHeap = EGG::ExpHeap::create(sConfigData.mRootHeapMem1, 1);
+    OSUnlockMutex(&mCurrentHeapMutex);
 
     OSSetResetCallback(softResetCallBack);
     OSSetPowerCallback(shutdownSystemCallBack);
+
+    if (sRenderModeWaitStart) {
+        VISetBlack(TRUE);
+        for (int i = 0; i < 100; ++i) {
+            if (OS_TICKS_TO_MSEC(OSGetTime()) > sRenderModeWaitStart + 1667) {
+                break;
+            }
+            VIFlush();
+            VIWaitForRetrace();
+        }
+    }
+
+    RP_GET_INSTANCE(RPSysCalendar)->STUB();
+    RP_GET_INSTANCE(RPSysSceneCreator)
+        ->changeSceneAfterFade(RPSysSceneCreator::ESceneID_RPHealthMainMenu);
 }
 
 void RPSysSystem::mainLoop() {
@@ -90,8 +130,10 @@ void RPSysSystem::mainLoop() {
         sConfigData.mDisplay->beginFrame();
         sConfigData.mPerfView->measureBeginFrame();
         RP_GET_INSTANCE(RPSysDvdStatus)->update();
-        //! Tentative (for Wii Fit Plus, confirmed in Wii Sports)
-        RP_GET_INSTANCE(RPSysSceneMgr)->getCurrentSceneRP();
+        RP_GET_INSTANCE(RPSysSceneMgr)
+            ->getCurrentSceneRP()
+            ->getRenderer()
+            ->CalculateTexCopyBackground();
         //! RPGrpRenderer::CalculateTexCopyBackground();
         sConfigData.mDisplay->beginRender();
         sConfigData.mPerfView->measureBeginRender();
@@ -153,6 +195,28 @@ void RPSysSystem::setDisplayClearColor(nw4r::ut::Color color) {
     sConfigData.GetDisplay()->setClearColor(color);
 }
 
+EGG::Heap* RPSysSystem::createHeap(EGG::Heap* pParentHeap,
+                                   EGG::Heap::EHeapKind heapKind, u32 size,
+                                   u16 opt, u32 unitSize) {
+    EGG::Heap* pHeap = NULL;
+
+    switch (heapKind) {
+    case EGG::Heap::HEAP_KIND_EXPAND:
+        pHeap = EGG::ExpHeap::create(size, pParentHeap, opt);
+        break;
+    case EGG::Heap::HEAP_KIND_FRAME:
+        pHeap = EGG::FrmHeap::create(size, pParentHeap, opt);
+        break;
+    case EGG::Heap::HEAP_KIND_UNIT:
+        pHeap = EGG::UnitHeap::create(size, unitSize, pParentHeap, 4, opt);
+        break;
+    default:
+        break;
+    }
+
+    return pHeap;
+}
+
 RPSysSceneCreator::ESceneID RPSysSystem::getBootScene() {
     return RPSysSceneCreator::ESceneID_RPHealthPackBootScene;
 }
@@ -184,19 +248,19 @@ const char* RPSysSystem::getTimeStampString() {
 RPSysSystem::~RPSysSystem() {}
 
 /**
- * \~english @brief Constructor
+ * @~english @brief Constructor
  */
 
 RPSysSystem::RPSysSystem() {
     mpResourceHeap = NULL;
+    mpRenderHeap = NULL;
+    mpUnkHeap = NULL;
+    mpDebugHeap = NULL;
     mpReserveHeap = NULL;
     mpAssertHeap = NULL;
-    mpDebugHeap = NULL;
-    mpCurrentHeap = NULL;
-    mUNK_0x18 = NULL;
     mUNK_0x1C = NULL;
     mUNK_0x20 = NULL;
-    mUNK_0x24 = NULL;
+    mpCurrentHeap = NULL;
     OSInitMutex(&mCurrentHeapMutex);
     mpNandThread = NULL;
     mpDvdThread = NULL;
@@ -244,7 +308,7 @@ void RPSysSystem::setCallBack() {
 }
 
 /**
- * \~english @brief Controls whether the game restarts or returns to the Wii
+ * @~english @brief Controls whether the game restarts or returns to the Wii
  * Menu upon a soft reset.
  */
 void RPSysSystem::softResetCallBack() {

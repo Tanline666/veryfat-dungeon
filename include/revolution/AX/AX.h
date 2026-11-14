@@ -10,17 +10,17 @@ extern "C" {
 #endif
 
 /**
- * \~english @brief Initializes the AX library.
- * \~japanese @brief AXライブラリを初期化する。
+ * @~english @brief Initializes the AX library.
+ * @~japanese @brief AXライブラリを初期化する。
  */
 void AXInit(void);
 /**
- * \~english @brief Sets the DSP output buffer structure
+ * @~english @brief Sets the DSP output buffer structure
  * and initializes the AX library.
- * \~japanese @brief DSP出力バッファ構成を設定してAXライブラリを初期化する。
+ * @~japanese @brief DSP出力バッファ構成を設定してAXライブラリを初期化する。
  *
- * \~english @param mode Triple-buffer if TRUE, double-buffer if FALSE
- * \~japanese @param mode TRUEであればトリプルバッファ、
+ * @~english @param mode Triple-buffer if TRUE, double-buffer if FALSE
+ * @~japanese @param mode TRUEであればトリプルバッファ、
  * FALSEであればダブルバッファ
  */
 void AXInitEx(u32 mode);

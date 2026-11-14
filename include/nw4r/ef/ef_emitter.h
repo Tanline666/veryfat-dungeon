@@ -23,8 +23,8 @@ class ParticleManager;
 struct EmitterResource;
 
 /**
- * \~english @brief Particle settings inherited by an emitter.
- * \~japanese @brief パーティクルからエミッタへの継承した設定。
+ * @~english @brief Particle settings inherited by an emitter.
+ * @~japanese @brief パーティクルからエミッタへの継承した設定。
  */
 struct EmitterInheritSetting {
     enum Flag {

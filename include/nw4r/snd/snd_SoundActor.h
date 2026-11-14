@@ -60,6 +60,11 @@ private:
     }
 
 private:
+    struct SetupInfo {
+        bool holdFlag;
+    };
+
+private:
     SoundArchivePlayer& mSoundArchivePlayer;      // at 0x4
     ActorPlayer mActorPlayer[ACTOR_PLAYER_COUNT]; // at 0x8
     detail::SoundActorParam mActorParam;          // at 0x58

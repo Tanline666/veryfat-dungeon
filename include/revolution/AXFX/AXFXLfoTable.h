@@ -10,8 +10,8 @@ extern "C" {
 #endif
 
 /**
- * \~english @brief Gets LFO table.
- * \~japanese @brief LFOテーブルを取得する。
+ * @~english @brief Gets LFO table.
+ * @~japanese @brief LFOテーブルを取得する。
  */
 s32* __AXFXGetLfoSinTable(void);
 

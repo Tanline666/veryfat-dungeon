@@ -6,7 +6,7 @@
 #include <egg/prim.h>
 
 /**
- * \~english @brief Declarations for a singleton class
+ * @~english @brief Declarations for a singleton class
  */
 #define RP_SINGLETON_DECL(T)                                                   \
 public:                                                                        \
@@ -25,7 +25,7 @@ private:                                                                       \
     static T* spInstance;
 
 /**
- * \~english @brief Implementation for a singleton class
+ * @~english @brief Implementation for a singleton class
  */
 #define RP_SINGLETON_IMPL(T)                                                   \
     T* T::spInstance = NULL;                                                   \
@@ -39,7 +39,7 @@ private:                                                                       \
     }
 
 /**
- * \~english @brief Declarations for a singleton class which uses the specified
+ * @~english @brief Declarations for a singleton class which uses the specified
  * heap
  */
 #define RP_SINGLETON_DECL_EX(T)                                                \
@@ -63,7 +63,7 @@ private:                                                                       \
     static T* spInstance;
 
 /**
- * \~english @brief Implementation for a singleton class which uses the
+ * @~english @brief Implementation for a singleton class which uses the
  * specified heap
  */
 #define RP_SINGLETON_IMPL_EX(T)                                                \
@@ -83,7 +83,7 @@ private:                                                                       \
     }
 
 /**
- * \~english @brief Accesses a singleton instance by typename
+ * @~english @brief Accesses a singleton instance by typename
  */
 #ifndef RP_GET_INSTANCE
 #define RP_GET_INSTANCE(T) T::instance()

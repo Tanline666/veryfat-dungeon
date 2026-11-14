@@ -95,16 +95,16 @@ struct InfoField {
 };
 
 /**
- * \~english @brief Calculates an acceleration field for particles.
- * \~japanese @brief パーティクルの加減速フィールドを計算する。
+ * @~english @brief Calculates an acceleration field for particles.
+ * @~japanese @brief パーティクルの加減速フィールドを計算する。
  *
- * \~english @param affect Reference to buffer storing calculation results
- * \~japanese @param affect 計算結果を格納するバッファへの参照
+ * @~english @param affect Reference to buffer storing calculation results
+ * @~japanese @param affect 計算結果を格納するバッファへの参照
  * @param infoCopy
- * \~english @param prevVelocity Reference to initial velocity
- * \~japanese @param prevVelocity 初速への参照
- * \~english @return Always TRUE
- * \~japanese @return 常にTRUE
+ * @~english @param prevVelocity Reference to initial velocity
+ * @~japanese @param prevVelocity 初速への参照
+ * @~english @return Always TRUE
+ * @~japanese @return 常にTRUE
  */
 inline bool CalcFieldSpeed(math::VEC3& affect, InfoField& infoCopy,
                            math::VEC3& prevVelocity) {
@@ -113,14 +113,14 @@ inline bool CalcFieldSpeed(math::VEC3& affect, InfoField& infoCopy,
 }
 
 /**
- * \~english @brief Calculates a gravitational field for particles.
- * \~japanese @brief パーティクルの重力フィールドを計算する。
+ * @~english @brief Calculates a gravitational field for particles.
+ * @~japanese @brief パーティクルの重力フィールドを計算する。
  *
- * \~english @param affect Reference to buffer storing calculation results
- * \~japanese @param affect 計算結果を格納するバッファへの参照
+ * @~english @param affect Reference to buffer storing calculation results
+ * @~japanese @param affect 計算結果を格納するバッファへの参照
  * @param infoCopy
- * \~english @return Always TRUE
- * \~japanese @return 常にTRUE
+ * @~english @return Always TRUE
+ * @~japanese @return 常にTRUE
  */
 inline bool CalcFieldGravity(math::VEC3& affect, InfoField& infoCopy) {
     Rotation2VecY(infoCopy.u.gravity.rotate, &affect);

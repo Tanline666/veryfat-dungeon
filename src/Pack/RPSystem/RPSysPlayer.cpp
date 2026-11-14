@@ -5,10 +5,10 @@
 namespace {
 
 /**
- * \~english @brief Tests whether two given RFL create IDs are equivalent
+ * @~english @brief Tests whether two given RFL create IDs are equivalent
  *
- * \~english @param rLhs Left-hand side ID
- * \~english @param rRhs Right-hand side ID
+ * @~english @param rLhs Left-hand side ID
+ * @~english @param rRhs Right-hand side ID
  */
 bool IsSameCreateID(const RFLCreateID& rLhs, const RFLCreateID& rRhs) {
     for (u32 i = 0; i < RFL_CREATEID_LEN; i++) {
@@ -23,12 +23,12 @@ bool IsSameCreateID(const RFLCreateID& rLhs, const RFLCreateID& rRhs) {
 } // namespace
 
 /**
- * \~english @brief Constructor
+ * @~english @brief Constructor
  */
 RPSysPlayer::RPSysPlayer() {}
 
 /**
- * \~english @brief Resets the data to a default state
+ * @~english @brief Resets the data to a default state
  */
 void RPSysPlayer::reset() {
     mChannel = WPAD_CHAN0;
@@ -44,11 +44,11 @@ void RPSysPlayer::reset() {
 }
 
 /**
- * \~english @brief Sets the Mii avatar associated with this player
+ * @~english @brief Sets the Mii avatar associated with this player
  *
- * \~english @param dataSrc Mii data source
- * \~english @param index Mii database index
- * \~english @param rCreateID Mii create ID
+ * @~english @param dataSrc Mii data source
+ * @~english @param index Mii database index
+ * @~english @param rCreateID Mii create ID
  */
 void RPSysPlayer::setAvatar(s8 dataSrc, u16 index,
                             const RFLCreateID& rCreateID) {

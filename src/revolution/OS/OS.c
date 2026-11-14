@@ -375,9 +375,9 @@ static void CheckTargets(void) {
 }
 
 /**
- * \~english @brief Checks if the IOS version is less than the expected one and
+ * @~english @brief Checks if the IOS version is less than the expected one and
  * halts the system if it is.
- * \~japanese @brief
+ * @~japanese @brief
  * IOSバージョンが想定のバージョンより低いかどうかを調べて、そうであった場合は
  * システムを止まる。
  */
@@ -395,8 +395,8 @@ static void CheckFirmare(void) {
             myVersion < OS_MINIMUM_IOS_VERSION) {
         OSReport("OS ERROR: This firmware is an improper version for this SDK. "
                  "Please use a correct Firmware.\n");
-        //! \~english Always in English
-        //! \~japanese 常に英語
+        //! @~english Always in English
+        //! @~japanese 常に英語
         OSFatal(textColor, bgColor,
                 "\n\nERROR #002\nAn error has occurred.\nPress the Eject "
                 "Button, remove the\nGame Disc, and turn off the power to "

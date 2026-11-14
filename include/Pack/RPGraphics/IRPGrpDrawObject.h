@@ -6,7 +6,7 @@
 //! @{
 
 /**
- * \~english @brief Interface for renderable objects
+ * @~english @brief Interface for renderable objects
  */
 class IRPGrpDrawObject {
 private:
@@ -15,22 +15,22 @@ private:
 
 public:
     /**
-     * \~english @brief Constructor
+     * @~english @brief Constructor
      */
     IRPGrpDrawObject() : mpNext(NULL) {}
 
     /**
-     * \~english @brief Destructor
+     * @~english @brief Destructor
      */
     virtual ~IRPGrpDrawObject() {} // at 0x8
 
     /**
-     * \~english @brief Standard draw pass
+     * @~english @brief Standard draw pass
      */
     virtual void UserDraw() {} // at 0xC
 
     /**
-     * \~english @brief Additional draw pass for debugging
+     * @~english @brief Additional draw pass for debugging
      */
     virtual void DebugDraw() {} // at 0x10
 };

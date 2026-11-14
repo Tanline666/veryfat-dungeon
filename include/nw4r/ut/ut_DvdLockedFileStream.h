@@ -9,13 +9,32 @@
 namespace nw4r {
 namespace ut {
 
+/**
+ * @~english @brief Class for ensuring that synchronous DVD reads from
+ * high-priority threads are not interrupted by requests from low-priority
+ * threads.
+ * @~japanese @brief 優先度の低いスレッドのリード予約が、優先度の高いスレッドの
+ * 同期DVDリードを割り込むのを防止するためのクラス。
+ */
 class DvdLockedFileStream : public DvdFileStream {
 public:
     NW4R_UT_RTTI_DECL(DvdLockedFileStream);
 
 public:
-    explicit DvdLockedFileStream(s32 entrynum);
-    explicit DvdLockedFileStream(const DVDFileInfo* pInfo, bool close = TRUE);
+    /**
+     * @~english @brief Constructor
+     * @~japanese @brief コンストラクタ
+     *
+     * @~english @param entryNum Entry number of the file to be opened
+     * @~japanese @param entryNum オープンされるファイルのエントリ番号
+     */
+    explicit DvdLockedFileStream(s32 entryNum);
+    explicit DvdLockedFileStream(const DVDFileInfo* openedFile,
+                                 bool closeEnable = TRUE);
+    /**
+     * @~english @brief Destructor
+     * @~japanese @brief デストラクタ
+     */
     virtual ~DvdLockedFileStream(); // at 0xC
 
     virtual void Close();

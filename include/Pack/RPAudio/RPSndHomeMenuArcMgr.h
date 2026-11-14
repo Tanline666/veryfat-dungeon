@@ -8,38 +8,38 @@
 //! @{
 
 /**
- * \~english @brief Home menu sound archive manager
+ * @~english @brief Home menu sound archive manager
  */
 class RPSndHomeMenuArcMgr : public EGG::SoundHeapMgr, public EGG::ArcPlayer {
 public:
     /**
-     * \~english @brief Constructor
+     * @~english @brief Constructor
      */
     RPSndHomeMenuArcMgr();
 
     /**
-     * \~english @brief Destructor
+     * @~english @brief Destructor
      */
     virtual ~RPSndHomeMenuArcMgr(); // at 0x8
 
     /**
-     * \~english @brief Updates the state of the sound player
+     * @~english @brief Updates the state of the sound player
      */
     virtual void calc(); // at 0x34
 
     /**
-     * \~english @brief Mounts the provided sound archive
+     * @~english @brief Mounts the provided sound archive
      *
-     * \~english @param pBinary Binary sound archive
-     * \~english @return Success
+     * @~english @param pBinary Binary sound archive
+     * @~english @return Success
      */
     bool setupArchive(const void* pBinary);
 
     /**
-     * \~english @brief Attempts to start the specified sound
+     * @~english @brief Attempts to start the specified sound
      *
-     * \~english @param id Sound ID
-     * \~english @return Success
+     * @~english @param id Sound ID
+     * @~english @return Success
      */
     bool startSe(u32 id) {
         return startSound(&mSoundHandle, id);

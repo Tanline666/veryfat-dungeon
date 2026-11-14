@@ -466,10 +466,12 @@ bool ShowMapInfoSubroutine_(u32 address, bool flag) {
 }
 
 ConsoleHandle Exception_SetConsole(ConsoleHandle console,
-                                   const GXRenderModeObj* pRenderMode) {
+                                   const GXRenderModeObj* renderMode) {
+    NW4R_NULL_ASSERT(renderMode, 985);
+
     ConsoleHandle old = sException.console;
     sException.console = console;
-    sException.renderMode = pRenderMode;
+    sException.renderMode = renderMode;
     return old;
 }
 

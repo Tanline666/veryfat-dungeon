@@ -17,12 +17,12 @@ class RPSysKokeshiCtrlDataLoader;
 class RPSysKokeshiIterater;
 
 /**
- * \~english @brief Controller Mii data manager
+ * @~english @brief Controller Mii data manager
  */
 class RPSysKokeshiCtrlDataMgr {
 private:
     /**
-     * \~english @brief Mii file resource
+     * @~english @brief Mii file resource
      */
     struct FileResource {
         //! Linked-list node
@@ -32,7 +32,7 @@ private:
     };
 
     /**
-     * \~english @brief Mii model resource
+     * @~english @brief Mii model resource
      */
     struct ModelResource {
         //! Linked-list node
@@ -42,7 +42,7 @@ private:
     };
 
     /**
-     * \~english @brief State machine state
+     * @~english @brief State machine state
      */
     enum EState {
         EState_Idle,    //!< Wait for a request
@@ -79,68 +79,68 @@ private:
 
 public:
     /**
-     * \~english @brief Constructor
+     * @~english @brief Constructor
      *
-     * \~english @param pCallback Controller data callback
-     * \~english @param pParentHeap Heap to use as the parent of the controller
+     * @~english @param pCallback Controller data callback
+     * @~english @param pParentHeap Heap to use as the parent of the controller
      * data heap
-     * \~english @param heapSize Size of the controller data heap
-     * \~english @param chan Remote channel
+     * @~english @param heapSize Size of the controller data heap
+     * @~english @param chan Remote channel
      */
     RPSysKokeshiCtrlDataMgr(IRPSysKokeshiCtrlDataCallback* pCallback,
                             EGG::Heap* pParentHeap, u32 heapSize, s32 chan);
 
     /**
-     * \~english @brief Destructor
+     * @~english @brief Destructor
      */
     virtual ~RPSysKokeshiCtrlDataMgr(); // at 0x8
 
     /**
-     * \~english @brief Notifies the user that all resources will be destroyed
+     * @~english @brief Notifies the user that all resources will be destroyed
      */
     void notifyReleaseResource();
 
     /**
-     * \~english @brief Resets the internal state for creating resources
+     * @~english @brief Resets the internal state for creating resources
      */
     void resetResource();
 
     /**
-     * \~english @brief Tests whether the manager is in an idle state
+     * @~english @brief Tests whether the manager is in an idle state
      */
     BOOL isIdle() const;
 
     /**
-     * \~english @brief Tests whether an error occured while loading data
+     * @~english @brief Tests whether an error occured while loading data
      */
     BOOL isLoadError() const;
 
     /**
-     * \~english @brief Creates resources for the next Mii in the database
+     * @~english @brief Creates resources for the next Mii in the database
      */
     void createResource();
 
     /**
-     * \~english @brief Appends a new file to the file resource list
+     * @~english @brief Appends a new file to the file resource list
      *
-     * \~english @param handle Resource handle
+     * @~english @param handle Resource handle
      */
     void appendFile(RPGrpHandle handle);
 
     /**
-     * \~english @brief Appends a new model to the model resource list
+     * @~english @brief Appends a new model to the model resource list
      *
-     * \~english @param pModel New model
+     * @~english @param pModel New model
      */
     void appendModel(RPGrpModel* pModel);
 
     /**
-     * \~english @brief Updates the manager state
+     * @~english @brief Updates the manager state
      */
     void calc();
 
     /**
-     * \~english @brief Gets the heap used by this data manager
+     * @~english @brief Gets the heap used by this data manager
      */
     EGG::Heap* getHeap() const {
         return mpHeap;
@@ -148,7 +148,7 @@ public:
 
 private:
     /**
-     * \~english @brief Releases resources and attempts to reload controller Mii
+     * @~english @brief Releases resources and attempts to reload controller Mii
      * data
      */
     void resetData();

@@ -4,8 +4,8 @@
 
 #include <nw4r/g3d/res/g3d_resmat.h>
 #include <nw4r/g3d/res/g3d_resshp.h>
-
 #include <nw4r/math.h>
+
 
 namespace nw4r {
 namespace g3d {
@@ -20,6 +20,7 @@ enum Draw1Mat1ShpCtrl {
     DRAW1MAT1SHP_CTRL_NOSWAPSHP = (1 << 1),
     DRAW1MAT1SHP_CTRL_CULL_FRONT = (1 << 2),
     DRAW1MAT1SHP_CTRL_FORCE_LIGHTOFF = (1 << 3),
+    DRAW1MAT1SHP_IGNORE_MATERIAL = (1 << 4),
 };
 
 struct Draw1Mat1ShpSwap {

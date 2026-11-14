@@ -105,8 +105,8 @@ void EmitterFormCube::Emission(Emitter* em, ParticleManager* pm, int count,
             int i;
             int xcnt;
             int ycnt;
-            //! \~english Negative Y-axis
-            //! \~japanese 負数のY座軸
+            //! @~english Negative Y-axis
+            //! @~japanese 負数のY座軸
             {
                 xcnt = (count / 2) + 1;
                 ycnt = ((count - 1) / 2) + 1;
@@ -216,8 +216,8 @@ void EmitterFormCube::Emission(Emitter* em, ParticleManager* pm, int count,
                 f32 ybase = ycnt * div - 1.0f;
                 f32 y = ybase * outerY;
 
-                //! \~english Negative Z-axis
-                //! \~japanese 負数のZ座軸
+                //! @~english Negative Z-axis
+                //! @~japanese 負数のZ座軸
                 for (xcnt = 1; xcnt <= count; xcnt++) {
                     f32 xbase = xcnt * div - 1.0f;
                     f32 x = xbase * outerX;
@@ -267,8 +267,8 @@ void EmitterFormCube::Emission(Emitter* em, ParticleManager* pm, int count,
                                 space);
                 }
 
-                //! \~english Positive x-axis
-                //! \~japanese 正数のX座軸
+                //! @~english Positive x-axis
+                //! @~japanese 正数のX座軸
                 for (xcnt = 1; xcnt <= count; xcnt++) {
                     f32 xbase = xcnt * div - 1.0f;
                     f32 x = xbase * outerZ;

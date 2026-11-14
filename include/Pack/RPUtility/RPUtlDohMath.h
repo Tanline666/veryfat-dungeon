@@ -5,12 +5,13 @@
 #include <nw4r/math.h>
 
 /**
- * \~english @brief Dohta's math utilities
+ * @~english @brief Dohta's math utilities
+ * @~japanese @brief 堂田さんの算数ユーティリティ
  */
 class RPUtlDohMath {
 public:
     /**
-     * \~english @brief Axis priority order during orthonormalization
+     * @~english @brief Axis priority order during orthonormalization
      */
     enum AxisOrder {
         AxisOrder_XY, //! X-axis is preserved, Y-axis is the reference
@@ -24,7 +25,7 @@ public:
     };
 
     /**
-     * \~english @brief Matrix axis index
+     * @~english @brief Matrix axis index
      */
     enum AxisType {
         AxisType_X, //! X-axis
@@ -34,36 +35,36 @@ public:
 
 public:
     /**
-     * \~english @brief Sets the specified local axis of the input matrix
+     * @~english @brief Sets the specified local axis of the input matrix
      *
-     * \~english @param pMtx Matrix
-     * \~english @param axis Axis index
-     * \~english @param pBase Base vector
+     * @~english @param pMtx Matrix
+     * @~english @param axis Axis index
+     * @~english @param pBase Base vector
      */
     static void MTX34SetBase(nw4r::math::MTX34* pMtx, AxisType axis,
                              const nw4r::math::VEC3* pBase);
 
     /**
-     * \~english @brief Constructs a right-handed orthonormal basis from the
+     * @~english @brief Constructs a right-handed orthonormal basis from the
      * local axes of the specified matrix
      *
-     * \~english @param[out] pOut Output matrix
-     * \~english @param pIn Input matrix
-     * \~english @param order Axis priority order
+     * @~english @param[out] pOut Output matrix
+     * @~english @param pIn Input matrix
+     * @~english @param order Axis priority order
      */
     static void MTX34Normalize(nw4r::math::MTX34* pOut,
                                const nw4r::math::MTX34* pIn, AxisOrder order);
 
     /**
-     * \~english @brief Calculates a bend point between two endpoints
+     * @~english @brief Calculates a bend point between two endpoints
      *
-     * \~english @param[out] pMidPoint Bend point
-     * \~english @param[out] pDistance Distance between the endpoints
-     * \~english @param rBendDir Bend direction vector
-     * \~english @param rPointA Endpoint A
-     * \~english @param rPointB Endpoint B
-     * \~english @param lengthA Length of the segment from A to the bend joint
-     * \~english @param lengthB Length of the segment from the bend joint to B
+     * @~english @param[out] pMidPoint Bend point
+     * @~english @param[out] pDistance Distance between the endpoints
+     * @~english @param rBendDir Bend direction vector
+     * @~english @param rPointA Endpoint A
+     * @~english @param rPointB Endpoint B
+     * @~english @param lengthA Length of the segment from A to the bend joint
+     * @~english @param lengthB Length of the segment from the bend joint to B
      */
     static void GetMidPoint(nw4r::math::VEC3* pMidPoint, f32* pDistance,
                             const nw4r::math::VEC3& rBendDir,
@@ -92,9 +93,11 @@ public:
     //! Negative Z-axis unit vector
     static const nw4r::math::VEC3 AXIS_ZN;
 
-    //! 3x4 identity matrix
+    //! @~english 3x4 identity matrix
+    //! @~japanese 3x4単位行列
     static const nw4r::math::MTX34 MTX34_IDENT;
-    //! 3x3 identity matrix
+    //! @~english 3x3 identity matrix
+    //! @~japanese 3x3単位行列
     static const nw4r::math::MTX33 MTX33_IDENT;
     //! Identity quaternion
     static const nw4r::math::QUAT QUAT_IDENT;

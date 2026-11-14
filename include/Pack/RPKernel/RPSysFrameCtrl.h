@@ -6,12 +6,12 @@
 //! @{
 
 /**
- * \~english @brief Frame animation controller
+ * @~english @brief Frame animation controller
  */
 class RPSysFrameCtrl {
 public:
     /**
-     * \~english @brief Animation play policy
+     * @~english @brief Animation play policy
      */
     enum EPlayMode {
         EPlayMode_OneTime, //!< Animation plays once
@@ -20,19 +20,19 @@ public:
     };
 
     /**
-     * \~english @brief Initializes the animation state
+     * @~english @brief Initializes the animation state
      *
-     * \~english @param frameNum Number of frames to animate
+     * @~english @param frameNum Number of frames to animate
      */
     void init(s16 frameNum);
 
     /**
-     * \~english @brief Updates the animation state
+     * @~english @brief Updates the animation state
      */
     void update();
 
     /**
-     * \~english @brief Resets the animation state
+     * @~english @brief Resets the animation state
      */
     void reset() {
         mFrame = mStartFrame;
@@ -40,9 +40,9 @@ public:
     }
 
     /**
-     * \~english @brief Starts playing the animation from the specified frame
+     * @~english @brief Starts playing the animation from the specified frame
      *
-     * \~english @param frame Starting frame
+     * @~english @param frame Starting frame
      */
     void play(s16 frame) {
         mFrame = static_cast<f32>(frame);
@@ -50,63 +50,63 @@ public:
     }
 
     /**
-     * \~english @brief Stops playing the animation
+     * @~english @brief Stops playing the animation
      */
     void stop() {
         mIsEnabled = false;
     }
 
     /**
-     * \~english @brief Tests whether this animation has finished
+     * @~english @brief Tests whether this animation has finished
      */
     bool isFinished() const {
         return mFlags & EFlag_Finished;
     }
 
     /**
-     * \~english @brief Tests whether this animation has looped at least once
+     * @~english @brief Tests whether this animation has looped at least once
      */
     bool isLooped() const {
         return mFlags & EFlag_Looped;
     }
 
     /**
-     * \~english @brief Sets the animation play policy
+     * @~english @brief Sets the animation play policy
      *
-     * \~english @param playMode New play policy
+     * @~english @param playMode New play policy
      */
     void setPlayMode(EPlayMode playMode) {
         mPlayMode = playMode;
     }
 
     /**
-     * \~english @brief Sets the starting frame of this animation
+     * @~english @brief Sets the starting frame of this animation
      *
-     * \~english @param frame New starting frame
+     * @~english @param frame New starting frame
      */
     void setStartFrame(s16 frame) {
         mStartFrame = frame;
     }
 
     /**
-     * \~english @brief Sets the animation update rate
+     * @~english @brief Sets the animation update rate
      *
-     * \~english @param rate New update rate
+     * @~english @param rate New update rate
      */
     void setRate(f32 rate) {
         mUpdateRate = rate;
     }
 
     /**
-     * \~english @brief Gets the current animation position
+     * @~english @brief Gets the current animation position
      */
     f32 getFrame() const {
         return mFrame;
     }
     /**
-     * \~english @brief Sets the current animation position
+     * @~english @brief Sets the current animation position
      *
-     * \~english @param frame New frame
+     * @~english @param frame New frame
      */
     void setFrame(f32 frame) {
         mFrame = frame;
@@ -114,7 +114,7 @@ public:
 
 private:
     /**
-     * \~english @brief Animation result flags
+     * @~english @brief Animation result flags
      */
     enum {
         EFlag_Finished = 1 << 0, //!< Non-looping animation has finished

@@ -10,14 +10,14 @@
 //! @{
 
 /**
- * \~english @brief Font manager
+ * @~english @brief Font manager
  */
 class RPSysFontManager {
     RP_SINGLETON_DECL(RPSysFontManager);
 
 public:
     /**
-     * \~english @brief Pack Project resource fonts
+     * @~english @brief Pack Project resource fonts
      */
     enum ResFontType {
         //! New Rodin (Demibold, 32pt, I4 tex format)
@@ -41,40 +41,40 @@ public:
 
 public:
     /**
-     * \~english @brief Loads the ROM font provided by the system
+     * @~english @brief Loads the ROM font provided by the system
      */
     void LoadRomFont();
 
     /**
-     * \~english @brief Loads all resource fonts required by this pack
+     * @~english @brief Loads all resource fonts required by this pack
      */
     void LoadResFonts();
 
     /**
-     * \~english @brief Gets the index of the specified resource font
+     * @~english @brief Gets the index of the specified resource font
      *
-     * \~english @param pName Font name
+     * @~english @param pName Font name
      */
     u8 GetResFontIndex(const char* pName) const;
 
     /**
-     * \~english @brief Gets the data of the specified resource font
+     * @~english @brief Gets the data of the specified resource font
      *
-     * \~english @param pName Font name
+     * @~english @param pName Font name
      */
     void* GetResFontData(const char* pName) const;
 
     /**
-     * \~english @brief Accesses the ROM font provided by the system
+     * @~english @brief Accesses the ROM font provided by the system
      */
     nw4r::ut::RomFont* GetRomFont() const {
         return mpRomFont;
     }
 
     /**
-     * \~english @brief Accesses the specified resource font
+     * @~english @brief Accesses the specified resource font
      *
-     * \~english @param idx Font index
+     * @~english @param idx Font index
      */
     nw4r::ut::ResFont* GetResFont(u8 idx) const {
         return mpResFonts[idx];
@@ -82,11 +82,11 @@ public:
 
 private:
     /**
-     * \~english @brief Loads the specified resource font from the provided
+     * @~english @brief Loads the specified resource font from the provided
      * archive
      *
-     * \~english @param idx Font index
-     * \~english @param pArchive Font archive
+     * @~english @param idx Font index
+     * @~english @param pArchive Font archive
      */
     void LoadResFont(u8 idx, EGG::Archive* pArchive);
 

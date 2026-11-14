@@ -14,8 +14,8 @@ VoiceManager& VoiceManager::GetInstance() {
 
 VoiceManager::VoiceManager() : mInitialized(false) {}
 
-u32 VoiceManager::GetRequiredMemSize() {
-    return AXGetMaxVoices() * sizeof(Voice);
+u32 VoiceManager::GetRequiredMemSize(int voiceCount) {
+    return voiceCount * sizeof(Voice);
 }
 
 void VoiceManager::Setup(void* pBuffer, u32 size) {
@@ -164,7 +164,7 @@ void VoiceManager::UpdateAllVoicesSync(u32 syncFlag) {
     ut::AutoInterruptLock lock;
 
     NW4R_UT_LINKLIST_FOREACH_SAFE (it, mPrioVoiceList, {
-        if (it->mIsActive) {
+        if (it->mActiveFlag) {
             it->mSyncFlag |= syncFlag;
         }
     })

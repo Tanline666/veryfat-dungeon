@@ -27,6 +27,23 @@ void ICEnable(void);
 void LCEnable(void);
 void LCDisable(void);
 void LCLoadBlocks(void* dst, const void* src, u32 blocks);
+/**
+ * @~english @brief Places a single DMA transaction to transfer data from the
+ * locked cache to main memory into the queue.
+ * @~japanese @brief
+ * ロックドキャッシュのデータをメインメモリに転送する単一のDMAトランザクションをキューに入る。
+ *
+ * @~english @param dst Pointer to 32-byte aligned start address for destination
+ * of transferred memory
+ * @~japanese @param dst
+ * 転送先のメモリの32byteでアライメントされた先頭アドレスへのポインタ
+ * @~english @param src Pointer to 32-byte aligned start address for source of
+ * transferred memory
+ * @~japanese @param src
+ * 転送元のメモリの32byteでアライメントされた先頭アドレスへのポインタ
+ * @~english @param blocks Transfer size in cache blocks
+ * @~japanese @param blocks キャッシュブロック単位での転送サイズ
+ */
 void LCStoreBlocks(void* dst, const void* src, u32 blocks);
 u32 LCStoreData(void* dst, const void* src, u32 len);
 u32 LCQueueLength(void);

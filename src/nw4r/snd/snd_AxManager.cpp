@@ -53,6 +53,8 @@ void AxManager::Init() {
         return;
     }
 
+    NW4R_ASSERTMSG(AICheckInit(), 104, "not initialized AI \n");
+
     std::memset(sZeroBuffer, 0, sizeof(sZeroBuffer));
     DCFlushRange(sZeroBuffer, sizeof(sZeroBuffer));
     mZeroBufferAddress = sZeroBuffer;

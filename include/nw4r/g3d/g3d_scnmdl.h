@@ -19,30 +19,35 @@ public:
     public:
         CopiedMatAccess(ScnMdl* pScnMdl, u32 id);
 
-        ResTexObj GetResTexObj(bool markDirty);
-        ResTexSrt GetResTexSrt(bool markDirty);
-        ResMatChan GetResMatChan(bool markDirty);
-        ResGenMode GetResGenMode(bool markDirty);
-        ResMatPix GetResMatPix(bool markDirty);
-        ResMatTevColor GetResMatTevColor(bool markDirty);
-        ResTev GetResTev(bool markDirty);
+        ResTexObj GetResTexObj(bool bMarkDirty);
+        ResTexSrt GetResTexSrt(bool bMarkDirty);
+        ResMatChan GetResMatChan(bool bMarkDirty);
+        ResGenMode GetResGenMode(bool bMarkDirty);
+        ResMatPix GetResMatPix(bool bMarkDirty);
+        ResMatTevColor GetResMatTevColor(bool bMarkDirty);
+        ResTev GetResTev(bool bMarkDirty);
 
+        ResTexObj GetResTexObjEx();
         ResTexSrt GetResTexSrtEx();
+        ResMatChan GetResMatChanEx();
+        ResGenMode GetResGenModeEx();
+        ResMatPix GetResMatPixEx();
+        ResMatTevColor GetResMatTevColorEx();
 
     private:
-        ScnMdl* mpScnMdl;                     // at 0x0
-        u32 mMatID;                           // at 0x4
-        ResTexObj mTexObj;                    // at 0x8
-        ResTlutObj mTlutObj;                  // at 0xC
-        ResTexSrt mTexSrt;                    // at 0x10
-        ResMatChan mChan;                     // at 0x14
-        ResGenMode mGenMode;                  // at 0x18
-        ResMatMisc mMatMisc;                  // at 0x1C
-        ResMatPix mPix;                       // at 0x20
-        ResMatTevColor mTevColor;             // at 0x24
-        ResMatIndMtxAndScale mIndMtxAndScale; // at 0x28
-        ResMatTexCoordGen mTexCoordGen;       // at 0x2C
-        ResTev mTev;                          // at 0x30
+        ScnMdl* mpScnMdl;                     //!< // at 0x0
+        u32 mMatID;                           //!< // at 0x4
+        ResTexObj mTexObj;                    //!< // at 0x8
+        ResTlutObj mTlutObj;                  //!< // at 0xC
+        ResTexSrt mTexSrt;                    //!< // at 0x10
+        ResMatChan mChan;                     //!< // at 0x14
+        ResGenMode mGenMode;                  //!< // at 0x18
+        ResMatMisc mMatMisc;                  //!< // at 0x1C
+        ResMatPix mPix;                       //!< // at 0x20
+        ResMatTevColor mTevColor;             //!< // at 0x24
+        ResMatIndMtxAndScale mIndMtxAndScale; //!< // at 0x28
+        ResMatTexCoordGen mTexCoordGen;       //!< // at 0x2C
+        ResTev mTev;                          //!< // at 0x30
     };
 
     class CopiedVisAccess {
@@ -53,9 +58,9 @@ public:
         bool SetVisibilityEx(bool visible);
 
     private:
-        ScnMdl* mpScnMdl; // at 0x0
-        u32 mNodeID;      // at 0x4
-        u8* mpVis;        // at 0x8
+        ScnMdl* mpScnMdl; //!< // at 0x0
+        u32 mNodeID;      //!< // at 0x4
+        u8* mpVis;        //!< // at 0x8
     };
 
 #define OPT(KEY, VALUE) OPTID_##KEY = (0x30000 | (VALUE))
@@ -82,6 +87,8 @@ public:
         BUFFER_RESVTXNRM = (1 << 13),
         BUFFER_RESVTXCLR = (1 << 14),
 
+        ALWAYS_BUFFER_ANMSHP = (1 << 24),
+
         ANM_VIS = BUFFER_RESANMVIS,
         ANM_TEXPAT = BUFFER_RESTEXOBJ | BUFFER_RESTLUTOBJ,
         ANM_TEXSRT = BUFFER_RESTEXSRT | BUFFER_RESMATINDMTXSCALE,
@@ -97,23 +104,23 @@ public:
            u32* pWorldMtxAttribArray, math::MTX34* pViewPosMtxArray,
            math::MTX33* pViewNrmMtxArray, math::MTX34* pViewTexMtxArray,
            int numView, int numViewMtx, DrawResMdlReplacement* pReplacement,
-           u32* pMatBufferDirtyFlag);
+           u32* pMatBufferDirtyFlag, u32 replacementFlag);
 
-    virtual void G3dProc(u32 task, u32 param, void* pInfo); // at 0xC
-    virtual ~ScnMdl();                                      // at 0x10
+    virtual void G3dProc(u32 task, u32 param, void* pInfo); //!< // at 0xC
+    virtual ~ScnMdl();                                      //!< // at 0x10
 
-    virtual bool SetScnObjOption(u32 option, u32 value);         // at 0x20
-    virtual bool GetScnObjOption(u32 option, u32* pValue) const; // at 0x24
+    virtual bool SetScnObjOption(u32 option, u32 value);         //!< // at 0x20
+    virtual bool GetScnObjOption(u32 option, u32* pValue) const; //!< // at 0x24
 
     virtual bool
     SetAnmObj(AnmObj* pObj,
-              AnmObjType type = ANMOBJTYPE_NOT_SPECIFIED); // at 0x34
+              AnmObjType type = ANMOBJTYPE_NOT_SPECIFIED); //!< // at 0x34
 
-    virtual bool RemoveAnmObj(AnmObj* pObj);       // at 0x38
-    virtual AnmObj* RemoveAnmObj(AnmObjType type); // at 0x3C
+    virtual bool RemoveAnmObj(AnmObj* pObj);       //!< // at 0x38
+    virtual AnmObj* RemoveAnmObj(AnmObjType type); //!< // at 0x3C
 
-    virtual AnmObj* GetAnmObj(AnmObjType type);             // at 0x40
-    virtual const AnmObj* GetAnmObj(AnmObjType type) const; // at 0x44
+    virtual AnmObj* GetAnmObj(AnmObjType type);             //!< // at 0x40
+    virtual const AnmObj* GetAnmObj(AnmObjType type) const; //!< // at 0x44
 
     void InitBuffer();
     void CleanMatBuffer(u32 idx, u32 option);
@@ -159,10 +166,11 @@ private:
     }
 
 private:
-    AnmObjShp* mpAnmObjShp;             // at 0x138
-    u32 mFlagVisBuffer;                 // at 0x13C
-    u32* mpMatBufferDirtyFlag;          // at 0x140
-    DrawResMdlReplacement mReplacement; // at 0x144
+    AnmObjShp* mpAnmObjShp;             //!< // at 0x138
+    u32 mFlagVisBuffer;                 //!< // at 0x13C
+    u32* mpMatBufferDirtyFlag;          //!< // at 0x140
+    DrawResMdlReplacement mReplacement; //!< // at 0x144
+    u32 mReplacementFlag;               //!< // at 0x148
 
     NW4R_G3D_RTTI_DECL_DERIVED(ScnMdl, ScnMdlSimple);
 };

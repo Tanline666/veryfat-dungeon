@@ -3,9 +3,9 @@
 #include <egg/gfxe.h>
 
 /**
- * \~english @brief Constructor
+ * @~english @brief Constructor
  *
- * \~english @param pRenderer Scene renderer
+ * @~english @param pRenderer Scene renderer
  */
 RPGrpDrawPathShadowTexture::RPGrpDrawPathShadowTexture(
     EGG::ScnRenderer* pRenderer)
@@ -15,10 +15,10 @@ RPGrpDrawPathShadowTexture::RPGrpDrawPathShadowTexture(
 }
 
 /**
- * \~english @brief Inserts a new shadow texture
+ * @~english @brief Inserts a new shadow texture
  *
- * \~english @param idx Texture index
- * \~english @param pTexture Shadow texture
+ * @~english @param idx Texture index
+ * @~english @param pTexture Shadow texture
  */
 void RPGrpDrawPathShadowTexture::SetTexture(u16 idx,
                                             RPGrpShadowTexture* pTexture) {
@@ -26,9 +26,9 @@ void RPGrpDrawPathShadowTexture::SetTexture(u16 idx,
 }
 
 /**
- * \~english @brief Appends a new shadow texture
+ * @~english @brief Appends a new shadow texture
  *
- * \~english @param pTexture Shadow texture
+ * @~english @param pTexture Shadow texture
  */
 void RPGrpDrawPathShadowTexture::SetTexture(RPGrpShadowTexture* pTexture) {
     mpShadowTextureManager->Append(pTexture);

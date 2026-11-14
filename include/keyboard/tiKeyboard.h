@@ -45,8 +45,8 @@ public:
 public:
     KeyboardBase() : mLanguage(JP) {}
     /**
-     * \~english @brief Destructor
-     * \~japanese @brief デストラクタ
+     * @~english @brief Destructor
+     * @~japanese @brief デストラクタ
      */
     virtual ~KeyboardBase() {}
     virtual void onKey(u32 event, void* pData) = 0;

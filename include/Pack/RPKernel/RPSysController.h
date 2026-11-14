@@ -13,7 +13,7 @@
 //! @{
 
 /**
- * \~english @brief Helper macro to access core controllers
+ * @~english @brief Helper macro to access core controllers
  */
 #define RP_GET_CORE_CTRL(N)                                                    \
     static_cast<RPSysCoreController*>(                                         \
@@ -26,51 +26,51 @@
  ******************************************************************************/
 
 /**
- * \~english @brief Wii Remote controller MAC address
+ * @~english @brief Wii Remote controller MAC address
  */
 class RPSysCoreAddress {
 public:
     /**
-     * \~english @brief Constructor
+     * @~english @brief Constructor
      */
     RPSysCoreAddress();
 
     /**
-     * \~english @brief Clears the controller address
+     * @~english @brief Clears the controller address
      */
     void reset();
 
     /**
-     * \~english @brief Attempts to read the address of the specified controller
+     * @~english @brief Attempts to read the address of the specified controller
      *
-     * \~english @param chan Controller remote channel
-     * \~english @return Success
+     * @~english @param chan Controller remote channel
+     * @~english @return Success
      */
     bool read(s32 chan);
 
     /**
-     * \~english @brief Sets the value of this controller address
+     * @~english @brief Sets the value of this controller address
      *
-     * \~english @param pData New controller address
+     * @~english @param pData New controller address
      */
     void set(const u8* pData);
 
     /**
-     * \~english @brief Gets the specified digit of this address
+     * @~english @brief Gets the specified digit of this address
      *
-     * \~english @param idx Digit index
+     * @~english @param idx Digit index
      */
     u8 get(int idx) const;
 
     /**
-     * \~english @brief Tests whether this controller address is valid
+     * @~english @brief Tests whether this controller address is valid
      */
     bool isValid() const;
 
     /**
-     * \~english @brief Tests whether two controller addresses are equivalent
+     * @~english @brief Tests whether two controller addresses are equivalent
      *
-     * \~english @param rOther Other controller address
+     * @~english @param rOther Other controller address
      */
     bool isEqual(const RPSysCoreAddress& rOther) const;
 
@@ -93,7 +93,7 @@ private:
  ******************************************************************************/
 
 /**
- * \~english @brief Wii Remote controller information
+ * @~english @brief Wii Remote controller information
  */
 class RPSysCoreInfo : public WPADInfo {
     // Controller manages the flags
@@ -101,23 +101,23 @@ class RPSysCoreInfo : public WPADInfo {
 
 public:
     /**
-     * \~english @brief Constructor
+     * @~english @brief Constructor
      */
     RPSysCoreInfo();
 
     /**
-     * \~english @brief Clears the controller information
+     * @~english @brief Clears the controller information
      */
     void reset();
 
     /**
-     * \~english @brief Tests whether the controller battery level is low
+     * @~english @brief Tests whether the controller battery level is low
      */
     bool isLowBattery() const;
 
 private:
     /**
-     * \~english @brief Information flags
+     * @~english @brief Information flags
      */
     enum {
         EFlag_GetInfoSuccess = 1 << 0, //!< WPADGetInfoAsync succeeded
@@ -136,7 +136,7 @@ private:
  ******************************************************************************/
 
 /**
- * \~english @brief Wii Remote controller state
+ * @~english @brief Wii Remote controller state
  */
 class RPSysCoreController : public EGG::CoreController,
                             public IRPSysHostIOSocket {
@@ -145,7 +145,7 @@ class RPSysCoreController : public EGG::CoreController,
 
 public:
     /**
-     * \~english @brief Rumble pattern
+     * @~english @brief Rumble pattern
      */
     enum ERumblePattern {
         ERumblePattern_Cursor,  //!< Cursor action
@@ -155,55 +155,55 @@ public:
     };
 
     /**
-     * \~english @brief KPAD parameter stack
+     * @~english @brief KPAD parameter stack
      */
     class ParamStack {
     public:
         /**
-         * \~english @brief Constructor
+         * @~english @brief Constructor
          */
         ParamStack();
 
         /**
-         * \~english @brief Clears the parameter stack
+         * @~english @brief Clears the parameter stack
          */
         void reset();
 
         /**
-         * \~english @brief Sets the initial parameters
+         * @~english @brief Sets the initial parameters
          *
-         * \~english @param playRadius DPD play radius
-         * \~english @param sensitivity DPD sensitivity
+         * @~english @param playRadius DPD play radius
+         * @~english @param sensitivity DPD sensitivity
          */
         void configure(f32 playRadius, f32 sensitivity);
 
         /**
-         * \~english @brief Sets the current parameters
+         * @~english @brief Sets the current parameters
          *
-         * \~english @param playRadius DPD play radius
-         * \~english @param sensitivity DPD sensitivity
+         * @~english @param playRadius DPD play radius
+         * @~english @param sensitivity DPD sensitivity
          */
         void set(f32 playRadius, f32 sensitivity);
 
         /**
-         * \~english @brief Pushes the current parameter set onto the stack
+         * @~english @brief Pushes the current parameter set onto the stack
          */
         void push();
 
         /**
-         * \~english @brief Pops the top parameter set from the stack
+         * @~english @brief Pops the top parameter set from the stack
          */
         void pop();
 
         /**
-         * \~english @brief Gets the current play radius parameter
+         * @~english @brief Gets the current play radius parameter
          */
         f32 getPlayRadius() const {
             return mPlayRadiusStack[mSize];
         }
 
         /**
-         * \~english @brief Gets the current sensitivity parameter
+         * @~english @brief Gets the current sensitivity parameter
          */
         f32 getSensitivity() const {
             return mSensitivityStack[mSize];
@@ -229,37 +229,37 @@ public:
     };
 
     /**
-     * \~english @brief CoreStatus extension
+     * @~english @brief CoreStatus extension
      */
     class ExStatus {
     public:
         /**
-         * \~english @brief Constructor
+         * @~english @brief Constructor
          */
         ExStatus();
 
         /**
-         * \~english @brief Sets the current parameters
+         * @~english @brief Sets the current parameters
          *
-         * \~english @param threshold Acceleration smoothing threshold
-         * \~english @param rate Acceleration smoothing rate
+         * @~english @param threshold Acceleration smoothing threshold
+         * @~english @param rate Acceleration smoothing rate
          */
         void set(f32 threshold, f32 rate);
 
         /**
-         * \~english @brief Gets the specified core status
+         * @~english @brief Gets the specified core status
          *
-         * \~english @param idx Core status index
+         * @~english @param idx Core status index
          */
         EGG::CoreStatus* getCoreStatus(int idx) {
             return &status[idx];
         }
 
         /**
-         * \~english @brief Updates the controller input state
+         * @~english @brief Updates the controller input state
          *
-         * \~english @param pStatusArray Controller sample set
-         * \~english @param count Number of controler samples
+         * @~english @param pStatusArray Controller sample set
+         * @~english @param count Number of controler samples
          */
         void calc(EGG::CoreStatus* pStatusArray, s32 count);
 
@@ -282,232 +282,232 @@ public:
 
 public:
     /**
-     * \~english @brief Initializes the controller system
+     * @~english @brief Initializes the controller system
      */
     static void initialize();
 
     /**
-     * \~english @brief Tests whether the sensor bar is positioned above the TV
+     * @~english @brief Tests whether the sensor bar is positioned above the TV
      */
     static bool isSensorBarTop();
 
     /**
-     * \~english @brief Applies global controller settings
+     * @~english @brief Applies global controller settings
      */
     static void applySetting();
 
     /**
-     * \~english @brief Prepares the controller system for a scene reset
+     * @~english @brief Prepares the controller system for a scene reset
      */
     static void sceneReset();
 
     /**
-     * \~english @brief Forcibly turns on the sensor bar
+     * @~english @brief Forcibly turns on the sensor bar
      */
     static void forceSensorBarPowerOn();
 
     /**
-     * \~english @brief Prepares the controller system for a new scene
+     * @~english @brief Prepares the controller system for a new scene
      */
     static void initScene();
 
     /**
-     * \~english @brief Constructor
+     * @~english @brief Constructor
      *
-     * \~english @param playerNo Player ID
+     * @~english @param playerNo Player ID
      */
     explicit RPSysCoreController(s32 playerNo);
 
     /**
-     * \~english @brief Destructor
+     * @~english @brief Destructor
      */
     virtual ~RPSysCoreController() override; // at 0x14
 
     /**
-     * \~english @brief Sets the KPAD position parameters
+     * @~english @brief Sets the KPAD position parameters
      *
-     * \~english @param playRadius Play radius parameter
-     * \~english @param sensitivity Sensitivity parameter
+     * @~english @param playRadius Play radius parameter
+     * @~english @param sensitivity Sensitivity parameter
      */
     virtual void setPosParam(f32 playRadius,
                              f32 sensitivity) override; // at 0x8
 
     /**
-     * \~english @brief Sets the KPAD horizon parameters
+     * @~english @brief Sets the KPAD horizon parameters
      *
-     * \~english @param playRadius Play radius parameter
-     * \~english @param sensitivity Sensitivity parameter
+     * @~english @param playRadius Play radius parameter
+     * @~english @param sensitivity Sensitivity parameter
      */
     virtual void setHoriParam(f32 playRadius,
                               f32 sensitivity) override; // at 0xC
 
     /**
-     * \~english @brief Sets the KPAD distance parameters
+     * @~english @brief Sets the KPAD distance parameters
      *
-     * \~english @param playRadius Play radius parameter
-     * \~english @param sensitivity Sensitivity parameter
+     * @~english @param playRadius Play radius parameter
+     * @~english @param sensitivity Sensitivity parameter
      */
     virtual void setDistParam(f32 playRadius,
                               f32 sensitivity) override; // at 0x10
 
     /**
-     * \~english @brief Sets the KPAD acceleration parameters
+     * @~english @brief Sets the KPAD acceleration parameters
      *
-     * \~english @param playRadius Play radius parameter
-     * \~english @param sensitivity Sensitivity parameter
+     * @~english @param playRadius Play radius parameter
+     * @~english @param sensitivity Sensitivity parameter
      */
     virtual void setAccParam(f32 playRadius,
                              f32 sensitivity) override; // at 0x14
 
     /**
-     * \~english @brief Performs processing at the beginning of the frame
+     * @~english @brief Performs processing at the beginning of the frame
      *
-     * \~english @param pStatus GameCube controller status (for debugging?)
+     * @~english @param pStatus GameCube controller status (for debugging?)
      */
     virtual void beginFrame(PADStatus* pStatus = NULL) override; // at 0x18
 
     /**
-     * \~english @brief Sets the parameters for the specified extended status
+     * @~english @brief Sets the parameters for the specified extended status
      *
-     * \~english @param idx Extended status index
-     * \~english @param threshold Smoothing threshold
-     * \~english @param rate Smoothing rate
+     * @~english @param idx Extended status index
+     * @~english @param threshold Smoothing threshold
+     * @~english @param rate Smoothing rate
      */
     void setExAccParam(int idx, f32 threshold, f32 rate);
 
     /**
-     * \~english @brief Accesses the specified core status
+     * @~english @brief Accesses the specified core status
      *
-     * \~english @param idx Extended status index
-     * \~english @param sample Core status sample index
+     * @~english @param idx Extended status index
+     * @~english @param sample Core status sample index
      */
     EGG::CoreStatus* getExCoreStatus(int idx, int sample);
 
     /**
-     * \~english @brief Shuts down the controller system
+     * @~english @brief Shuts down the controller system
      *
-     * \~english @param forIpl Whether the program is exiting to the IPL
+     * @~english @param forIpl Whether the program is exiting to the IPL
      */
     static void shutdownSystem(bool forIpl);
 
     /**
-     * \~english @brief Turns off the rumble motor in all controllers
+     * @~english @brief Turns off the rumble motor in all controllers
      */
     static void stopMotorAll();
 
     /**
-     * \~english @brief Starts the specified rumble pattern
+     * @~english @brief Starts the specified rumble pattern
      *
-     * \~english @param pattern Rumble pattern
+     * @~english @param pattern Rumble pattern
      */
     void rumble(ERumblePattern pattern);
 
     /**
-     * \~english @brief Tests whether this controller's base device (no
+     * @~english @brief Tests whether this controller's base device (no
      * extension) is a Wii Remote controller
      */
     bool isCoreBaseDevice() const;
 
     /**
-     * \~english @brief Enables pairing of controllers
+     * @~english @brief Enables pairing of controllers
      */
     static void enableConnection();
 
     /**
-     * \~english @brief Disables pairing of controllers
+     * @~english @brief Disables pairing of controllers
      */
     static void disableConnection();
 
     /**
-     * \~english @brief Toggles whether DPD control is enabled
+     * @~english @brief Toggles whether DPD control is enabled
      *
-     * \~english @param enable Whether to enable DPD control
+     * @~english @param enable Whether to enable DPD control
      */
     void enableDpdCtrl(bool enable);
 
     /**
-     * \~english @brief Disables DPD control for all controllers
+     * @~english @brief Disables DPD control for all controllers
      */
     static void disableDpdCtrlAll();
 
     /**
-     * \~english @brief Resets the state of the DPD control stack
+     * @~english @brief Resets the state of the DPD control stack
      */
     void resetDpdCtrlStack();
 
     /**
-     * \~english @brief Pushes a new value to the DPD control stack
+     * @~english @brief Pushes a new value to the DPD control stack
      *
-     * \~english @param enable Whether to enable DPD control
+     * @~english @param enable Whether to enable DPD control
      */
     void pushDpdCtrlStack(bool enable);
 
     /**
-     * \~english @brief Pushes a new value to the DPD control stack for all
+     * @~english @brief Pushes a new value to the DPD control stack for all
      * controllers
      *
-     * \~english @param enable Whether to enable DPD control
+     * @~english @param enable Whether to enable DPD control
      */
     static void pushDpdCtrlStackAll(bool enable);
 
     /**
-     * \~english @brief Pops the top value from the DPD control stack
+     * @~english @brief Pops the top value from the DPD control stack
      */
     void popDpdCtrlStack();
 
     /**
-     * \~english @brief Pops the top value from the DPD control stack for all
+     * @~english @brief Pops the top value from the DPD control stack for all
      * controllers
      */
     static void popDpdCtrlStackAll();
 
     /**
-     * \~english @brief Tests whether DPD control was enabled at the previous
+     * @~english @brief Tests whether DPD control was enabled at the previous
      * stack level
      */
     bool isPrevDpdCtrlEnable();
 
     /**
-     * \~english @brief Pushes the current KPAD parameter set onto the stack for
+     * @~english @brief Pushes the current KPAD parameter set onto the stack for
      * all controllers
      */
     static void pushKPADParamStackAll();
 
     /**
-     * \~english @brief Pops the top KPAD parameter set from the stack for all
+     * @~english @brief Pops the top KPAD parameter set from the stack for all
      * controllers
      */
     static void popKPADParamStackAll();
 
     /**
-     * \~english @brief Attempts to read the controller information
+     * @~english @brief Attempts to read the controller information
      *
-     * \~english @return Success
+     * @~english @return Success
      */
     bool requestCoreInfoAsync();
 
     /**
-     * \~english @brief Accesses the active (main player) controller
+     * @~english @brief Accesses the active (main player) controller
      */
     static RPSysCoreController* getActiveController() {
         return spActiveController;
     }
 
     /**
-     * \~english @brief Gets this controller's player index
+     * @~english @brief Gets this controller's player index
      */
     s32 getPlayerNo() const {
         return mPlayerNo;
     }
 
     /**
-     * \~english @brief Accesses this controller's MAC address
+     * @~english @brief Accesses this controller's MAC address
      */
     RPSysCoreAddress& getAddress() {
         return mAddress;
     }
     /**
-     * \~english @brief Accesses this controller's MAC address (const-view)
+     * @~english @brief Accesses this controller's MAC address (const-view)
      */
     const RPSysCoreAddress& getAddress() const {
         return mAddress;
@@ -515,7 +515,7 @@ public:
 
 private:
     /**
-     * \~english @brief Controller event
+     * @~english @brief Controller event
      */
     enum EEvent {
         EEvent_None,       //!< Nothing happened
@@ -524,7 +524,7 @@ private:
     };
 
     /**
-     * \~english @brief Extended status ID
+     * @~english @brief Extended status ID
      */
     enum EExStatus {
         EExStatus_0,
@@ -536,7 +536,7 @@ private:
     };
 
     /**
-     * \~english @brief Vertical Y acceleration type
+     * @~english @brief Vertical Y acceleration type
      */
     enum EAccVYType {
         EAccVYType_None, //!< DPD is invalid
@@ -557,34 +557,34 @@ private:
 
 private:
     /**
-     * \~english @brief Creates a new controller object
+     * @~english @brief Creates a new controller object
      */
     static EGG::CoreController* createCoreController();
 
     /**
-     * \~english @brief Becomes the active (main player) controller
+     * @~english @brief Becomes the active (main player) controller
      */
     void becomeActiveController();
 
     /**
-     * \~english @brief Assigns a new WPAD channel and address to this
+     * @~english @brief Assigns a new WPAD channel and address to this
      * controller
      *
-     * \~english @param chan New WPAD channel
-     * \~english @param rAddress New controller address
+     * @~english @param chan New WPAD channel
+     * @~english @param rAddress New controller address
      */
     void set(s32 chan, const RPSysCoreAddress& rAddress);
 
     /**
-     * \~english @brief Updates the vertical Y acceleration statistics
+     * @~english @brief Updates the vertical Y acceleration statistics
      */
     DECOMP_INLINE void updateAccVYMinMax();
 
     /**
-     * \~english @brief WPADGetInfoAsync callback
+     * @~english @brief WPADGetInfoAsync callback
      *
-     * \~english @param chan Remote channel
-     * \~english @param result WPAD library result
+     * @~english @param chan Remote channel
+     * @~english @param result WPAD library result
      */
     static void getInfoCallback(s32 chan, s32 result);
 

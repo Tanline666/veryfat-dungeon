@@ -4,30 +4,32 @@
 namespace nw4r {
 namespace g3d {
 
-void CalcTexMtx(math::MTX34* pMtx, bool set, const TexSrt& rSrt,
+void CalcTexMtx(math::MTX34* pM, bool bSet, const TexSrt& srt,
                 TexSrt::Flag flag, TexSrtTypedef::TexMatrixMode mode) {
-    bool ident = true;
+    NW4R_POINTER_ASSERT(pM, 35);
+    bool bIdentity = true;
 
     if (mode == TexSrtTypedef::TEXMATRIXMODE_MAYA) {
-        ident = !detail::dcc::CalcTexMtx_Maya(pMtx, set, rSrt, flag);
+        bIdentity = !detail::dcc::CalcTexMtx_Maya(pM, bSet, srt, flag);
     } else if (mode == TexSrtTypedef::TEXMATRIXMODE_XSI) {
-        ident = !detail::dcc::CalcTexMtx_Xsi(pMtx, set, rSrt, flag);
+        bIdentity = !detail::dcc::CalcTexMtx_Xsi(pM, bSet, srt, flag);
     } else /* TEXMATRIXMODE_3DSMAX */ {
-        ident = !detail::dcc::CalcTexMtx_3dsmax(pMtx, set, rSrt, flag);
+        bIdentity = !detail::dcc::CalcTexMtx_3dsmax(pM, bSet, srt, flag);
     }
 
-    if (ident && set) {
-        math::MTX34Identity(pMtx);
+    if (bIdentity && bSet) {
+        math::MTX34Identity(pM);
     }
 }
 
-void CalcTexMtx(math::MTX34* pMtx, bool set, const TexSrt& rSrt,
+void CalcTexMtx(math::MTX34* pM, bool bSet, const TexSrt& srt,
                 TexSrt::Flag flag) {
-    bool identity = TRUE;
+    NW4R_POINTER_ASSERT(pM, 76);
+    bool bIdentity = TRUE;
 
-    identity = !detail::dcc::CalcTexMtx_Basic(pMtx, set, rSrt, flag);
-    if (identity && set) {
-        math::MTX34Identity(pMtx);
+    bIdentity = !detail::dcc::CalcTexMtx_Basic(pM, bSet, srt, flag);
+    if (bIdentity && bSet) {
+        math::MTX34Identity(pM);
     }
 }
 

@@ -17,8 +17,8 @@ bool SoundArchive::IsAvailable() const {
     return mFileReader;
 }
 
-void SoundArchive::Setup(detail::SoundArchiveFileReader* pReader) {
-    mFileReader = pReader;
+void SoundArchive::Setup(detail::SoundArchiveFileReader* fileReader) {
+    mFileReader = fileReader;
 }
 
 void SoundArchive::Shutdown() {
@@ -103,6 +103,10 @@ bool SoundArchive::detail_ReadGroupItemInfo(u32 groupId, u32 itemId,
     return mFileReader->ReadGroupItemInfo(groupId, itemId, pInfo);
 }
 
+u32 SoundArchive::detail_GetFileCount() const {
+    return mFileReader->GetFileCount();
+}
+
 bool SoundArchive::detail_ReadFileInfo(u32 id, FileInfo* pInfo) const {
     return mFileReader->ReadFileInfo(id, pInfo);
 }
@@ -112,21 +116,21 @@ bool SoundArchive::detail_ReadFilePos(u32 fileId, u32 posId,
     return mFileReader->ReadFilePos(fileId, posId, pPos);
 }
 
-ut::FileStream* SoundArchive::detail_OpenFileStream(u32 id, void* pBuffer,
+ut::FileStream* SoundArchive::detail_OpenFileStream(u32 fileId, void* pBuffer,
                                                     int bufferSize) const {
 
     FileInfo fileInfo;
-    if (!detail_ReadFileInfo(id, &fileInfo)) {
+    if (!detail_ReadFileInfo(fileId, &fileInfo)) {
         return NULL;
     }
 
     if (fileInfo.extFilePath != NULL) {
         return OpenExtStreamImpl(pBuffer, bufferSize, fileInfo.extFilePath, 0,
-                                 0);
+                                 fileInfo.fileSize);
     }
 
     FilePos filePos;
-    if (!detail_ReadFilePos(id, 0, &filePos)) {
+    if (!detail_ReadFilePos(fileId, 0, &filePos)) {
         return NULL;
     }
 

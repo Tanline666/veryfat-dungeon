@@ -79,8 +79,8 @@ static u8* NextLine_(ConsoleHandle console) {
 static u8* PutTab_(ConsoleHandle console, u8* pDst) {
     u32 tabWidth = GetTabSize_(console);
 
-    //! \~english Needs to be a do instead of a direct while statement...
-    //! \~japanese 直接的なwhile文の代わりにdo文が必要だー・・・。
+    //! @~english Needs to be a do instead of a direct while statement...
+    //! @~japanese 直接的なwhile文の代わりにdo文が必要だー・・・。
     do {
         *pDst++ = ' ';
         console->xPosPrint += 1;
@@ -137,11 +137,11 @@ static inline bool TryLockMutex_(OSMutex* pMutex) {
 }
 
 /**
- * \~english @brief Releases the specified mutex.
- * \~japanese @brief 指定のミューテックスを解放する。
+ * @~english @brief Releases the specified mutex.
+ * @~japanese @brief 指定のミューテックスを解放する。
  *
- * \~english @param pMutex Pointer to the specified mutex
- * \~japanese @param pMutex 指定のミューテックスへのポインタ
+ * @~english @param pMutex Pointer to the specified mutex
+ * @~japanese @param pMutex 指定のミューテックスへのポインタ
  */
 static inline void UnlockMutex_(OSMutex* pMutex) {
     if (OSGetCurrentThread()) {
@@ -150,11 +150,11 @@ static inline void UnlockMutex_(OSMutex* pMutex) {
 }
 
 /**
- * \~english @brief Adds a new console handle to the console list.
- * \~japanese @brief コンソールリストへ新しいコンソールハンドルを追加する。
+ * @~english @brief Adds a new console handle to the console list.
+ * @~japanese @brief コンソールリストへ新しいコンソールハンドルを追加する。
  *
- * \~english @param console Handle to be added
- * \~japanese @param console 追加するハンドル
+ * @~english @param console Handle to be added
+ * @~japanese @param console 追加するハンドル
  */
 static void AppendConsoleToList_(ConsoleHandle console) {
     NW4R_NULL_ASSERT(console, 320);
@@ -198,7 +198,7 @@ static void RemoveConsoleFromList_(ConsoleHandle console) {
             pConsole = pConsole->next;
         }
 #line 386
-        OS_ERROR("illegal console handle"); //!< \~japanese 不正なコンソールハンドル
+        OS_ERROR("illegal console handle"); //!< @~japanese 不正なコンソールハンドル
     }
 
 unlock:
@@ -212,6 +212,7 @@ ConsoleHandle Console_Create(void* buffer, u16 width, u16 height,
     ConsoleHandle pConsole;
 
     NW4R_NULL_ASSERT(buffer, 418);
+    NW4R_ALIGN_ASSERT(buffer, 4, 419);
 
     if (!sInitialized) {
         OSInitMutex(&sMutex);

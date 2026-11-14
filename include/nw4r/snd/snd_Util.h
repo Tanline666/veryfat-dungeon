@@ -142,8 +142,18 @@ public:
     static u16 CalcRandom();
 
 private:
+    /**
+     * @~english @brief Gets an address to an object within a given DataRef.
+     * @~japanese @brief
+     * 指定されたDataRef中にオブジェクトへのアドレスを取得する。
+     *
+     * @param type
+     * @param value
+     * @param baseAddress
+     * @return const void*
+     */
     static const void* GetDataRefAddressImpl(RefType type, u32 value,
-                                             const void* pBase);
+                                             const void* baseAddress);
 
 private:
     // Chromatic scale (tbl[idx] / tbl[idx-1] == ~1.06)

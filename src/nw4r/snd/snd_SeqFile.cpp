@@ -13,11 +13,11 @@ bool SeqFileReader::IsValidFileHeader(const void* pSeqBin) {
         return false;
     }
 
-    if (Util::ReadBigEndian(pFileHeader->version) < NW4R_VERSION(1, 0)) {
+    if (pFileHeader->version < NW4R_VERSION(1, 0)) {
         return false;
     }
 
-    if (Util::ReadBigEndian(pFileHeader->version) > VERSION) {
+    if (pFileHeader->version > VERSION) {
         return false;
     }
 
@@ -32,13 +32,12 @@ SeqFileReader::SeqFileReader(const void* pSeqBin)
 
     mHeader = static_cast<const SeqFile::Header*>(pSeqBin);
 
-    mDataBlock = static_cast<const SeqFile::DataBlock*>(ut::AddOffsetToPtr(
-        mHeader, Util::ReadBigEndian(mHeader->dataBlockOffset)));
+    mDataBlock = static_cast<const SeqFile::DataBlock*>(
+        ut::AddOffsetToPtr(mHeader, mHeader->dataBlockOffset));
 }
 
 const void* SeqFileReader::GetBaseAddress() const {
-    return ut::AddOffsetToPtr(mDataBlock,
-                              Util::ReadBigEndian(mDataBlock->baseOffset));
+    return ut::AddOffsetToPtr(mDataBlock, mDataBlock->baseOffset);
 }
 
 } // namespace detail

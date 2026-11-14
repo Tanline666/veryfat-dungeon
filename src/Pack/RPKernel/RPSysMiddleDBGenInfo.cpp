@@ -3,7 +3,7 @@
 #include <RVLFaceLib.h>
 
 /**
- * \~english @brief Constructor
+ * @~english @brief Constructor
  */
 RPSysMiddleDBGenInfo::RPSysMiddleDBGenInfo()
     : mType(RFLMiddleDBType_Random),
@@ -14,6 +14,6 @@ RPSysMiddleDBGenInfo::RPSysMiddleDBGenInfo()
       mpMiiManager(NULL) {}
 
 /**
- * \~english @brief Destructor
+ * @~english @brief Destructor
  */
 RPSysMiddleDBGenInfo::~RPSysMiddleDBGenInfo() {}

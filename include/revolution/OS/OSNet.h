@@ -10,8 +10,8 @@ extern "C" {
 #endif
 
 /**
- * \~english @brief Initializes the network module.
- * \~japanese @brief ネットワークモジュールを初期化する。
+ * @~english @brief Initializes the network module.
+ * @~japanese @brief ネットワークモジュールを初期化する。
  */
 void __OSInitNet(void);
 

@@ -6,12 +6,13 @@
 #include <nw4r/g3d/res/g3d_resdict.h>
 #include <nw4r/g3d/res/g3d_resmat.h>
 #include <nw4r/g3d/res/g3d_resnode.h>
-#include <nw4r/g3d/res/g3d_resshp.h>
 #include <nw4r/g3d/res/g3d_resvtx.h>
 #include <nw4r/math.h>
 
 namespace nw4r {
 namespace g3d {
+
+class ResShp;
 
 /******************************************************************************
  *
@@ -39,25 +40,25 @@ enum ScalingRule {
 };
 
 struct ResMtxIDToNodeIDData {
-    u32 numMtxID; // at 0x0
+    u32 numMtxID; //!< // at 0x0
 };
 
 struct ResMdlInfoData : ResMdlInfoDataTypedef {
-    u32 size;                   // at 0x0
-    s32 toResMdlData;           // at 0x4
-    ScalingRule scaling_rule;   // at 0x8
-    TexMatrixMode tex_mtx_mode; // at 0xC
-    s32 vertex_size;            // at 0x10
-    s32 triangle_size;          // at 0x14
-    s32 original_path;          // at 0x18
-    u32 numViewMtx;             // at 0x1C
-    bool need_nrm_mtx_array;    // at 0x20
-    bool need_tex_mtx_array;    // at 0x21
-    bool is_valid_volume;       // at 0x22
-    u8 envelope_mtx_mode;       // at 0x23
-    s32 toMtxIDToNodeID;        // at 0x24
-    math::_VEC3 volume_min;     // at 0x28
-    math::_VEC3 volume_max;     // at 0x34
+    u32 size;                   //!< // at 0x0
+    s32 toResMdlData;           //!< // at 0x4
+    ScalingRule scaling_rule;   //!< // at 0x8
+    TexMatrixMode tex_mtx_mode; //!< // at 0xC
+    s32 vertex_size;            //!< // at 0x10
+    s32 triangle_size;          //!< // at 0x14
+    s32 original_path;          //!< // at 0x18
+    u32 numViewMtx;             //!< // at 0x1C
+    bool need_nrm_mtx_array;    //!< // at 0x20
+    bool need_tex_mtx_array;    //!< // at 0x21
+    bool is_valid_volume;       //!< // at 0x22
+    u8 envelope_mtx_mode;       //!< // at 0x23
+    s32 toMtxIDToNodeID;        //!< // at 0x24
+    math::_VEC3 volume_min;     //!< // at 0x28
+    math::_VEC3 volume_max;     //!< // at 0x34
 };
 
 class ResMdlInfo : public ResCommon<ResMdlInfoData>,
@@ -94,30 +95,36 @@ public:
     }
 };
 
-/******************************************************************************
- *
- * ResMdl
- *
- ******************************************************************************/
+/**
+ * @~english @brief Struct storing model resources.
+ * @~japanese @brief モデルリソースを格納するストラクト。
+ */
 struct ResMdlData {
-    ResBlockHeaderData header;         // at 0x0
-    u32 revision;                      // at 0x8
-    s32 toResFileData;                 // at 0xC
-    s32 toResByteCodeDic;              // at 0x10
-    s32 toResNodeDic;                  // at 0x14
-    s32 toResVtxPosDic;                // at 0x18
-    s32 toResVtxNrmDic;                // at 0x1C
-    s32 toResVtxClrDic;                // at 0x20
-    s32 toResVtxTexCoordDic;           // at 0x24
-    s32 toResMatDic;                   // at 0x28
-    s32 toResTevDic;                   // at 0x2C
-    s32 toResShpDic;                   // at 0x30
-    s32 toResTexNameToTexPlttInfoDic;  // at 0x34
-    s32 toResPlttNameToTexPlttInfoDic; // at 0x38
-    s32 name;                          // at 0x3C
-    ResMdlInfoData info;               // at 0x40
+    ResBlockHeaderData header;         //!< // at 0x0
+    u32 revision;                      //!< // at 0x8
+    s32 toResFileData;                 //!< // at 0xC
+    s32 toResByteCodeDic;              //!< // at 0x10
+    s32 toResNodeDic;                  //!< // at 0x14
+    s32 toResVtxPosDic;                //!< // at 0x18
+    s32 toResVtxNrmDic;                //!< // at 0x1C
+    s32 toResVtxClrDic;                //!< // at 0x20
+    s32 toResVtxTexCoordDic;           //!< // at 0x24
+    s32 toResVtxFurVecDic;             //!< // at 0x28
+    s32 toResVtxFurPosDic;             //!< // at 0x2C
+    s32 toResMatDic;                   //!< // at 0x30
+    s32 toResTevDic;                   //!< // at 0x34
+    s32 toResShpDic;                   //!< // at 0x38
+    s32 toResTexNameToTexPlttInfoDic;  //!< // at 0x3C
+    s32 toResPlttNameToTexPlttInfoDic; //!< // at 0x40
+    s32 toUserData;                    //!< // at 0x44
+    s32 name;                          //!< // at 0x48
+    ResMdlInfoData info;               //!< // at 0x4C
 };
 
+/**
+ * @~english @brief Accessor class for model resource data.
+ * @~japanese @brief モデルリソースデータに対するアクセサクラス。
+ */
 class ResMdl : public ResCommon<ResMdlData> {
 public:
     static const u32 SIGNATURE = FOURCC('M', 'D', 'L', '0');
@@ -126,6 +133,10 @@ public:
 public:
     NW4R_G3D_RESOURCE_FUNC_DEF(ResMdl);
 
+    /**
+     * @~english @brief Initializes the model accessor.
+     * @~japanese @brief モデルアクセサを初期化する。
+     */
     void Init();
     void Terminate();
 

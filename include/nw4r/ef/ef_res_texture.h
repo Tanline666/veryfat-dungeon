@@ -8,8 +8,8 @@ namespace nw4r {
 namespace ef {
 
 /**
- * \~english @brief Texture resources.
- * \~japanese @brief テクスチャのリソース。
+ * @~english @brief Texture resources.
+ * @~japanese @brief テクスチャのリソース。
  */
 struct TextureData {
     char* name;       //!< at 0x0
@@ -31,8 +31,8 @@ struct TextureData {
 };
 
 /**
- * \~english @brief Class for accessing TextureData.
- * \~japanese @brief TextureDataをアクセスするためのクラス。
+ * @~english @brief Class for accessing TextureData.
+ * @~japanese @brief TextureDataをアクセスするためのクラス。
  */
 class ResTexture {
 private:
@@ -40,36 +40,36 @@ private:
 
 public:
     /**
-     * \~english @brief Constructor
-     * \~japanese @brief コンストラクタ
+     * @~english @brief Constructor
+     * @~japanese @brief コンストラクタ
      *
-     * \~english @param pData Pointer to TextureData object
-     * \~japanese @param pData TextureDataオブジェクトへのポインタ
+     * @~english @param pData Pointer to TextureData object
+     * @~japanese @param pData TextureDataオブジェクトへのポインタ
      */
     explicit ResTexture(TextureData* pData = NULL) : mData(pData) {}
     /**
-     * \~english @brief Constructor
-     * \~japanese @brief コンストラクタ
+     * @~english @brief Constructor
+     * @~japanese @brief コンストラクタ
      *
-     * \~english @param rOther Right side ResTexture
-     * \~japanese @param rOther 右辺のResTexture
+     * @~english @param rOther Right side ResTexture
+     * @~japanese @param rOther 右辺のResTexture
      */
     ResTexture(const ResTexture& rOther) : mData(rOther.mData) {}
 
     /**
-     * \~english @brief Checks if a given ResTexture is valid.
-     * \~japanese @brief 指定のResTextureが有効かどうかを調べる。
+     * @~english @brief Checks if a given ResTexture is valid.
+     * @~japanese @brief 指定のResTextureが有効かどうかを調べる。
      *
-     * \~english @return TRUE if valid
-     * \~japanese @return 有効であればTRUE
+     * @~english @return TRUE if valid
+     * @~japanese @return 有効であればTRUE
      */
     bool IsValid() const {
         return mData != NULL;
     }
 
     /**
-     * \~english @brief Gets mData.
-     * \~japanese @brief mDataを取得する。
+     * @~english @brief Gets mData.
+     * @~japanese @brief mDataを取得する。
      */
     TextureData* ptr() {
         return mData;

@@ -6,23 +6,23 @@
 #include <cwchar>
 
 /**
- * \~english @brief Constructor
+ * @~english @brief Constructor
  *
- * \~english @param pGenInfo Mii generation parameters
+ * @~english @param pGenInfo Mii generation parameters
  */
 RPSysAvatar::RPSysAvatar(const RPSysKokeshiGenInfo* pGenInfo) {
     mGenInfo = *pGenInfo;
 }
 
 /**
- * \~english @brief Destructor
+ * @~english @brief Destructor
  */
 RPSysAvatar::~RPSysAvatar() {}
 
 /**
- * \~english @brief Loads the assets necessary for this avatar
+ * @~english @brief Loads the assets necessary for this avatar
  *
- * \~english @param pOverloadInfo Overload parameters
+ * @~english @param pOverloadInfo Overload parameters
  */
 void RPSysAvatar::LoadResource(const RPSysKokeshiOverloadInfo* pOverloadInfo) {
     if (pOverloadInfo == NULL) {
@@ -33,7 +33,7 @@ void RPSysAvatar::LoadResource(const RPSysKokeshiOverloadInfo* pOverloadInfo) {
 }
 
 /**
- * \~english @brief Gets the RFL favorite color of this avatar
+ * @~english @brief Gets the RFL favorite color of this avatar
  */
 GXColor RPSysAvatar::GetFavoriteColor() const {
     return RFLGetFavoriteColor(
@@ -41,12 +41,12 @@ GXColor RPSysAvatar::GetFavoriteColor() const {
 }
 
 /**
- * \~english @brief Handles post-constructor initialization
+ * @~english @brief Handles post-constructor initialization
  */
 void RPSysAvatar::Construct() {}
 
 /**
- * \~english @brief Registers this avatar with the kokeshi manager
+ * @~english @brief Registers this avatar with the kokeshi manager
  */
 void RPSysAvatar::Setup() {
     RPSysKokeshiManager* pKokeshiManager = RP_GET_INSTANCE(RPSysKokeshiManager);

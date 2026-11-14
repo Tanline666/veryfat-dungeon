@@ -8,7 +8,7 @@
 RP_SINGLETON_IMPL(RPSysFontManager);
 
 /**
- * \~english @brief Font resource filenames
+ * @~english @brief Font resource filenames
  */
 const char* RPSysFontManager::RES_FONT_NAMES[ResFontType_Max] = {
     "pac_nRodDb_32_I4.brfnt",   // ResFontType_nRodDb_32_I4
@@ -21,7 +21,7 @@ const char* RPSysFontManager::RES_FONT_NAMES[ResFontType_Max] = {
 };
 
 /**
- * \~english @brief Whether each font resource is required by this pack
+ * @~english @brief Whether each font resource is required by this pack
  */
 const BOOL RPSysFontManager::sIsNeedResFont[ResFontType_Max] = {
     TRUE,  // ResFontType_nRodDb_32_I4
@@ -34,8 +34,8 @@ const BOOL RPSysFontManager::sIsNeedResFont[ResFontType_Max] = {
 };
 
 /**
- * \~english @brief Constructor
- * \~japanese @brief コンストラクタ
+ * @~english @brief Constructor
+ * @~japanese @brief コンストラクタ
  */
 RPSysFontManager::RPSysFontManager() {
     mpRomFont = NULL;
@@ -47,13 +47,13 @@ RPSysFontManager::RPSysFontManager() {
 }
 
 /**
- * \~english @brief Destructor
- * \~japanese @brief デストラクタ
+ * @~english @brief Destructor
+ * @~japanese @brief デストラクタ
  */
 RPSysFontManager::~RPSysFontManager() {}
 
 /**
- * \~english @brief Loads the ROM font provided by the system
+ * @~english @brief Loads the ROM font provided by the system
  */
 void RPSysFontManager::LoadRomFont() {
     EGG::Heap* pResHeap = RP_GET_INSTANCE(RPSysSystem)->getResourceHeap();
@@ -64,7 +64,7 @@ void RPSysFontManager::LoadRomFont() {
 }
 
 /**
- * \~english @brief Loads all resource fonts required by this pack
+ * @~english @brief Loads all resource fonts required by this pack
  */
 void RPSysFontManager::LoadResFonts() {
     EGG::Archive* pFontArchive =
@@ -80,9 +80,9 @@ void RPSysFontManager::LoadResFonts() {
 }
 
 /**
- * \~english @brief Gets the index of the specified resource font
+ * @~english @brief Gets the index of the specified resource font
  *
- * \~english @param pName Font name
+ * @~english @param pName Font name
  */
 u8 RPSysFontManager::GetResFontIndex(const char* pName) const {
     for (u8 i = 0; i < ResFontType_Max; i++) {
@@ -95,9 +95,9 @@ u8 RPSysFontManager::GetResFontIndex(const char* pName) const {
 }
 
 /**
- * \~english @brief Gets the data of the specified resource font
+ * @~english @brief Gets the data of the specified resource font
  *
- * \~english @param pName Font name
+ * @~english @param pName Font name
  */
 void* RPSysFontManager::GetResFontData(const char* pName) const {
     u8 idx = GetResFontIndex(pName);
@@ -105,10 +105,10 @@ void* RPSysFontManager::GetResFontData(const char* pName) const {
 }
 
 /**
- * \~english @brief Loads the specified resource font from the provided archive
+ * @~english @brief Loads the specified resource font from the provided archive
  *
- * \~english @param idx Font index
- * \~english @param pArchive Font archive
+ * @~english @param idx Font index
+ * @~english @param pArchive Font archive
  */
 void RPSysFontManager::LoadResFont(u8 idx, EGG::Archive* pArchive) {
     // TODO(kiwi) Inline?

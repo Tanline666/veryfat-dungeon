@@ -430,7 +430,9 @@ void ApplyVisAnmResult(ResMdl mdl, AnmObjVis* pObj) {
     }
 }
 
-void ApplyVisAnmResult(u8* byteVec, ResMdl mdl, AnmObjVis* pObj) {
+void ApplyVisAnmResult(u8* pByteVec, ResMdl mdl, AnmObjVis* pObj) {
+    NW4R_NULL_ASSERT(pByteVec, 743);
+
     u32 numNode = mdl.GetResNodeNumEntries();
 
     for (u32 i = 0; i < numNode; i++) {
@@ -438,7 +440,7 @@ void ApplyVisAnmResult(u8* byteVec, ResMdl mdl, AnmObjVis* pObj) {
             continue;
         }
 
-        byteVec[i] = pObj->GetResult(i);
+        pByteVec[i] = pObj->GetResult(i);
     }
 }
 

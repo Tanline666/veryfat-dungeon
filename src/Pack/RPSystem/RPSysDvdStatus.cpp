@@ -8,13 +8,13 @@
 RP_SINGLETON_IMPL(RPSysDvdStatus);
 
 /**
- * \~english @brief Game disc name
+ * @~english @brief Game disc name
  */
 
 const char* RPSysDvdStatus::GAME_DISK_NAME = "Wii Fit Plus";
 
 /**
- * \~english @brief Tests whether a disc drive error has occurred
+ * @~english @brief Tests whether a disc drive error has occurred
  * @typo
  */
 bool RPSysDvdStatus::isErrorOccured() const {
@@ -22,8 +22,8 @@ bool RPSysDvdStatus::isErrorOccured() const {
 }
 
 /**
- * \~english @brief Updates the status of the disc drive
- * \~english @return Whether the disc drive status is OK
+ * @~english @brief Updates the status of the disc drive
+ * @~english @return Whether the disc drive status is OK
  */
 bool RPSysDvdStatus::update() {
     s32 status = DVDGetDriveStatus();
@@ -73,13 +73,13 @@ void RPSysDvdStatus::draw() {
 }
 
 /**
- * \~english @brief Constructor
+ * @~english @brief Constructor
  */
 RPSysDvdStatus::RPSysDvdStatus() : mErrorStatus(EErrorStatus_Success) {
     mpErrorFader->setStatus(EGG::ColorFader::STATUS_PREPARE_IN);
 }
 
 /**
- * \~english @brief Destructor
+ * @~english @brief Destructor
  */
 RPSysDvdStatus::~RPSysDvdStatus() {}

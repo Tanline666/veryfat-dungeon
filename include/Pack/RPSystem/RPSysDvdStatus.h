@@ -11,32 +11,32 @@
 //! @{
 
 /**
- * \~english @brief Disc drive status
+ * @~english @brief Disc drive status
  */
 class RPSysDvdStatus {
     RP_SINGLETON_DECL(RPSysDvdStatus);
 
 public:
     /**
-     * \~english @brief Updates the status of the disc drive
-     * \~english @return Whether the disc drive status is OK
+     * @~english @brief Updates the status of the disc drive
+     * @~english @return Whether the disc drive status is OK
      */
     bool update();
 
     /**
-     * \~english @brief Displays the disc drive error message
+     * @~english @brief Displays the disc drive error message
      */
     void draw();
 
     /**
-     * \~english @brief Tests whether a disc drive error has occurred
+     * @~english @brief Tests whether a disc drive error has occurred
      * @note typo
      */
     bool isErrorOccured() const;
 
 private:
     /**
-     * \~english @brief Disc drive error type
+     * @~english @brief Disc drive error type
      */
     enum EErrorStatus {
         EErrorStatus_Success = 0,

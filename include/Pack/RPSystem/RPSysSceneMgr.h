@@ -13,7 +13,7 @@
 //! @{
 
 /**
- * \~english @brief Pack Project scene manager
+ * @~english @brief Pack Project scene manager
  */
 class RPSysSceneMgr : public EGG::SceneManager {
     RP_SINGLETON_DECL(RPSysSceneMgr);
@@ -33,216 +33,216 @@ private:
 
 public:
     /**
-     * \~english @brief Updates the state of the current scene
+     * @~english @brief Updates the state of the current scene
      */
     virtual void calcCurrentScene() override; // at 0x10
 
     /**
-     * \~english @brief Gets the currently active scene as the Pack Project type
+     * @~english @brief Gets the currently active scene as the Pack Project type
      */
     RPSysScene* getCurrentSceneRP() const;
 
     /**
-     * \~english @brief Performs a soft reset
+     * @~english @brief Performs a soft reset
      *
-     * \~english @param fromHBM Whether the request came from HBM
-     * \~english @return Success
+     * @~english @param fromHBM Whether the request came from HBM
+     * @~english @return Success
      */
     bool softReset(bool fromHBM);
 
     /**
-     * \~english @brief Returns to the IPL
+     * @~english @brief Returns to the IPL
      *
-     * \~english @param fromHBM Whether the request came from HBM
-     * \~english @return Success
+     * @~english @param fromHBM Whether the request came from HBM
+     * @~english @return Success
      */
     bool returnToMenu(bool fromHBM);
 
     /**
-     * \~english @brief Powers off the console
+     * @~english @brief Powers off the console
      *
-     * \~english @param fromHBM Whether the request came from HBM
-     * \~english @return Success
+     * @~english @param fromHBM Whether the request came from HBM
+     * @~english @return Success
      */
     bool shutdownSystem(bool fromHBM);
 
     /**
-     * \~english @brief Tests whether this manager is operating normally
+     * @~english @brief Tests whether this manager is operating normally
      */
     bool isNormalState() const;
 
     /**
-     * \~english @brief Tests whether this manager is currently shutting down
+     * @~english @brief Tests whether this manager is currently shutting down
      * the system
      */
     bool isShutDownReserved() const;
 
     /**
-     * \~english @brief Tests whether this manager is currently returning to the
+     * @~english @brief Tests whether this manager is currently returning to the
      * IPL
      */
     bool getReturnToMenu() const;
 
     /**
-     * \~english @brief Gets the Wii Menu page the game will go to upon exiting
+     * @~english @brief Gets the Wii Menu page the game will go to upon exiting
      *
-     * \~english @return EMenu: ID for page
+     * @~english @return EMenu: ID for page
      */
     EMenu getMenuPage() const;
 
     /**
-     * \~english @brief Disables the guard state and returns to normal operation
+     * @~english @brief Disables the guard state and returns to normal operation
      */
     void resetGuard();
 
     /**
-     * \~english @brief Tests whether this manager is currently exiting the
+     * @~english @brief Tests whether this manager is currently exiting the
      * program
      */
     bool isApplicationEndReserved();
 
     /**
-     * \~english @brief Tests whether a DVD error should exit the program
+     * @~english @brief Tests whether a DVD error should exit the program
      */
     bool isDvdErrorApplicationEnd();
 
     /**
-     * \~english @brief Requests a scene change after fading out
+     * @~english @brief Requests a scene change after fading out
      * @details A scene id of -1 will select the current scene.
      *
-     * \~english @param id New scene ID
-     * \~english @param reconfigure Whether to fully reconfigure the scene
-     * \~english @return Success
+     * @~english @param id New scene ID
+     * @~english @param reconfigure Whether to fully reconfigure the scene
+     * @~english @return Success
      */
     bool changeNextSceneAfterFade(s32 id, bool reconfigure = false);
 
     /**
-     * \~english @brief Resets the duration of all faders
+     * @~english @brief Resets the duration of all faders
      */
     void resetFadeFrame();
 
     /**
-     * \~english @brief Gets the duration of the scene fader
+     * @~english @brief Gets the duration of the scene fader
      */
     u16 getFadeFrame();
 
     /**
-     * \~english @brief Sets the duration of all faders
+     * @~english @brief Sets the duration of all faders
      *
-     * \~english @param frame Fade duration, in frames
+     * @~english @param frame Fade duration, in frames
      */
     void setFadeFrame(u16 frame);
 
     /**
-     * \~english @brief Resets the color of all faders
+     * @~english @brief Resets the color of all faders
      * @details The default fader color is black.
      */
     void resetFadeColor();
 
     /**
-     * \~english @brief Gets the color of the manager fader
+     * @~english @brief Gets the color of the manager fader
      */
     nw4r::ut::Color getFadeColor();
 
     /**
-     * \~english @brief Sets the color of all faders
+     * @~english @brief Sets the color of all faders
      *
-     * \~english @param color Fade color
+     * @~english @param color Fade color
      */
     void setFadeColor(nw4r::ut::Color color);
 
     /**
-     * \~english @brief Sets the color of the scene fader
+     * @~english @brief Sets the color of the scene fader
      *
-     * \~english @param color Fade color
+     * @~english @param color Fade color
      */
     void setSceneFadeColor(nw4r::ut::Color color);
 
     /**
-     * \~english @brief Gets the status of the scene fader
+     * @~english @brief Gets the status of the scene fader
      */
     EGG::Fader::EStatus getSceneStatus();
 
     /**
-     * \~english @brief Sets the status of the scene fader
+     * @~english @brief Sets the status of the scene fader
      *
-     * \~english @param status Fade status
+     * @~english @param status Fade status
      */
     void setSceneStatus(EGG::Fader::EStatus status);
 
     /**
-     * \~english @brief Begins fading in the manager fader
+     * @~english @brief Begins fading in the manager fader
      *
-     * \~english @return Success
+     * @~english @return Success
      */
     bool startMgrFadeIn();
 
     /**
-     * \~english @brief Begins fading in the scene fader
+     * @~english @brief Begins fading in the scene fader
      *
-     * \~english @return Success
+     * @~english @return Success
      */
     bool startSceneFadeIn();
 
     /**
-     * \~english @brief Begins fading out the scene fader
+     * @~english @brief Begins fading out the scene fader
      *
-     * \~english @return Success
+     * @~english @return Success
      */
     bool startSceneFadeOut();
 
     /**
-     * \~english @brief Tests whether the scene is fully visible
+     * @~english @brief Tests whether the scene is fully visible
      */
     bool isDisplay();
 
     /**
-     * \~english @brief Tests whether the scene is visibly obscured
+     * @~english @brief Tests whether the scene is visibly obscured
      */
     bool isBlank();
 
     bool isFading();
 
     /**
-     * \~english @brief Tests whether the scene is fading out
+     * @~english @brief Tests whether the scene is fading out
      */
     bool isFadeOut();
 
     /**
-     * \~english @brief Tests whether all asynchronous tasks have finished
+     * @~english @brief Tests whether all asynchronous tasks have finished
      */
     bool isTaskFinished();
 
     /**
-     * \~english @brief Tests whether a scene change would be allowed
+     * @~english @brief Tests whether a scene change would be allowed
      */
     bool isSceneChangeEnable();
 
     /**
-     * \~english @brief Updates the state of the scene fader
+     * @~english @brief Updates the state of the scene fader
      *
-     * \~english @return Whether the fade has finished
+     * @~english @return Whether the fade has finished
      */
     bool calcSceneFader();
 
     /**
-     * \~english @brief Displays the state of the scene fader
+     * @~english @brief Displays the state of the scene fader
      */
     void drawSceneFader();
 
     /**
-     * \~english @brief Displays the state of the manager fader
+     * @~english @brief Displays the state of the manager fader
      */
     void drawMgrFader();
 
     /**
-     * \~english @brief Updates the state of this manager
+     * @~english @brief Updates the state of this manager
      */
     void updateState();
 
 private:
     /**
-     * \~english @brief Scene manager state
+     * @~english @brief Scene manager state
      */
     enum EState {
         EState_Normal,       //!< Normal operation

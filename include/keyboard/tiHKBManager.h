@@ -8,8 +8,8 @@ namespace input {
 class KBDListener {
 public:
     /**
-     * \~english @brief Constructor
-     * \~japanese @brief コンストラクタ
+     * @~english @brief Constructor
+     * @~japanese @brief コンストラクタ
      */
     KBDListener() : mpPrevListener(NULL), mpNextListener(NULL) {}
     virtual ~KBDListener() {}

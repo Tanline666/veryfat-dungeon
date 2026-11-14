@@ -28,16 +28,35 @@ void CalcWorld(math::MTX34* pModelMtxArray, u32* pModelMtxAttribArray,
                const u8* pByteCode, const math::MTX34* pBaseMtx, ResMdl mdl,
                AnmObjChr* pAnmChr, FuncObjCalcWorld* pFuncObj);
 
+/**
+ * @~english @brief Performs the calculations for the matrix executing vertex
+ * skinning.
+ * @~japanese @brief 頂点スキニングを実行する行列の計算を行う。
+ *
+ * @~english @param pModelMtxArray Array of world transformation matrices
+ * calculated with CalcWorld
+ * @~japanese @param pModelMtxArray CalcWorldで計算されたワールド変換行列の配列
+ * @~english @param pModelMtxAttribArray Array of attributes for world
+ * transformation matrices calculated with CalcWorld
+ * @~japanese @param pModelMtxAttribArray
+ * CalcWorldで計算されたワールド変換行列の特性の配列
+ * @param mdl
+ * @param pByteCode
+ */
 void CalcSkinning(math::MTX34* pModelMtxArray, u32* pModelMtxAttribArray,
                   const ResMdl mdl, const u8* pByteCode);
 
-/******************************************************************************
- *
- * ICalcWorldCallback
- *
- ******************************************************************************/
+/**
+ * @~english @brief Callback interface for calculating a model's world matrix.
+ * @~japanese @brief
+ * モデルのワールド行列を計算する際のコールバック・インターフェース。
+ */
 class ICalcWorldCallback {
 public:
+    /**
+     * @~english @brief Destructor
+     * @~japanese @brief デストラクタ
+     */
     virtual ~ICalcWorldCallback() {} // at 0x8
 
     virtual void ExecCallbackA(ChrAnmResult* pResult, ResMdl mdl,

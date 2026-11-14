@@ -103,11 +103,11 @@ void ScnRoot::G3dProc(u32 task, u32 param, void* pInfo) {
 }
 
 Camera ScnRoot::GetCamera(int idx) {
-    if (idx >= 0 && idx < G3DState::NUM_CAMERA) {
+    if (0 <= idx && idx < G3DState::NUM_CAMERA) {
         return Camera(&mCamera[idx]);
+    } else {
+        return Camera(NULL);
     }
-
-    return Camera(NULL);
 }
 
 Camera ScnRoot::GetCurrentCamera() {
@@ -119,11 +119,11 @@ void ScnRoot::SetCurrentCamera(int idx) {
 }
 
 Fog ScnRoot::GetFog(int idx) {
-    if (idx >= 0 && idx < G3DState::NUM_FOG) {
+    if (0 <= idx && idx < G3DState::NUM_FOG) {
         return Fog(&mFog[idx]);
+    } else {
+        return Fog(NULL);
     }
-
-    return Fog(NULL);
 }
 
 LightSet ScnRoot::GetLightSet(int idx) {
@@ -457,6 +457,11 @@ void ScnObjGather::DrawXlu(ResMdlDrawMode* pForceMode) {
     for (u32 i = 0; i != mNumScnObjXlu;) {
         mpArrayXlu[i++]->G3dProc(G3dObj::G3DPROC_DRAW_XLU, 0, pForceMode);
     }
+}
+
+IScnObjGather::CheckStatus ScnObjGather::CheckScnObj(ScnObj* pObj) {
+#pragma unused(pObj)
+    return IScnObjGather::CHECKSTATUS_GATHER_SCNOBJ;
 }
 
 ScnObjGather::ScnObjGather(ScnObj** ppBufOpa, ScnObj** ppBufXlu, u32 capacity)

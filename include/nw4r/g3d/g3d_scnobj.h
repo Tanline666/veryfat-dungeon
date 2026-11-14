@@ -107,27 +107,27 @@ public:
     void CalcViewMtx(const math::MTX34* pCamera);
 
     /**
-     * \~english @brief Sets the ScnObj's transformation matrix.
-     * \~japanese @brief ScnObjの変換行列を設定する。
+     * @~english @brief Sets the ScnObj's transformation matrix.
+     * @~japanese @brief ScnObjの変換行列を設定する。
      *
-     * \~english @param tp Matrix type
-     * \~japanese @param tp 行列タイプ
-     * \~english @param pM Pointer to constant 3x4 matrix
-     * \~japanese @param pM 定数の3x4行列へのポインタ
-     * \~english @return TRUE if successful
-     * \~japanese @return 成功したらTRUE
+     * @~english @param tp Matrix type
+     * @~japanese @param tp 行列タイプ
+     * @~english @param pM Pointer to constant 3x4 matrix
+     * @~japanese @param pM 定数の3x4行列へのポインタ
+     * @~english @return TRUE if successful
+     * @~japanese @return 成功したらTRUE
      */
     bool SetMtx(ScnObjMtxType tp, const math::MTX34* pM);
     /**
-     * \~english @brief Sets the ScnObj's transformation matrix.
-     * \~japanese @brief ScnObjの変換行列を設定する。
+     * @~english @brief Sets the ScnObj's transformation matrix.
+     * @~japanese @brief ScnObjの変換行列を設定する。
      *
-     * \~english @param tp Matrix type
-     * \~japanese @param tp 行列タイプ
-     * \~english @param M Reference to constant 3x4 matrix
-     * \~japanese @param M 定数の3x4行列への参照
-     * \~english @return TRUE if successful
-     * \~japanese @return 成功したらTRUE
+     * @~english @param tp Matrix type
+     * @~japanese @param tp 行列タイプ
+     * @~english @param M Reference to constant 3x4 matrix
+     * @~japanese @param M 定数の3x4行列への参照
+     * @~english @return TRUE if successful
+     * @~japanese @return 成功したらTRUE
      */
     bool SetMtx(ScnObjMtxType tp, const math::MTX34& M);
     bool GetMtx(ScnObjMtxType type, math::MTX34* pMtx) const;
@@ -243,6 +243,11 @@ private:
 class IScnObjGather {
 public:
     typedef bool (*LessThanFunc)(const ScnObj* pLhs, const ScnObj* pRhs);
+
+    enum CheckStatus {
+        CHECKSTATUS_GATHER_SCNOBJ,
+        CHECKSTATUS_IGNORE_SCNOBJ,
+    };
 
     enum CullingStatus {
         CULLINGSTATUS_INTERSECT,

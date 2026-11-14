@@ -698,9 +698,9 @@ bool DrawStrategyImpl::_SetupTevReg(Particle* pp, const EmitterDrawSetting& ed,
     }
 
     u8 alphaFlick = 255;
-    //! \~english @note Code is not optimal. Even if the check below is false,
+    //! @~english @note Code is not optimal. Even if the check below is false,
     //! all of the mUseAlpha comparisons will still be attempted.
-    //! \~japanese @note コードは不適。たとえ以下のチェックの結果はFALSEでも、
+    //! @~japanese @note コードは不適。たとえ以下のチェックの結果はFALSEでも、
     //! 全てのmUseAlpha比較はもう試みる。
     if (mUseAlpha1_1 || mUseAlpha1_2 || mUseAlpha2_1 || mUseAlpha2_2) {
         if (ed.mAlphaFlickType) {

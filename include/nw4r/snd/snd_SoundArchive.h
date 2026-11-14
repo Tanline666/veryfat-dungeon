@@ -13,6 +13,10 @@ namespace detail {
 class SoundArchiveFileReader;
 } // namespace detail
 
+/**
+ * @~english @brief Class for managing sound archives.
+ * @~japanese @brief サウンドアーカイブを管理するクラス。
+ */
 class SoundArchive {
 public:
     static const int FILE_PATH_MAX = 256;
@@ -106,6 +110,10 @@ public:
     static const u32 INVALID_ID = 0xFFFFFFFF;
 
 public:
+    /**
+     * @~english @brief Destructor
+     * @~japanese @brief デストラクタ
+     */
     virtual ~SoundArchive(); // at 0x8
 
     virtual const void* detail_GetFileAddress(u32 id) const = 0; // at 0xC
@@ -122,10 +130,23 @@ public:
     ut::FileStream* detail_OpenGroupWaveDataStream(u32 id, void* pBuffer,
                                                    int bufferSize) const;
 
+    /**
+     * @~english @brief Checks whether the SoundArchive has a defined reader.
+     * @~japanese @brief
+     * SoundArchiveには定義されたリーダーがあるかどうかを調べる。
+     *
+     * @~english @return TRUE if reader is present
+     * @~japanese @return リーダーがあればTRUE
+     */
     bool IsAvailable() const;
 
+    /**
+     * @~english @brief Gets the amount of sound players in an archive.
+     * @~japanese @brief アーカイブ中のサウンドプレイヤーの個数を取得する。
+     */
     u32 GetPlayerCount() const;
     u32 GetGroupCount() const;
+    u32 detail_GetFileCount() const;
 
     const char* GetSoundLabelString(u32 id) const;
     u32 ConvertLabelStringToSoundId(const char* pLabel) const;
@@ -155,9 +176,24 @@ public:
     void SetExternalFileRoot(const char* pExtFileRoot);
 
 protected:
+    /**
+     * @~english @brief Constructor
+     * @~japanese @brief コンストラクタ
+     */
     SoundArchive();
 
-    void Setup(detail::SoundArchiveFileReader* pReader);
+    /**
+     * @~english @brief Initializes a SoundArchive.
+     * @~japanese @brief SoundArchiveを初期化する。
+     *
+     * @~english @param fileReader Pointer to archive reader
+     * @~japanese @param fileReader アーカイブリーダーへのポインタ
+     */
+    void Setup(detail::SoundArchiveFileReader* fileReader);
+    /**
+     * @~english @brief Closes a SoundArchive.
+     * @~japanese @brief SoundArchiveを閉じる。
+     */
     void Shutdown();
     virtual ut::FileStream* OpenStream(void* pBuffer, int bufferSize,
                                        u32 offset,

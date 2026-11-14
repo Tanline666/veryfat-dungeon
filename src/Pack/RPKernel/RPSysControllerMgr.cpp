@@ -10,29 +10,29 @@
 #include <revolution/WPAD.h>
 
 /**
- * \~english @brief Bitfield of controllers currently connected
+ * @~english @brief Bitfield of controllers currently connected
  */
 u16 RPSysCoreControllerMgr::sConnectionFlag = 0;
 
 /**
- * \~english @brief Bitfield of controllers connected during the previous frame
+ * @~english @brief Bitfield of controllers connected during the previous frame
  */
 u16 RPSysCoreControllerMgr::sPrevConnectionFlag = 0;
 
 /**
- * \~english @brief Bitfield of controllers with DPD control enabled
+ * @~english @brief Bitfield of controllers with DPD control enabled
  */
 u16 RPSysCoreControllerMgr::sDpdCtrlEnableFlag = 0;
 
 /**
- * \~english @brief Whether WPADClearDevice has completed
+ * @~english @brief Whether WPADClearDevice has completed
  */
 bool RPSysCoreControllerMgr::sClearDeviceFlag = false;
 
 RP_SINGLETON_IMPL(RPSysCoreControllerMgr);
 
 /**
- * \~english @brief Constructor
+ * @~english @brief Constructor
  */
 RPSysCoreControllerMgr::RPSysCoreControllerMgr()
     : mSearchType(ESearchType_Channel) {
@@ -41,9 +41,9 @@ RPSysCoreControllerMgr::RPSysCoreControllerMgr()
 }
 
 /**
- * \~english @brief Controller connect callback
+ * @~english @brief Controller connect callback
  *
- * \~english @param rArg Callback argument
+ * @~english @param rArg Callback argument
  */
 void RPSysCoreControllerMgr::connectCallback(
     const EGG::CoreControllerConnectArg& rArg) {
@@ -64,9 +64,9 @@ void RPSysCoreControllerMgr::connectCallback(
 }
 
 /**
- * \~english @brief WPAD clear device callback
+ * @~english @brief WPAD clear device callback
  *
- * \~english @param result WPAD sync result
+ * @~english @param result WPAD sync result
  */
 void RPSysCoreControllerMgr::clearDeviceCallback(s32 result) {
     switch (result) {
@@ -88,10 +88,10 @@ void RPSysCoreControllerMgr::clearDeviceCallback(s32 result) {
 }
 
 /**
- * \~english @brief WPAD DPD control callback
+ * @~english @brief WPAD DPD control callback
  *
- * \~english @param chan Remote channel
- * \~english @param result WPAD DPD command
+ * @~english @param chan Remote channel
+ * @~english @param result WPAD DPD command
  */
 void RPSysCoreControllerMgr::controlDpdCallback(s32 chan, s32 result) {
     switch (result) {
@@ -112,7 +112,7 @@ void RPSysCoreControllerMgr::controlDpdCallback(s32 chan, s32 result) {
 }
 
 /**
- * \~english @brief Initializes the controller manager singleton
+ * @~english @brief Initializes the controller manager singleton
  */
 void RPSysCoreControllerMgr::create() {
     u32 workSize = WPADGetWorkMemorySize();
@@ -136,9 +136,9 @@ void RPSysCoreControllerMgr::create() {
 }
 
 /**
- * \~english @brief Accesses the controller using the specified channel
+ * @~english @brief Accesses the controller using the specified channel
  *
- * \~english @param chan Remote channel
+ * @~english @param chan Remote channel
  */
 RPSysCoreController* RPSysCoreControllerMgr::findController(s32 chan) const {
     RPSysCoreController* pFound = NULL;
@@ -157,7 +157,7 @@ RPSysCoreController* RPSysCoreControllerMgr::findController(s32 chan) const {
 }
 
 /**
- * \~english @brief Prepares the controller system for a scene reset
+ * @~english @brief Prepares the controller system for a scene reset
  */
 void RPSysCoreControllerMgr::sceneReset() {
     u16 connected = sConnectionFlag;
@@ -199,7 +199,7 @@ void RPSysCoreControllerMgr::sceneReset() {
 }
 
 /**
- * \~english @brief Performs processing at the beginning of the frame
+ * @~english @brief Performs processing at the beginning of the frame
  */
 void RPSysCoreControllerMgr::beginFrame() {
     u16 connected = sConnectionFlag;
@@ -343,21 +343,21 @@ void RPSysCoreControllerMgr::beginFrame() {
 }
 
 /**
- * \~english @brief Performs processing at the end of the frame
+ * @~english @brief Performs processing at the end of the frame
  */
 void RPSysCoreControllerMgr::endFrame() {
     EGG::CoreControllerMgr::endFrame();
 }
 
 /**
- * \~english @brief Enables pairing of controllers
+ * @~english @brief Enables pairing of controllers
  */
 void RPSysCoreControllerMgr::enableConnection() const {
     mpPairingMgr->setEnabled(true);
 }
 
 /**
- * \~english @brief Disables pairing of controllers
+ * @~english @brief Disables pairing of controllers
  */
 void RPSysCoreControllerMgr::disableConnection() const {
     mpPairingMgr->setEnabled(false);

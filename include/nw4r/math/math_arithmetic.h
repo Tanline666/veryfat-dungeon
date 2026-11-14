@@ -19,16 +19,35 @@ namespace math {
  ******************************************************************************/
 namespace detail {
 
+/**
+ * @~english @brief Finds e^x.
+ * @~japanese @brief e^xを求める。
+ *
+ * @~english @param x Exponent value
+ * @~japanese @param x 指数の値
+ * @return e^x
+ */
 f32 FExp(f32 x);
+/**
+ * @~english @brief Finds the natural logarithm of x.
+ * @~japanese @brief xの自然対数を求める。
+ *
+ * @param x
+ * @~english @return Natural logarithm of x
+ * @~japanese @return xの自然対数
+ */
 f32 FLog(f32 x);
 
 } // namespace detail
 
-/******************************************************************************
+/**
+ * @~english @brief Calculates the inverse square root of x.
+ * @~japanese @brief xの平方根の逆数を計算する。
  *
- * Arithmetic functions
- *
- ******************************************************************************/
+ * @param x
+ * @~english @return Inverse square root of x
+ * @~japanese @return xの平方根の逆数
+ */
 f32 FrSqrt(f32 x);
 
 inline f32 FAbs(register f32 x) {
@@ -45,6 +64,19 @@ inline f32 FCeil(f32 x) {
     return std::ceilf(x);
 }
 
+/**
+ * @~english @brief Finds e^x.
+ * @~japanese @brief e^xを求める。
+ *
+ * @~english @param x Exponent value
+ * @~japanese @param x 指数の値
+ * @return e^x
+ *
+ * @~english @note This automatically redirects to the detail namespace
+ * FExp function.
+ * @~japanese @note
+ * ここは自動的にdetailネームスペースのFExp関数へリダイレクトする。
+ */
 inline f32 FExp(f32 x) {
     return detail::FExp(x);
 }
@@ -53,6 +85,14 @@ inline f32 FFloor(f32 x) {
     return std::floorf(x);
 }
 
+/**
+ * @~english @brief Calculates the inverse of x.
+ * @~japanese @brief xの逆数を計算する。
+ *
+ * @param x
+ * @~english @return Inverse of x
+ * @~japanese @return xの逆数
+ */
 inline f32 FInv(register f32 x) {
     register f32 work0, work1, work2, work3;
 
@@ -70,19 +110,63 @@ inline f32 FInv(register f32 x) {
     return work0;
 }
 
+/**
+ * @~english @brief Calculates the remainder of the division of x and y.
+ * @~japanese @brief xとyの除算の剰余を計算する。
+ *
+ * @~english @param x Left-side value
+ * @~japanese @param x 左辺の値
+ * @~english @param y Right-side value
+ * @~japanese @param y 右辺の値
+ * @~english @return Remainder
+ * @~japanese @return 剰余
+ */
 inline f32 FMod(f32 x, f32 y) {
     return std::fmodf(x, y);
 }
 
-inline f32 FModf(f32 x, f32* pY) {
-    return std::modff(x, pY);
+/**
+ * @~english @brief Splits a float into an integer component and a decimal
+ * component.
+ * @~japanese @brief 浮動小数点を整数部と小数部に分ける。
+ *
+ * @~english @param x Original float
+ * @~japanese @param x 元の浮動小数点
+ * @~english @param[out] y Pointer to buffer storing integer component
+ * @~japanese @param[out] y 整数部を格納するバッファへのポインタ
+ * @~english @return Decimal component
+ * @~japanese @return 小数部
+ */
+inline f32 FModf(f32 x, f32* y) {
+    return std::modff(x, y);
 }
 
+/**
+ * @~english @brief Calculates the square root of x.
+ * @~japanese @brief xの平方根を計算する。
+ *
+ * @param x
+ * @~english @return Square root of x
+ * @~japanese @return xの平方根
+ */
 inline f32 FSqrt(f32 x) {
     NW4R_WARNING(x >= 0.0f, 627, "FSqrt: Input is out of the domain.");
     return x <= 0.0f ? 0.0f : x * FrSqrt(x);
 }
 
+/**
+ * @~english @brief Finds the natural logarithm of x.
+ * @~japanese @brief xの自然対数を求める。
+ *
+ * @param x
+ * @~english @return Natural logarithm of x
+ * @~japanese @return xの自然対数
+ *
+ * @~english @note This automatically redirects to the detail namespace
+ * FLog function.
+ * @~japanese @note
+ * ここは自動的にdetailネームスペースのFLog関数へリダイレクトする。
+ */
 inline f32 FLog(f32 x) {
     NW4R_WARNING(x > 0.0f, 295, "FLog: Input is out of the domain.");
     if (x > 0.0f) {
@@ -92,12 +176,27 @@ inline f32 FLog(f32 x) {
     return NW4R_MATH_QNAN;
 }
 
-inline f32 FSelect(register f32 value, register f32 ge_zero,
-                   register f32 lt_zero) {
+/**
+ * @~english @brief Returns ifPos or ifNeg depending on if cond is positive or
+ * negative.
+ * @~japanese @brief condが正数か負数の場合はifPosかifNegを返す。
+ * @~english @note If cond is 0, ifPos is returned.
+ * @~japanese @note condが0であれば、ifPosが返る。
+ *
+ * @~english @param cond Value determining which argument is selected
+ * @~japanese @param cond どっちの引数が選択されるかを決まってる値
+ * @~english @param ifPos Value to be selected when cond is positive
+ * @~japanese @param ifPos condが正数の場合の選択される値
+ * @~english @param ifNeg Value to be selected when cond is negative
+ * @~japanese @param ifNeg condが負数の場合の選択される値
+ * @~english @return ifPos or ifNeg
+ * @~japanese @return ifPosかifNeg
+ */
+inline f32 FSelect(register f32 cond, register f32 ifPos, register f32 ifNeg) {
     register f32 ret;
 
     ASM (
-        fsel ret, value, ge_zero, lt_zero
+        fsel ret, cond, ifPos, ifNeg
     )
 
     return ret;
@@ -146,7 +245,20 @@ inline f32 FGetMantPart(f32 x) {
     return U32AsF32((u & 0x807FFFFF) | 0x3F800000);
 }
 
-f32 Hermite(f32 value_1, f32 slope_1, f32 value_2, f32 slope_2, f32 targetPos);
+/**
+ * @~english @brief Performs Hermite interpolation.
+ * @~japanese @brief エルミート補間を行う。
+ *
+ * @~english @param p1 Value of point 1
+ * @~japanese @param p1 点1の値
+ * @param t1
+ * @~english @param p2 Value of point 2
+ * @~japanese @param p2 点2の値
+ * @param t2
+ * @param s
+ * @return f32
+ */
+f32 Hermite(f32 p1, f32 t1, f32 p2, f32 t2, f32 s);
 
 } // namespace math
 } // namespace nw4r

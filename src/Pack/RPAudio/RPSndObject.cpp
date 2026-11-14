@@ -9,7 +9,7 @@
  ******************************************************************************/
 
 /**
- * \~english @brief List of all active actors
+ * @~english @brief List of all active actors
  */
 nw4r::ut::List RPSndAudioActorBase::sActorList;
 
@@ -20,10 +20,10 @@ nw4r::ut::List RPSndAudioActorBase::sActorList;
  ******************************************************************************/
 
 /**
- * \~english @brief Fades out all active sounds in the specified number of
+ * @~english @brief Fades out all active sounds in the specified number of
  * frames
  *
- * \~english @param frames Fade out time
+ * @~english @param frames Fade out time
  */
 void RPSndObjMgr::stopAllActorSound(int frames) {
     RP_NW4R_LIST_FOREACH (RPSndAudioActorBase, it,

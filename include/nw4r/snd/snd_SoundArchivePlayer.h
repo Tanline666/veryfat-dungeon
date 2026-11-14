@@ -58,15 +58,14 @@ public:
     virtual void InvalidateWaveData(const void* pStart,
                                     const void* pEnd); //!< // at 0x10
 
-protected:
-    virtual StartResult
-    detail_SetupSound(SoundHandle* pHandle, u32 id, bool hold,
-                      const StartInfo* pStartInfo); //!< // at 0x28
-
     virtual u32 detail_ConvertLabelStringToSoundId(const char* pLabel) {
         return mSoundArchive->ConvertLabelStringToSoundId(pLabel);
     } //!< // at 0x2C
 
+protected:
+    virtual StartResult
+    detail_SetupSound(SoundHandle* pHandle, u32 id, bool hold,
+                      const StartInfo* pStartInfo); //!< // at 0x28
 public:
     bool IsAvailable() const;
 
@@ -79,6 +78,12 @@ public:
     u32 GetRequiredStrmBufferSize(const SoundArchive* pArchive);
 
     void Update();
+
+    StartResult
+    detail_SetupSoundImpl(SoundHandle* handle, u32 soundId,
+                          detail::BasicSound::AmbientInfo* ambientArgInfo,
+                          SoundActor* actor, bool holdFlag,
+                          const StartInfo* startInfo);
 
     const SoundArchive& GetSoundArchive() const;
 

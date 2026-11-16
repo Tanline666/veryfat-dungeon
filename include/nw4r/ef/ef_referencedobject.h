@@ -6,10 +6,13 @@
 #include <nw4r/math.h>
 #include <nw4r/ut.h>
 
-
 namespace nw4r {
 namespace ef {
 
+/**
+ * @~english @brief Base class for classes managed by ActivityList.
+ * @~japanese @brief ActivityListが管理するクラスの基底クラス。
+ */
 class ReferencedObject : public LinkedObject {
 public:
     enum LifeStatus {
@@ -30,7 +33,13 @@ public:
     virtual void SendClosing() {} // at 0x8
 
 protected:
-    virtual void DestroyFunc() {} // at 0xC
+    /**
+     * @~english @brief Base function for destroying effect class instances. By
+     * default, this does nothing.
+     * @~japanese @brief
+     * エフェクトクラスインスタンスを破棄する基底関数。デフォルトでは何をしてない。
+     */
+    virtual void DestroyFunc() {} //!< // at 0xC
 
 public:
     void ChangeLifeStatus(LifeStatus status) {

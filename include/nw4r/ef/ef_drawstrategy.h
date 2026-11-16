@@ -9,6 +9,10 @@ namespace ef {
 class DrawInfo;
 class ParticleManager;
 
+/**
+ * @~english @brief Base class for rendering particles.
+ * @~japanese @brief パーティクルを描画する基底クラス。
+ */
 class DrawStrategy {
 public:
     DrawStrategy() {}

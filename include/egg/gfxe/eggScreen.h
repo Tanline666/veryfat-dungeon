@@ -64,15 +64,7 @@ public:
     const Screen* GetParent() const {
         return mParent;
     }
-    void SetParent(const Screen* pParent) {
-        mFlags |= FLAG_DIRTY;
-
-        if (spRoot == this) {
-            mParent = NULL;
-        } else {
-            mParent = pParent != NULL ? pParent : spRoot;
-        }
-    }
+    void SetParent(const Screen* pParent);
 
     void SetProjectionAbsolute() const {
         mFlags |= FLAG_PROJ_ABSOLUTE;

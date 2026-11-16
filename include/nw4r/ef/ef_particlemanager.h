@@ -11,7 +11,6 @@
 namespace nw4r {
 namespace ef {
 
-// Forward declarations
 class DrawInfo;
 class DrawStrategy;
 class Emitter;
@@ -19,6 +18,11 @@ struct EmitterInheritSetting;
 struct EmitterResource;
 class Particle;
 
+/**
+ * @~english @brief Class for managing particles with the same rendering
+ * settings.
+ * @~japanese @brief 描画設定の同じパーティクルを管理するクラス。
+ */
 class ParticleManager : public ReferencedObject {
 public:
     enum Flag {

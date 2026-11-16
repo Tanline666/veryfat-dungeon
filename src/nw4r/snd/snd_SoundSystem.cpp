@@ -142,7 +142,7 @@ void SoundSystem::InitSoundSystem(const SoundSystemParam& param, void* workMem,
     NW4R_ASSERT(result, 255);
 
     // clang-format off
-    NW4R_ASSERT(ptr <= reinterpret_cast<u8*>( workMem ) + workMemSize, 257);
+    NW4R_ASSERT(ptr <= reinterpret_cast<u8*>(workMem) + workMemSize, 257);
     // clang-format on
 }
 

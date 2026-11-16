@@ -12,8 +12,8 @@ namespace g3d {
 class ResMdl;
 
 /**
- * @~english @brief Abstract class for basic animation objects
- * @~japanese @brief 基底のアニメオブジェクトのための抽象クラス
+ * @~english @brief Abstract class for basic animation objects.
+ * @~japanese @brief 基底のアニメオブジェクトのための抽象クラス。
  */
 class AnmObj : public G3dObj {
     NW4R_G3D_RTTI_DECL_DERIVED(AnmObj, G3dObj);

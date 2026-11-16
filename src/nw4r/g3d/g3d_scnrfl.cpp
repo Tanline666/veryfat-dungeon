@@ -5,99 +5,6 @@ namespace g3d {
 
 NW4R_G3D_RTTI_DEF(ScnRfl);
 
-void ScnRfl::SetLightSetIdx(int idx) {
-    if (idx < 0 || idx > G3DState::NUM_LIGHT_SET - 1) {
-        mIdxLightSet = -1;
-        return;
-    }
-
-    mIdxLightSet = idx;
-}
-
-void ScnRfl::SetFogIdx(int idx) {
-    // @bug G3DState only allows 32 fog entries
-    if (idx < 0 || idx > 127) {
-        mIdxFog = -1;
-        return;
-    }
-
-    mIdxFog = idx;
-}
-
-bool ScnRfl::SetExpression(RFLExpression expression) {
-    if (IsCharModelReady()) {
-        RFLSetExpression(&mCharModel, expression);
-        return true;
-    }
-
-    return false;
-}
-
-bool ScnRfl::GetExpression(RFLExpression* pExpression) {
-    if (pExpression != NULL && IsCharModelReady()) {
-        *pExpression = RFLGetExpression(&mCharModel);
-        return true;
-    }
-
-    return false;
-}
-
-bool ScnRfl::SetupCharModel(RFLDataSource src, u16 index,
-                            RFLMiddleDB* pMiddleDB) {
-    ReleaseCharModel();
-
-    mRFLErrCode = RFLInitCharModel(&mCharModel, src, pMiddleDB, index,
-                                   mpNglBuffer, mResolution, mExpressionFlag);
-
-    if (mRFLErrCode != RFLErrcode_Success) {
-        return false;
-    }
-
-    mCharModelReady = TRUE;
-    return true;
-}
-
-void ScnRfl::ReleaseCharModel() {
-    if (IsCharModelReady()) {
-        mCharModelReady = FALSE;
-    }
-}
-
-ScnRfl* ScnRfl::Construct(MEMAllocator* pAllocator, u32* pSize,
-                          RFLResolution resolution, u32 exprFlags,
-                          u32 userDataSize) {
-    ScnRfl* pScnRfl = NULL;
-
-    u32 scnRflSize = sizeof(ScnRfl);
-    u32 nglSize = RFLGetModelBufferSize(resolution, exprFlags);
-
-    u32 userOffset = align4(scnRflSize);
-    u32 nglOffset = align32(userOffset + userDataSize);
-
-    u32 size = align32(nglOffset + nglSize);
-    if (pSize != NULL) {
-        *pSize = size;
-    }
-
-    if (pAllocator != NULL) {
-        u8* pBuffer = reinterpret_cast<u8*>(Alloc(pAllocator, size));
-        if (pBuffer == NULL) {
-            return NULL;
-        }
-
-        // clang-format off
-        pScnRfl = new (pBuffer) ScnRfl(
-            pAllocator,
-            pBuffer + nglOffset,
-            userDataSize != 0 ? pBuffer + userOffset : NULL,
-            resolution,
-            exprFlags);
-        // clang-format on
-    }
-
-    return pScnRfl;
-}
-
 void ScnRfl::G3dProc(u32 task, u32 param, void* pInfo) {
     if (IsG3dProcDisabled(task)) {
         return;
@@ -164,6 +71,137 @@ void ScnRfl::G3dProc(u32 task, u32 param, void* pInfo) {
         break;
     }
     }
+}
+
+ScnRfl::RflData::RflData(MEMAllocator* pHeap, void* pBuffer,
+                         RFLResolution resolution, u32 expressionFlag)
+    : mRefCount(1),
+      mpHeap(pHeap),
+      mResolution(resolution),
+      mExpressionFlag(expressionFlag),
+      mCharModelReady(FALSE),
+      mpNglBuffer(pBuffer),
+      mRFLErrCode(RFLErrcode_Success) {}
+
+ScnRfl::RflData* ScnRfl::RflData::Construct(MEMAllocator* pHeap, u32* pSize,
+                                            RFLResolution resolution,
+                                            u32 expressionFlag) {
+    RflData* pObj = NULL;
+
+    u32 sizeRflData = sizeof(RflData);
+    u32 sizeBuffer = RFLGetModelBufferSize(resolution, expressionFlag);
+    u32 ofsBuffer = align32(sizeRflData);
+    u32 size = align32(ofsBuffer + sizeBuffer);
+
+    if (pSize) {
+        *pSize = size;
+    }
+
+    if (pHeap) {
+        u8* buf =
+            reinterpret_cast<u8*>(detail::AllocFromAllocator(pHeap, size));
+        if (!buf) {
+            return NULL;
+        }
+
+        pObj = new (buf)
+            RflData(pHeap, buf + ofsBuffer, resolution, expressionFlag);
+    }
+
+    return pObj;
+}
+
+bool ScnRfl::GetExpression(RFLExpression* pExpression) {
+    if (pExpression != NULL && IsCharModelReady()) {
+        *pExpression = RFLGetExpression(&mCharModel);
+        return true;
+    }
+
+    return false;
+}
+
+bool ScnRfl::SetExpression(RFLExpression expression) {
+    if (IsCharModelReady()) {
+        RFLSetExpression(&mCharModel, expression);
+        return true;
+    }
+
+    return false;
+}
+
+void ScnRfl::SetFogIdx(int idx) {
+    // @bug G3DState only allows 32 fog entries
+    if (idx < 0 || idx > 127) {
+        mIdxFog = -1;
+        return;
+    }
+
+    mIdxFog = idx;
+}
+
+void ScnRfl::SetLightSetIdx(int idx) {
+    if (idx < 0 || idx > G3DState::NUM_LIGHT_SET - 1) {
+        mIdxLightSet = -1;
+        return;
+    }
+
+    mIdxLightSet = idx;
+}
+
+bool ScnRfl::SetupCharModel(RFLDataSource src, u16 index,
+                            RFLMiddleDB* pMiddleDB) {
+    ReleaseCharModel();
+
+    mRFLErrCode = RFLInitCharModel(&mCharModel, src, pMiddleDB, index,
+                                   mpNglBuffer, mResolution, mExpressionFlag);
+
+    if (mRFLErrCode != RFLErrcode_Success) {
+        return false;
+    }
+
+    mCharModelReady = TRUE;
+    return true;
+}
+
+void ScnRfl::ReleaseCharModel() {
+    if (IsCharModelReady()) {
+        mCharModelReady = FALSE;
+    }
+}
+
+ScnRfl* ScnRfl::Construct(MEMAllocator* pAllocator, u32* pSize,
+                          RFLResolution resolution, u32 exprFlags,
+                          u32 userDataSize) {
+    ScnRfl* pScnRfl = NULL;
+
+    u32 scnRflSize = sizeof(ScnRfl);
+    u32 nglSize = RFLGetModelBufferSize(resolution, exprFlags);
+
+    u32 userOffset = align4(scnRflSize);
+    u32 nglOffset = align32(userOffset + userDataSize);
+
+    u32 size = align32(nglOffset + nglSize);
+    if (pSize != NULL) {
+        *pSize = size;
+    }
+
+    if (pAllocator != NULL) {
+        u8* pBuffer = reinterpret_cast<u8*>(Alloc(pAllocator, size));
+        if (pBuffer == NULL) {
+            return NULL;
+        }
+
+        // clang-format off
+        pScnRfl = new (pBuffer) ScnRfl(
+            pAllocator,
+            pBuffer + nglOffset,
+            userDataSize != 0 ? pBuffer + userOffset : NULL,
+            resolution,
+            exprFlags);
+        // clang-format on
+    }
+
+    return pScnRfl;
 }
 
 void ScnRfl::CallDrawProc(bool opa) {

@@ -20,6 +20,10 @@ typedef enum {
     MEM_HEAP_OPT_CAN_LOCK = (1 << 2)
 } MEMHeapOpt;
 
+/**
+ * @~english @brief Common heap handle header.
+ * @~japanese @brief 共通のヒープハンドルヘッダ。
+ */
 typedef struct MEMiHeapHead {
     u32 magic;     // at 0x0
     MEMLink link;  // at 0x4

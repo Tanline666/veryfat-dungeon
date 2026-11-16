@@ -34,113 +34,113 @@ public:
      *
      * @~english @return Success
      */
-    virtual bool create(); // at 0xC
+    bool create(); // at 0xC
 
     /**
      * @~english @brief Fades away and destroys this effect
      */
-    virtual void fade(); // at 0x10
+    void fade(); // at 0x10
 
     /**
      * @~english @brief Fades away this effect without destroying the handle
      */
-    virtual void followFade(); // at 0x14
+    void followFade(); // at 0x14
 
     /**
      * @~english @brief Destroys this effect and all of its particles
      */
-    virtual void forceKill(); // at 0x18
+    void forceKill(); // at 0x18
 
     /**
      * @~english @brief Toggles whether this effect will update
      *
      * @~english @param disable Whether to disable updating
      */
-    virtual void setDisableCalc(bool disable); // at 0x1C
+    void setDisableCalc(bool disable); // at 0x1C
 
     /**
      * @~english @brief Toggles whether this effect will draw
      *
      * @~english @param disable Whether to disable drawing
      */
-    virtual void setDisableDraw(bool disable); // at 0x20
+    void setDisableDraw(bool disable); // at 0x20
 
     /**
      * @~english @brief Toggles whether this effect will update and draw
      *
      * @~english @param disable Whether to disable both updating and drawing
      */
-    virtual void setDisableCalcDraw(bool disable); // at 0x24
+    void setDisableCalcDraw(bool disable); // at 0x24
 
     /**
      * @~english @brief Sets the lifetime of all particles
      *
      * @~english @param life Lifetime, in ticks
      */
-    virtual void setLife(u16 life); // at 0x28
+    void setLife(u16 life); // at 0x28
 
     /**
      * @~english @brief Sets the emission ratio of all emitters
      *
      * @~english @param ratio Emission ratio
      */
-    virtual void setEmitRatio(f32 ratio); // at 0x2C
+    void setEmitRatio(f32 ratio); // at 0x2C
 
     /**
      * @~english @brief Sets the emission interval of all emitters
      *
      * @~english @param interval Emission interval
      */
-    virtual void setEmitInterval(u16 interval); // at 0x30
+    void setEmitInterval(u16 interval); // at 0x30
 
     /**
      * @~english @brief Sets the number of circular divisions of all emitters
      *
      * @~english @param emitDiv Number of emitter divisions
      */
-    virtual void setEmitEmitDiv(u16 emitDiv); // at 0x34
+    void setEmitEmitDiv(u16 emitDiv); // at 0x34
 
     /**
      * @~english @brief Sets the emission power in the radiation direction
      *
      * @~english @param power Emission power
      */
-    virtual void setPowerRadiationDir(f32 power); // at 0x38
+    void setPowerRadiationDir(f32 power); // at 0x38
 
     /**
      * @~english @brief Sets the emission power in the specified direction
      *
      * @~english @param power Emission power
      */
-    virtual void setPowerSpecDir(f32 power); // at 0x3C
+    void setPowerSpecDir(f32 power); // at 0x3C
 
     /**
      * @~english @brief Adds emission power in the specified direction
      *
      * @~english @param add Emission power addend
      */
-    virtual void setPowerSpecDirAdd(f32 add); // at 0x40
+    void setPowerSpecDirAdd(f32 add); // at 0x40
 
     /**
      * @~english @brief Sets the specified direction of emission
      *
      * @~english @param rDir Specified direction
      */
-    virtual void setSpecDir(const nw4r::math::VEC3& rDir); // at 0x44
+    void setSpecDir(const nw4r::math::VEC3& rDir); // at 0x44
 
     /**
      * @~english @brief Adds to the specified direction of emission
      *
      * @~english @param rDir Specified direction addend
      */
-    virtual void setSpecDirAdd(const nw4r::math::VEC3& rAdd); // at 0x48
+    void setSpecDirAdd(const nw4r::math::VEC3& rAdd); // at 0x48
 
     /**
      * @~english @brief Sets this effect's velocity
      *
      * @~english @param rVelocity Velocity
      */
-    virtual void setVelocity(const nw4r::math::VEC3& rVelocity); // at 0x4C
+    void setVelocity(const nw4r::math::VEC3& rVelocity); // at 0x4C
 
     /**
      * @~english @brief Sets the color of all particles
@@ -150,7 +150,7 @@ public:
      * @~english @param b Color blue component
      * @~english @param a Color alpha component
      */
-    virtual void setColor(u8 r, u8 g, u8 b, u8 a); // at 0x50
+    void setColor(u8 r, u8 g, u8 b, u8 a); // at 0x50
 
     /**
      * @~english @brief Sets the color of all particles
@@ -160,7 +160,7 @@ public:
      * @~english @param g Color green component
      * @~english @param b Color blue component
      */
-    virtual void setColor(u8 r, u8 g, u8 b); // at 0x54
+    void setColor(u8 r, u8 g, u8 b); // at 0x54
 
     /**
      * @~english @brief Sets the color alpha component of all particles
@@ -168,44 +168,42 @@ public:
      *
      * @~english @param a Color alpha component
      */
-    virtual void setColor(u8 a); // at 0x58
+    void setColor(u8 a); // at 0x58
 
     /**
      * @~english @brief Sets the default size of all particles
      *
      * @~english @param rSize Default particle size
      */
-    virtual void
-    setDefaultParticleSize(const nw4r::math::VEC2& rSize); // at 0x5C
+    void setDefaultParticleSize(const nw4r::math::VEC2& rSize); // at 0x5C
 
     /**
      * @~english @brief Sets the scale of all particles
      *
      * @~english @param rSize Particle scale
      */
-    virtual void setParticleScale(nw4r::math::VEC2& rScale); // at 0x60
+    void setParticleScale(nw4r::math::VEC2& rScale); // at 0x60
 
     /**
      * @~english @brief Sets the default rotation of all particles
      *
      * @~english @param rRotate Default particle rotation
      */
-    virtual void
-    setDefaultParticleRotate(const nw4r::math::VEC3& rRotate); // at 0x64
+    void setDefaultParticleRotate(const nw4r::math::VEC3& rRotate); // at 0x64
 
     /**
      * @~english @brief Sets the rotation of all particles
      *
      * @~english @param rRotate Particle rotation
      */
-    virtual void setParticleRotate(const nw4r::math::VEC3& rRotate); // at 0x68
+    void setParticleRotate(const nw4r::math::VEC3& rRotate); // at 0x68
 
     /**
      * @~english @brief Sets the scale of all emitters
      *
      * @~english @param rScale Emitter scale
      */
-    virtual void setLocalScale(const nw4r::math::VEC3& rScale); // at 0x6C
+    void setLocalScale(const nw4r::math::VEC3& rScale); // at 0x6C
 
     /**
      * @~english @brief Sets this effect's scale without also indirectly scaling
@@ -214,37 +212,36 @@ public:
      * @~english @param rScale New effect scale
      * @~english @param pParticleScale Current particle scale (optional)
      */
-    virtual void
-    setDynamicsScale(const nw4r::math::VEC3& rScale,
-                     const nw4r::math::VEC2* pParticleScale); // at 0x70
+    void setDynamicsScale(const nw4r::math::VEC3& rScale,
+                          const nw4r::math::VEC2* pParticleScale); // at 0x70
 
     /**
      * @~english @brief Sets this effect's scale
      *
      * @~english @param scale Effect scale (uniform)
      */
-    virtual void setScale(f32 scale); // at 0x74
+    void setScale(f32 scale); // at 0x74
 
     /**
      * @~english @brief Sets this effect's scale
      *
      * @~english @param rScale Effect scale
      */
-    virtual void setScale(const nw4r::math::VEC3& rScale); // at 0x78
+    void setScale(const nw4r::math::VEC3& rScale); // at 0x78
 
     /**
      * @~english @brief Sets this effect's position
      *
      * @~english @param rPosition Effect position
      */
-    virtual void setPos(const nw4r::math::VEC3& rPosition); // at 0x7C
+    void setPos(const nw4r::math::VEC3& rPosition); // at 0x7C
 
     /**
      * @~english @brief Sets this effect's transformation matrix
      *
      * @~english @param rTransform Effect transformation matrix
      */
-    virtual void setMtx(const nw4r::math::MTX34& rTransform); // at 0x80
+    void setMtx(const nw4r::math::MTX34& rTransform); // at 0x80
 
     /**
      * @~english @brief Toggles whether a particle animation is enabled
@@ -252,12 +249,12 @@ public:
      * @~english @param idx Particle animation index
      * @~english @param enable Whether to enable the animation
      */
-    virtual void setPtclAnim(int idx, bool enable); // at 0x84
+    void setPtclAnim(int idx, bool enable); // at 0x84
 
     /**
      * @~english @brief Flushes this effect's configuration
      */
-    virtual void update(); // at 0x88
+    void update(); // at 0x88
 
     /**
      * @~english @brief Tests whether the specified flag in emitter userdata is
@@ -265,9 +262,9 @@ public:
      *
      * @~english @param idx Userdata bitflag index
      */
-    virtual bool getUserFlag(int idx) const; // at 0x8C
+    bool getUserFlag(int idx) const; // at 0x8C
 
-    virtual u8 fn_801941BC(int idx) const; // at 0x90
+    u8 fn_801941BC(int idx) const; // at 0x90
 
     /**
      * @~english @brief Clears this effect's configuration

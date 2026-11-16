@@ -52,6 +52,8 @@ public:
         detail::SeqSound::WriteGlobalVariable(idx, value);
     }
 
+    void detail_AttachSoundAsTempHandle(detail::SeqSound* sound);
+
 private:
     detail::SeqSound* mSound; // at 0x0
 };

@@ -39,20 +39,40 @@ void AnmObjMatClr::Release() {
     SetAnmFlag(FLAG_ANM_BOUND, false);
 }
 
-AnmObjMatClrRes* AnmObjMatClr::Attach(int idx, AnmObjMatClrRes* pRes) {
+AnmObjMatClrRes* AnmObjMatClr::Attach(int idx, AnmObjMatClrRes* pObj) {
 #pragma unused(idx)
-#pragma unused(pRes)
+#pragma unused(pObj)
+    NW4R_POINTER_ASSERT(this, 88);
+    NW4R_POINTER_ASSERT(pObj, 89);
+
+    NW4R_WARNING(FALSE, 91,
+                 "AnmObjMatClr::Attach(%d, %p(%s)) called with %s. Maybe "
+                 "uninteded call.",
+                 idx, pObj, pObj->GetTypeName(), GetTypeName());
 
     return NULL;
 }
 
 AnmObjMatClrRes* AnmObjMatClr::Detach(int idx) {
 #pragma unused(idx)
+    NW4R_POINTER_ASSERT(this, 104);
+
+    NW4R_WARNING(
+        FALSE, 106,
+        "AnmObjMatClr::Detach(%d) called with %s. Maybe uninteded call.", idx,
+        GetTypeName());
 
     return NULL;
 }
 
-void AnmObjMatClr::DetachAll() {}
+void AnmObjMatClr::DetachAll() {
+    NW4R_POINTER_ASSERT(this, 118);
+
+    NW4R_WARNING(
+        FALSE, 120,
+        "AnmObjMatClr::DetachAll() called with %s. Maybe uninteded call.",
+        GetTypeName());
+}
 
 /******************************************************************************
  *

@@ -7,6 +7,10 @@
 namespace nw4r {
 namespace ef {
 
+/**
+ * @~english @brief Class for indirect usage of LinkedObjects.
+ * @~japanese @brief LinkedObjectを間接的に使用するためのクラス。
+ */
 class HandleBase {
 private:
     u32 mObjectID;         // at 0x0

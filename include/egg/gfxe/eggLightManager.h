@@ -31,7 +31,6 @@ public:
     void LoadScnLightInner(nw4r::g3d::ResAnmScn, f32, u32);
 
     LightObj* GetLightObj(u16 index) const {
-#line 157
         EGG_ASSERT(index < GetNum());
         return m_ppLightSet[index];
     }

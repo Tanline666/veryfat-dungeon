@@ -17,18 +17,17 @@ SeqSoundHandle::SeqSoundHandle(SoundHandle* pHandle) : mSound(NULL) {
         ut::DynamicCast<detail::SeqSound*>(pHandle->detail_GetAttachedSound());
 
     if (pSound != NULL) {
-        mSound = pSound;
-
-        if (mSound->IsAttachedTempGeneralHandle()) {
-            mSound->DetachTempGeneralHandle();
-        }
-
-        if (mSound->IsAttachedTempSpecialHandle()) {
-            mSound->DetachTempSpecialHandle();
-        }
-
-        mSound->mTempSpecialHandle = this;
+        detail_AttachSoundAsTempHandle(pSound);
     }
+}
+
+void SeqSoundHandle::detail_AttachSoundAsTempHandle(detail::SeqSound* sound) {
+    mSound = sound;
+    if (mSound->IsAttachedTempSpecialHandle()) {
+        mSound->DetachTempSpecialHandle();
+    }
+
+    mSound->mTempSpecialHandle = this;
 }
 
 void SeqSoundHandle::DetachSound() {

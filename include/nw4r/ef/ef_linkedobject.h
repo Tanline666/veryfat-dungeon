@@ -8,6 +8,10 @@
 namespace nw4r {
 namespace ef {
 
+/**
+ * @~english @brief Base class for objects managed by MemoryManager.
+ * @~japanese @brief MemoryManagerが管理するオブジェクトの基底クラス。
+ */
 class LinkedObject {
 public:
     ut::Link mMemoryLink; // at 0x0

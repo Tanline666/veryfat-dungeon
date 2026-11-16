@@ -612,6 +612,7 @@ nw4r/snd/snd_SeqSound.cpp:
 	.text       start:0x8007E080 end:0x8007E95C
 	.ctors      start:0x80688CF8 end:0x80688CFC
 	.data       start:0x8070A980 end:0x8070A9D0
+	.sbss       start:0x808161B8 end:0x808161BC
 
 nw4r/snd/snd_SeqSoundHandle.cpp:
 	.text       start:0x8007E960 end:0x8007EA98
@@ -619,6 +620,12 @@ nw4r/snd/snd_SeqSoundHandle.cpp:
 nw4r/snd/snd_SeqTrack.cpp:
 	.text       start:0x8007EAA0 end:0x8007FF18
 	.data       start:0x8070A9D0 end:0x8070A9E0
+
+nw4r/snd/snd_Sound3DActor.cpp:
+	.text       start:0x8007FF20 end:0x800802E8
+	.rodata     start:0x8068DA60 end:0x8068DA74
+	.data       start:0x8070A9E0 end:0x8070AA10
+	.sdata2     start:0x808184D8 end:0x808184DC
 
 nw4r/snd/snd_SoundActor.cpp:
 	.text       start:0x80081700 end:0x80081918
@@ -633,7 +640,7 @@ nw4r/snd/snd_SoundArchivePlayer.cpp:
 	.text       start:0x80083990 end:0x80086400
 
 nw4r/snd/snd_SoundHandle.cpp:
-	.text       start:0x80086450 end:0x800864F0
+	.text       start:0x80086400 end:0x800864F0
 
 nw4r/snd/snd_SoundHeap.cpp:
 	.text       start:0x800864F0 end:0x800867F8
@@ -717,12 +724,18 @@ nw4r/ut/ut_TextWriterBase.cpp:
 	.text       start:0x800963A0 end:0x8009B714
 	.ctors      start:0x80688D24 end:0x80688D28
 	.bss        start:0x807A9D10 end:0x807A9D28
+	.sdata      start:0x80813C28 end:0x80813C30
 	.sbss       start:0x80816240 end:0x80816258
+	.sdata2     start:0x80818670 end:0x80818684
 
 egg/gfxe/eggDrawGX.cpp:
 	.text       start:0x8009E734 end:0x800A11F8
 	.ctors      start:0x80688D28 end:0x80688D2C
 	.rodata     start:0x8068FF60 end:0x80690158
+
+egg/gfxe/eggScreen.cpp:
+	.text       start:0x800B0948 end:0x800B228C
+	.ctors      start:0x80688D2C end:0x80688D30
 
 egg/math/eggMatrix.cpp:
 	extab       start:0x80006720 end:0x80006750
@@ -1438,6 +1451,12 @@ Pack/RPKernel/RPSysEffectMgr.cpp:
 	.text       start:0x801E1600 end:0x801E3400
 	.data       start:0x80740298 end:0x807403B0
 
+Pack/RPKernel/RPSysEffectBase.cpp:
+	.text       start:0x801E3400 end:0x801E3DEC
+	.ctors      start:0x80688DAC end:0x80688DB0
+	.data       start:0x807403B0 end:0x807403BC
+	.sbss       start:0x80816D48 end:0x80816D50
+
 Pack/RPKernel/RPSysLayout.cpp:
 	.text       start:0x801E3DEC end:0x801E5CE8
 	.rodata     start:0x80699B10 end:0x80699B18
@@ -1470,6 +1489,10 @@ Pack/RPKernel/RPSysOfficialDB.cpp:
 
 Pack/RPKernel/RPSysParticleManager.cpp:
 	.text       start:0x801F33D4 end:0x801F3958
+
+nw4r/g3d/g3d_scnrfl.cpp:
+	.text       start:0x801F3958 end:0x801F47F0
+	.rodata     start:0x8069A2F0 end:0x8069A2FC
 
 Pack/RPGraphics/RPGrpCamera.cpp:
 	.text       start:0x801F6A1C end:0x801F7554

@@ -5,7 +5,10 @@
 extern "C" {
 #endif
 
-// Forward declarations
+/**
+ * @~english @brief Struct storing memory allocator information.
+ * @~japanese @brief メモリアロケータ情報を格納するストラクト。
+ */
 typedef struct MEMAllocator MEMAllocator;
 typedef struct MEMiHeapHead MEMiHeapHead;
 

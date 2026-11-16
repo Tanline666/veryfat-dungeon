@@ -19,12 +19,7 @@ const nw4r::ef::Handle<nw4r::ef::Effect> RPSysEffect::INVALID_HANDLE;
  * @~english @param drawScene Effect draw scene
  */
 RPSysEffect::RPSysEffect(const char* pName, u32 drawGroup, u32 drawScene) {
-    // @bug Unsafe string operations
-#if defined(BUG_FIX)
     std::strncpy(mName, pName, ARRAY_SIZE(mName));
-#else
-    std::strcpy(mName, pName);
-#endif
 
     mDrawGroup = drawGroup;
     mDrawScene = drawScene;

@@ -81,13 +81,6 @@ public:
     }
 
 private:
-    enum ParamDecayCurve {
-        DECAY_CURVE_NONE,
-        DECAY_CURVE_LOGARITHMIC,
-        DECAY_CURVE_LINEAR,
-    };
-
-private:
     virtual void detail_UpdateAmbientParam(const void* pArg, u32 id,
                                            int voiceOutCount,
                                            SoundAmbientParam* pParam);

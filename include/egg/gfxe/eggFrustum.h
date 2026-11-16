@@ -125,6 +125,14 @@ public:
         }
     }
 
+    void SetDirty(bool dirty) const {
+        if (dirty) {
+            mFlags |= FLAG_DIRTY;
+        } else {
+            mFlags &= ~FLAG_DIRTY;
+        }
+    }
+
     ProjectionType GetProjectionType() const {
         return mProjType;
     }

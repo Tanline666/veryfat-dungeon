@@ -2,6 +2,7 @@
 #define NW4R_UT_FONT_H
 #include <nw4r/types_nw4r.h>
 
+#include <nw4r/db/db_assert.h>
 #include <nw4r/ut/ut_CharStrmReader.h>
 
 #include <revolution/GX.h>
@@ -45,7 +46,7 @@ public:
     enum Type { TYPE_NULL, TYPE_ROM, TYPE_RESOURCE, TYPE_PAIR };
 
 public:
-    Font() : mReadFunc(&CharStrmReader::ReadNextCharCP1252) {}
+    Font() : mReaderFunc(&CharStrmReader::ReadNextCharCP1252) {}
     virtual ~Font() {} // at 0x8
 
     virtual int GetWidth() const = 0;  // at 0xC
@@ -74,14 +75,16 @@ public:
     virtual void GetGlyph(Glyph* pGlyph, u16 ch) const = 0; // at 0x50
     virtual FontEncoding GetEncoding() const = 0;           // at 0x54
 
-    void InitReaderFunc(FontEncoding encode);
-
-    CharStrmReader GetCharStrmReader() const {
-        return CharStrmReader(mReadFunc);
+    const CharStrmReader GetCharStrmReader() const DECOMP_DONT_INLINE {
+        NW4R_POINTER_ASSERT(this, 121);
+        return CharStrmReader(mReaderFunc);
     }
 
+protected:
+    void InitReaderFunc(FontEncoding encode);
+
 private:
-    CharStrmReader::ReadFunc mReadFunc; // at 0x4
+    CharStrmReader::ReadFunc mReaderFunc; // at 0x4
 };
 
 } // namespace ut

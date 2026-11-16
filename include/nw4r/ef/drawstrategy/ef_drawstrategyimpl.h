@@ -15,17 +15,15 @@
 namespace nw4r {
 namespace ef {
 
-// Forward declarations
 class Particle;
 class ParticleManager;
 struct EmitterDrawSetting;
 struct TextureData;
 
-/******************************************************************************
- *
- * DrawStrategyImpl
- *
- ******************************************************************************/
+/**
+ * @~english @brief Class providing particle rendering methods.
+ * @~japanese @brief パーティクル描画方法を提供するクラス。
+ */
 class DrawStrategyImpl : public DrawStrategy {
 public:
     typedef Particle* (*GetFirstDrawParticleFunc)(ParticleManager* pManager);

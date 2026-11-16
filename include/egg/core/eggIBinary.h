@@ -33,7 +33,6 @@ public:
     virtual u8 GetVersion() const = 0; // at 0x18
 
     void SetBinary(const void* bin) {
-#line 93
         EGG_ASSERT(bin);
         Bin* pBinary = (Bin*)bin;
 

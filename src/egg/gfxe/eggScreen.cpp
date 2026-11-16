@@ -27,7 +27,6 @@ nw4r::math::VEC2 Screen::sCanvasOffset(0.0f, 0.0f);
 
 void Screen::Initialize(const u16 maxX[TV_MODE_MAX],
                         const u16 maxY[TV_MODE_MAX], Screen* pUserRoot) {
-#line 47
     EGG_ASSERT(maxX != NULL);
     EGG_ASSERT(maxY != NULL);
 
@@ -53,10 +52,9 @@ void Screen::Initialize(const u16 maxX[TV_MODE_MAX],
 }
 
 Screen::Screen()
-    // @bug Far Z typo of 100,000
     : Frustum(PROJ_PERSP,
               nw4r::math::VEC2(sTVModeWidths[sTVMode], sTVModeHeights[sTVMode]),
-              10.0f, 10000.0f, CANVAS_LU) {
+              10.0f, 100000.0f, CANVAS_LU) {
 
     mPosition.x = 0.0f;
     mPosition.y = 0.0f;
@@ -70,11 +68,11 @@ Screen::Screen(f32 x, f32 y, f32 width, f32 height, const Screen* pParent,
     : Frustum(PROJ_PERSP, nw4r::math::VEC2(width, height), 10.0f, 100000.0f,
               canvasMode) {
 
+    mParent = NULL;
     mPosition.x = x;
     mPosition.y = y;
 
     SetParent(pParent);
-    Configure();
 }
 
 Screen::Screen(const Screen& rOther)
@@ -161,6 +159,15 @@ void Screen::CopyFromAnother(const Screen& rOther) {
     SetParent(rOther.mParent);
     mPosition = rOther.mPosition;
     mDataEfb = rOther.mDataEfb;
+}
+
+void Screen::SetParent(const Screen* parent) {
+    const Screen* newParent = parent != NULL ? parent : spRoot;
+
+    if (mParent != newParent) {
+        SetDirty(TRUE);
+        mParent = newParent;
+    }
 }
 
 void Screen::GetPosSizeInEfb() const {

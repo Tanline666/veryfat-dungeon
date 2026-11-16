@@ -98,16 +98,25 @@ public:
         mTagProcessor = &mDefaultTagProcessor;
     }
 
+    void SetLineHeight(f32 height);
     f32 GetLineHeight() const;
 
-    f32 CalcLineWidth(const T* pStr, int len);
-    f32 CalcStringWidth(const T* pStr, int len) const;
-    void CalcStringRect(Rect* pRect, const T* pStr, int len) const;
+    f32 CalcFormatStringWidth(const T* format, ...) const;
+    f32 CalcFormatStringHeight(const T* format, ...) const;
+    void CalcFormatStringRect(Rect* pRect, const T* format, ...) const;
+    void CalcVStringRect(Rect* pRect, const T* format, std::va_list args) const;
 
-    int VSNPrintf(T* buffer, u32 count, const T* pStr, std::va_list args);
-    f32 Printf(const T* pFmt, ...);
-    f32 VPrintf(const T* pStr, std::va_list args);
-    f32 Print(const T* pStr, int len);
+    f32 CalcStringWidth(const T* str, int length) const;
+    f32 CalcStringHeight(const T* str, int length) const;
+    void CalcStringRect(Rect* pRect, const T* str, int length) const;
+
+    f32 Printf(const T* format, ...);
+    f32 VPrintf(const T* str, std::va_list args);
+    f32 Print(const T* str, int length);
+
+    f32 PrintfMutable(const T* format, ...);
+    f32 VPrintfMutable(const T* format, std::va_list args);
+    f32 PrintMutable(const T* str, int length);
 
     static T* GetBuffer() {
         return mFormatBuffer;
@@ -123,6 +132,20 @@ public:
         return mFormatBufferSize;
     }
 
+    static int VSNPrintf(char* pBuffer, u32 count, const char* str,
+                         std::va_list args) {
+
+        return std::vsnprintf(pBuffer, count, str, args);
+    }
+
+    static int VSNPrintf(wchar_t* pBuffer, u32 count, const wchar_t* str,
+                         std::va_list args) {
+
+        return std::vswprintf(pBuffer, count, str, args);
+    }
+
+    f32 CalcLineWidth(const T* str, int length);
+
 private:
     static const int DEFAULT_FORMAT_BUFFER_SIZE = 256;
 
@@ -131,15 +154,15 @@ private:
                                          DRAWFLAG_MASK_ALIGN_V;
 
 private:
+    bool CalcLineRectImpl(Rect* pRect, const T** ppStr, int length);
+    void CalcStringRectImpl(Rect* pRect, const T* str, int length);
+
+    f32 PrintImpl(const T* str, int length, bool bMutable);
+    f32 AdjustCursor(f32* pX, f32* pY, const T* str, int length);
+
     bool IsDrawFlagSet(u32 mask, u32 flag) const {
         return (mDrawFlag & mask) == flag;
     }
-
-    bool CalcLineRectImpl(Rect* pRect, const T** ppStr, int len);
-    void CalcStringRectImpl(Rect* pRect, const T* pStr, int len);
-
-    f32 PrintImpl(const T* pStr, int len);
-    f32 AdjustCursor(f32* pX, f32* pY, const T* pStr, int len);
 
 private:
     f32 mWidthLimit;                    // at 0x4C
@@ -153,22 +176,6 @@ private:
     static u32 mFormatBufferSize;
     static TagProcessorBase<T> mDefaultTagProcessor;
 };
-
-template <>
-inline int TextWriterBase<char>::VSNPrintf(char* pBuffer, u32 count,
-                                           const char* pStr,
-                                           std::va_list args) {
-
-    return std::vsnprintf(pBuffer, count, pStr, args);
-}
-
-template <>
-inline int TextWriterBase<wchar_t>::VSNPrintf(wchar_t* pBuffer, u32 count,
-                                              const wchar_t* pStr,
-                                              std::va_list args) {
-
-    return std::vswprintf(pBuffer, count, pStr, args);
-}
 
 } // namespace ut
 } // namespace nw4r

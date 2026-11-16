@@ -182,6 +182,12 @@ struct WaveInfo {
 };
 } // namespace detail
 
+enum ParamDecayCurve {
+    DECAY_CURVE_NONE,
+    DECAY_CURVE_LOGARITHMIC,
+    DECAY_CURVE_LINEAR,
+};
+
 } // namespace snd
 } // namespace nw4r
 

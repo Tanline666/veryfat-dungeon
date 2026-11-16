@@ -15,20 +15,70 @@ public:
                              u32 diffMask, u32 specMask, GXColor ambColor,
                              bool opa);
 
+private:
+    class RflData {
+    public:
+        static RflData* Construct(MEMAllocator* pHeap, u32* pSize,
+                                  RFLResolution resolution, u32 expressionFlag);
+
+    private:
+        RflData(MEMAllocator* pHeap, void* pBuffer, RFLResolution resolution,
+                u32 expressionFlag);
+
+        void* operator new(size_t, void* buf) {
+            return buf;
+        }
+        void operator delete(void*) {}
+
+    private:
+        int mRefCount;
+        MEMAllocator* const mpHeap;
+        const RFLResolution mResolution;
+        const u32 mExpressionFlag;
+        s8 mCharModelReady;
+        void* const mpNglBuffer;
+        RFLErrcode mRFLErrCode;
+        RFLCharModel mCharModel;
+    };
+
 public:
     static ScnRfl* Construct(MEMAllocator* pAllocator, u32* pSize,
                              RFLResolution resolution, u32 exprFlags,
                              u32 userDataSize = 0);
 
+protected:
     ScnRfl(MEMAllocator* pAllocator, void* pNglBuffer, void* pUserData,
            RFLResolution resolution, u32 exprFlag);
 
-    virtual void G3dProc(u32 task, u32 param, void* pInfo); // at 0xC
+public:
+    virtual void G3dProc(u32 task, u32 param, void* pInfo);
 
+    //! Major matching hack for RTTI functions!
+    virtual bool IsDerivedFrom(TypeObj other) const {
+        return other == GetTypeObjStatic() ? true
+                                           : ScnLeaf::IsDerivedFrom(other);
+    }
+
+    virtual const char* GetTypeName() const {
+        return GetTypeObj().GetTypeName();
+    }
+
+    virtual const TypeObj GetTypeObj() const {
+        return TypeObj(TYPE_NAME);
+    }
+    static const TypeObj GetTypeObjStatic() {
+        return TypeObj(TYPE_NAME);
+    }
+
+private:
+    static const ResNameDataT<sizeof("ScnRfl")> TYPE_NAME;
+
+protected:
     virtual ~ScnRfl() {
         ReleaseCharModel();
-    } // at 0x10
+    }
 
+public:
     bool SetupCharModel(RFLDataSource src, u16 index, RFLMiddleDB* pMiddleDB);
     void ReleaseCharModel();
 
@@ -104,8 +154,6 @@ private:
     DrawProc mpDrawProc;       // at 0x108
     void* mpUserData;          // at 0x10C
     RFLCharModel mCharModel;   // at 0x110
-
-    NW4R_G3D_RTTI_DECL_DERIVED(ScnRfl, ScnLeaf);
 };
 
 } // namespace g3d

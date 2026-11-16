@@ -49,6 +49,7 @@ private:
         return &mActorPlayer[idx];
     }
 
+public:
     template <class Function>
     inline Function ForEachSound(Function function, bool reverse = FALSE) {
         for (int actorPlayerIndex = 0; actorPlayerIndex < ACTOR_PLAYER_COUNT;

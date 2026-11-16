@@ -20,6 +20,10 @@ void ApplyClrAnmResult(ResMatChan chan, ResMatTevColor tev,
 // Forward declarations
 class AnmObjMatClrRes;
 
+/**
+ * @~english @brief Base class for material colour animations.
+ * @~japanese @brief マテリアルカラーアニメの基底クラス。
+ */
 class AnmObjMatClr : public AnmObj {
 public:
     AnmObjMatClr(MEMAllocator* pAllocator, u16* pBindingBuf, int numBinding);
@@ -39,9 +43,33 @@ public:
     virtual const ClrAnmResult* GetResult(ClrAnmResult* pResult,
                                           u32 idx) = 0; // at 0x38
 
-    virtual AnmObjMatClrRes* Attach(int idx, AnmObjMatClrRes* pRes); // at 0x3C
-    virtual AnmObjMatClrRes* Detach(int idx);                        // at 0x40
-    virtual void DetachAll();                                        // at 0x44
+    /**
+     * @~english @brief Dummy function.
+     * @~japanese @brief ダミー関数。
+
+     * @~english @param idx Dummy parameter
+     * @~japanese @param idx ダミー引数
+     * @~english @param pObj Dummy parameter
+     * @~japanese @param pObj ダミー引数
+     * @~english @return Always NULL
+     * @~japanese @return 常にNULL
+     */
+    virtual AnmObjMatClrRes* Attach(int idx, AnmObjMatClrRes* pObj); // at 0x3C
+    /**
+     * @~english @brief Dummy function.
+     * @~japanese @brief ダミー関数。
+     *
+     * @~english @param idx Dummy parameter
+     * @~japanese @param idx ダミー引数
+     * @~english @return Always NULL
+     * @~japanese @return 常にNULL
+     */
+    virtual AnmObjMatClrRes* Detach(int idx); // at 0x40
+    /**
+     * @~english @brief Dummy function.
+     * @~japanese @brief ダミー関数。
+     */
+    virtual void DetachAll(); // at 0x44
 
     bool TestExistence(u32 idx) const;
     bool TestDefined(u32 idx) const;

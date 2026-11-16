@@ -25,8 +25,9 @@ protected:
                                    const StartInfo* pStartInfo,
                                    void* pArg); // at 0xC
 
-    virtual void detail_Update(void* pArg,
-                               const detail::BasicSound* pSound); // at 0xC
+    virtual void
+    detail_UpdateAmbientArg(void* pArg,
+                            const detail::BasicSound* pSound); // at 0xC
 
     const math::VEC3& GetPosition() const {
         return mPosition;
@@ -39,9 +40,11 @@ private:
 
 private:
     Sound3DManager& m3DManager;              // at 0xAC
-    SoundArchivePlayer& mSoundArchivePlayer; // at 0xB0
+    SoundArchivePlayer* mSoundArchivePlayer; // at 0xB0
     u32 mUserParam;                          // at 0xB4
     math::VEC3 mPosition;                    // at 0xB8
+    math::VEC3 mVelocity;
+    bool mResetPositionFlag;
 };
 
 } // namespace snd

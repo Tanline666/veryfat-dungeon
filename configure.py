@@ -605,6 +605,7 @@ config.libs = [
             Object(Matching, "nw4r/g3d/g3d_fog.cpp"),
             Object(Matching, "nw4r/g3d/g3d_light.cpp"),
             Object(Matching, "nw4r/g3d/g3d_calcvtx.cpp"),
+            Object(NonMatching, "nw4r/g3d/g3d_scnrfl.cpp"),
         ],
     },
     {
@@ -667,8 +668,9 @@ config.libs = [
             Object(NonMatching, "nw4r/snd/snd_SeqFile.cpp"),
             Object(NonMatching, "nw4r/snd/snd_SeqPlayer.cpp"),
             Object(NonMatching, "nw4r/snd/snd_SeqSound.cpp"),
-            Object(NonMatching, "nw4r/snd/snd_SeqSoundHandle.cpp"),
+            Object(Matching, "nw4r/snd/snd_SeqSoundHandle.cpp"),
             Object(NonMatching, "nw4r/snd/snd_SeqTrack.cpp"),
+            Object(Matching, "nw4r/snd/snd_Sound3DActor.cpp"),
             Object(Matching, "nw4r/snd/snd_SoundActor.cpp"),
             Object(Matching, "nw4r/snd/snd_SoundArchive.cpp"),
             Object(NonMatching, "nw4r/snd/snd_SoundArchivePlayer.cpp"),
@@ -697,7 +699,7 @@ config.libs = [
             Object(Matching, "nw4r/ut/ut_NandFileStream.cpp"),
             Object(Matching, "nw4r/ut/ut_LockedCache.cpp"),
             Object(Matching, "nw4r/ut/ut_CharWriter.cpp"),
-            Object(NonMatching, "nw4r/ut/ut_TextWriterBase.cpp"),
+            Object(Matching, "nw4r/ut/ut_TextWriterBase.cpp"),
         ],
     },
     {
@@ -707,6 +709,7 @@ config.libs = [
         "progress_category": "egg",
         "objects": [
             Object(NonMatching, "egg/gfxe/eggDrawGX.cpp"),
+            Object(NonMatching, "egg/gfxe/eggScreen.cpp"),
             Object(NonMatching, "egg/math/eggMatrix.cpp"),
             Object(NonMatching, "egg/core/eggUnitHeap.cpp"),
             Object(Matching, "egg/core/eggExpHeap.cpp"),
@@ -904,6 +907,7 @@ config.libs = [
             Object(NonMatching, "Pack/RPKernel/RPSysException.cpp"),
             Object(Matching, "Pack/RPKernel/IRPSysHostIOSocket.cpp"),
             Object(NonMatching, "Pack/RPKernel/RPSysEffectMgr.cpp"),
+            Object(NonMatching, "Pack/RPKernel/RPSysEffectBase.cpp"),
             Object(NonMatching, "Pack/RPKernel/RPSysLayout.cpp"),
             Object(Matching, "Pack/RPKernel/RPSysFrameCtrl.cpp"),
             Object(NonMatching, "Pack/RPKernel/RPSysEffectCreator.cpp"),

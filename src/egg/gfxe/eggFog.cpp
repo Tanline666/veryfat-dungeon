@@ -24,9 +24,9 @@ void Fog::Calc() {}
 
 void Fog::SetGX() const {
     if (IsBound()) {
-        GXSetFog(mFogType, mColor, mStartZ, mEndZ, mNearZ, mFarZ);
+        GXSetFog(mFogType, mStartZ, mEndZ, mNearZ, mFarZ, mColor);
     } else {
-        GXSetFog(GX_FOG_NONE, DrawGX::WHITE, 0.0f, 1.0f, 0.0f, 1.0f);
+        GXSetFog(GX_FOG_NONE, 0.0f, 1.0f, 0.0f, 1.0f, DrawGX::WHITE);
     }
 
     GXSetFogRangeAdj(GX_FALSE, 0, NULL);

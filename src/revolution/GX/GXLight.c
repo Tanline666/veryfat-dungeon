@@ -230,7 +230,7 @@ void GXLoadLightObjImm(const GXLightObj* light, GXLightID id) {
     num = 31 - __cntlzw(id);
     num = (num % 8) * XF_MEM_LOBJ_SIZE;
 
-    GX_XF_LOAD_REGS(XF_MEM_LOBJ_SIZE - 1, num + GX_XF_MEM_LIGHTOBJ);
+    GX_XF_LOAD_REG_HDR(num + GX_XF_MEM_LIGHTOBJ, XF_MEM_LOBJ_SIZE - 1);
     WriteLightObj(&WGPIPE, impl);
     gxdt->lastWriteWasXF = TRUE;
 }

@@ -6,6 +6,10 @@ static void* __OSArenaHi = NULL;
 static void* s_mem2ArenaHi = NULL;
 
 void* OSGetMEM1ArenaHi(void) {
+#if defined(DEBUG)
+    OS_ASSERT((u32) __OSArenaLo != 0xFFFFFFFF, "OSGetArenaHi(): OSInit() must be called in advance.");
+    OS_ASSERT((u32) __OSArenaLo <= (u32) __OSArenaHi, "OSGetArenaHi(): invalid arena (hi < lo).");
+#endif
     return __OSArenaHi;
 }
 
@@ -18,6 +22,10 @@ void* OSGetArenaHi(void) {
 }
 
 void* OSGetMEM1ArenaLo(void) {
+#if defined(DEBUG)
+    OS_ASSERT((u32) __OSArenaLo != 0xFFFFFFFF, "OSGetArenaLo(): OSInit() must be called in advance.");
+    OS_ASSERT((u32) __OSArenaLo <= (u32) __OSArenaHi, "OSGetArenaLo(): invalid arena (hi < lo).");
+#endif
     return __OSArenaLo;
 }
 

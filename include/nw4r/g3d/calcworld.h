@@ -1,0 +1,153 @@
+#ifndef NW4R_G3D_CALC_WORLD_H
+#define NW4R_G3D_CALC_WORLD_H
+#include <nw4r/types_nw4r.h>
+
+#include <nw4r/g3d/res/resmdl.h>
+#include <nw4r/g3d/scnobj.h>
+#include <nw4r/math.h>
+
+
+namespace nw4r {
+namespace g3d {
+
+// Forward declarations
+class AnmObjChr;
+struct ChrAnmResult;
+class FuncObjCalcWorld;
+class WorldMtxManip;
+
+/******************************************************************************
+ *
+ * Functions
+ *
+ ******************************************************************************/
+void CalcWorld(math::MTX34* pModelMtxArray, u32* pModelMtxAttribArray,
+               const u8* pByteCode, const math::MTX34* pBaseMtx, ResMdl mdl,
+               AnmObjChr* pAnmChr, FuncObjCalcWorld* pFuncObj, u32 rootAttrib);
+
+void CalcWorld(math::MTX34* pModelMtxArray, u32* pModelMtxAttribArray,
+               const u8* pByteCode, const math::MTX34* pBaseMtx, ResMdl mdl,
+               AnmObjChr* pAnmChr, FuncObjCalcWorld* pFuncObj);
+
+/**
+ * @~english @brief Performs the calculations for the matrix executing vertex
+ * skinning.
+ * @~japanese @brief 頂点スキニングを実行する行列の計算を行う。
+ *
+ * @~english @param pModelMtxArray Array of world transformation matrices
+ * calculated with CalcWorld
+ * @~japanese @param pModelMtxArray CalcWorldで計算されたワールド変換行列の配列
+ * @~english @param pModelMtxAttribArray Array of attributes for world
+ * transformation matrices calculated with CalcWorld
+ * @~japanese @param pModelMtxAttribArray
+ * CalcWorldで計算されたワールド変換行列の特性の配列
+ * @param mdl
+ * @param pByteCode
+ */
+void CalcSkinning(math::MTX34* pModelMtxArray, u32* pModelMtxAttribArray,
+                  const ResMdl mdl, const u8* pByteCode);
+
+/**
+ * @~english @brief Callback interface for calculating a model's world matrix.
+ * @~japanese @brief
+ * モデルのワールド行列を計算する際のコールバック・インターフェース。
+ */
+class ICalcWorldCallback {
+public:
+    /**
+     * @~english @brief Destructor
+     * @~japanese @brief デストラクタ
+     */
+    virtual ~ICalcWorldCallback() {} // at 0x8
+
+    virtual void ExecCallbackA(ChrAnmResult* pResult, ResMdl mdl,
+                               FuncObjCalcWorld* pFuncObj) = 0; // at 0xC
+
+    virtual void ExecCallbackB(WorldMtxManip* pManip, ResMdl mdl,
+                               FuncObjCalcWorld* pFuncObj) = 0; // at 0x10
+
+    virtual void ExecCallbackC(math::MTX34* pMtxArray, ResMdl mdl,
+                               FuncObjCalcWorld* pFuncObj) = 0; // at 0x14
+};
+
+/******************************************************************************
+ *
+ * WorldMtxManip
+ *
+ ******************************************************************************/
+class WorldMtxManip {
+public:
+    WorldMtxManip(math::MTX34* pM, math::VEC3* pS, u32* pWMAttr)
+        : mpM(pM), mpS(pS), mpWMAttr(pWMAttr) {}
+
+    void GetMtx(math::MTX34* pMtx) const {
+        if (pMtx != NULL) {
+            math::MTX34Copy(pMtx, mpM);
+        }
+    }
+
+    void SetMtx(const math::MTX34* pMtx) {
+        if (pMtx != NULL) {
+            math::MTX34Copy(mpM, pMtx);
+        } else {
+            math::MTX34Identity(mpM);
+        }
+    }
+
+private:
+    math::MTX34* mpM; // at 0x0
+    math::VEC3* mpS;  // at 0x4
+    u32* mpWMAttr;    // at 0x8
+};
+
+/******************************************************************************
+ *
+ * FuncObjCalcWorld
+ *
+ ******************************************************************************/
+class FuncObjCalcWorld {
+public:
+    FuncObjCalcWorld(ICalcWorldCallback* pCallback, u32 timing, u32 nodeID)
+        : mpCallback(pCallback), mTiming(timing), mNodeID(nodeID) {}
+
+    ~FuncObjCalcWorld() {}
+
+    void CheckCallbackA(u32 nodeID, ChrAnmResult* pResult, ResMdl mdl) {
+        if (nodeID == mNodeID && (mTiming & ScnObj::CALLBACK_TIMING_A)) {
+            mpCallback->ExecCallbackA(pResult, mdl, this);
+        }
+    }
+
+    void CheckCallbackB(u32 nodeID, math::MTX34* pM, math::VEC3* pS,
+                        u32* pWMAttr, ResMdl mdl) {
+
+        if (nodeID == mNodeID && (mTiming & ScnObj::CALLBACK_TIMING_B)) {
+            WorldMtxManip manip(pM, pS, pWMAttr);
+            mpCallback->ExecCallbackB(&manip, mdl, this);
+        }
+    }
+
+    void CheckCallbackC(math::MTX34* pMtxArray, ResMdl mdl) {
+        if (mTiming & ScnObj::CALLBACK_TIMING_C) {
+            mpCallback->ExecCallbackC(pMtxArray, mdl, this);
+        }
+    }
+
+    u16 GetCallbackNodeID() const {
+        return mNodeID;
+    }
+    void SetCallbackNodeID(u16 id) {
+        mNodeID = id;
+    }
+
+private:
+    ICalcWorldCallback* mpCallback; // at 0x0
+    u8 mTiming;                     // at 0x4
+    u8 PADDING_0x5;                 // at 0x5
+    u16 mNodeID;                    // at 0x6
+};
+
+} // namespace g3d
+} // namespace nw4r
+
+#endif

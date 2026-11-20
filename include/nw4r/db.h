@@ -1,10 +1,10 @@
 #ifndef NW4R_PUBLIC_DB_H
 #define NW4R_PUBLIC_DB_H
 
-#include <nw4r/db/db_assert.h>
-#include <nw4r/db/db_console.h>
-#include <nw4r/db/db_directPrint.h>
-#include <nw4r/db/db_exception.h>
-#include <nw4r/db/db_mapFile.h>
+#include <nw4r/db/assert.h>
+#include <nw4r/db/console.h>
+#include <nw4r/db/directPrint.h>
+#include <nw4r/db/exception.h>
+#include <nw4r/db/mapFile.h>
 
 #endif

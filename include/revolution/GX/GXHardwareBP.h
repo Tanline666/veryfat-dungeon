@@ -236,6 +236,19 @@ typedef enum {
     GX_BP_REG_SSMASK = 0xFE,
 } GX_BP_REG;
 
+// clang-format on
+#define GX_BP_REG_SU_PERF(selA, selB, ntex, ncol, rejf, rejs, cmd, en, pwr,    \
+                          opcode)                                              \
+    ((((u32)(selA)) << 0) | (((u32)(selB)) << 3) | (((u32)(ntex)) << 6) |      \
+     (((u32)(ncol)) << 10) | (((u32)(rejf)) << 12) | (((u32)(rejs)) << 14) |   \
+     (((u32)(cmd)) << 16) | (((u32)(en)) << 20) | (((u32)(pwr)) << 22) |       \
+     (((u32)(opcode)) << 24))
+
+#define GX_BP_REG_RAS_PERF(selA, selB, ntev, nbmp, nbr, opcode)                \
+    ((((u32)(selA)) << 0) | (((u32)(selB)) << 5) | (((u32)(ntev)) << 10) |     \
+     (((u32)(nbmp)) << 15) | (((u32)(nbr)) << 18) | (((u32)(opcode)) << 24))
+// clang-format off
+
 /******************************************************************************
  * BP register 0x0 - GenMode
  *****************************************************************************/
@@ -249,7 +262,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_GENMODE_NUMTEX_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_GENMODE_NUMTEX(reg) GX_BITGET((reg), 28, 4)
-        /* set value  */ #define GX_BP_SET_GENMODE_NUMTEX(reg, x) ((reg) = GX_BITSET((reg), 28, 4, x))
+        /* set value  */ #define GX_BP_SET_GENMODE_NUMTEX(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_GENMODE_NUMTEX)
 
 // NUMCOLORS [25:27] (3) - Color/channel count
         /* start bit  */ #define GX_BP_GENMODE_NUMCOLORS_B 25
@@ -261,7 +274,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_GENMODE_NUMCOLORS_SHIFT 4
 
         /* get value  */ #define GX_BP_GET_GENMODE_NUMCOLORS(reg) GX_BITGET((reg), 25, 3)
-        /* set value  */ #define GX_BP_SET_GENMODE_NUMCOLORS(reg, x) ((reg) = GX_BITSET((reg), 25, 3, x))
+        /* set value  */ #define GX_BP_SET_GENMODE_NUMCOLORS(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_GENMODE_NUMCOLORS)
 
 // MULTISAMPLE [22:22] (1)
         /* start bit  */ #define GX_BP_GENMODE_MULTISAMPLE_B 22
@@ -273,7 +286,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_GENMODE_MULTISAMPLE_SHIFT 9
 
         /* get value  */ #define GX_BP_GET_GENMODE_MULTISAMPLE(reg) GX_BITGET((reg), 22, 1)
-        /* set value  */ #define GX_BP_SET_GENMODE_MULTISAMPLE(reg, x) ((reg) = GX_BITSET((reg), 22, 1, x))
+        /* set value  */ #define GX_BP_SET_GENMODE_MULTISAMPLE(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_GENMODE_MULTISAMPLE)
 
 // NUMTEVSTAGES [18:21] (4)
         /* start bit  */ #define GX_BP_GENMODE_NUMTEVSTAGES_B 18
@@ -285,7 +298,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_GENMODE_NUMTEVSTAGES_SHIFT 10
 
         /* get value  */ #define GX_BP_GET_GENMODE_NUMTEVSTAGES(reg) GX_BITGET((reg), 18, 4)
-        /* set value  */ #define GX_BP_SET_GENMODE_NUMTEVSTAGES(reg, x) ((reg) = GX_BITSET((reg), 18, 4, x))
+        /* set value  */ #define GX_BP_SET_GENMODE_NUMTEVSTAGES(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_GENMODE_NUMTEVSTAGES)
 
 // CULLMODE [16:17] (2)
         /* start bit  */ #define GX_BP_GENMODE_CULLMODE_B 16
@@ -297,7 +310,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_GENMODE_CULLMODE_SHIFT 14
 
         /* get value  */ #define GX_BP_GET_GENMODE_CULLMODE(reg) GX_BITGET((reg), 16, 2)
-        /* set value  */ #define GX_BP_SET_GENMODE_CULLMODE(reg, x) ((reg) = GX_BITSET((reg), 16, 2, x))
+        /* set value  */ #define GX_BP_SET_GENMODE_CULLMODE(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_GENMODE_CULLMODE)
 
 // NUMINDSTAGES [13:15] (3)
         /* start bit  */ #define GX_BP_GENMODE_NUMINDSTAGES_B 13
@@ -309,7 +322,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_GENMODE_NUMINDSTAGES_SHIFT 16
 
         /* get value  */ #define GX_BP_GET_GENMODE_NUMINDSTAGES(reg) GX_BITGET((reg), 13, 3)
-        /* set value  */ #define GX_BP_SET_GENMODE_NUMINDSTAGES(reg, x) ((reg) = GX_BITSET((reg), 13, 3, x))
+        /* set value  */ #define GX_BP_SET_GENMODE_NUMINDSTAGES(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_GENMODE_NUMINDSTAGES)
 
 // COPLANAR [12:12] (1) - Toggle co-planar ("Z freeze" according to Dolphin)
         /* start bit  */ #define GX_BP_GENMODE_COPLANAR_B 12
@@ -321,7 +334,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_GENMODE_COPLANAR_SHIFT 19
 
         /* get value  */ #define GX_BP_GET_GENMODE_COPLANAR(reg) GX_BITGET((reg), 12, 1)
-        /* set value  */ #define GX_BP_SET_GENMODE_COPLANAR(reg, x) ((reg) = GX_BITSET((reg), 12, 1, x))
+        /* set value  */ #define GX_BP_SET_GENMODE_COPLANAR(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_GENMODE_COPLANAR)
 
 
 /******************************************************************************
@@ -337,7 +350,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_INDMTXA_M00_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_INDMTXA_M00(reg) GX_BITGET((reg), 21, 11)
-        /* set value  */ #define GX_BP_SET_INDMTXA_M00(reg, x) ((reg) = GX_BITSET((reg), 21, 11, x))
+        /* set value  */ #define GX_BP_SET_INDMTXA_M00(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_INDMTXA_M00)
 
 // M10 [10:20] (11) - Texture offset matrix #0 [1][0]
         /* start bit  */ #define GX_BP_INDMTXA_M10_B 10
@@ -349,7 +362,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_INDMTXA_M10_SHIFT 11
 
         /* get value  */ #define GX_BP_GET_INDMTXA_M10(reg) GX_BITGET((reg), 10, 11)
-        /* set value  */ #define GX_BP_SET_INDMTXA_M10(reg, x) ((reg) = GX_BITSET((reg), 10, 11, x))
+        /* set value  */ #define GX_BP_SET_INDMTXA_M10(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_INDMTXA_M10)
 
 // EXP [8:9] (2) - Bits 0-1 of scaling exponent #0 (2^x)
         /* start bit  */ #define GX_BP_INDMTXA_EXP_B 8
@@ -361,7 +374,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_INDMTXA_EXP_SHIFT 22
 
         /* get value  */ #define GX_BP_GET_INDMTXA_EXP(reg) GX_BITGET((reg), 8, 2)
-        /* set value  */ #define GX_BP_SET_INDMTXA_EXP(reg, x) ((reg) = GX_BITSET((reg), 8, 2, x))
+        /* set value  */ #define GX_BP_SET_INDMTXA_EXP(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_INDMTXA_EXP)
 
 
 /******************************************************************************
@@ -377,7 +390,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_INDMTXB_M01_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_INDMTXB_M01(reg) GX_BITGET((reg), 21, 11)
-        /* set value  */ #define GX_BP_SET_INDMTXB_M01(reg, x) ((reg) = GX_BITSET((reg), 21, 11, x))
+        /* set value  */ #define GX_BP_SET_INDMTXB_M01(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_INDMTXB_M01)
 
 // M11 [10:20] (11) - Texture offset matrix #0 [1][1]
         /* start bit  */ #define GX_BP_INDMTXB_M11_B 10
@@ -389,7 +402,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_INDMTXB_M11_SHIFT 11
 
         /* get value  */ #define GX_BP_GET_INDMTXB_M11(reg) GX_BITGET((reg), 10, 11)
-        /* set value  */ #define GX_BP_SET_INDMTXB_M11(reg, x) ((reg) = GX_BITSET((reg), 10, 11, x))
+        /* set value  */ #define GX_BP_SET_INDMTXB_M11(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_INDMTXB_M11)
 
 // EXP [8:9] (2) - Bits 2-3 of scaling exponent #0 (2^x)
         /* start bit  */ #define GX_BP_INDMTXB_EXP_B 8
@@ -401,7 +414,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_INDMTXB_EXP_SHIFT 22
 
         /* get value  */ #define GX_BP_GET_INDMTXB_EXP(reg) GX_BITGET((reg), 8, 2)
-        /* set value  */ #define GX_BP_SET_INDMTXB_EXP(reg, x) ((reg) = GX_BITSET((reg), 8, 2, x))
+        /* set value  */ #define GX_BP_SET_INDMTXB_EXP(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_INDMTXB_EXP)
 
 
 /******************************************************************************
@@ -417,7 +430,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_INDMTXC_M02_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_INDMTXC_M02(reg) GX_BITGET((reg), 21, 11)
-        /* set value  */ #define GX_BP_SET_INDMTXC_M02(reg, x) ((reg) = GX_BITSET((reg), 21, 11, x))
+        /* set value  */ #define GX_BP_SET_INDMTXC_M02(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_INDMTXC_M02)
 
 // M12 [10:20] (11) - Texture offset matrix #0 [1][2]
         /* start bit  */ #define GX_BP_INDMTXC_M12_B 10
@@ -429,7 +442,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_INDMTXC_M12_SHIFT 11
 
         /* get value  */ #define GX_BP_GET_INDMTXC_M12(reg) GX_BITGET((reg), 10, 11)
-        /* set value  */ #define GX_BP_SET_INDMTXC_M12(reg, x) ((reg) = GX_BITSET((reg), 10, 11, x))
+        /* set value  */ #define GX_BP_SET_INDMTXC_M12(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_INDMTXC_M12)
 
 // EXP [8:9] (2) - Bit 4 of scaling exponent #0 (2^x)
         /* start bit  */ #define GX_BP_INDMTXC_EXP_B 8
@@ -441,7 +454,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_INDMTXC_EXP_SHIFT 22
 
         /* get value  */ #define GX_BP_GET_INDMTXC_EXP(reg) GX_BITGET((reg), 8, 2)
-        /* set value  */ #define GX_BP_SET_INDMTXC_EXP(reg, x) ((reg) = GX_BITSET((reg), 8, 2, x))
+        /* set value  */ #define GX_BP_SET_INDMTXC_EXP(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_INDMTXC_EXP)
 
 
 /******************************************************************************
@@ -457,7 +470,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_INDIMASK_IMASK_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_INDIMASK_IMASK(reg) GX_BITGET((reg), 24, 8)
-        /* set value  */ #define GX_BP_SET_INDIMASK_IMASK(reg, x) ((reg) = GX_BITSET((reg), 24, 8, x))
+        /* set value  */ #define GX_BP_SET_INDIMASK_IMASK(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_INDIMASK_IMASK)
 
 
 /******************************************************************************
@@ -473,7 +486,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_INDTEVSTAGE_STAGE_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_INDTEVSTAGE_STAGE(reg) GX_BITGET((reg), 30, 2)
-        /* set value  */ #define GX_BP_SET_INDTEVSTAGE_STAGE(reg, x) ((reg) = GX_BITSET((reg), 30, 2, x))
+        /* set value  */ #define GX_BP_SET_INDTEVSTAGE_STAGE(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_INDTEVSTAGE_STAGE)
 
 // FORMAT [28:29] (2) - Indirect texture format
         /* start bit  */ #define GX_BP_INDTEVSTAGE_FORMAT_B 28
@@ -485,7 +498,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_INDTEVSTAGE_FORMAT_SHIFT 2
 
         /* get value  */ #define GX_BP_GET_INDTEVSTAGE_FORMAT(reg) GX_BITGET((reg), 28, 2)
-        /* set value  */ #define GX_BP_SET_INDTEVSTAGE_FORMAT(reg, x) ((reg) = GX_BITSET((reg), 28, 2, x))
+        /* set value  */ #define GX_BP_SET_INDTEVSTAGE_FORMAT(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_INDTEVSTAGE_FORMAT)
 
 // BIAS [25:27] (3) - Indirect texture bias
         /* start bit  */ #define GX_BP_INDTEVSTAGE_BIAS_B 25
@@ -497,7 +510,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_INDTEVSTAGE_BIAS_SHIFT 4
 
         /* get value  */ #define GX_BP_GET_INDTEVSTAGE_BIAS(reg) GX_BITGET((reg), 25, 3)
-        /* set value  */ #define GX_BP_SET_INDTEVSTAGE_BIAS(reg, x) ((reg) = GX_BITSET((reg), 25, 3, x))
+        /* set value  */ #define GX_BP_SET_INDTEVSTAGE_BIAS(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_INDTEVSTAGE_BIAS)
 
 // ALPHA [23:24] (2) - Indirect texture alpha
         /* start bit  */ #define GX_BP_INDTEVSTAGE_ALPHA_B 23
@@ -509,7 +522,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_INDTEVSTAGE_ALPHA_SHIFT 7
 
         /* get value  */ #define GX_BP_GET_INDTEVSTAGE_ALPHA(reg) GX_BITGET((reg), 23, 2)
-        /* set value  */ #define GX_BP_SET_INDTEVSTAGE_ALPHA(reg, x) ((reg) = GX_BITSET((reg), 23, 2, x))
+        /* set value  */ #define GX_BP_SET_INDTEVSTAGE_ALPHA(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_INDTEVSTAGE_ALPHA)
 
 // MTX [19:22] (4) - Indirect texture matrix
         /* start bit  */ #define GX_BP_INDTEVSTAGE_MTX_B 19
@@ -521,7 +534,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_INDTEVSTAGE_MTX_SHIFT 9
 
         /* get value  */ #define GX_BP_GET_INDTEVSTAGE_MTX(reg) GX_BITGET((reg), 19, 4)
-        /* set value  */ #define GX_BP_SET_INDTEVSTAGE_MTX(reg, x) ((reg) = GX_BITSET((reg), 19, 4, x))
+        /* set value  */ #define GX_BP_SET_INDTEVSTAGE_MTX(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_INDTEVSTAGE_MTX)
 
 // WRAPS [16:18] (3) - S component wrap factor
         /* start bit  */ #define GX_BP_INDTEVSTAGE_WRAPS_B 16
@@ -533,7 +546,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_INDTEVSTAGE_WRAPS_SHIFT 13
 
         /* get value  */ #define GX_BP_GET_INDTEVSTAGE_WRAPS(reg) GX_BITGET((reg), 16, 3)
-        /* set value  */ #define GX_BP_SET_INDTEVSTAGE_WRAPS(reg, x) ((reg) = GX_BITSET((reg), 16, 3, x))
+        /* set value  */ #define GX_BP_SET_INDTEVSTAGE_WRAPS(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_INDTEVSTAGE_WRAPS)
 
 // WRAPT [13:15] (3) - T component wrap factor
         /* start bit  */ #define GX_BP_INDTEVSTAGE_WRAPT_B 13
@@ -545,7 +558,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_INDTEVSTAGE_WRAPT_SHIFT 16
 
         /* get value  */ #define GX_BP_GET_INDTEVSTAGE_WRAPT(reg) GX_BITGET((reg), 13, 3)
-        /* set value  */ #define GX_BP_SET_INDTEVSTAGE_WRAPT(reg, x) ((reg) = GX_BITSET((reg), 13, 3, x))
+        /* set value  */ #define GX_BP_SET_INDTEVSTAGE_WRAPT(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_INDTEVSTAGE_WRAPT)
 
 // UTCLOD [12:12] (1) - Whether to use unmodified texcoords for mipmaps
         /* start bit  */ #define GX_BP_INDTEVSTAGE_UTCLOD_B 12
@@ -557,7 +570,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_INDTEVSTAGE_UTCLOD_SHIFT 19
 
         /* get value  */ #define GX_BP_GET_INDTEVSTAGE_UTCLOD(reg) GX_BITGET((reg), 12, 1)
-        /* set value  */ #define GX_BP_SET_INDTEVSTAGE_UTCLOD(reg, x) ((reg) = GX_BITSET((reg), 12, 1, x))
+        /* set value  */ #define GX_BP_SET_INDTEVSTAGE_UTCLOD(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_INDTEVSTAGE_UTCLOD)
 
 // ADDPREV [11:11] (1) - Whether to add in results from previous tev stage
         /* start bit  */ #define GX_BP_INDTEVSTAGE_ADDPREV_B 11
@@ -569,7 +582,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_INDTEVSTAGE_ADDPREV_SHIFT 20
 
         /* get value  */ #define GX_BP_GET_INDTEVSTAGE_ADDPREV(reg) GX_BITGET((reg), 11, 1)
-        /* set value  */ #define GX_BP_SET_INDTEVSTAGE_ADDPREV(reg, x) ((reg) = GX_BITSET((reg), 11, 1, x))
+        /* set value  */ #define GX_BP_SET_INDTEVSTAGE_ADDPREV(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_INDTEVSTAGE_ADDPREV)
 
 
 /******************************************************************************
@@ -585,7 +598,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_SCISSORTL_TOP_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_SCISSORTL_TOP(reg) GX_BITGET((reg), 21, 11)
-        /* set value  */ #define GX_BP_SET_SCISSORTL_TOP(reg, x) ((reg) = GX_BITSET((reg), 21, 11, x))
+        /* set value  */ #define GX_BP_SET_SCISSORTL_TOP(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_SCISSORTL_TOP)
 
 // LEFT [9:19] (11) - Left component
         /* start bit  */ #define GX_BP_SCISSORTL_LEFT_B 9
@@ -597,7 +610,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_SCISSORTL_LEFT_SHIFT 12
 
         /* get value  */ #define GX_BP_GET_SCISSORTL_LEFT(reg) GX_BITGET((reg), 9, 11)
-        /* set value  */ #define GX_BP_SET_SCISSORTL_LEFT(reg, x) ((reg) = GX_BITSET((reg), 9, 11, x))
+        /* set value  */ #define GX_BP_SET_SCISSORTL_LEFT(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_SCISSORTL_LEFT)
 
 
 /******************************************************************************
@@ -613,7 +626,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_SCISSORBR_BOT_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_SCISSORBR_BOT(reg) GX_BITGET((reg), 21, 11)
-        /* set value  */ #define GX_BP_SET_SCISSORBR_BOT(reg, x) ((reg) = GX_BITSET((reg), 21, 11, x))
+        /* set value  */ #define GX_BP_SET_SCISSORBR_BOT(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_SCISSORBR_BOT)
 
 // RIGHT [9:19] (11) - Right component
         /* start bit  */ #define GX_BP_SCISSORBR_RIGHT_B 9
@@ -625,7 +638,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_SCISSORBR_RIGHT_SHIFT 12
 
         /* get value  */ #define GX_BP_GET_SCISSORBR_RIGHT(reg) GX_BITGET((reg), 9, 11)
-        /* set value  */ #define GX_BP_SET_SCISSORBR_RIGHT(reg, x) ((reg) = GX_BITSET((reg), 9, 11, x))
+        /* set value  */ #define GX_BP_SET_SCISSORBR_RIGHT(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_SCISSORBR_RIGHT)
 
 
 /******************************************************************************
@@ -641,7 +654,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_LINEPTWIDTH_LINESZ_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_LINEPTWIDTH_LINESZ(reg) GX_BITGET((reg), 24, 8)
-        /* set value  */ #define GX_BP_SET_LINEPTWIDTH_LINESZ(reg, x) ((reg) = GX_BITSET((reg), 24, 8, x))
+        /* set value  */ #define GX_BP_SET_LINEPTWIDTH_LINESZ(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_LINEPTWIDTH_LINESZ)
 
 // POINTSZ [16:23] (8) - Point size
         /* start bit  */ #define GX_BP_LINEPTWIDTH_POINTSZ_B 16
@@ -653,7 +666,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_LINEPTWIDTH_POINTSZ_SHIFT 8
 
         /* get value  */ #define GX_BP_GET_LINEPTWIDTH_POINTSZ(reg) GX_BITGET((reg), 16, 8)
-        /* set value  */ #define GX_BP_SET_LINEPTWIDTH_POINTSZ(reg, x) ((reg) = GX_BITSET((reg), 16, 8, x))
+        /* set value  */ #define GX_BP_SET_LINEPTWIDTH_POINTSZ(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_LINEPTWIDTH_POINTSZ)
 
 // LINEOFS [13:15] (3) - Line offset
         /* start bit  */ #define GX_BP_LINEPTWIDTH_LINEOFS_B 13
@@ -665,7 +678,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_LINEPTWIDTH_LINEOFS_SHIFT 16
 
         /* get value  */ #define GX_BP_GET_LINEPTWIDTH_LINEOFS(reg) GX_BITGET((reg), 13, 3)
-        /* set value  */ #define GX_BP_SET_LINEPTWIDTH_LINEOFS(reg, x) ((reg) = GX_BITSET((reg), 13, 3, x))
+        /* set value  */ #define GX_BP_SET_LINEPTWIDTH_LINEOFS(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_LINEPTWIDTH_LINEOFS)
 
 // POINTOFS [10:12] (3) - Point offset
         /* start bit  */ #define GX_BP_LINEPTWIDTH_POINTOFS_B 10
@@ -677,7 +690,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_LINEPTWIDTH_POINTOFS_SHIFT 19
 
         /* get value  */ #define GX_BP_GET_LINEPTWIDTH_POINTOFS(reg) GX_BITGET((reg), 10, 3)
-        /* set value  */ #define GX_BP_SET_LINEPTWIDTH_POINTOFS(reg, x) ((reg) = GX_BITSET((reg), 10, 3, x))
+        /* set value  */ #define GX_BP_SET_LINEPTWIDTH_POINTOFS(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_LINEPTWIDTH_POINTOFS)
 
 // ADJUST_AR [9:9] (1) - Interlacing: adjust for pixels having aspect ratio of 1/2
         /* start bit  */ #define GX_BP_LINEPTWIDTH_ADJUST_AR_B 9
@@ -689,7 +702,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_LINEPTWIDTH_ADJUST_AR_SHIFT 22
 
         /* get value  */ #define GX_BP_GET_LINEPTWIDTH_ADJUST_AR(reg) GX_BITGET((reg), 9, 1)
-        /* set value  */ #define GX_BP_SET_LINEPTWIDTH_ADJUST_AR(reg, x) ((reg) = GX_BITSET((reg), 9, 1, x))
+        /* set value  */ #define GX_BP_SET_LINEPTWIDTH_ADJUST_AR(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_LINEPTWIDTH_ADJUST_AR)
 
 
 /******************************************************************************
@@ -705,7 +718,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_RAS1_SS0_S0_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_RAS1_SS0_S0(reg) GX_BITGET((reg), 28, 4)
-        /* set value  */ #define GX_BP_SET_RAS1_SS0_S0(reg, x) ((reg) = GX_BITSET((reg), 28, 4, x))
+        /* set value  */ #define GX_BP_SET_RAS1_SS0_S0(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_RAS1_SS0_S0)
 
 // T0 [24:27] (4) - T-component scale (stage 0)
         /* start bit  */ #define GX_BP_RAS1_SS0_T0_B 24
@@ -717,7 +730,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_RAS1_SS0_T0_SHIFT 4
 
         /* get value  */ #define GX_BP_GET_RAS1_SS0_T0(reg) GX_BITGET((reg), 24, 4)
-        /* set value  */ #define GX_BP_SET_RAS1_SS0_T0(reg, x) ((reg) = GX_BITSET((reg), 24, 4, x))
+        /* set value  */ #define GX_BP_SET_RAS1_SS0_T0(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_RAS1_SS0_T0)
 
 // S1 [20:23] (4) - S-component scale (stage 1)
         /* start bit  */ #define GX_BP_RAS1_SS0_S1_B 20
@@ -729,7 +742,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_RAS1_SS0_S1_SHIFT 8
 
         /* get value  */ #define GX_BP_GET_RAS1_SS0_S1(reg) GX_BITGET((reg), 20, 4)
-        /* set value  */ #define GX_BP_SET_RAS1_SS0_S1(reg, x) ((reg) = GX_BITSET((reg), 20, 4, x))
+        /* set value  */ #define GX_BP_SET_RAS1_SS0_S1(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_RAS1_SS0_S1)
 
 // T1 [16:19] (4) - T-component scale (stage 1)
         /* start bit  */ #define GX_BP_RAS1_SS0_T1_B 16
@@ -741,7 +754,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_RAS1_SS0_T1_SHIFT 12
 
         /* get value  */ #define GX_BP_GET_RAS1_SS0_T1(reg) GX_BITGET((reg), 16, 4)
-        /* set value  */ #define GX_BP_SET_RAS1_SS0_T1(reg, x) ((reg) = GX_BITSET((reg), 16, 4, x))
+        /* set value  */ #define GX_BP_SET_RAS1_SS0_T1(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_RAS1_SS0_T1)
 
 
 /******************************************************************************
@@ -757,7 +770,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_RAS1_SS1_S2_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_RAS1_SS1_S2(reg) GX_BITGET((reg), 28, 4)
-        /* set value  */ #define GX_BP_SET_RAS1_SS1_S2(reg, x) ((reg) = GX_BITSET((reg), 28, 4, x))
+        /* set value  */ #define GX_BP_SET_RAS1_SS1_S2(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_RAS1_SS1_S2)
 
 // T2 [24:27] (4) - T-component scale (stage 2)
         /* start bit  */ #define GX_BP_RAS1_SS1_T2_B 24
@@ -769,7 +782,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_RAS1_SS1_T2_SHIFT 4
 
         /* get value  */ #define GX_BP_GET_RAS1_SS1_T2(reg) GX_BITGET((reg), 24, 4)
-        /* set value  */ #define GX_BP_SET_RAS1_SS1_T2(reg, x) ((reg) = GX_BITSET((reg), 24, 4, x))
+        /* set value  */ #define GX_BP_SET_RAS1_SS1_T2(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_RAS1_SS1_T2)
 
 // S3 [20:23] (4) - S-component scale (stage 3)
         /* start bit  */ #define GX_BP_RAS1_SS1_S3_B 20
@@ -781,7 +794,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_RAS1_SS1_S3_SHIFT 8
 
         /* get value  */ #define GX_BP_GET_RAS1_SS1_S3(reg) GX_BITGET((reg), 20, 4)
-        /* set value  */ #define GX_BP_SET_RAS1_SS1_S3(reg, x) ((reg) = GX_BITSET((reg), 20, 4, x))
+        /* set value  */ #define GX_BP_SET_RAS1_SS1_S3(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_RAS1_SS1_S3)
 
 // T3 [16:19] (4) - T-component scale (stage 3)
         /* start bit  */ #define GX_BP_RAS1_SS1_T3_B 16
@@ -793,7 +806,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_RAS1_SS1_T3_SHIFT 12
 
         /* get value  */ #define GX_BP_GET_RAS1_SS1_T3(reg) GX_BITGET((reg), 16, 4)
-        /* set value  */ #define GX_BP_SET_RAS1_SS1_T3(reg, x) ((reg) = GX_BITSET((reg), 16, 4, x))
+        /* set value  */ #define GX_BP_SET_RAS1_SS1_T3(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_RAS1_SS1_T3)
 
 
 /******************************************************************************
@@ -809,7 +822,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_RAS1_IREF_MAP0_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_RAS1_IREF_MAP0(reg) GX_BITGET((reg), 29, 3)
-        /* set value  */ #define GX_BP_SET_RAS1_IREF_MAP0(reg, x) ((reg) = GX_BITSET((reg), 29, 3, x))
+        /* set value  */ #define GX_BP_SET_RAS1_IREF_MAP0(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_RAS1_IREF_MAP0)
 
 // TXC0 [26:28] (3) - Texcoord ID (stage 0)
         /* start bit  */ #define GX_BP_RAS1_IREF_TXC0_B 26
@@ -821,7 +834,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_RAS1_IREF_TXC0_SHIFT 3
 
         /* get value  */ #define GX_BP_GET_RAS1_IREF_TXC0(reg) GX_BITGET((reg), 26, 3)
-        /* set value  */ #define GX_BP_SET_RAS1_IREF_TXC0(reg, x) ((reg) = GX_BITSET((reg), 26, 3, x))
+        /* set value  */ #define GX_BP_SET_RAS1_IREF_TXC0(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_RAS1_IREF_TXC0)
 
 // MAP1 [23:25] (3) - Texmap id (stage 1)
         /* start bit  */ #define GX_BP_RAS1_IREF_MAP1_B 23
@@ -833,7 +846,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_RAS1_IREF_MAP1_SHIFT 6
 
         /* get value  */ #define GX_BP_GET_RAS1_IREF_MAP1(reg) GX_BITGET((reg), 23, 3)
-        /* set value  */ #define GX_BP_SET_RAS1_IREF_MAP1(reg, x) ((reg) = GX_BITSET((reg), 23, 3, x))
+        /* set value  */ #define GX_BP_SET_RAS1_IREF_MAP1(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_RAS1_IREF_MAP1)
 
 // TXC1 [20:22] (3) - Texcoord ID (stage 1)
         /* start bit  */ #define GX_BP_RAS1_IREF_TXC1_B 20
@@ -845,7 +858,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_RAS1_IREF_TXC1_SHIFT 9
 
         /* get value  */ #define GX_BP_GET_RAS1_IREF_TXC1(reg) GX_BITGET((reg), 20, 3)
-        /* set value  */ #define GX_BP_SET_RAS1_IREF_TXC1(reg, x) ((reg) = GX_BITSET((reg), 20, 3, x))
+        /* set value  */ #define GX_BP_SET_RAS1_IREF_TXC1(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_RAS1_IREF_TXC1)
 
 // MAP2 [17:19] (3) - Texmap id (stage 2)
         /* start bit  */ #define GX_BP_RAS1_IREF_MAP2_B 17
@@ -857,7 +870,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_RAS1_IREF_MAP2_SHIFT 12
 
         /* get value  */ #define GX_BP_GET_RAS1_IREF_MAP2(reg) GX_BITGET((reg), 17, 3)
-        /* set value  */ #define GX_BP_SET_RAS1_IREF_MAP2(reg, x) ((reg) = GX_BITSET((reg), 17, 3, x))
+        /* set value  */ #define GX_BP_SET_RAS1_IREF_MAP2(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_RAS1_IREF_MAP2)
 
 // TXC2 [14:16] (3) - Texcoord ID (stage 2)
         /* start bit  */ #define GX_BP_RAS1_IREF_TXC2_B 14
@@ -869,7 +882,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_RAS1_IREF_TXC2_SHIFT 15
 
         /* get value  */ #define GX_BP_GET_RAS1_IREF_TXC2(reg) GX_BITGET((reg), 14, 3)
-        /* set value  */ #define GX_BP_SET_RAS1_IREF_TXC2(reg, x) ((reg) = GX_BITSET((reg), 14, 3, x))
+        /* set value  */ #define GX_BP_SET_RAS1_IREF_TXC2(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_RAS1_IREF_TXC2)
 
 // MAP3 [11:13] (3) - Texmap id (stage 3)
         /* start bit  */ #define GX_BP_RAS1_IREF_MAP3_B 11
@@ -881,7 +894,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_RAS1_IREF_MAP3_SHIFT 18
 
         /* get value  */ #define GX_BP_GET_RAS1_IREF_MAP3(reg) GX_BITGET((reg), 11, 3)
-        /* set value  */ #define GX_BP_SET_RAS1_IREF_MAP3(reg, x) ((reg) = GX_BITSET((reg), 11, 3, x))
+        /* set value  */ #define GX_BP_SET_RAS1_IREF_MAP3(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_RAS1_IREF_MAP3)
 
 // TXC3 [8:10] (3) - Texcoord ID (stage 3)
         /* start bit  */ #define GX_BP_RAS1_IREF_TXC3_B 8
@@ -893,7 +906,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_RAS1_IREF_TXC3_SHIFT 21
 
         /* get value  */ #define GX_BP_GET_RAS1_IREF_TXC3(reg) GX_BITGET((reg), 8, 3)
-        /* set value  */ #define GX_BP_SET_RAS1_IREF_TXC3(reg, x) ((reg) = GX_BITSET((reg), 8, 3, x))
+        /* set value  */ #define GX_BP_SET_RAS1_IREF_TXC3(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_RAS1_IREF_TXC3)
 
 
 /******************************************************************************
@@ -909,7 +922,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_RAS1_TREF_TEXMAP_EVEN_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_RAS1_TREF_TEXMAP_EVEN(reg) GX_BITGET((reg), 29, 3)
-        /* set value  */ #define GX_BP_SET_RAS1_TREF_TEXMAP_EVEN(reg, x) ((reg) = GX_BITSET((reg), 29, 3, x))
+        /* set value  */ #define GX_BP_SET_RAS1_TREF_TEXMAP_EVEN(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_RAS1_TREF_TEXMAP_EVEN)
 
 // TEXCOORD_EVEN [26:28] (3)
         /* start bit  */ #define GX_BP_RAS1_TREF_TEXCOORD_EVEN_B 26
@@ -921,7 +934,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_RAS1_TREF_TEXCOORD_EVEN_SHIFT 3
 
         /* get value  */ #define GX_BP_GET_RAS1_TREF_TEXCOORD_EVEN(reg) GX_BITGET((reg), 26, 3)
-        /* set value  */ #define GX_BP_SET_RAS1_TREF_TEXCOORD_EVEN(reg, x) ((reg) = GX_BITSET((reg), 26, 3, x))
+        /* set value  */ #define GX_BP_SET_RAS1_TREF_TEXCOORD_EVEN(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_RAS1_TREF_TEXCOORD_EVEN)
 
 // ENABLE_TEX_EVEN [25:25] (1)
         /* start bit  */ #define GX_BP_RAS1_TREF_ENABLE_TEX_EVEN_B 25
@@ -933,7 +946,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_RAS1_TREF_ENABLE_TEX_EVEN_SHIFT 6
 
         /* get value  */ #define GX_BP_GET_RAS1_TREF_ENABLE_TEX_EVEN(reg) GX_BITGET((reg), 25, 1)
-        /* set value  */ #define GX_BP_SET_RAS1_TREF_ENABLE_TEX_EVEN(reg, x) ((reg) = GX_BITSET((reg), 25, 1, x))
+        /* set value  */ #define GX_BP_SET_RAS1_TREF_ENABLE_TEX_EVEN(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_RAS1_TREF_ENABLE_TEX_EVEN)
 
 // COLORCHAN_EVEN [22:24] (3)
         /* start bit  */ #define GX_BP_RAS1_TREF_COLORCHAN_EVEN_B 22
@@ -945,7 +958,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_RAS1_TREF_COLORCHAN_EVEN_SHIFT 7
 
         /* get value  */ #define GX_BP_GET_RAS1_TREF_COLORCHAN_EVEN(reg) GX_BITGET((reg), 22, 3)
-        /* set value  */ #define GX_BP_SET_RAS1_TREF_COLORCHAN_EVEN(reg, x) ((reg) = GX_BITSET((reg), 22, 3, x))
+        /* set value  */ #define GX_BP_SET_RAS1_TREF_COLORCHAN_EVEN(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_RAS1_TREF_COLORCHAN_EVEN)
 
 // TEXMAP_ODD [17:19] (3)
         /* start bit  */ #define GX_BP_RAS1_TREF_TEXMAP_ODD_B 17
@@ -1011,7 +1024,6 @@ typedef enum {
         /* get value  */ #define GX_BP_GET_SU_SIZE_SCALE(reg) GX_BITGET((reg), 16, 16)
         /* set value  */ #define GX_BP_SET_SU_SIZE_SCALE(reg, x) ((reg) = GX_BITSET((reg), 16, 16, x))
 
-        //! @note should be shift, not bitor for the reg... but this works better? Somehow?
         /* masker     */ #define GX_BP_SU_SIZE_SCALE_MASK_FUNC(mask, reg) (mask | ((reg)))
 
 // RANGEBIAS [15:15] (1)
@@ -1048,7 +1060,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_SU_SIZE_USELINEOFS_SHIFT 18
 
         /* get value  */ #define GX_BP_GET_SU_SIZE_USELINEOFS(reg) GX_BITGET((reg), 13, 1)
-        /* set value  */ #define GX_BP_SET_SU_SIZE_USELINEOFS(reg, x) ((reg) = GX_BITSET((reg), 13, 1, x))
+        /* set value  */ #define GX_BP_SET_SU_SIZE_USELINEOFS(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_SU_SIZE_USELINEOFS)
 
 // USEPOINTOFS [12:12] (1)
         /* start bit  */ #define GX_BP_SU_SIZE_USEPOINTOFS_B 12
@@ -1060,7 +1072,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_SU_SIZE_USEPOINTOFS_SHIFT 19
 
         /* get value  */ #define GX_BP_GET_SU_SIZE_USEPOINTOFS(reg) GX_BITGET((reg), 12, 1)
-        /* set value  */ #define GX_BP_SET_SU_SIZE_USEPOINTOFS(reg, x) ((reg) = GX_BITSET((reg), 12, 1, x))
+        /* set value  */ #define GX_BP_SET_SU_SIZE_USEPOINTOFS(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_SU_SIZE_USEPOINTOFS)
 
 
 /******************************************************************************
@@ -1076,7 +1088,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_ZMODE_TEST_ENABLE_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_ZMODE_TEST_ENABLE(reg) GX_BITGET((reg), 31, 1)
-        /* set value  */ #define GX_BP_SET_ZMODE_TEST_ENABLE(reg, x) ((reg) = GX_BITSET((reg), 31, 1, x))
+        /* set value  */ #define GX_BP_SET_ZMODE_TEST_ENABLE(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_ZMODE_TEST_ENABLE)
 
 // COMPARE [28:30] (3)
         /* start bit  */ #define GX_BP_ZMODE_COMPARE_B 28
@@ -1088,7 +1100,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_ZMODE_COMPARE_SHIFT 1
 
         /* get value  */ #define GX_BP_GET_ZMODE_COMPARE(reg) GX_BITGET((reg), 28, 3)
-        /* set value  */ #define GX_BP_SET_ZMODE_COMPARE(reg, x) ((reg) = GX_BITSET((reg), 28, 3, x))
+        /* set value  */ #define GX_BP_SET_ZMODE_COMPARE(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_ZMODE_COMPARE)
 
 // UPDATE_ENABLE [27:27] (1)
         /* start bit  */ #define GX_BP_ZMODE_UPDATE_ENABLE_B 27
@@ -1100,7 +1112,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_ZMODE_UPDATE_ENABLE_SHIFT 4
 
         /* get value  */ #define GX_BP_GET_ZMODE_UPDATE_ENABLE(reg) GX_BITGET((reg), 27, 1)
-        /* set value  */ #define GX_BP_SET_ZMODE_UPDATE_ENABLE(reg, x) ((reg) = GX_BITSET((reg), 27, 1, x))
+        /* set value  */ #define GX_BP_SET_ZMODE_UPDATE_ENABLE(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_ZMODE_UPDATE_ENABLE)
 
 
 /******************************************************************************
@@ -1116,7 +1128,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_BLENDMODE_BLEND_ENABLE_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_BLENDMODE_BLEND_ENABLE(reg) GX_BITGET((reg), 31, 1)
-        /* set value  */ #define GX_BP_SET_BLENDMODE_BLEND_ENABLE(reg, x) ((reg) = GX_BITSET((reg), 31, 1, x))
+        /* set value  */ #define GX_BP_SET_BLENDMODE_BLEND_ENABLE(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_BLENDMODE_BLEND_ENABLE)
 
 // LOGIC_OP_ENABLE [30:30] (1)
         /* start bit  */ #define GX_BP_BLENDMODE_LOGIC_OP_ENABLE_B 30
@@ -1128,7 +1140,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_BLENDMODE_LOGIC_OP_ENABLE_SHIFT 1
 
         /* get value  */ #define GX_BP_GET_BLENDMODE_LOGIC_OP_ENABLE(reg) GX_BITGET((reg), 30, 1)
-        /* set value  */ #define GX_BP_SET_BLENDMODE_LOGIC_OP_ENABLE(reg, x) ((reg) = GX_BITSET((reg), 30, 1, x))
+        /* set value  */ #define GX_BP_SET_BLENDMODE_LOGIC_OP_ENABLE(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_BLENDMODE_LOGIC_OP_ENABLE)
 
 // DITHER [29:29] (1)
         /* start bit  */ #define GX_BP_BLENDMODE_DITHER_B 29
@@ -1140,7 +1152,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_BLENDMODE_DITHER_SHIFT 2
 
         /* get value  */ #define GX_BP_GET_BLENDMODE_DITHER(reg) GX_BITGET((reg), 29, 1)
-        /* set value  */ #define GX_BP_SET_BLENDMODE_DITHER(reg, x) ((reg) = GX_BITSET((reg), 29, 1, x))
+        /* set value  */ #define GX_BP_SET_BLENDMODE_DITHER(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_BLENDMODE_DITHER)
 
 // COLOR_UPDATE [28:28] (1)
         /* start bit  */ #define GX_BP_BLENDMODE_COLOR_UPDATE_B 28
@@ -1152,7 +1164,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_BLENDMODE_COLOR_UPDATE_SHIFT 3
 
         /* get value  */ #define GX_BP_GET_BLENDMODE_COLOR_UPDATE(reg) GX_BITGET((reg), 28, 1)
-        /* set value  */ #define GX_BP_SET_BLENDMODE_COLOR_UPDATE(reg, x) ((reg) = GX_BITSET((reg), 28, 1, x))
+        /* set value  */ #define GX_BP_SET_BLENDMODE_COLOR_UPDATE(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_BLENDMODE_COLOR_UPDATE)
 
 // ALPHA_UPDATE [27:27] (1)
         /* start bit  */ #define GX_BP_BLENDMODE_ALPHA_UPDATE_B 27
@@ -1164,7 +1176,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_BLENDMODE_ALPHA_UPDATE_SHIFT 4
 
         /* get value  */ #define GX_BP_GET_BLENDMODE_ALPHA_UPDATE(reg) GX_BITGET((reg), 27, 1)
-        /* set value  */ #define GX_BP_SET_BLENDMODE_ALPHA_UPDATE(reg, x) ((reg) = GX_BITSET((reg), 27, 1, x))
+        /* set value  */ #define GX_BP_SET_BLENDMODE_ALPHA_UPDATE(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_BLENDMODE_ALPHA_UPDATE)
 
 // DST_FACTOR [24:26] (3)
         /* start bit  */ #define GX_BP_BLENDMODE_DST_FACTOR_B 24
@@ -1176,7 +1188,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_BLENDMODE_DST_FACTOR_SHIFT 5
 
         /* get value  */ #define GX_BP_GET_BLENDMODE_DST_FACTOR(reg) GX_BITGET((reg), 24, 3)
-        /* set value  */ #define GX_BP_SET_BLENDMODE_DST_FACTOR(reg, x) ((reg) = GX_BITSET((reg), 24, 3, x))
+        /* set value  */ #define GX_BP_SET_BLENDMODE_DST_FACTOR(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_BLENDMODE_DST_FACTOR)
 
 // SRC_FACTOR [21:23] (3)
         /* start bit  */ #define GX_BP_BLENDMODE_SRC_FACTOR_B 21
@@ -1188,7 +1200,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_BLENDMODE_SRC_FACTOR_SHIFT 8
 
         /* get value  */ #define GX_BP_GET_BLENDMODE_SRC_FACTOR(reg) GX_BITGET((reg), 21, 3)
-        /* set value  */ #define GX_BP_SET_BLENDMODE_SRC_FACTOR(reg, x) ((reg) = GX_BITSET((reg), 21, 3, x))
+        /* set value  */ #define GX_BP_SET_BLENDMODE_SRC_FACTOR(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_BLENDMODE_SRC_FACTOR)
 
 // SUBTRACT [20:20] (1)
         /* start bit  */ #define GX_BP_BLENDMODE_SUBTRACT_B 20
@@ -1200,7 +1212,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_BLENDMODE_SUBTRACT_SHIFT 11
 
         /* get value  */ #define GX_BP_GET_BLENDMODE_SUBTRACT(reg) GX_BITGET((reg), 20, 1)
-        /* set value  */ #define GX_BP_SET_BLENDMODE_SUBTRACT(reg, x) ((reg) = GX_BITSET((reg), 20, 1, x))
+        /* set value  */ #define GX_BP_SET_BLENDMODE_SUBTRACT(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_BLENDMODE_SUBTRACT)
 
 // LOGIC_MODE [16:19] (4)
         /* start bit  */ #define GX_BP_BLENDMODE_LOGIC_MODE_B 16
@@ -1212,7 +1224,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_BLENDMODE_LOGIC_MODE_SHIFT 12
 
         /* get value  */ #define GX_BP_GET_BLENDMODE_LOGIC_MODE(reg) GX_BITGET((reg), 16, 4)
-        /* set value  */ #define GX_BP_SET_BLENDMODE_LOGIC_MODE(reg, x) ((reg) = GX_BITSET((reg), 16, 4, x))
+        /* set value  */ #define GX_BP_SET_BLENDMODE_LOGIC_MODE(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_BLENDMODE_LOGIC_MODE)
 
 
 /******************************************************************************
@@ -1228,7 +1240,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_DSTALPHA_ALPHA_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_DSTALPHA_ALPHA(reg) GX_BITGET((reg), 24, 8)
-        /* set value  */ #define GX_BP_SET_DSTALPHA_ALPHA(reg, x) ((reg) = GX_BITSET((reg), 24, 8, x))
+        /* set value  */ #define GX_BP_SET_DSTALPHA_ALPHA(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_DSTALPHA_ALPHA)
 
 // ENABLE [23:23] (1)
         /* start bit  */ #define GX_BP_DSTALPHA_ENABLE_B 23
@@ -1240,7 +1252,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_DSTALPHA_ENABLE_SHIFT 8
 
         /* get value  */ #define GX_BP_GET_DSTALPHA_ENABLE(reg) GX_BITGET((reg), 23, 1)
-        /* set value  */ #define GX_BP_SET_DSTALPHA_ENABLE(reg, x) ((reg) = GX_BITSET((reg), 23, 1, x))
+        /* set value  */ #define GX_BP_SET_DSTALPHA_ENABLE(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_DSTALPHA_ENABLE)
 
 // YUV_FMT [21:22] (2)
         /* start bit  */ #define GX_BP_DSTALPHA_YUV_FMT_B 21
@@ -1252,7 +1264,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_DSTALPHA_YUV_FMT_SHIFT 9
 
         /* get value  */ #define GX_BP_GET_DSTALPHA_YUV_FMT(reg) GX_BITGET((reg), 21, 2)
-        /* set value  */ #define GX_BP_SET_DSTALPHA_YUV_FMT(reg, x) ((reg) = GX_BITSET((reg), 21, 2, x))
+        /* set value  */ #define GX_BP_SET_DSTALPHA_YUV_FMT(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_DSTALPHA_YUV_FMT)
 
 
 /******************************************************************************
@@ -1268,7 +1280,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_ZCONTROL_PIXEL_FMT_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_ZCONTROL_PIXEL_FMT(reg) GX_BITGET((reg), 29, 3)
-        /* set value  */ #define GX_BP_SET_ZCONTROL_PIXEL_FMT(reg, x) ((reg) = GX_BITSET((reg), 29, 3, x))
+        /* set value  */ #define GX_BP_SET_ZCONTROL_PIXEL_FMT(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_ZCONTROL_PIXEL_FMT)
 
 // Z_FMT [26:28] (3)
         /* start bit  */ #define GX_BP_ZCONTROL_Z_FMT_B 26
@@ -1280,7 +1292,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_ZCONTROL_Z_FMT_SHIFT 3
 
         /* get value  */ #define GX_BP_GET_ZCONTROL_Z_FMT(reg) GX_BITGET((reg), 26, 3)
-        /* set value  */ #define GX_BP_SET_ZCONTROL_Z_FMT(reg, x) ((reg) = GX_BITSET((reg), 26, 3, x))
+        /* set value  */ #define GX_BP_SET_ZCONTROL_Z_FMT(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_ZCONTROL_Z_FMT)
 
 // BEFORE_TEX [25:25] (1) - Determines whether Z-buffering occurs before or after texturing
         /* start bit  */ #define GX_BP_ZCONTROL_BEFORE_TEX_B 25
@@ -1292,7 +1304,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_ZCONTROL_BEFORE_TEX_SHIFT 6
 
         /* get value  */ #define GX_BP_GET_ZCONTROL_BEFORE_TEX(reg) GX_BITGET((reg), 25, 1)
-        /* set value  */ #define GX_BP_SET_ZCONTROL_BEFORE_TEX(reg, x) ((reg) = GX_BITSET((reg), 25, 1, x))
+        /* set value  */ #define GX_BP_SET_ZCONTROL_BEFORE_TEX(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_ZCONTROL_BEFORE_TEX)
 
 
 /******************************************************************************
@@ -1308,7 +1320,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_FIELDMASK_ODD_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_FIELDMASK_ODD(reg) GX_BITGET((reg), 31, 1)
-        /* set value  */ #define GX_BP_SET_FIELDMASK_ODD(reg, x) ((reg) = GX_BITSET((reg), 31, 1, x))
+        /* set value  */ #define GX_BP_SET_FIELDMASK_ODD(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_FIELDMASK_ODD)
 
 // EVEN [30:30] (1) - Whether to write even fields to the EFB
         /* start bit  */ #define GX_BP_FIELDMASK_EVEN_B 30
@@ -1320,7 +1332,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_FIELDMASK_EVEN_SHIFT 1
 
         /* get value  */ #define GX_BP_GET_FIELDMASK_EVEN(reg) GX_BITGET((reg), 30, 1)
-        /* set value  */ #define GX_BP_SET_FIELDMASK_EVEN(reg, x) ((reg) = GX_BITSET((reg), 30, 1, x))
+        /* set value  */ #define GX_BP_SET_FIELDMASK_EVEN(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_FIELDMASK_EVEN)
 
 
 /******************************************************************************
@@ -1336,7 +1348,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_SCISSOROFFSET_OX_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_SCISSOROFFSET_OX(reg) GX_BITGET((reg), 22, 10)
-        /* set value  */ #define GX_BP_SET_SCISSOROFFSET_OX(reg, x) ((reg) = GX_BITSET((reg), 22, 10, x))
+        /* set value  */ #define GX_BP_SET_SCISSOROFFSET_OX(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_SCISSOROFFSET_OX)
 
 // OY [12:21] (10)
         /* start bit  */ #define GX_BP_SCISSOROFFSET_OY_B 12
@@ -1348,7 +1360,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_SCISSOROFFSET_OY_SHIFT 10
 
         /* get value  */ #define GX_BP_GET_SCISSOROFFSET_OY(reg) GX_BITGET((reg), 12, 10)
-        /* set value  */ #define GX_BP_SET_SCISSOROFFSET_OY(reg, x) ((reg) = GX_BITSET((reg), 12, 10, x))
+        /* set value  */ #define GX_BP_SET_SCISSOROFFSET_OY(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_SCISSOROFFSET_OY)
 
 
 /******************************************************************************
@@ -1364,7 +1376,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_FIELDMODE_TEX_LOD_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_FIELDMODE_TEX_LOD(reg) GX_BITGET((reg), 31, 1)
-        /* set value  */ #define GX_BP_SET_FIELDMODE_TEX_LOD(reg, x) ((reg) = GX_BITSET((reg), 31, 1, x))
+        /* set value  */ #define GX_BP_SET_FIELDMODE_TEX_LOD(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_FIELDMODE_TEX_LOD)
 
 
 /******************************************************************************
@@ -1380,7 +1392,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_TEVCOLORCOMBINER_D_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_TEVCOLORCOMBINER_D(reg) GX_BITGET((reg), 28, 4)
-        /* set value  */ #define GX_BP_SET_TEVCOLORCOMBINER_D(reg, x) ((reg) = GX_BITSET((reg), 28, 4, x))
+        /* set value  */ #define GX_BP_SET_TEVCOLORCOMBINER_D(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_TEVCOLORCOMBINER_D)
 
 // C [24:27] (4)
         /* start bit  */ #define GX_BP_TEVCOLORCOMBINER_C_B 24
@@ -1392,7 +1404,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_TEVCOLORCOMBINER_C_SHIFT 4
 
         /* get value  */ #define GX_BP_GET_TEVCOLORCOMBINER_C(reg) GX_BITGET((reg), 24, 4)
-        /* set value  */ #define GX_BP_SET_TEVCOLORCOMBINER_C(reg, x) ((reg) = GX_BITSET((reg), 24, 4, x))
+        /* set value  */ #define GX_BP_SET_TEVCOLORCOMBINER_C(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_TEVCOLORCOMBINER_C)
 
 // B [20:23] (4)
         /* start bit  */ #define GX_BP_TEVCOLORCOMBINER_B_B 20
@@ -1404,7 +1416,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_TEVCOLORCOMBINER_B_SHIFT 8
 
         /* get value  */ #define GX_BP_GET_TEVCOLORCOMBINER_B(reg) GX_BITGET((reg), 20, 4)
-        /* set value  */ #define GX_BP_SET_TEVCOLORCOMBINER_B(reg, x) ((reg) = GX_BITSET((reg), 20, 4, x))
+        /* set value  */ #define GX_BP_SET_TEVCOLORCOMBINER_B(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_TEVCOLORCOMBINER_B)
 
 // A [16:19] (4)
         /* start bit  */ #define GX_BP_TEVCOLORCOMBINER_A_B 16
@@ -1416,7 +1428,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_TEVCOLORCOMBINER_A_SHIFT 12
 
         /* get value  */ #define GX_BP_GET_TEVCOLORCOMBINER_A(reg) GX_BITGET((reg), 16, 4)
-        /* set value  */ #define GX_BP_SET_TEVCOLORCOMBINER_A(reg, x) ((reg) = GX_BITSET((reg), 16, 4, x))
+        /* set value  */ #define GX_BP_SET_TEVCOLORCOMBINER_A(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_TEVCOLORCOMBINER_A)
 
 // BIAS [14:15] (2)
         /* start bit  */ #define GX_BP_TEVCOLORCOMBINER_BIAS_B 14
@@ -1428,7 +1440,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_TEVCOLORCOMBINER_BIAS_SHIFT 16
 
         /* get value  */ #define GX_BP_GET_TEVCOLORCOMBINER_BIAS(reg) GX_BITGET((reg), 14, 2)
-        /* set value  */ #define GX_BP_SET_TEVCOLORCOMBINER_BIAS(reg, x) ((reg) = GX_BITSET((reg), 14, 2, x))
+        /* set value  */ #define GX_BP_SET_TEVCOLORCOMBINER_BIAS(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_TEVCOLORCOMBINER_BIAS)
 
 // OP_OR_COMPARISON [13:13] (1)
         /* start bit  */ #define GX_BP_TEVCOLORCOMBINER_OP_OR_COMPARISON_B 13
@@ -1440,7 +1452,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_TEVCOLORCOMBINER_OP_OR_COMPARISON_SHIFT 18
 
         /* get value  */ #define GX_BP_GET_TEVCOLORCOMBINER_OP_OR_COMPARISON(reg) GX_BITGET((reg), 13, 1)
-        /* set value  */ #define GX_BP_SET_TEVCOLORCOMBINER_OP_OR_COMPARISON(reg, x) ((reg) = GX_BITSET((reg), 13, 1, x))
+        /* set value  */ #define GX_BP_SET_TEVCOLORCOMBINER_OP_OR_COMPARISON(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_TEVCOLORCOMBINER_OP_OR_COMPARISON)
 
 // CLAMP [12:12] (1)
         /* start bit  */ #define GX_BP_TEVCOLORCOMBINER_CLAMP_B 12
@@ -1452,7 +1464,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_TEVCOLORCOMBINER_CLAMP_SHIFT 19
 
         /* get value  */ #define GX_BP_GET_TEVCOLORCOMBINER_CLAMP(reg) GX_BITGET((reg), 12, 1)
-        /* set value  */ #define GX_BP_SET_TEVCOLORCOMBINER_CLAMP(reg, x) ((reg) = GX_BITSET((reg), 12, 1, x))
+        /* set value  */ #define GX_BP_SET_TEVCOLORCOMBINER_CLAMP(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_TEVCOLORCOMBINER_CLAMP)
 
 // SCALE_OR_COMPARE_MODE [10:11] (2)
         /* start bit  */ #define GX_BP_TEVCOLORCOMBINER_SCALE_OR_COMPARE_MODE_B 10
@@ -1464,7 +1476,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_TEVCOLORCOMBINER_SCALE_OR_COMPARE_MODE_SHIFT 20
 
         /* get value  */ #define GX_BP_GET_TEVCOLORCOMBINER_SCALE_OR_COMPARE_MODE(reg) GX_BITGET((reg), 10, 2)
-        /* set value  */ #define GX_BP_SET_TEVCOLORCOMBINER_SCALE_OR_COMPARE_MODE(reg, x) ((reg) = GX_BITSET((reg), 10, 2, x))
+        /* set value  */ #define GX_BP_SET_TEVCOLORCOMBINER_SCALE_OR_COMPARE_MODE(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_TEVCOLORCOMBINER_SCALE_OR_COMPARE_MODE)
 
 // DEST [8:9] (2)
         /* start bit  */ #define GX_BP_TEVCOLORCOMBINER_DEST_B 8
@@ -1476,7 +1488,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_TEVCOLORCOMBINER_DEST_SHIFT 22
 
         /* get value  */ #define GX_BP_GET_TEVCOLORCOMBINER_DEST(reg) GX_BITGET((reg), 8, 2)
-        /* set value  */ #define GX_BP_SET_TEVCOLORCOMBINER_DEST(reg, x) ((reg) = GX_BITSET((reg), 8, 2, x))
+        /* set value  */ #define GX_BP_SET_TEVCOLORCOMBINER_DEST(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_GET_TEVCOLORCOMBINER)
 
 
 /******************************************************************************
@@ -1504,7 +1516,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_TEVREGLO_ALPHA_SHIFT 12
 
         /* get value  */ #define GX_BP_GET_TEVREGLO_ALPHA(reg) GX_BITGET((reg), 9, 11)
-        /* set value  */ #define GX_BP_SET_TEVREGLO_ALPHA(reg, x) ((reg) = GX_BITSET((reg), 9, 11, x))
+        /* set value  */ #define GX_BP_SET_TEVREGLO_ALPHA(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_TEVREGLO_ALPHA)
 
 // TYPE [8:8] (1)
         /* start bit  */ #define GX_BP_TEVREGLO_TYPE_B 8
@@ -1516,7 +1528,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_TEVREGLO_TYPE_SHIFT 23
 
         /* get value  */ #define GX_BP_GET_TEVREGLO_TYPE(reg) GX_BITGET((reg), 8, 1)
-        /* set value  */ #define GX_BP_SET_TEVREGLO_TYPE(reg, x) ((reg) = GX_BITSET((reg), 8, 1, x))
+        /* set value  */ #define GX_BP_SET_TEVREGLO_TYPE(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_TEVREGLO_TYPE)
 
 
 /******************************************************************************
@@ -1532,7 +1544,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_TEVREGHI_BLUE_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_TEVREGHI_BLUE(reg) GX_BITGET((reg), 21, 11)
-        /* set value  */ #define GX_BP_SET_TEVREGHI_BLUE(reg, x) ((reg) = GX_BITSET((reg), 21, 11, x))
+        /* set value  */ #define GX_BP_SET_TEVREGHI_BLUE(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_TEVREGHI_BLUE)
 
 // GREEN [9:19] (11)
         /* start bit  */ #define GX_BP_TEVREGHI_GREEN_B 9
@@ -1544,7 +1556,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_TEVREGHI_GREEN_SHIFT 12
 
         /* get value  */ #define GX_BP_GET_TEVREGHI_GREEN(reg) GX_BITGET((reg), 9, 11)
-        /* set value  */ #define GX_BP_SET_TEVREGHI_GREEN(reg, x) ((reg) = GX_BITSET((reg), 9, 11, x))
+        /* set value  */ #define GX_BP_SET_TEVREGHI_GREEN(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_TEVREGHI_GREEN)
 
 // TYPE [8:8] (1)
         /* start bit  */ #define GX_BP_TEVREGHI_TYPE_B 8
@@ -1556,7 +1568,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_TEVREGHI_TYPE_SHIFT 23
 
         /* get value  */ #define GX_BP_GET_TEVREGHI_TYPE(reg) GX_BITGET((reg), 8, 1)
-        /* set value  */ #define GX_BP_SET_TEVREGHI_TYPE(reg, x) ((reg) = GX_BITSET((reg), 8, 1, x))
+        /* set value  */ #define GX_BP_SET_TEVREGHI_TYPE(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_TEVREGHI_TYPE)
 
 
 /******************************************************************************
@@ -1572,7 +1584,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_FOGRANGE_CENTER_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_FOGRANGE_CENTER(reg) GX_BITGET((reg), 22, 10)
-        /* set value  */ #define GX_BP_SET_FOGRANGE_CENTER(reg, x) ((reg) = GX_BITSET((reg), 22, 10, x))
+        /* set value  */ #define GX_BP_SET_FOGRANGE_CENTER(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_FOGRANGE_CENTER)
 
 // ENABLED [21:21] (1)
         /* start bit  */ #define GX_BP_FOGRANGE_ENABLED_B 21
@@ -1584,7 +1596,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_FOGRANGE_ENABLED_SHIFT 10
 
         /* get value  */ #define GX_BP_GET_FOGRANGE_ENABLED(reg) GX_BITGET((reg), 21, 1)
-        /* set value  */ #define GX_BP_SET_FOGRANGE_ENABLED(reg, x) ((reg) = GX_BITSET((reg), 21, 1, x))
+        /* set value  */ #define GX_BP_SET_FOGRANGE_ENABLED(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_FOGRANGE_ENABLED)
 
 
 /******************************************************************************
@@ -1600,7 +1612,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_FOGRANGEK_HI_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_FOGRANGEK_HI(reg) GX_BITGET((reg), 20, 12)
-        /* set value  */ #define GX_BP_SET_FOGRANGEK_HI(reg, x) ((reg) = GX_BITSET((reg), 20, 12, x))
+        /* set value  */ #define GX_BP_SET_FOGRANGEK_HI(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_FOGRANGEK_HI)
 
 // LO [8:19] (12)
         /* start bit  */ #define GX_BP_FOGRANGEK_LO_B 8
@@ -1612,7 +1624,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_FOGRANGEK_LO_SHIFT 12
 
         /* get value  */ #define GX_BP_GET_FOGRANGEK_LO(reg) GX_BITGET((reg), 8, 12)
-        /* set value  */ #define GX_BP_SET_FOGRANGEK_LO(reg, x) ((reg) = GX_BITSET((reg), 8, 12, x))
+        /* set value  */ #define GX_BP_SET_FOGRANGEK_LO(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_FOGRANGEK_LO)
 
 
 /******************************************************************************
@@ -1628,7 +1640,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_FOGPARAM0_A_MANT_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_FOGPARAM0_A_MANT(reg) GX_BITGET((reg), 21, 11)
-        /* set value  */ #define GX_BP_SET_FOGPARAM0_A_MANT(reg, x) ((reg) = GX_BITSET((reg), 21, 11, x))
+        /* set value  */ #define GX_BP_SET_FOGPARAM0_A_MANT(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_FOGPARAM0_A_MANT)
 
 // A_EXP [13:20] (8)
         /* start bit  */ #define GX_BP_FOGPARAM0_A_EXP_B 13
@@ -1640,7 +1652,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_FOGPARAM0_A_EXP_SHIFT 11
 
         /* get value  */ #define GX_BP_GET_FOGPARAM0_A_EXP(reg) GX_BITGET((reg), 13, 8)
-        /* set value  */ #define GX_BP_SET_FOGPARAM0_A_EXP(reg, x) ((reg) = GX_BITSET((reg), 13, 8, x))
+        /* set value  */ #define GX_BP_SET_FOGPARAM0_A_EXP(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_FOGPARAM0_A_EXP)
 
 // A_SIGN [12:12] (1)
         /* start bit  */ #define GX_BP_FOGPARAM0_A_SIGN_B 12
@@ -1652,7 +1664,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_FOGPARAM0_A_SIGN_SHIFT 19
 
         /* get value  */ #define GX_BP_GET_FOGPARAM0_A_SIGN(reg) GX_BITGET((reg), 12, 1)
-        /* set value  */ #define GX_BP_SET_FOGPARAM0_A_SIGN(reg, x) ((reg) = GX_BITSET((reg), 12, 1, x))
+        /* set value  */ #define GX_BP_SET_FOGPARAM0_A_SIGN(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_FOGPARAM0_A_SIGN)
 
 
 /******************************************************************************
@@ -1668,7 +1680,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_FOGPARAM1_B_MAG_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_FOGPARAM1_B_MAG(reg) GX_BITGET((reg), 8, 24)
-        /* set value  */ #define GX_BP_SET_FOGPARAM1_B_MAG(reg, x) ((reg) = GX_BITSET((reg), 8, 24, x))
+        /* set value  */ #define GX_BP_SET_FOGPARAM1_B_MAG(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_FOGPARAM1_B_MAG)
 
 
 /******************************************************************************
@@ -1684,7 +1696,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_FOGPARAM2_B_SHIFT_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_FOGPARAM2_B_SHIFT(reg) GX_BITGET((reg), 27, 5)
-        /* set value  */ #define GX_BP_SET_FOGPARAM2_B_SHIFT(reg, x) ((reg) = GX_BITSET((reg), 27, 5, x))
+        /* set value  */ #define GX_BP_SET_FOGPARAM2_B_SHIFT(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_FOGPARAM2_B_SHIFT)
 
 
 /******************************************************************************
@@ -1700,7 +1712,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_FOGPARAM3_C_MANT_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_FOGPARAM3_C_MANT(reg) GX_BITGET((reg), 21, 11)
-        /* set value  */ #define GX_BP_SET_FOGPARAM3_C_MANT(reg, x) ((reg) = GX_BITSET((reg), 21, 11, x))
+        /* set value  */ #define GX_BP_SET_FOGPARAM3_C_MANT(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_FOGPARAM3_C_MANT)
 
 // C_EXP [13:20] (8)
         /* start bit  */ #define GX_BP_FOGPARAM3_C_EXP_B 13
@@ -1712,7 +1724,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_FOGPARAM3_C_EXP_SHIFT 11
 
         /* get value  */ #define GX_BP_GET_FOGPARAM3_C_EXP(reg) GX_BITGET((reg), 13, 8)
-        /* set value  */ #define GX_BP_SET_FOGPARAM3_C_EXP(reg, x) ((reg) = GX_BITSET((reg), 13, 8, x))
+        /* set value  */ #define GX_BP_SET_FOGPARAM3_C_EXP(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_FOGPARAM3_C_EXP)
 
 // C_SIGN [12:12] (1)
         /* start bit  */ #define GX_BP_FOGPARAM3_C_SIGN_B 12
@@ -1724,7 +1736,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_FOGPARAM3_C_SIGN_SHIFT 19
 
         /* get value  */ #define GX_BP_GET_FOGPARAM3_C_SIGN(reg) GX_BITGET((reg), 12, 1)
-        /* set value  */ #define GX_BP_SET_FOGPARAM3_C_SIGN(reg, x) ((reg) = GX_BITSET((reg), 12, 1, x))
+        /* set value  */ #define GX_BP_SET_FOGPARAM3_C_SIGN(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_FOGPARAM3_C_SIGN)
 
 // PROJ [11:11] (1)
         /* start bit  */ #define GX_BP_FOGPARAM3_PROJ_B 11
@@ -1736,7 +1748,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_FOGPARAM3_PROJ_SHIFT 20
 
         /* get value  */ #define GX_BP_GET_FOGPARAM3_PROJ(reg) GX_BITGET((reg), 11, 1)
-        /* set value  */ #define GX_BP_SET_FOGPARAM3_PROJ(reg, x) ((reg) = GX_BITSET((reg), 11, 1, x))
+        /* set value  */ #define GX_BP_SET_FOGPARAM3_PROJ(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_FOGPARAM3_PROJ)
 
 // FSEL [8:10] (3)
         /* start bit  */ #define GX_BP_FOGPARAM3_FSEL_B 8
@@ -1748,7 +1760,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_FOGPARAM3_FSEL_SHIFT 21
 
         /* get value  */ #define GX_BP_GET_FOGPARAM3_FSEL(reg) GX_BITGET((reg), 8, 3)
-        /* set value  */ #define GX_BP_SET_FOGPARAM3_FSEL(reg, x) ((reg) = GX_BITSET((reg), 8, 3, x))
+        /* set value  */ #define GX_BP_SET_FOGPARAM3_FSEL(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_FOGPARAM3_FSEL)
 
 
 /******************************************************************************
@@ -1764,7 +1776,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_FOGCOLOR_RGB_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_FOGCOLOR_RGB(reg) GX_BITGET((reg), 8, 24)
-        /* set value  */ #define GX_BP_SET_FOGCOLOR_RGB(reg, x) ((reg) = GX_BITSET((reg), 8, 24, x))
+        /* set value  */ #define GX_BP_SET_FOGCOLOR_RGB(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_FOGCOLOR_RGB)
 
 
 /******************************************************************************
@@ -1780,7 +1792,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_ALPHACOMPARE_REF0_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_ALPHACOMPARE_REF0(reg) GX_BITGET((reg), 24, 8)
-        /* set value  */ #define GX_BP_SET_ALPHACOMPARE_REF0(reg, x) ((reg) = GX_BITSET((reg), 24, 8, x))
+        /* set value  */ #define GX_BP_SET_ALPHACOMPARE_REF0(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_ALPHACOMPARE_REF0)
 
 // REF1 [16:23] (8)
         /* start bit  */ #define GX_BP_ALPHACOMPARE_REF1_B 16
@@ -1792,7 +1804,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_ALPHACOMPARE_REF1_SHIFT 8
 
         /* get value  */ #define GX_BP_GET_ALPHACOMPARE_REF1(reg) GX_BITGET((reg), 16, 8)
-        /* set value  */ #define GX_BP_SET_ALPHACOMPARE_REF1(reg, x) ((reg) = GX_BITSET((reg), 16, 8, x))
+        /* set value  */ #define GX_BP_SET_ALPHACOMPARE_REF1(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_ALPHACOMPARE_REF1)
 
 // COMP0 [13:15] (3)
         /* start bit  */ #define GX_BP_ALPHACOMPARE_COMP0_B 13
@@ -1804,7 +1816,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_ALPHACOMPARE_COMP0_SHIFT 16
 
         /* get value  */ #define GX_BP_GET_ALPHACOMPARE_COMP0(reg) GX_BITGET((reg), 13, 3)
-        /* set value  */ #define GX_BP_SET_ALPHACOMPARE_COMP0(reg, x) ((reg) = GX_BITSET((reg), 13, 3, x))
+        /* set value  */ #define GX_BP_SET_ALPHACOMPARE_COMP0(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_ALPHACOMPARE_COMP0)
 
 // COMP1 [10:12] (3)
         /* start bit  */ #define GX_BP_ALPHACOMPARE_COMP1_B 10
@@ -1816,7 +1828,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_ALPHACOMPARE_COMP1_SHIFT 19
 
         /* get value  */ #define GX_BP_GET_ALPHACOMPARE_COMP1(reg) GX_BITGET((reg), 10, 3)
-        /* set value  */ #define GX_BP_SET_ALPHACOMPARE_COMP1(reg, x) ((reg) = GX_BITSET((reg), 10, 3, x))
+        /* set value  */ #define GX_BP_SET_ALPHACOMPARE_COMP1(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_ALPHACOMPARE_COMP1)
 
 // LOGIC [8:9] (2)
         /* start bit  */ #define GX_BP_ALPHACOMPARE_LOGIC_B 8
@@ -1828,7 +1840,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_ALPHACOMPARE_LOGIC_SHIFT 22
 
         /* get value  */ #define GX_BP_GET_ALPHACOMPARE_LOGIC(reg) GX_BITGET((reg), 8, 2)
-        /* set value  */ #define GX_BP_SET_ALPHACOMPARE_LOGIC(reg, x) ((reg) = GX_BITSET((reg), 8, 2, x))
+        /* set value  */ #define GX_BP_SET_ALPHACOMPARE_LOGIC(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_ALPHACOMPARE_LOGIC)
 
 
 /******************************************************************************
@@ -1844,7 +1856,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_TEVKSEL_SWAP_RB_SHIFT 0
 
         /* get value  */ #define GX_BP_GET_TEVKSEL_SWAP_RB(reg) GX_BITGET((reg), 30, 2)
-        /* set value  */ #define GX_BP_SET_TEVKSEL_SWAP_RB(reg, x) ((reg) = GX_BITSET((reg), 30, 2, x))
+        /* set value  */ #define GX_BP_SET_TEVKSEL_SWAP_RB(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_TEVKSEL_SWAP_RB)
 
 // SWAP_GA [28:29] (2) - Odd ksel number: green; even: alpha
         /* start bit  */ #define GX_BP_TEVKSEL_SWAP_GA_B 28
@@ -1856,7 +1868,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_TEVKSEL_SWAP_GA_SHIFT 2
 
         /* get value  */ #define GX_BP_GET_TEVKSEL_SWAP_GA(reg) GX_BITGET((reg), 28, 2)
-        /* set value  */ #define GX_BP_SET_TEVKSEL_SWAP_GA(reg, x) ((reg) = GX_BITSET((reg), 28, 2, x))
+        /* set value  */ #define GX_BP_SET_TEVKSEL_SWAP_GA(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_TEVKSEL_SWAP_GA)
 
 // KCSEL_EVEN [23:27] (5)
         /* start bit  */ #define GX_BP_TEVKSEL_KCSEL_EVEN_B 23
@@ -1868,7 +1880,7 @@ typedef enum {
         /* bit shift  */ #define GX_BP_TEVKSEL_KCSEL_EVEN_SHIFT 4
 
         /* get value  */ #define GX_BP_GET_TEVKSEL_KCSEL_EVEN(reg) GX_BITGET((reg), 23, 5)
-        /* set value  */ #define GX_BP_SET_TEVKSEL_KCSEL_EVEN(reg, x) ((reg) = GX_BITSET((reg), 23, 5, x))
+        /* set value  */ #define GX_BP_SET_TEVKSEL_KCSEL_EVEN(reg, x) GX_BITSET_FAST((reg), (x), GX_BP_TEVKSEL_KCSEL_EVEN)
 
 // KASEL_EVEN [18:22] (5)
         /* start bit  */ #define GX_BP_TEVKSEL_KASEL_EVEN_B 18

@@ -807,7 +807,7 @@ config.libs = [
             Object(NonMatching, "revolution/GX/GXTev.c"),
             Object(NonMatching, "revolution/GX/GXPixel.c"),
             Object(Matching, "revolution/GX/GXDisplayList.c"),
-            Object(Matching, "revolution/GX/GXTransform.c"),
+            Object(NonMatching, "revolution/GX/GXTransform.c"),
             Object(NonMatching, "revolution/GX/GXPerf.c"),
             Object(Matching, "revolution/IPC/ipcMain.c"),
             Object(NonMatching, "revolution/IPC/ipcclt.c"),

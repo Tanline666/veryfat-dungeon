@@ -3,7 +3,6 @@
 
 #include <revolution/GX.h>
 
-
 namespace EGG {
 ShadowTextureManager::ShadowTextureManager()
     : mFlags(SHADOW_MGR_ENABLE), mFreeGroup(GROUP_MAX), mShadowIdx(0) {
@@ -59,7 +58,7 @@ void ShadowTextureManager::Draw(Screen* screen) {
     GXSetChanAmbColor(GX_COLOR0A0, DrawGX::WHITE);
 
     GXColor fog = {0, 0, 0, 255};
-    GXSetFog(GX_FOG_NONE, fog, 0.0f, 1.0f, 0.0f, 1.0f);
+    GXSetFog(GX_FOG_NONE, 0.0f, 1.0f, 0.0f, 1.0f, fog);
 
     TextureBuffer* localGroups[GROUP_MAX];
     int firstGroupIdx = -1;

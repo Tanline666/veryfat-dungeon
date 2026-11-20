@@ -1,0 +1,241 @@
+#ifndef NW4R_EF_EFFECT_H
+#define NW4R_EF_EFFECT_H
+#include <nw4r/types_nw4r.h>
+
+#include <nw4r/ef/activitylist.h>
+#include <nw4r/ef/draworder.h>
+#include <nw4r/ef/particlemanager.h>
+#include <nw4r/ef/referencedobject.h>
+#include <nw4r/ef/res_emitter.h>
+#include <nw4r/ef/types.h>
+#include <nw4r/math.h>
+#include <nw4r/ut.h>
+
+namespace nw4r {
+namespace ef {
+
+// Forward declarations
+class Emitter;
+class ParticleManager;
+class Particle;
+class EffectSystem;
+class DrawOrderBase;
+
+/**
+ * @~english @brief Manages a hierarchy of emitters.
+ * @~japanese @brief 1つのエミッタ階層を管理する。
+ */
+class Effect : public ReferencedObject {
+    friend class EffectSystem;
+    friend class DrawOrderBase;
+
+private:
+    enum Flag {
+        FLAG_DISABLE_CALC = (1 << 0),
+        FLAG_DISABLE_DRAW = (1 << 1),
+        FLAG_EXIST_CALC_REMAIN = (1 << 16),
+    };
+
+    /**
+     * @~english @brief Struct for managing effect calculation callbacks.
+     * @~japanese @brief エフェクト計算コールバックを管理するストラクト。
+     */
+    struct CallBack {
+        typedef void (*PrevEmissionFunc)(Emitter* pEmitter,
+                                         ParticleManager* pManager, int* pCount,
+                                         u32* pFlags,
+                                         f32 (*pParams)[NUM_PARAMS], u16* pLife,
+                                         f32* pLifeRnd, math::MTX34* pSpace);
+
+        typedef void (*PtclCalcFunc)(ParticleManager* pManager, ut::List* pList,
+                                     Particle* pParticle);
+
+        PrevEmissionFunc mPrevEmission; // at 0x0
+        PtclCalcFunc mPrevPtclCalc;     // at 0x4
+        PtclCalcFunc mPostPtclCalc;     // at 0x8
+    };
+
+public:
+    EffectSystem* mManagerES;   // at 0x20
+    ActivityList mActivityList; // at 0x24
+    u32 mGroupID;               // at 0x40
+    CallBack mCallBack;         // at 0x44
+
+protected:
+    u32 mFlags;                    // at 0x50
+    math::MTX34 mRootMtx;          // at 0x54
+    math::VEC3 mVelocity;          // at 0x84
+    ut::List mParticleManager;     // at 0x90
+    DrawOrderBase* mDrawOrderFunc; // at 0x9C
+
+public:
+    /**
+     * @~english @brief Constructor
+     * @~japanese @brief コンストラクタ
+     */
+    Effect();
+    /**
+     * @~english @brief Destructor
+     * @~japanese @brief デストラクタ
+     */
+    ~Effect();
+
+    /**
+     * @~english @brief Sends a command to close the opened Effect instances.
+     * @~japanese @brief
+     * オープンしたEffectインスタンスをクローズするコマンドを送る。
+     */
+    virtual void SendClosing(); // at 0x8
+    /**
+     * @~english @brief Function for destroying Effect instances.
+     * @~japanese @brief Effectインスタンスを破棄するための関数。
+     */
+    virtual void DestroyFunc(); // at 0xC
+
+    virtual bool Initialize(EffectSystem* pSystem, EmitterResource* pResource,
+                            u16 calcRemain); // at 0x10
+    virtual Emitter* CreateEmitter(ResEmitter res, u8 drawWeight,
+                                   u16 calcRemain) {
+        return CreateEmitter(res.ptr(), drawWeight, calcRemain);
+    } // at 0x14
+
+    /**
+     * @~english @brief Animates effects.
+     * @~japanese @brief エフェクトをアニメートする。
+     *
+     * @~english @param calcoption Animation option
+     * @~japanese @param calcoption アニメオプション
+     */
+    virtual void Calc(CalcOption calcoption); // at 0x18
+    /**
+     * @~english @brief Renders effects.
+     * @~japanese @brief エフェクトを描画する。
+     *
+     * @~english @param drawInfo Constant reference to rendering information
+     * @~japanese @param drawInfo 描画情報への定数の参照
+     */
+    virtual void Draw(const DrawInfo& drawInfo); // at 0x1C
+
+    bool Closing(Emitter* target);
+
+    Emitter* CreateEmitter(EmitterResource* eh, u8 drawWeight, u16 calcRemain);
+    u32 RetireEmitter(Emitter* target);
+
+    /**
+     * @~english @brief Deletes all emitters being managed.
+     * @~japanese @brief 管理するエミッタを全て削除する。
+     *
+     * @~english @return Amount of deleted emitters
+     * @~japanese @return 削除したエミッタ値
+     */
+    u32 RetireEmitterAll();
+    /**
+     * @~english @brief Deletes all particles being managed.
+     * @~japanese @brief 管理するパーティクルを全て削除する。
+     *
+     * @~english @return Amount of deleted particles
+     * @~japanese @return 削除したパーティクル値
+     */
+    u32 RetireParticleAll();
+
+    u16 GetNumEmitter() const;
+    Emitter* GetEmitter(u16 idx);
+
+    u32 ForeachParticleManager(ForEachFunc pFunc, ForEachParam param,
+                               bool ignoreLifeStatus);
+    u32 ForeachEmitterFrom(ForEachFunc pFunc, ForEachParam param,
+                           bool ignoreLifeStatus, Emitter* pEmitter);
+
+    void ParticleManagerAdd(ParticleManager* pm) {
+        NW4R_POINTER_ASSERT(pm, 235);
+        mDrawOrderFunc->Add(this, pm);
+    }
+    void ParticleManagerRemove(ParticleManager* pManager) {
+        mDrawOrderFunc->Remove(this, pManager);
+    }
+
+    void Modifier_SetSimpleLightType(u8 type, bool ignoreLifeStatus = false) {
+        ForeachParticleManager(
+            ParticleManager::ModifierTravFunc_SetSimpleLightType,
+            static_cast<u32>(type), ignoreLifeStatus);
+    }
+
+    void Modifier_SetSimpleLightAmbient(const GXColor& rColor,
+                                        bool ignoreLifeStatus = false) {
+        ForeachParticleManager(
+            ParticleManager::ModifierTravFunc_SetSimpleLightAmbient,
+            reinterpret_cast<u32>(&rColor), ignoreLifeStatus);
+    }
+
+    // @bug Surely meant to be a const reference...
+    void Modifier_SetScale(math::VEC2& rScale, bool ignoreLifeStatus = false) {
+        ForeachParticleManager(ParticleManager::ModifierTravFunc_SetScale,
+                               reinterpret_cast<u32>(&rScale),
+                               ignoreLifeStatus);
+    }
+
+    void Modifier_SetRotate(const math::VEC3& rRot,
+                            bool ignoreLifeStatus = false) {
+        ForeachParticleManager(ParticleManager::ModifierTravFunc_SetRotate,
+                               reinterpret_cast<u32>(&rRot), ignoreLifeStatus);
+    }
+
+    bool GetFlagDisableCalc() const {
+        return mFlags & FLAG_DISABLE_CALC;
+    }
+    void SetFlagDisableCalc(bool disable) {
+        if (disable) {
+            mFlags |= FLAG_DISABLE_CALC;
+        } else {
+            mFlags &= ~FLAG_DISABLE_CALC;
+        }
+    }
+
+    bool GetFlagDisableDraw() const {
+        return mFlags & FLAG_DISABLE_DRAW;
+    }
+    void SetFlagDisableDraw(bool disable) {
+        if (disable) {
+            mFlags |= FLAG_DISABLE_DRAW;
+        } else {
+            mFlags &= ~FLAG_DISABLE_DRAW;
+        }
+    }
+
+    bool GetFlagExistCalcRemain() const {
+        return mFlags & FLAG_EXIST_CALC_REMAIN;
+    }
+    void SetFlagExistCalcRemain(bool exist) {
+        if (exist) {
+            mFlags |= FLAG_EXIST_CALC_REMAIN;
+        } else {
+            mFlags &= ~FLAG_EXIST_CALC_REMAIN;
+        }
+    }
+
+    const math::MTX34* GetRootMtx() const {
+        return &mRootMtx;
+    }
+
+    void SetRootMtx(const math::MTX34& mtx);
+
+    /**
+     * @~english @brief Gets an effect's velocity.
+     * @~japanese @brief エフェクトの速度を取得する。
+     *
+     * @~english @return Pointer to velocity
+     * @~japanese @return 速度へのポインタ
+     */
+    const math::VEC3* GetVelocity() const {
+        return &mVelocity;
+    }
+
+    void SetVelocity(const nw4r::math::VEC3& rVelocity) {
+        mVelocity = rVelocity;
+    }
+};
+
+} // namespace ef
+} // namespace nw4r
+
+#endif

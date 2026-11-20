@@ -147,11 +147,12 @@ void ResShp::GXSetArray(GXAttr attr, const void* pBase, u8 stride) {
     u8* pCmd = GetResShpPrePrim().ref().dl.array[attr - GX_VA_POS];
     u32 cpAttr = attr != GX_VA_NBT ? attr - GX_VA_POS : 1;
 
-    detail::ResWriteCPCmd(&pCmd[GX_CP_CMD_SZ * 0], cpAttr + GX_CP_REG_ARRAYBASE,
+    detail::ResWriteCPCmd(&pCmd[GX_CP_CMD_SZ * 0],
+                          cpAttr + (GX_CP_REG_ARRAYBASE << 4),
                           reinterpret_cast<u32>(OSCachedToPhysical(pBase)));
 
     detail::ResWriteCPCmd(&pCmd[GX_CP_CMD_SZ * 1],
-                          cpAttr + GX_CP_REG_ARRAYSTRIDE, stride);
+                          cpAttr + (GX_CP_REG_ARRAYSTRIDE << 4), stride);
 }
 
 void ResShp::DisableSetArray(GXAttr attr) {

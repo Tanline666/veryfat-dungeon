@@ -11,16 +11,16 @@ Effect::~Effect() {
     RetireEmitterAll();
 }
 
-bool Effect::Initialize(EffectSystem* pSystem, EmitterResource* pResource,
+bool Effect::Initialize(EffectSystem* manager, EmitterResource* eh,
                         u16 calcRemain) {
 
     ReferencedObject::Initialize();
 
     mActivityList.Initialize();
 
-    mDrawOrderFunc = pSystem->mDrawOrderFunc;
+    mDrawOrderFunc = manager->mDrawOrderFunc;
     math::MTX34Identity(&mRootMtx);
-    mManagerES = pSystem;
+    mManagerES = manager;
 
     mCallBack.mPrevEmission = NULL;
     mCallBack.mPrevPtclCalc = NULL;
@@ -32,13 +32,13 @@ bool Effect::Initialize(EffectSystem* pSystem, EmitterResource* pResource,
     mVelocity.y = 0.0f;
     mVelocity.z = 0.0f;
 
-    Emitter* pEmitter = pSystem->GetMemoryManager()->AllocEmitter();
+    Emitter* pEmitter = manager->GetMemoryManager()->AllocEmitter();
     if (pEmitter == NULL) {
         return false;
     }
 
-    if (!pEmitter->Initialize(this, pResource, 128)) {
-        pSystem->GetMemoryManager()->FreeEmitter(pEmitter);
+    if (!pEmitter->Initialize(this, eh, 128)) {
+        manager->GetMemoryManager()->FreeEmitter(pEmitter);
         return false;
     }
 
@@ -59,6 +59,8 @@ void Effect::DestroyFunc() {
 }
 
 bool Effect::Closing(Emitter* target) {
+    NW4R_POINTER_ASSERT(target, 93);
+
     if (target->mParent != NULL) {
         target->mParent->UnRef();
     }

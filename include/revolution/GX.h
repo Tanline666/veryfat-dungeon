@@ -18,11 +18,13 @@ extern "C" {
 #include <revolution/GX/GXHardware.h>
 #include <revolution/GX/GXHardwareBP.h>
 #include <revolution/GX/GXHardwareCP.h>
+#include <revolution/GX/GXHardwareGEN.h>
 #include <revolution/GX/GXHardwareXF.h>
 #include <revolution/GX/GXInit.h>
 #include <revolution/GX/GXInternal.h>
 #include <revolution/GX/GXLight.h>
 #include <revolution/GX/GXMisc.h>
+#include <revolution/GX/GXPerf.h>
 #include <revolution/GX/GXPixel.h>
 #include <revolution/GX/GXTev.h>
 #include <revolution/GX/GXTexture.h>

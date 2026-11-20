@@ -11,8 +11,7 @@ extern "C" {
  * (Bit indices are LSB)
  */
 #define GX_BITSET(field, pos, size, value)                                     \
-    __rlwimi((field), (value), 31 - (pos) - (size) + 1, (pos),                 \
-             (pos) + (size) - 1)
+    __rlwimi((field), (value), (pos), 32 - (pos) - (size), 31 - (pos))
 
 /**
  * Compose value from bitfield.
@@ -21,6 +20,9 @@ extern "C" {
  */
 #define GX_BITGET(field, pos, size)                                            \
     ((field) >> (31 - (pos) - (size) + 1) & ((1 << (size)) - 1))
+
+#define GX_BITSET_FAST(field, value, reg)                                      \
+    (field) = (u32)GX_BITSET((field), (reg##_SHIFT), (reg##_SZ), (value))
 
 /**
  * Pack value into bitfield.
@@ -53,6 +55,24 @@ typedef unsigned char GXBool;
 
 #define GX_ENABLE GX_TRUE
 #define GX_DISABLE GX_FALSE
+
+#if defined(DEBUG)
+extern GXBool __GXinBegin
+
+#define GX_ASSERT OS_ASSERT
+
+#define GX_ASSERT_BETWEEN_BEGIN_END(s)                                         \
+    OS_ASSERT(!__GXinBegin, "'" #s "' is not allowed between GXBegin/GXEnd")
+#else
+#define GX_ASSERT(exp, ...) ((void)0)
+#define GX_ASSERT_BETWEEN_BEGIN_END(s) ((void)0)
+#endif
+
+    DECOMP_INLINE void DUMMY_FOR_INDENT(void) {
+}
+
+extern void __GXInitGX();
+extern void __GXSetTmemConfig(u32 config);
 
 /**
  * Common structs
@@ -438,6 +458,16 @@ typedef enum _GXMtxType {
     GX_MTX_2x4,
 } GXMtxType;
 
+typedef enum _GXTexOffset {
+    GX_TO_ZERO,
+    GX_TO_SIXTEENTH,
+    GX_TO_EIGHTH,
+    GX_TO_FOURTH,
+    GX_TO_HALF,
+    GX_TO_ONE,
+    GX_MAX_TEXOFFSET
+} GXTexOffset;
+
 typedef enum _GXPixelFmt {
     GX_PF_RGB8_Z24,
     GX_PF_RGBA6_Z24,
@@ -696,6 +726,8 @@ typedef enum _GXTevMode {
     GX_PASSCLR
 } GXTevMode;
 
+typedef enum _GXGamma { GX_GM_1_0, GX_GM_1_7, GX_GM_2_2 } GXGamma;
+
 typedef enum _GXTexCacheSize {
     GX_TEXCACHE_32K,
     GX_TEXCACHE_128K,
@@ -938,6 +970,12 @@ typedef enum _GXZTexOp {
 
     GX_MAX_ZTEXOP
 } GXZTexOp;
+
+typedef enum _GXAlphaReadMode {
+    GX_READ_00,
+    GX_READ_FF,
+    GX_READ_NONE,
+} GXAlphaReadMode;
 
 #ifdef __cplusplus
 }

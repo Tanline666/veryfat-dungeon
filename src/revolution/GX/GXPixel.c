@@ -2,8 +2,8 @@
 
 #include <math.h>
 
-void GXSetFog(GXFogType type, GXColor color, f32 start, f32 end, f32 near,
-              f32 far) {
+void GXSetFog(GXFogType type, f32 start, f32 end, f32 nearz, f32 farz,
+              GXColor color) {
     f32 a, c;
     u32 a_bits, c_bits;
 
@@ -12,29 +12,34 @@ void GXSetFog(GXFogType type, GXColor color, f32 start, f32 end, f32 near,
     u32 fogParamReg1 = 0;
     u32 fogParamReg2 = 0;
     u32 fogParamReg3 = 0;
+    u32 fsel;
+    BOOL ortho;
 
-    u32 fsel = GX_FOG_GET_FSEL(type);
-    BOOL ortho = GX_FOG_GET_PROJ(type);
+    GX_ASSERT(farz >= 0, "GXSetFog: The farz should be positive value");
+    GX_ASSERT(farz >= nearz, "GXSetFog: The farz should be larger than nearz");
+
+    fsel = GX_FOG_GET_FSEL(type);
+    ortho = GX_FOG_GET_PROJ(type);
 
     if (ortho) {
-        if (far == near || end == start) {
+        if (farz == nearz || end == start) {
             a = 0.0f;
             c = 0.0f;
         } else {
-            a = (1.0f / (end - start)) * (far - near);
-            c = (1.0f / (end - start)) * (start - near);
+            a = (1.0f / (end - start)) * (farz - nearz);
+            c = (1.0f / (end - start)) * (start - nearz);
         }
     } else {
         f32 f28, f25, f24;
         u32 expB, magB, shiftB;
 
-        if (far == near || end == start) {
+        if (farz == nearz || end == start) {
             f28 = 0.0f;
             f25 = 0.5f;
             f24 = 0.0f;
         } else {
-            f28 = (far * near) / ((far - near) * (end - start));
-            f25 = far / (far - near);
+            f28 = (farz * nearz) / ((farz - nearz) * (end - start));
+            f25 = farz / (farz - nearz);
             f24 = start / (end - start);
         }
 

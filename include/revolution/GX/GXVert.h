@@ -20,27 +20,27 @@ static inline void GXCmd1u32(u32 ul) {
 }
 
 static inline void GXPosition3f32(f32 x, f32 y, f32 z) {
-    WGPIPE.f = x;
-    WGPIPE.f = y;
-    WGPIPE.f = z;
+    GX_WRITE_F32(x);
+    GX_WRITE_F32(y);
+    GX_WRITE_F32(z);
 }
 
 static inline void GXPosition3u8(u8 x, u8 y, u8 z) {
-    WGPIPE.uc = x;
-    WGPIPE.uc = y;
-    WGPIPE.uc = z;
+    GX_WRITE_U8(x);
+    GX_WRITE_U8(y);
+    GX_WRITE_U8(z);
 }
 
 static inline void GXPosition3s8(s8 x, s8 y, s8 z) {
-    WGPIPE.c = x;
-    WGPIPE.c = y;
-    WGPIPE.c = z;
+    GX_WRITE_S8(x);
+    GX_WRITE_S8(y);
+    GX_WRITE_S8(z);
 }
 
 static inline void GXPosition3u16(u16 x, u16 y, u16 z) {
-    WGPIPE.us = x;
-    WGPIPE.us = y;
-    WGPIPE.us = z;
+    GX_WRITE_U16(x);
+    GX_WRITE_U16(y);
+    GX_WRITE_U16(z);
 }
 
 static inline void GXPosition3s16(s16 x, s16 y, s16 z) {
@@ -50,23 +50,23 @@ static inline void GXPosition3s16(s16 x, s16 y, s16 z) {
 }
 
 static inline void GXPosition2f32(f32 x, f32 y) {
-    WGPIPE.f = x;
-    WGPIPE.f = y;
+    GX_WRITE_F32(x);
+    GX_WRITE_F32(y);
 }
 
 static inline void GXPosition2u8(u8 x, u8 y) {
-    WGPIPE.uc = x;
-    WGPIPE.uc = y;
+    GX_WRITE_U8(x);
+    GX_WRITE_U8(y);
 }
 
 static inline void GXPosition2s8(s8 x, s8 y) {
-    WGPIPE.c = x;
-    WGPIPE.c = y;
+    GX_WRITE_S8(x);
+    GX_WRITE_S8(y);
 }
 
 static inline void GXPosition2u16(u16 x, u16 y) {
-    WGPIPE.us = x;
-    WGPIPE.us = y;
+    GX_WRITE_U16(x);
+    GX_WRITE_U16(y);
 }
 
 static inline void GXPosition2s16(s16 x, s16 y) {
@@ -75,23 +75,23 @@ static inline void GXPosition2s16(s16 x, s16 y) {
 }
 
 static inline void GXPosition1x16(u16 us) {
-    WGPIPE.us = us;
+    GX_WRITE_U16(us);
 }
 
 static inline void GXPosition1x8(u8 uc) {
-    WGPIPE.uc = uc;
+    GX_WRITE_U8(uc);
 }
 
 static inline void GXNormal3f32(f32 x, f32 y, f32 z) {
-    WGPIPE.f = x;
-    WGPIPE.f = y;
-    WGPIPE.f = z;
+    GX_WRITE_F32(x);
+    GX_WRITE_F32(y);
+    GX_WRITE_F32(z);
 }
 
 static inline void GXNormal3u16(s16 x, s16 y, s16 z) {
-    WGPIPE.us = x;
-    WGPIPE.us = y;
-    WGPIPE.us = z;
+    GX_WRITE_U16(x);
+    GX_WRITE_U16(y);
+    GX_WRITE_U16(z);
 }
 
 static inline void GXNormal3s16(s16 x, s16 y, s16 z) {
@@ -101,15 +101,15 @@ static inline void GXNormal3s16(s16 x, s16 y, s16 z) {
 }
 
 static inline void GXNormal3u8(u8 x, u8 y, u8 z) {
-    WGPIPE.uc = x;
-    WGPIPE.uc = y;
-    WGPIPE.uc = z;
+    GX_WRITE_U8(x);
+    GX_WRITE_U8(y);
+    GX_WRITE_U8(z);
 }
 
 static inline void GXNormal3s8(s8 x, s8 y, s8 z) {
-    WGPIPE.c = x;
-    WGPIPE.c = y;
-    WGPIPE.c = z;
+    GX_WRITE_S8(x);
+    GX_WRITE_S8(y);
+    GX_WRITE_S8(z);
 }
 
 static inline void GXNormal1x16(u16 us) {

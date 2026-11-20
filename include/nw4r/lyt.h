@@ -1,22 +1,22 @@
 #ifndef NW4R_PUBLIC_LYT_H
 #define NW4R_PUBLIC_LYT_H
 
-#include <nw4r/lyt/lyt_animation.h>
-#include <nw4r/lyt/lyt_arcResourceAccessor.h>
-#include <nw4r/lyt/lyt_bounding.h>
-#include <nw4r/lyt/lyt_common.h>
-#include <nw4r/lyt/lyt_drawInfo.h>
-#include <nw4r/lyt/lyt_group.h>
-#include <nw4r/lyt/lyt_init.h>
-#include <nw4r/lyt/lyt_layout.h>
-#include <nw4r/lyt/lyt_material.h>
-#include <nw4r/lyt/lyt_pane.h>
-#include <nw4r/lyt/lyt_picture.h>
-#include <nw4r/lyt/lyt_resourceAccessor.h>
-#include <nw4r/lyt/lyt_resources.h>
-#include <nw4r/lyt/lyt_texMap.h>
-#include <nw4r/lyt/lyt_textBox.h>
-#include <nw4r/lyt/lyt_types.h>
-#include <nw4r/lyt/lyt_window.h>
+#include <nw4r/lyt/animation.h>
+#include <nw4r/lyt/arcResourceAccessor.h>
+#include <nw4r/lyt/bounding.h>
+#include <nw4r/lyt/common.h>
+#include <nw4r/lyt/drawInfo.h>
+#include <nw4r/lyt/group.h>
+#include <nw4r/lyt/init.h>
+#include <nw4r/lyt/layout.h>
+#include <nw4r/lyt/material.h>
+#include <nw4r/lyt/pane.h>
+#include <nw4r/lyt/picture.h>
+#include <nw4r/lyt/resourceAccessor.h>
+#include <nw4r/lyt/resources.h>
+#include <nw4r/lyt/texMap.h>
+#include <nw4r/lyt/textBox.h>
+#include <nw4r/lyt/types.h>
+#include <nw4r/lyt/window.h>
 
 #endif

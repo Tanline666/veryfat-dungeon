@@ -31,7 +31,7 @@ static void __GXXfVtxSpecs(void) {
     // clang-format on
 
     // TODO(kiwi) Fakematch? Bitset macros don't work here
-    GX_XF_LOAD_REG_HDR(GX_XF_REG_INVERTEXSPEC);
+    GX_XF_LOAD_REG_HDR(GX_XF_REG_INVERTEXSPEC, 0);
     cmd = 0;
     cmd = cmd | clr >> 1;
     cmd = (txc << 3) & ~0xF | cmd;
@@ -199,8 +199,8 @@ void GXSetVtxDescv(const GXVtxDescList* list) {
 }
 
 void __GXSetVCD(void) {
-    GX_CP_LOAD_REG(GX_CP_REG_VCD_LO, gxdt->vcdLoReg);
-    GX_CP_LOAD_REG(GX_CP_REG_VCD_HI, gxdt->vcdHiReg);
+    GX_CP_LOAD_REG(GX_CP_REG_VCD_LO, 0, gxdt->vcdLoReg);
+    GX_CP_LOAD_REG(GX_CP_REG_VCD_HI, 0, gxdt->vcdHiReg);
     __GXXfVtxSpecs();
 }
 
@@ -214,7 +214,7 @@ void __GXCalculateVLim(void) {
     u32 vcdHi;
     s32 compCnt;
 
-    if (gxdt->SHORT_0x4 == 0) {
+    if (gxdt->vnum == 0) {
         return;
     }
 
@@ -546,16 +546,16 @@ void __GXSetVAT(void) {
 
     do {
         if (flags & 1) {
-            GX_CP_LOAD_REG(GX_CP_REG_VAT_GROUP0 | i, gxdt->vatA[i]);
-            GX_CP_LOAD_REG(GX_CP_REG_VAT_GROUP1 | i, gxdt->vatB[i]);
-            GX_CP_LOAD_REG(GX_CP_REG_VAT_GROUP2 | i, gxdt->vatC[i]);
+            GX_CP_LOAD_REG(GX_CP_REG_VAT_GROUP0, i, gxdt->vatA[i]);
+            GX_CP_LOAD_REG(GX_CP_REG_VAT_GROUP1, i, gxdt->vatB[i]);
+            GX_CP_LOAD_REG(GX_CP_REG_VAT_GROUP2, i, gxdt->vatC[i]);
         }
 
         i++;
         flags >>= 1;
     } while (flags != 0);
 
-    WGPIPE.c = GX_FIFO_CMD_NOOP;
+    GX_WRITE_U8(GX_FIFO_CMD_NOOP);
     gxdt->vatDirtyFlags = 0;
 }
 
@@ -711,15 +711,16 @@ void GXSetArray(GXAttr attr, const void* base, u8 stride) {
 
     idx = attr - GX_VA_POS;
 
-    GX_CP_LOAD_REG(GX_BP_REG_SETMODE0_TEX4 | idx,
+    GX_CP_LOAD_REG(GX_CP_REG_ARRAYBASE, idx,
                    // Address -> offset?
                    (u32)base & ~0xC0000000);
 
-    GX_CP_LOAD_REG(GX_BP_REG_SETIMAGE2_TEX4 | idx, stride);
+    GX_CP_LOAD_REG(GX_CP_REG_ARRAYSTRIDE, idx, stride);
 }
 
 void GXInvalidateVtxCache(void) {
-    WGPIPE.c = GX_FIFO_CMD_INVAL_VTX;
+    GX_ASSERT_BETWEEN_BEGIN_END(GXInvalidateVtxCache);
+    GX_WRITE_U8(GX_CP_CMD_TO_OPCODE(0, GX_FIFO_CMD_INVAL_VTX));
 }
 
 void GXSetTexCoordGen2(GXTexCoordID id, GXTexGenType type, GXTexGenSrc src,

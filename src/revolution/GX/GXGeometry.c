@@ -2,19 +2,19 @@
 
 inline void __GXSetAmbMat(u32 dirtyFlags) {
     if (dirtyFlags & GX_DIRTY_AMB_COLOR0) {
-        GX_XF_LOAD_REG(GX_XF_REG_AMBIENT0, *(u32*)&gxdt->ambColors[0]);
+        GX_XF_LOAD_REG(GX_XF_REG_AMBIENT0, *(u32*)&gxdt->ambColors[0], 0);
     }
 
     if (dirtyFlags & GX_DIRTY_AMB_COLOR1) {
-        GX_XF_LOAD_REG(GX_XF_REG_AMBIENT1, *(u32*)&gxdt->ambColors[1]);
+        GX_XF_LOAD_REG(GX_XF_REG_AMBIENT1, *(u32*)&gxdt->ambColors[1], 0);
     }
 
     if (dirtyFlags & GX_DIRTY_MAT_COLOR0) {
-        GX_XF_LOAD_REG(GX_XF_REG_MATERIAL0, *(u32*)&gxdt->matColors[0]);
+        GX_XF_LOAD_REG(GX_XF_REG_MATERIAL0, *(u32*)&gxdt->matColors[0], 0);
     }
 
     if (dirtyFlags & GX_DIRTY_MAT_COLOR1) {
-        GX_XF_LOAD_REG(GX_XF_REG_MATERIAL1, *(u32*)&gxdt->matColors[1]);
+        GX_XF_LOAD_REG(GX_XF_REG_MATERIAL1, *(u32*)&gxdt->matColors[1], 0);
     }
 }
 
@@ -25,7 +25,7 @@ inline void __GXSetLightChan(volatile s32 dirtyFlags) {
 
     if (dirtyFlags & GX_DIRTY_NUM_COLORS) {
         u32 colors = GX_BP_GET_GENMODE_NUMCOLORS(gxdt->genMode);
-        GX_XF_LOAD_REG(GX_XF_REG_NUMCOLORS, colors);
+        GX_XF_LOAD_REG(GX_XF_REG_NUMCOLORS, colors, 0);
     }
 
     bits = dirtyFlags;
@@ -33,7 +33,7 @@ inline void __GXSetLightChan(volatile s32 dirtyFlags) {
     i = 0;
     for (; bits != 0; i++, addr++, bits >>= 1) {
         if (bits & 1) {
-            GX_XF_LOAD_REG(addr, gxdt->colorControl[i]);
+            GX_XF_LOAD_REG(addr, gxdt->colorControl[i], 0);
         }
     }
 }
@@ -46,7 +46,7 @@ inline void __GXSetTexGen(volatile s32 dirtyFlags) {
 
     if (dirtyFlags & GX_DIRTY_NUM_TEX) {
         u32 gens = GX_BP_GET_GENMODE_NUMTEX(gxdt->genMode);
-        GX_XF_LOAD_REG(GX_XF_REG_NUMTEX, gens);
+        GX_XF_LOAD_REG(GX_XF_REG_NUMTEX, gens, 0);
     }
 
     bits = dirtyFlags;
@@ -55,8 +55,8 @@ inline void __GXSetTexGen(volatile s32 dirtyFlags) {
     for (; bits != 0; taddr++, i++, bits >>= 1) {
         dtaddr = taddr + GX_XF_REG_DUALTEX0 - GX_XF_REG_TEX0;
         if (bits & 1) {
-            GX_XF_LOAD_REG(taddr, gxdt->texRegs[i]);
-            GX_XF_LOAD_REG(dtaddr, gxdt->dualTexRegs[i]);
+            GX_XF_LOAD_REG(taddr, gxdt->texRegs[i], 0);
+            GX_XF_LOAD_REG(dtaddr, gxdt->dualTexRegs[i], 0);
         }
     }
 }
@@ -129,33 +129,43 @@ void __GXSetDirtyState(void) {
 }
 
 void GXBegin(GXPrimitive prim, GXVtxFmt fmt, u16 verts) {
+    GX_ASSERT((fmt < GX_MAX_VTXFMT), "GXBegin: Format Index is out of range");
+    GX_ASSERT(!__GXinBegin, "GXBegin: called inside another GXBegin/GXEnd");
+
     if (gxdt->gxDirtyFlags != 0) {
         __GXSetDirtyState();
     }
+
+#if defined(DEBUG)
+    //! The entirety of GXVerify is stubbed out in retail. __GXVerifyState()
+    //! cannot be added until later.
+    __GXinBegin = TRUE;
+#endif
 
     if (gxdt->WORD_0x0 == 0) {
         __GXSendFlushPrim();
     }
 
-    WGPIPE.c = fmt | prim;
-    WGPIPE.s = verts;
+    GX_WRITE_U8(fmt | prim);
+    GX_WRITE_U16(verts);
 }
 
 void __GXSendFlushPrim(void) {
     u32 i;
-    u32 sz = gxdt->SHORT_0x4 * gxdt->vlim;
+    u32 sz = gxdt->vnum * gxdt->vlim;
 
-    WGPIPE.uc = GX_TRIANGLESTRIP;
-    WGPIPE.us = gxdt->SHORT_0x4;
+    GX_WRITE_U8(GX_TRIANGLESTRIP);
+    GX_WRITE_U16(gxdt->vnum);
 
     for (i = 0; i < sz; i += 4) {
-        WGPIPE.i = 0;
+        GX_WRITE_U32(NULL);
     }
 
     gxdt->lastWriteWasXF = TRUE;
 }
 
 void GXSetLineWidth(u8 width, u32 offset) {
+    GX_ASSERT_BETWEEN_BEGIN_END(GXSetLineWidth);
     GX_BP_SET_LINEPTWIDTH_LINESZ(gxdt->linePtWidth, width);
     GX_BP_SET_LINEPTWIDTH_LINEOFS(gxdt->linePtWidth, offset);
     GX_BP_LOAD_REG(gxdt->linePtWidth);
@@ -163,6 +173,7 @@ void GXSetLineWidth(u8 width, u32 offset) {
 }
 
 void GXSetPointSize(u8 size, u32 offset) {
+    GX_ASSERT_BETWEEN_BEGIN_END(GXSetPointSize);
     GX_BP_SET_LINEPTWIDTH_POINTSZ(gxdt->linePtWidth, size);
     GX_BP_SET_LINEPTWIDTH_POINTOFS(gxdt->linePtWidth, offset);
     GX_BP_LOAD_REG(gxdt->linePtWidth);
@@ -170,6 +181,10 @@ void GXSetPointSize(u8 size, u32 offset) {
 }
 
 void GXEnableTexOffsets(GXTexCoordID id, GXBool lineOfs, GXBool pointOfs) {
+    GX_ASSERT_BETWEEN_BEGIN_END(GXEnableTexOffsets);
+    GX_ASSERT((id < GX_MAX_TEXCOORD),
+              "GXEnableTexOffsets: Invalid coordinate Id");
+
     GX_BP_SET_SU_SIZE_USELINEOFS(gxdt->txcRegs[id], lineOfs);
     GX_BP_SET_SU_SIZE_USEPOINTOFS(gxdt->txcRegs[id], pointOfs);
     GX_BP_LOAD_REG(gxdt->txcRegs[id]);
@@ -177,8 +192,24 @@ void GXEnableTexOffsets(GXTexCoordID id, GXBool lineOfs, GXBool pointOfs) {
 }
 
 void GXSetCullMode(GXCullMode mode) {
+    GXCullMode bits;
+    GX_ASSERT_BETWEEN_BEGIN_END(GXSetCullMode);
+#if defined(DEBUG)
+    switch (mode) {
+    case GX_CULL_FRONT:
+        bits = GX_CULL_BACK;
+        break;
+    case GX_CULL_BACK:
+        bits = GX_CULL_FRONT;
+        break;
+    default:
+        bits = mode;
+        break;
+    }
+#else
     // Swap bits to get hardware representation
-    GXCullMode bits = (GXCullMode)(mode << 1 & 2 | mode >> 1 & 1);
+    bits = (GXCullMode)(mode << 1 & 2 | mode >> 1 & 1);
+#endif
     GX_BP_SET_GENMODE_CULLMODE(gxdt->genMode, bits);
     gxdt->gxDirtyFlags |= GX_DIRTY_GEN_MODE;
 }
@@ -192,46 +223,20 @@ void GXGetCullMode(GXCullMode* out) {
 }
 
 void GXSetCoPlanar(GXBool coplanar) {
-    //! Raw assembly! Below it is a commented out approximation of the code,
-    //! which has continuously frustrated me. It makes very little sense given
-    //! the similar structures this function has with other functions
-    //! in this TU... (texline)
+    u32 reg;
+    GX_ASSERT_BETWEEN_BEGIN_END(GXSetCoPlanar);
 
-    //! P.S. Please do not do this for other functions! This is an exception
-    asm {
-        lwz r7, __GXData;
-        lis r5, 0xcc01;
-        li r6, 0x61;
-        // load SU size/scale mask into r4
-        lis r4, 0xfe08;
-        lwz r0, 0x254(r7);
-        rlwimi r0, r3, 19, 12, 12;
-        stw r0, 0x254(r7);
-        li r0, 0x0;
-        stb r6, -0x8000(r5);
-        stw r4, -0x8000(r5);
-        stb r6, -0x8000(r5);
-        lwz r3, 0x254(r7);
-        stw r3, -0x8000(r5);
-        sth r0, 0x2(r7);
-    }
+    GX_BP_SET_GENMODE_COPLANAR(gxdt->genMode, coplanar);
 
-    /*
-        u32 reg;
+    //! Fakematch, but this is still satisfying
+    reg = (GX_BP_GENMODE_COPLANAR_MASK) | (GX_BP_REG_SSMASK << 24);
 
-        GX_BP_SET_GENMODE_COPLANAR(gxdt->genMode, coplanar);
-
-        //! TODO(texline) Whatever is going on here. Macro below is wrong,
-        //! but the right code doesn't match???
-        reg = GX_BP_SU_SIZE_SCALE_MASK_FUNC(GX_BP_GENMODE_COPLANAR_MASK,
-                                            GX_BP_REG_SSMASK);
-
-        GX_BP_LOAD_REG(reg);
-        GX_BP_LOAD_REG(gxdt->genMode);
-    */
+    GX_BP_LOAD_REG(reg);
+    GX_BP_LOAD_REG(gxdt->genMode);
+    gxdt->lastWriteWasXF = FALSE;
 }
 
 void __GXSetGenMode(void) {
-    GX_BP_LOAD_REG(gxdt->genMode);
+    GX_RA_LOAD_REG(gxdt->genMode);
     gxdt->lastWriteWasXF = FALSE;
 }

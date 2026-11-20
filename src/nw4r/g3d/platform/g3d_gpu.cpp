@@ -171,8 +171,8 @@ void GDResetCurrentMtx() {
                GX_IDENTITY << GX_CP_MATRIXINDEXB_TEX6_SHIFT |
                GX_IDENTITY << GX_CP_MATRIXINDEXB_TEX7_SHIFT;
 
-    LoadCPCmd(GX_CP_REG_MATRIXINDEXA, regA);
-    LoadCPCmd(GX_CP_REG_MATRIXINDEXB, regB);
+    LoadCPCmd((GX_CP_REG_MATRIXINDEXA << 4), regA);
+    LoadCPCmd((GX_CP_REG_MATRIXINDEXB << 4), regB);
 
     LoadXFCmdHdr(GX_XF_REG_MATRIXINDEX0, 2);
     GXCmd1u32(regA);

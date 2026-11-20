@@ -7,6 +7,12 @@
 extern "C" {
 #endif
 
+#define GX_TEV_SET_OPCODE(cmd, opcode)                                         \
+    GX_BITSET_FAST((cmd), (opcode), GX_TEV_OPCODE)
+
+#define GX_TEV_OPCODE_SZ 8
+#define GX_TEV_OPCODE_SHIFT 24
+
 void GXSetTevOp(GXTevStageID, GXTevMode);
 void GXSetTevColorIn(GXTevStageID, GXTevColorArg, GXTevColorArg, GXTevColorArg,
                      GXTevColorArg);

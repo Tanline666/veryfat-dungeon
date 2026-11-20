@@ -1,6 +1,9 @@
 #ifndef RVL_SDK_GX_FRAMEBUF_H
 #define RVL_SDK_GX_FRAMEBUF_H
 #include <types.h>
+
+#include <revolution/GX/GXTypes.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -34,6 +37,7 @@ void GXSetTexCopySrc(u16 x, u16 y, u16 w, u16 h);
 void GXSetDispCopyDst(u16 w, u16 numXfbLines);
 void GXSetTexCopyDst(u16 w, u16 h, GXTexFmt fmt, GXBool mipmap);
 
+void GXSetDispCopyFrame2Field(u32 mode);
 void GXSetCopyClamp(GXCopyClamp clamp);
 
 void GXSetDispCopyGamma(u32);
@@ -41,6 +45,8 @@ void GXSetDispCopyGamma(u32);
 u32 GXGetNumXfbLines(u16 efbHeight, f32 scaleY);
 f32 GXGetYScaleFactor(u16 efbHeight, u16 xfbHeight);
 void GXSetDispCopyYScale(f32 scaleY);
+
+void GXClearBoundingBox(void);
 
 void GXSetCopyClear(GXColor color, u32 z);
 void GXSetCopyFilter(GXBool, const u8 sample_pattern[12][2], GXBool,

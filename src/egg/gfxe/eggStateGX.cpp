@@ -212,7 +212,7 @@ void StateGX::resetPE() {
     GXSetAlphaCompare(GX_ALWAYS, 0, GX_AOP_AND, GX_ALWAYS, 0);
     GXSetZMode(GX_TRUE, GX_LEQUAL, GX_TRUE);
 
-    GXSetFog(GX_FOG_NONE, WHITE, 0.0f, 1.0f, 0.1f, 1.0f);
+    GXSetFog(GX_FOG_NONE, 0.0f, 1.0f, 0.1f, 1.0f, WHITE);
     GXSetFogRangeAdj(GX_FALSE, 0, NULL);
     GXSetZCompLoc(GX_TRUE);
     GXSetDstAlpha(GX_FALSE, 0);

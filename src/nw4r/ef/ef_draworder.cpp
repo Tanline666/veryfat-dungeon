@@ -4,23 +4,27 @@
 namespace nw4r {
 namespace ef {
 
-ut::List* DrawOrderBase::GetPMList(Effect* pEffect) {
-    return &pEffect->mParticleManager;
+ut::List* DrawOrderBase::GetPMList(Effect* ef) {
+    NW4R_POINTER_ASSERT(ef, 27);
+
+    return &ef->mParticleManager;
 }
 
-void DrawOrder::Draw(Effect* pEffect, const DrawInfo& rInfo) {
-    ut::List* pList = GetPMList(pEffect);
+void DrawOrder::Draw(Effect* ef, const DrawInfo& drawInfo) {
+    NW4R_POINTER_ASSERT(ef, 35);
+
+    ut::List* pList = GetPMList(ef);
 
     NW4R_UT_LIST_FOREACH (ParticleManager, it, *pList, {
         it->BeginDraw();
-        it->Draw(rInfo);
+        it->Draw(drawInfo);
         it->EndDraw();
     })
 }
 
 void DrawOrder::Add(Effect* ef, ParticleManager* pm) {
     NW4R_POINTER_ASSERT(ef, 49);
-    NW4R_POINTER_ASSERT(ef, 50);
+    NW4R_POINTER_ASSERT(pm, 50);
 
     ut::List* pList = GetPMList(ef);
     ParticleManager* pIt = NULL;
@@ -37,9 +41,12 @@ void DrawOrder::Add(Effect* ef, ParticleManager* pm) {
     ut::List_Insert(pList, pIt, pm);
 }
 
-void DrawOrder::Remove(Effect* pEffect, ParticleManager* pManager) {
-    ut::List* pList = GetPMList(pEffect);
-    ut::List_Remove(pList, pManager);
+void DrawOrder::Remove(Effect* ef, ParticleManager* pm) {
+    NW4R_POINTER_ASSERT(ef, 70);
+    NW4R_POINTER_ASSERT(pm, 71);
+
+    ut::List* pmlist = GetPMList(ef);
+    ut::List_Remove(pmlist, pm);
 }
 
 } // namespace ef

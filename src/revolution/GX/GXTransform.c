@@ -46,7 +46,7 @@ void __GXSetProjection(void) {
     // Temp required to match
     volatile void* wgpipe = &WGPIPE;
 
-    GX_XF_LOAD_REGS(ARRAY_SIZE(gxdt->proj), GX_XF_REG_PROJECTIONA);
+    GX_XF_LOAD_REG_HDR(GX_XF_REG_PROJECTIONA, ARRAY_SIZE(gxdt->proj));
     WriteProjPS(wgpipe, gxdt->proj);
     WGPIPE.i = gxdt->projType;
 }
@@ -139,7 +139,7 @@ inline void WriteMTXPS4x2(register volatile void* dst, register const Mtx src) {
 
 void GXLoadPosMtxImm(const Mtx mtx, u32 id) {
     // Position matrices are 4x3
-    GX_XF_LOAD_REGS(4 * 3 - 1, id * 4 + GX_XF_MEM_POSMTX);
+    GX_XF_LOAD_REG_HDR(id * 4 + GX_XF_MEM_POSMTX, 4 * 3 - 1);
     WriteMTXPS4x3(&WGPIPE, mtx);
 }
 
@@ -149,8 +149,8 @@ void GXLoadPosMtxIndx(u16 index, u32 id) {
 }
 
 void GXLoadNrmMtxImm(const Mtx mtx, u32 id) {
-    // Normal matrices are 3x3
-    GX_XF_LOAD_REGS(3 * 3 - 1, id * 3 + GX_XF_MEM_NRMMTX);
+    //! TODO: This whole function broke for no reason (texline)
+    GX_XF_LOAD_REG_HDR(GX_XF_MEM_NRMMTX + id * 3, 3 * 3 - 1);
     WriteMTXPS3x3(&WGPIPE, mtx);
 }
 
@@ -176,7 +176,8 @@ void GXLoadTexMtxImm(const Mtx mtx, u32 id, GXMtxType type) {
     // Number of elements in matrix
     num = type == GX_MTX_2x4 ? (u64)(2 * 4) : 3 * 4;
 
-    GX_XF_LOAD_REGS(num - 1, addr);
+    //! Regswap
+    GX_XF_LOAD_REG_HDR(addr, num - 1);
 
     if (type == GX_MTX_3x4) {
         WriteMTXPS4x3(&WGPIPE, mtx);
@@ -200,7 +201,7 @@ void __GXSetViewport(void) {
     c = far - near;
     f = far + gxdt->offsetZ;
 
-    GX_XF_LOAD_REGS(6 - 1, GX_XF_REG_SCALEX);
+    GX_XF_LOAD_REG_HDR(GX_XF_REG_SCALEX, 6 - 1);
     WGPIPE.f = a;
     WGPIPE.f = b;
     WGPIPE.f = c;
@@ -294,18 +295,18 @@ void GXSetScissorBoxOffset(u32 ox, u32 oy) {
 }
 
 void GXSetClipMode(GXClipMode mode) {
-    GX_XF_LOAD_REG(GX_XF_REG_CLIPDISABLE, mode);
+    GX_XF_LOAD_REG(GX_XF_REG_CLIPDISABLE, mode, 0);
     gxdt->lastWriteWasXF = TRUE;
 }
 
 void __GXSetMatrixIndex(GXAttr index) {
     // Tex4 and after is stored in XF MatrixIndex1
     if (index < GX_VA_TEX4MTXIDX) {
-        GX_CP_LOAD_REG(GX_CP_REG_MATRIXINDEXA, gxdt->matrixIndex0);
-        GX_XF_LOAD_REG(GX_XF_REG_MATRIXINDEX0, gxdt->matrixIndex0);
+        GX_CP_LOAD_REG(GX_CP_REG_MATRIXINDEXA, 0, gxdt->matrixIndex0);
+        GX_XF_LOAD_REG(GX_XF_REG_MATRIXINDEX0, gxdt->matrixIndex0, 0);
     } else {
-        GX_CP_LOAD_REG(GX_CP_REG_MATRIXINDEXB, gxdt->matrixIndex1);
-        GX_XF_LOAD_REG(GX_XF_REG_MATRIXINDEX1, gxdt->matrixIndex1);
+        GX_CP_LOAD_REG(GX_CP_REG_MATRIXINDEXB, 0, gxdt->matrixIndex1);
+        GX_XF_LOAD_REG(GX_XF_REG_MATRIXINDEX1, gxdt->matrixIndex1, 0);
     }
 
     gxdt->lastWriteWasXF = TRUE;

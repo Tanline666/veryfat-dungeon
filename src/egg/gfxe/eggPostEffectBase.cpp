@@ -80,7 +80,7 @@ void PostEffectBase::setMatPE() {
     GXSetZMode(GX_FALSE, GX_ALWAYS, GX_FALSE);
 
     GXColor black = {0, 0, 0, 255};
-    GXSetFog(GX_FOG_NONE, black, 0.0f, 1.0f, 0.0f, 1.0f);
+    GXSetFog(GX_FOG_NONE, 0.0f, 1.0f, 0.0f, 1.0f, black);
     setBlendModeInternal();
 }
 

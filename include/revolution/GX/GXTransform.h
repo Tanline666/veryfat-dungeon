@@ -49,7 +49,27 @@ void GXSetViewportJitter(f32 ox, f32 oy, f32 sx, f32 sy, f32 near, f32 far,
 void GXSetViewport(f32 ox, f32 oy, f32 sx, f32 sy, f32 near, f32 far);
 void GXGetViewportv(f32 view[GX_VIEWPORT_SZ]);
 void GXSetZScaleOffset(f32 scale, f32 offset);
+/**
+ * @~english @brief Sets the scissor box region.
+ * @~japanese @brief シザリング矩形の領域を設定する。
+ *
+ * @~english @param x Upper left position of the scissor box region (X-axis)
+ * @~japanese @param x シザリング矩形の領域の左上の位置（X座軸）
+ * @~english @param y Upper left position of the scissor box region (Y-axis)
+ * @~japanese @param y シザリング矩形の領域の左上の位置（Y座軸）
+ * @param w
+ * @param h
+ */
 void GXSetScissor(u32 x, u32 y, u32 w, u32 h);
+/**
+ * @~english @brief Gets the current scissor box region.
+ * @~japanese @brief 現在のシザリング矩形の領域を取得する。
+ *
+ * @param[out] x
+ * @param[out] y
+ * @param[out] w
+ * @param[out] h
+ */
 void GXGetScissor(u32* x, u32* y, u32* w, u32* h);
 void GXSetScissorBoxOffset(u32 ox, u32 oy);
 void GXSetClipMode(GXClipMode mode);

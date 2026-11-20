@@ -4,7 +4,7 @@
 
 void RFLiSetupCopyTex(GXTexFmt fmt, u16 width, u16 height, void* buffer,
                       GXColor clearColor) {
-    GXSetFog(GX_FOG_NONE, (GXColor){0, 0, 0, 0}, 1.0f, 1.0f, 0.0f, 0.0f);
+    GXSetFog(GX_FOG_NONE, 1.0f, 1.0f, 0.0f, 0.0f, (GXColor){0, 0, 0, 0});
     GXSetColorUpdate(TRUE);
     GXSetAlphaUpdate(TRUE);
     GXSetDstAlpha(FALSE, 0);

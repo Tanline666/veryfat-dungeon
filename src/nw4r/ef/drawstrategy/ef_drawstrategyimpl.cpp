@@ -170,10 +170,10 @@ void DrawStrategyImpl::_InitTev(const EmitterDrawSetting& ed,
         GXColor color;
 
         drawInfo.GetFog(&type, &start, &end, &near, &far, &color);
-        GXSetFog(type, color, start, end, near, far);
+        GXSetFog(type, start, end, near, far, color);
     } else {
         GXColor color = {0, 0, 0, 0};
-        GXSetFog(GX_FOG_NONE, color, 0.0f, 100.0f, 0.0f, 100.0f);
+        GXSetFog(GX_FOG_NONE, 0.0f, 100.0f, 0.0f, 100.0f, color);
     }
 }
 

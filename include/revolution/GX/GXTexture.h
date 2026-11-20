@@ -52,7 +52,16 @@ u16 GXGetTexObjHeight(const GXTexObj* obj);
 GXTexFmt GXGetTexObjFmt(const GXTexObj* obj);
 GXBool GXGetTexObjMipMap(const GXTexObj* obj);
 
-void GXLoadTexObj(const GXTexObj*, GXTexMapID);
+/**
+ * @~english @brief Loads a GXTexObj into a texture index.
+ * @~japanese @brief テクスチャインデックスにGXTexObjを読み込む。
+ *
+ * @~english @param obj Pointer to constant GXTexObj
+ * @~japanese @param obj 定数のGXTexObjへのポインタ
+ * @~english @param id Texture index ID
+ * @~japanese @param id テクスチャインデックスのID
+ */
+void GXLoadTexObj(const GXTexObj* obj, GXTexMapID id);
 
 void GXInitTexObjTlut(GXTexObj*, u32);
 u32 GXGetTexObjTlut(GXTexObj*);

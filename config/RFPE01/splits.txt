@@ -1034,6 +1034,11 @@ revolution/FS/fs.c:
 
 revolution/GX/GXInit.c:
 	.text       start:0x8012BAD0 end:0x8012CC60
+	.data       start:0x80719A40 end:0x80719C80
+	.bss        start:0x807FF5A0 end:0x807FFC20
+	.sdata      start:0x80813E30 end:0x80813E34
+	.sbss       start:0x80816820 end:0x80816848
+	.sdata2     start:0x80819510 end:0x80819538
 
 revolution/GX/GXFifo.c:
 	.text       start:0x8012CC60 end:0x8012D9F0
